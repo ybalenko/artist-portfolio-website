@@ -1,139 +1,144 @@
-# Yulia Balenko Artist Portfolio — Requirements
+# Yulia Balenko Artist Portfolio — Business Requirements
 
 **Status:** Draft  
-**Date:** June 22, 2026  
+**Updated:** June 23, 2026  
 **Owner:** Yulia Balenko
 
 ## 1. Purpose
 
-Create a simple personal website where Yulia Balenko can display her artwork, share her artistic background and résumé, and interact with visitors through comments and a mailing-list signup.
+Create a simple static website where Yulia Balenko can present an artist statement and artwork, share press coverage and exhibitions, provide a résumé, and receive messages from visitors.
 
-This is an amateur artist portfolio. It is not an online store, gallery-management system, or commercial art platform.
+This is an amateur artist portfolio, not an online store or commercial gallery platform.
 
-## 2. Goals
+## 2. Users
 
-- Present the artwork in an attractive, image-focused website.
-- Make the portfolio easy to browse on phones and computers.
-- Allow Yulia to add and update artwork without editing code.
-- Provide an online artist résumé and configurable contact links.
-- Let visitors comment on individual artworks.
-- Let visitors subscribe to a future mailing list.
+- **Visitor:** reads the artist statement, explores images, press, exhibitions, and résumé, and can leave a message or join the mailing list.
+- **Site maintainer:** updates public content through repository files and deploys changes with the website code.
 
-## 3. P0 scope
+## 3. P0 pages and navigation
 
-### Public website
+The primary navigation contains:
 
-- Home page featuring selected artwork and a short introduction.
-- Gallery containing approximately 100 artworks.
-- Gallery filters for medium and year.
-- Initial medium values: Oil and Watercolor.
-- Individual artwork pages with one or more images and artwork details.
-- About page with biography and artist statement.
-- Résumé page with sections that Yulia can create, rename, reorder, and edit.
-- Configurable public email and social-media links.
-- English-only content.
-- Shareable links for individual artworks.
+1. **Home**
+2. **Press**
+3. **Exhibitions**, with submenus for **Current**, **Past**, and **Upcoming**
+4. **Portfolio**
+5. **Resume**
+6. **Contacts**
 
-### Artwork management
+Home is the default landing page.
 
-- One secure administrator account for Yulia.
-- Add artworks one at a time.
-- Upload multiple pictures for an artwork to cloud storage.
-- Edit, reorder, publish, unpublish, and delete artworks.
-- Choose featured artwork and gallery order.
-- Automatically create appropriately sized web images from uploads.
+Navigation must work on mobile and desktop, identify the current destination, expose the Exhibitions submenu accessibly, and allow visitors to navigate without relying on browser history.
 
-Each artwork can contain:
+### 3.1 Home
 
-- Title
-- One primary image and optional additional images
-- Alternative text for accessibility
-- Medium
-- Year
-- Dimensions
-- Description
-- Optional collection or series
-- Display order and featured status
-- Draft or published status
+- Contains the artist statement.
+- May include restrained visual presentation supporting the statement, but must remain distinct from the Portfolio gallery.
 
-### Comments
+### 3.2 Press
 
-- Visitors comment using a display name; no account or email is required.
-- Comments appear on individual artwork pages.
-- Visitors can reply one level deep.
-- Newest comments appear first.
-- Comments are checked by automated moderation before publication.
-- Moderation rejects harassment, profanity, hate speech, spam, links, explicit material, and off-topic content.
-- Rejected comments are silently discarded and are not stored for review.
-- CAPTCHA or a similar bot check protects comment submission.
-- Visitors cannot edit, delete, or report comments.
-- Yulia can hide, restore, or delete published comments.
-- Yulia can reply with a visible “Artist” label.
-- No comment notifications are required.
+- Contains text and/or links to publications, articles, interviews, and public mentions of the artist.
+- An entry may include title, short text, publication/source, date, and external link.
+- Text-only and link-only entries are allowed when understandable.
+- External links must be clearly identified and open safely.
 
-### Mailing list
+### 3.3 Exhibitions
 
-- Signup requires an email address; name is optional.
-- Subscribers confirm their address through double opt-in email.
+- **Current:** exhibitions taking place now.
+- **Past:** completed exhibitions.
+- **Upcoming:** announced future exhibitions.
+- Each entry may include title, venue, location, start/end dates, description, image, and external link.
+- Empty sections show a clear message rather than a blank page.
+
+### 3.4 Portfolio
+
+- Contains only an image gallery and carousel experience.
+- Displays approximately 100 Oil and Watercolor artwork images.
+- Uses the [David Hockney Drawings — 2010s page](https://www.hockney.com/index.php/works/drawings/2010s) as interaction and layout inspiration, without copying its branding.
+- Presents one prominent selected image together with a browsable thumbnail gallery.
+- Selecting an image opens an accessible carousel/lightbox.
+- The carousel supports previous/next navigation, keyboard control, touch gestures where practical, and closing back to the previous gallery position.
+- The interface around the artwork remains minimal and visually restrained.
+- Images include accessibility text, but the page does not display artwork descriptions, filters, prices, availability, comments, purchasing, or video.
+
+### 3.5 Resume
+
+- Resume redirects to or opens a PDF containing the artist's accomplishments.
+- The PDF has a stable public destination and is labeled as a PDF before opening.
+
+### 3.6 Contacts
+
+Contacts contains:
+
+- Configured public email and social links.
+- A **Leave a message** form.
+- The website's **Privacy Notice**.
+- Optional mailing-list signup.
+
+The message form collects name, email, and message. It must:
+
+- Validate required fields.
+- Use CAPTCHA and spam/rate-limit protection.
+- Deliver legitimate messages to the artist without exposing private delivery configuration.
+- Show clear success and failure states.
+- Avoid retaining messages longer than required for delivery and troubleshooting.
+
+The Privacy Notice explains contact messages, mailing-list data, CAPTCHA, email delivery, and operational logs.
+
+## 4. Mailing list
+
+- Email is required; name is optional.
+- Signup uses double opt-in confirmation.
 - Subscribers can unsubscribe.
-- Yulia can view or export confirmed subscribers.
-- P0 only collects subscribers; it does not provide newsletter-writing or campaign tools.
-- The mailing-list provider will be chosen during technical planning.
-- No signup notifications are required.
+- P0 collects subscribers but does not create or send newsletters.
 
-## 4. Out of scope
+## 5. Content updates
 
-- Artwork prices, sales, payments, shipping, or inventory
-- Inquiry or contact forms
-- Visitor accounts or favorites
+- Public content is stored in the source repository as typed data, text, images, and the résumé PDF.
+- Home, Press, Exhibitions, Portfolio, Resume, Contacts, navigation, and Privacy Notice changes deploy through the code workflow.
+- P0 does not include a browser-based content-management interface.
+- Subscriber export, if needed, uses protected scripts or AWS tools.
+
+## 6. Out of scope
+
+- Browser-based content editing or image upload
+- Separate About or Privacy pages
+- Portfolio filters, descriptions, comments, prices, or purchasing
+- Sales, payments, shipping, and inventory
+- Visitor accounts and favorites
 - Video
-- Visitor analytics or behavioral tracking
-- Newsletter creation and sending
-- Bulk artwork import
-- Multiple administrators
+- Visitor analytics and advertising
+- Newsletter campaign tools
 - Multiple languages
 
-## 5. Basic quality requirements
+## 7. Basic quality requirements
 
-- The website works well on current mobile and desktop browsers.
-- Artwork images load at suitable sizes without exposing the original upload unnecessarily.
-- Pages and controls are keyboard accessible, readable, and supplied with meaningful image descriptions.
-- Administrator pages and cloud uploads are protected from public access.
-- Comment and mailing-list forms are protected against spam and unsafe input.
-- Artwork information and original uploads can be backed up and exported.
-- A short privacy notice explains mailing-list and comment data handling.
-- The website does not include analytics cookies.
-
-## 6. Design direction
-
-The [David Hockney website](https://www.hockney.com/home) is the initial inspiration: artwork-first presentation, simple artist-name branding, restrained text, concise captions, and clear organization. The new website should take inspiration from these qualities without copying its identity or structure.
-
-## 7. Practical limitations
-
-- Public images cannot be made impossible to save or screenshot. The site can omit download buttons and discourage casual downloading, but cannot guarantee copy protection.
-- Automated comment moderation will occasionally reject acceptable comments or approve unwanted ones.
-- Entering metadata for approximately 100 artworks individually will require preparation and time because the information is not currently structured.
+- The website works clearly on current mobile and desktop browsers.
+- Artwork remains the visual focus.
+- Navigation, submenu, carousel, forms, links, and résumé are keyboard accessible and understandable.
+- Images are optimized for web delivery.
+- Public forms are protected against spam and unsafe input.
+- Content is recoverable from source control and AWS backups.
+- No analytics cookies are used.
 
 ## 8. P0 acceptance
 
 P0 is ready when:
 
-- Yulia can add, edit, publish, and remove artwork without developer help.
-- Approximately 100 artworks can be browsed and filtered by medium and year.
-- Artwork pages display multiple optimized images and their details.
-- Visitors can post moderated comments and one-level replies.
-- Yulia's replies display the “Artist” label.
-- Double-opt-in signup and unsubscribe work correctly.
-- The website works clearly on mobile and desktop.
-- Private administration and original uploads are protected.
+- Home is the default page and displays the artist statement.
+- Visitors can navigate among Home, Press, Exhibitions, Portfolio, Resume, and Contacts.
+- Exhibitions provides accessible Current, Past, and Upcoming submenu destinations.
+- Portfolio displays only images and an accessible carousel and restores gallery context when closed.
+- Press and Exhibitions display configured content and external links correctly.
+- Resume opens the current PDF.
+- Contacts displays public links, Privacy Notice, and a functioning protected message form.
+- Repository content changes produce an updated static deployment.
+- Mailing-list confirmation and unsubscribe work.
 
 ## 9. Remaining decisions
 
-1. Which artwork fields must be completed before an artwork can be published?
-2. Should year allow approximate dates, ranges, or unknown values?
-3. Should comments be enabled automatically or controlled separately for each artwork?
-4. Should the home page show one featured work or a gallery overview?
-5. What visual colors and typography should accompany the artwork?
-6. Which public email and social links will be used?
-7. What domain name should be registered?
-8. What budget and target launch date should guide technical choices?
+1. Does Resume open in the same tab or a new tab?
+2. Should Exhibitions use separate pages or one page with submenu-controlled sections?
+3. What address receives contact messages, and how long may delivery diagnostics be retained?
+4. Should carousel images show visible titles or only accessibility text?
+5. What content ordering, visual design, public links, domain, budget, and launch date will be used?

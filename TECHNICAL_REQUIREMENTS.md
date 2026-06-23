@@ -1,364 +1,212 @@
 # Yulia Balenko Artist Portfolio — Technical Requirements
 
-**Status:** Draft v0.1  
-**Date:** June 22, 2026  
+**Status:** Draft v0.5  
+**Updated:** June 23, 2026  
 **Related documents:** [Business Requirements](./BUSINESS_REQUIREMENTS.md), [High-Level Design](./HIGH_LEVEL_DESIGN.md)  
 **Selected stack:** Astro, TypeScript, AWS
 
-## 1. Purpose
+## 1. Purpose and constraints
+
+Implement a code-managed static artist website. Only contact delivery and mailing-list signup require dynamic serverless APIs.
+
+- Use Astro and TypeScript.
+- Host static output on AWS Amplify Hosting.
+- Store public content in Git, not a content database.
+- Deploy public changes through the code workflow.
+- Use minimal client-side JavaScript.
+- Target $0–$5 USD per month, excluding the domain.
+- Do not add visitor analytics or advertising.
 
-Define a simple, low-cost technical solution for the P0 artist portfolio. The solution must support approximately 100 artworks, cloud image uploads, one administrator, moderated comments, and double-opt-in mailing-list collection.
+## 2. Source-managed content
+
+The repository contains typed, build-validated content for:
 
-The target operating cost is **$0–$5 USD per month**, excluding domain registration. AWS free allowances and introductory credits may change, so cost controls are part of the design rather than an assumption.
+- Artist statement
+- Press entries
+- Current, Past, and Upcoming exhibitions
+- Ordered Portfolio images and accessibility text
+- Public contact and social links
+- Privacy Notice
+- Résumé PDF
+- Navigation and shared text
 
-## 2. Requirement language
+Press and Exhibition entries may use a `published` flag. Invalid content must fail the build, and Git provides history and rollback.
 
-- **Must:** required for P0.
-- **Should:** expected unless implementation evidence justifies a simpler alternative.
-- **May:** optional improvement.
+## 3. Routes and navigation
 
-## 3. Technology constraints
-
-- The implementation must use Astro, TypeScript, and AWS.
-- Public pages must be statically generated unless a later approved design decision changes the rendering model.
-- Client-side JavaScript must be limited to features that require interaction.
-- Infrastructure must be defined in TypeScript and be reproducible.
-- Selected AWS services, component responsibilities, data flow, and deployment topology are defined in the [High-Level Design](./HIGH_LEVEL_DESIGN.md).
-
-## 4. Frontend requirements
-
-### 4.1 Public pages
-
-The Astro build must generate:
-
-- `/` — home page
-- `/works` — gallery with medium and year filters
-- `/works/[slug]` — one page for each published artwork
-- `/about` — biography and artist statement
-- `/resume` — configurable résumé sections
-- `/privacy` — short privacy notice
-- `/unsubscribe` and confirmation-result pages
-- `/404` — not-found page
-
-Public pages must contain meaningful HTML without requiring JavaScript. JavaScript may enhance filtering, image viewing, comments, and forms.
-
-### 4.2 Gallery
-
-- Medium and year filters must be usable together.
-- Initial controlled media are `Oil` and `Watercolor`.
-- Filter state should be represented in URL query parameters so it can be shared and restored.
-- Filtering may run in the browser because the initial catalog is approximately 100 items.
-- The gallery must provide a useful empty state when no artwork matches.
-
-### 4.3 Artwork page
-
-- Display the primary image first and provide accessible navigation through additional images.
-- Use responsive image sources and reserve image dimensions to prevent layout shift.
-- Include title, medium, year, dimensions, description, and series only when values exist.
-- Include a comments component that reads from the API after the main page loads.
-- Include unique title, description, canonical URL, and social-preview metadata.
-
-### 4.4 Administration interface
-
-- `/admin/**` must require a valid Cognito session.
-- The administration interface may be a client-rendered Astro island because it is not public or search-indexed.
-- It must provide artwork, profile, résumé, public links, comments, and subscriber management.
-- Destructive actions must request confirmation.
-- Publish operations must display `queued`, `building`, `succeeded`, or `failed` status.
-- Administrative forms must preserve unsaved input when a recoverable API error occurs.
-
-## 5. Backend requirements
-
-### 5.1 API design
-
-Use an API Gateway HTTP API. Lambda handlers must be small TypeScript modules grouped by domain rather than one unrestricted handler.
-
-Public routes:
-
-- `GET /artworks/{artworkId}/comments`
-- `POST /artworks/{artworkId}/comments`
-- `POST /subscriptions`
-- `GET /subscriptions/confirm`
-- `POST /subscriptions/unsubscribe`
-
-Administrator routes:
-
-- CRUD routes for artworks and artwork images
-- CRUD routes for profile, résumé sections, and public links
-- Hide, restore, and delete routes for published comments
-- Read/export route for confirmed subscribers
-- Presigned image-upload route
-- Content-build trigger and build-status routes
-
-### 5.2 API behavior
-
-- Requests and responses must use JSON except direct S3 uploads and CSV subscriber export.
-- All input must be validated on the server with shared TypeScript schemas.
-- Public error messages must not expose stack traces, AWS identifiers, moderation reasons, or configuration.
-- Administrator routes must use an API Gateway Cognito JWT authorizer.
-- APIs must return stable machine-readable error codes alongside human-readable messages.
-- API Gateway throttling and Lambda concurrency limits must constrain accidental or abusive cost growth.
-
-## 6. Content and data requirements
-
-### 6.1 Source of truth
-
-DynamoDB is the source of truth for artwork metadata, profile content, résumé content, comments, subscriber state, and configuration. S3 is the source of truth for original and processed images.
-
-The Astro build must read only published public content from DynamoDB. Draft content must never appear in generated output, the sitemap, or social metadata.
-
-### 6.2 DynamoDB design
-
-Use one DynamoDB table for P0 to simplify billing, backup, and infrastructure. The table must support these entity types:
-
-- Artwork
-- Artwork image
-- Comment
-- Artist profile and public links
-- Résumé section and entry
-- Subscriber
-- Site configuration
-- Content-build status
-
-The access patterns must support:
-
-- All published artworks for a build
-- Artwork by ID or unique slug
-- Artwork images in display order
-- Approved comments for one artwork, newest first, with cursor pagination
-- All résumé sections and entries in display order
-- Subscriber by normalized-email hash
-- Confirmed subscriber export
-
-Secondary indexes must be added only for an identified access pattern. Table scans are acceptable during the static build for the initial catalog, but public API requests must use key-based queries.
-
-### 6.3 Data rules
-
-- IDs must be non-sequential UUIDs.
-- Public artwork slugs must be unique and stable after publication unless Yulia explicitly changes them.
-- Email addresses must be normalized before comparison.
-- Subscriber keys must use a one-way email hash rather than raw email text.
-- Confirmation and unsubscribe tokens must be random, single-purpose, time-bounded, and stored only as hashes.
-- Timestamps must be stored in UTC ISO 8601 format.
-- Rejected comments must not be written to DynamoDB or application logs.
-
-## 7. Image pipeline
-
-### 7.1 Upload
-
-- The administrator requests a short-lived presigned S3 upload URL.
-- Uploads go directly from the browser to a private S3 prefix; Lambda must not proxy image bytes.
-- P0 accepted source formats should be JPEG, PNG, and WebP.
-- The proposed default maximum is 30 MB per source image and 10 images per artwork; validate these defaults using representative files before implementation is finalized.
-- The upload UI must show progress and actionable failure messages.
-
-### 7.2 Processing
-
-An S3 object-created event must invoke an image-processing Lambda that:
-
-- Verifies the actual file type and rejects malformed files.
-- Corrects EXIF orientation.
-- Removes location and unnecessary camera metadata.
-- Converts output to the sRGB color space while preserving suitable visual quality.
-- Creates responsive variants, initially targeting widths near 480, 960, and 1600 pixels.
-- Produces WebP plus a broadly supported fallback format.
-- Stores variants under non-guessable or content-versioned keys.
-- Records processing state and dimensions in DynamoDB.
-
-An artwork cannot be published until its primary image has processed successfully.
-
-### 7.3 Delivery and protection
-
-- Original uploads must not be publicly readable.
-- CloudFront must use Origin Access Control to read processed objects from a private S3 bucket.
-- Public responses should use long-lived cache headers and versioned object keys.
-- The UI must not provide a download button.
-- The solution may discourage drag and context-menu downloads, but must not claim to prevent copying or screenshots.
-
-## 8. Comments and moderation
-
-### 8.1 Submission flow
-
-1. Validate display name and comment length.
-2. Verify the Turnstile token server-side.
-3. Apply API throttling and short-term abuse limits.
-4. Reject URLs and obvious spam using deterministic rules.
-5. Send remaining text to Amazon Bedrock Guardrails using `ApplyGuardrail`.
-6. Apply content filters and denied-topic rules for harassment, hate, insults, sexual content, violence, misconduct, spam, and clearly off-topic content.
-7. Store only approved comments.
-
-### 8.2 Behavior
-
-- Visitors must receive the same generic `202 Accepted` result whether moderation approves or rejects a submission.
-- If Turnstile or moderation cannot be reached, the system must fail closed: do not publish or store the comment.
-- Display name and text must be escaped when rendered.
-- Proposed limits are 50 characters for display names and 1,000 characters for comments.
-- Only one reply level is permitted.
-- Root comments and replies must be returned newest first.
-- Use cursor pagination, initially 20 root comments per request.
-- Artist replies must require authentication and include an `isArtist` marker set only by the server.
-- The artist may hide, restore, or permanently delete approved comments.
-- Deleting a root comment must also remove its replies after administrator confirmation.
-- No comment notification is sent.
-
-Bedrock moderation is usage-priced. The implementation must log only aggregate counts and latency, not rejected text.
-
-## 9. Mailing-list flow
-
-### 9.1 Signup
-
-- Accept email and optional name.
-- Normalize the email and create or update a `pending` subscriber record.
-- Generate a single-use confirmation token with a proposed 24-hour expiry.
-- Send a confirmation URL through SES.
-- Do not expose whether an address is already subscribed.
-
-### 9.2 Confirmation and unsubscribe
-
-- Confirmation changes subscriber state to `confirmed` and records consent time and consent-text version.
-- Unsubscribe changes state to `unsubscribed`; it must not require sign-in.
-- Re-subscription must require a new double-opt-in confirmation.
-- Confirmation and unsubscribe pages must show generic success or expired-link states without exposing subscriber data.
-- P0 sends only operational confirmation and unsubscribe-related email, not newsletters.
-
-### 9.3 SES
-
-- Verify the sending domain and configure SPF, DKIM, and DMARC.
-- Request SES production access before launch.
-- Email templates must include the artist name, reason for the email, and privacy contact.
-- Bounce and complaint handling should suppress further operational sends to affected addresses.
-
-## 10. Authentication and security
-
-- Cognito public self-registration must be disabled.
-- Only Yulia's administrator account may be provisioned for P0.
-- Administrator authentication should require a strong password and TOTP multi-factor authentication.
-- Access tokens must be short-lived and refreshed using Cognito-supported flows.
-- S3 upload URLs must expire quickly and restrict object key, file type, and size.
-- AWS IAM roles must follow least privilege; build, API, and image-processing roles must be separate.
-- Secrets must be held in AWS Systems Manager Parameter Store or Secrets Manager, not source code or browser bundles.
-- Public responses must include appropriate Content Security Policy, HSTS, MIME-sniffing, referrer, and framing headers.
-- Logs must not contain email addresses, comment bodies, tokens, original filenames, or authentication credentials.
-- Dependencies must be checked for known vulnerabilities during continuous integration.
-
-## 11. Privacy
-
-- Do not add visitor analytics, advertising scripts, or behavioral tracking.
-- Store only the personal information required for comments and mailing signup.
-- Commenters provide a public display name but no email address.
-- The privacy page must identify the use of AWS, SES, Bedrock moderation, and Turnstile where applicable.
-- Subscriber export must require administrator authentication and must not be cached.
-- A subscriber-deletion procedure must exist even if the P0 UI handles only unsubscribe.
-
-## 12. Performance, accessibility, and SEO
-
-### 12.1 Performance
-
-- Public content must be statically generated and CDN-delivered.
-- Use responsive images, lazy loading below the fold, explicit image dimensions, and minimal client JavaScript.
-- Lab testing on representative mobile pages should target LCP at or below 2.5 seconds, CLS at or below 0.1, and INP at or below 200 ms.
-- Comments must load after the primary artwork content and must not block image display.
-
-### 12.2 Accessibility
-
-- Core public and administrator journeys should meet WCAG 2.2 AA.
-- All functions must be keyboard operable with visible focus.
-- Images require editable alternative text before publication.
-- Forms need programmatic labels, clear validation, and status announcements.
-- The image viewer and comment threads must use semantic, screen-reader-friendly structures.
-- Turnstile integration must retain an accessible fallback and understandable failure state.
-
-### 12.3 SEO
-
-- Generate `sitemap.xml` and `robots.txt` during the Astro build.
-- Generate unique titles, descriptions, canonical URLs, and Open Graph metadata.
-- Exclude drafts, administrator routes, APIs, and confirmation URLs from indexing.
-- Artwork pages should include appropriate structured data when supported by validated schema vocabulary.
-
-## 13. Reliability and backup
-
-- Enable S3 versioning for original artwork and processed assets.
-- Retain noncurrent image versions for a limited recovery window, proposed as 30 days.
-- Enable DynamoDB point-in-time recovery if its measured cost remains inside the monthly budget; otherwise schedule encrypted exports to a backup S3 prefix.
-- Infrastructure must be reproducible from AWS CDK.
-- Document restoration of DynamoDB content, S3 images, Cognito administrator access, and Amplify deployment.
-- A failed content build must leave the last successful public deployment online.
-- CloudWatch log retention should default to 7 days to control cost.
-
-## 14. Deployment and environments
-
-### 14.1 Environments
-
-- `local`: local Astro development with mocked or sandbox AWS dependencies.
-- `production`: the public AWS environment.
-- A permanent paid staging environment is not required for P0.
-- Temporary preview deployments may be created for major visual changes and removed afterward.
-
-### 14.2 Continuous delivery
+- `/` — Home with artist statement
+- `/press`
+- `/exhibitions` — redirect to `/exhibitions/current`
+- `/exhibitions/current`
+- `/exhibitions/past`
+- `/exhibitions/upcoming`
+- `/portfolio`
+- `/resume` — redirect to résumé PDF
+- `/contacts` — public links, Leave a message, Privacy Notice, mailing signup
+- mailing confirmation/unsubscribe result and not-found pages
+
+There must be no About or standalone Privacy route.
+
+Primary navigation is Home, Press, Exhibitions, Portfolio, Resume, and Contacts. Exhibitions exposes Current, Past, and Upcoming through an accessible submenu.
+
+- Links work without a client-side router.
+- Current page and exhibition subsection are identified visually and accessibly.
+- Desktop submenu supports pointer and keyboard interaction without relying on hover.
+- Mobile submenu exposes correct expanded state and focus behavior.
+- Resume is labeled as a PDF destination.
+
+## 4. Page requirements
+
+### 4.1 Home
+
+- Render the complete artist statement as static HTML.
+- Do not duplicate the Portfolio gallery or carousel.
+- Provide unique title, description, canonical URL, and social metadata.
+
+### 4.2 Press
+
+- Render published entries in configured order.
+- Support title, text, source, date, and optional `https` URL.
+- Require understandable text or a URL.
+- Identify external links and apply safe attributes.
+
+### 4.3 Exhibitions
+
+- Render Current, Past, and Upcoming from validated content.
+- Support title, venue, location, dates, description, optional image, and optional `https` URL.
+- Validate that end date is not before start date.
+- Show an explicit empty state when a category has no entries.
+- Exhibition status is editorially assigned; it is not inferred at runtime.
+
+### 4.4 Portfolio
+
+- Render only an ordered image gallery and carousel interface.
+- Do not render filters, artwork descriptions, prices, availability, comments, purchase controls, or video.
+- Follow the portfolio interaction pattern of the [David Hockney Drawings — 2010s page](https://www.hockney.com/index.php/works/drawings/2010s): a prominent selected image with a supporting thumbnail collection and minimal surrounding interface.
+- On initial load, display the first configured image prominently and expose the complete ordered thumbnail gallery.
+- Selecting a thumbnail updates the prominent image and carousel state without leaving the page.
+- Carousel URL state must identify the selected image and support refresh/share.
+- Provide visible previous, next, and close controls.
+- Move focus into the carousel when opened and restore it to the originating thumbnail when closed.
+- Make background content inert while open.
+- Support keyboard control and optional touch swipe without requiring gestures.
+- Provide meaningful alternative text for every image.
+- Generate responsive variants with explicit dimensions to prevent layout shift.
+- Lazy-load off-screen thumbnails and preload only the adjacent carousel images.
+
+### 4.5 Resume
+
+- `/resume` redirects to a versioned or cache-safe PDF in the static deployment.
+- Serve it as `application/pdf` over HTTPS.
+- Keep it at or below 10 MB and label links as PDF.
+- The PDF itself should be accessible.
+
+### 4.6 Contacts
+
+- Render configured public contact and social links.
+- Render the Privacy Notice with a linkable section anchor.
+- Provide Leave a message fields for name, email, and message.
+- Proposed limits are 100 name and 5,000 message characters.
+- Provide accessible pending, success, validation-error, and temporary-failure states.
+- Provide mailing-list signup with email and optional name.
+
+## 5. Dynamic API
+
+Use API Gateway HTTP API, TypeScript Lambda, DynamoDB, and SES.
+
+Operations:
+
+- Submit a contact message.
+- Start, confirm, and unsubscribe a mailing-list subscription.
+- Export confirmed subscribers through a protected operational script.
+
+All write operations must validate server-side, enforce payload/rate limits, verify Turnstile, avoid leaking implementation details, and handle retries idempotently.
+
+## 6. Contact-message delivery
+
+1. Validate name, email, message, deployed origin, and Turnstile token.
+2. Apply abuse throttling and a hidden honeypot where appropriate.
+3. Reject header injection, URLs/spam patterns, and unsafe control characters.
+4. Send through SES from a verified site address to a configured private artist address.
+5. Set the validated visitor address as `Reply-To`; never use it as the SES sender.
+6. Return success only after SES accepts the message.
+
+Messages must not be stored in DynamoDB. Logs must not contain message bodies, names, or email addresses. Delivery metadata uses short retention, while the recipient mailbox copy follows the Privacy Notice.
+
+## 7. Mailing list
+
+- Email is required; name is optional.
+- Turnstile and rate limits protect signup and resend behavior.
+- Use double opt-in with hashed, single-use, expiring tokens.
+- Use a keyed digest for email lookup.
+- Do not reveal whether an address is already subscribed.
+- Prevent email scanners from causing unintended confirmation or unsubscribe.
+- Record consent time and consent-text version.
+- Re-subscription requires new confirmation.
+- SES uses SPF, DKIM, and DMARC.
+- Bounce and complaint events suppress further sends.
+- Define retention for pending and unsubscribed records before launch.
+
+## 8. Security and privacy
+
+- Validate all dynamic input server-side.
+- Restrict API CORS to the deployed site origin.
+- Use least-privilege Lambda and operational roles.
+- Store secrets and the private recipient address in Parameter Store or Secrets Manager.
+- Apply CSP, HSTS, MIME-sniffing, referrer, and framing protections.
+- Do not log personal messages, emails, tokens, or unnecessary IP addresses.
+- Protected scripts use short-lived AWS credentials.
+- The Contacts Privacy Notice identifies AWS, SES, Turnstile, mailbox delivery, retention, and deletion/contact procedures.
+- Subscriber exports are encrypted and restricted.
+
+## 9. Build and deployment
 
 - GitHub is the canonical source repository.
-- Pull requests must run formatting, type checking, unit tests, an Astro production build, and dependency checks.
-- Merges to the production branch trigger an Amplify build and deployment.
-- Publishing content triggers an Amplify incoming webhook or equivalent authenticated build action without requiring a code commit.
-- The Amplify build role may read published content but must not write application data.
-- Infrastructure changes must be deployed through CDK and reviewed separately from content changes.
+- Pin Node, Astro, and package versions and commit the lockfile.
+- Pull requests run formatting, type checks, content validation, tests, security checks, and `astro build`.
+- Merging to production triggers Amplify deployment.
+- Use Amplify's integration or GitHub OIDC rather than stored AWS keys.
+- Fail builds on invalid navigation, dates, URLs, image references, alt text, or missing résumé PDF.
+- Keep only web-appropriate images in Git; private high-resolution originals remain outside deployment.
+- Generate responsive variants during build.
+- A failed build leaves the previous deployment online.
 
-## 15. Cost controls
+## 10. Quality, operations, and cost
 
-- Configure an AWS Budget with alerts at proposed monthly thresholds of $1 and $5.
-- Prefer provisioned DynamoDB capacity within the applicable free allowance for the predictable P0 workload; revisit after measuring real usage.
-- Set reserved concurrency on public Lambda functions.
-- Use API Gateway throttling on public routes.
-- Keep log retention short and avoid logging request bodies.
-- Do not enable AWS WAF in P0; free Turnstile plus API throttling provides the required bot control at lower fixed cost.
-- Limit automatic image variants to the documented set.
-- The administrator must not be able to enable unbudgeted AWS services from the application UI.
-- Review Amplify build minutes, S3 storage, CloudFront transfer, Lambda, API Gateway, DynamoDB, Bedrock, and SES usage monthly during the first three months.
+- Core journeys must meet WCAG 2.2 AA.
+- Public HTML and assets are CDN-delivered.
+- Use responsive images, lazy loading below the fold, and minimal JavaScript.
+- Representative mobile pages target LCP ≤ 2.5 seconds and CLS ≤ 0.1.
+- Generate sitemap, robots rules, canonical URLs, and Open Graph metadata.
+- Test current Safari and Chrome on mobile and Safari, Chrome, Firefox, and Edge on desktop.
+- Bound Lambda retries and use dead-letter handling where asynchronous work is used.
+- Back up DynamoDB or enable point-in-time recovery.
+- Use seven-day operational log retention unless justified otherwise.
+- Configure API/email quotas and $1/$5 AWS budget alerts.
+- Do not use RDS, NAT Gateway, AWS WAF, Cognito, Bedrock, or fixed-cost compute.
 
-## 16. Testing requirements
+## 11. Testing and acceptance
 
-- Unit tests for validation, data mapping, moderation decisions, tokens, and permission checks.
-- Integration tests for DynamoDB access patterns, S3 presigned uploads, SES requests, and build triggers.
-- End-to-end tests for gallery filtering, artwork display, administrator publishing, image upload, comments, double opt-in, and unsubscribe.
-- Accessibility checks in automated tests plus manual keyboard and screen-reader smoke tests.
-- Test image processing with portrait, landscape, large, rotated, color-profiled, corrupt, and unsupported files.
-- Test moderation with allowed art discussion and every configured rejection category.
-- Test that rejected comments and sensitive values never enter application logs.
-- Test mobile layouts in current Safari and Chrome and desktop layouts in current Safari, Chrome, Firefox, and Edge.
+Testing must cover:
 
-## 17. Technical acceptance criteria
+- Home default route and artist statement
+- Exact primary navigation and Exhibitions submenu
+- Press and Exhibition content, empty states, dates, and external links
+- Portfolio containing only images/carousel
+- Carousel URL state, focus, keyboard, controls, touch, and gallery restoration
+- Resume redirect, PDF type, size, caching, and accessibility
+- Contacts Privacy Notice, validation, Turnstile, spam controls, SES delivery, and failure states
+- No personal message data in DynamoDB or logs
+- Mailing double opt-in, unsubscribe, bounce, complaint, and abuse controls
+- Build validation, rollback, backup, and cost controls
 
-The P0 implementation is technically ready when:
+P0 is technically ready when business acceptance criteria pass, the site deploys from a clean checkout, invalid content cannot deploy, private form data is not exposed, and recovery procedures have been exercised once.
 
-- A clean checkout can be built and deployed using documented commands.
-- CDK can create the required AWS resources without manual permission edits, apart from account/domain verification steps.
-- Yulia can authenticate, upload images, create an artwork, and publish it.
-- A successful content build produces an indexable artwork page and updates the sitemap.
-- Original images remain private while processed variants load through CloudFront.
-- Gallery filtering works by medium and year on mobile and desktop.
-- Approved comments appear without a site rebuild; rejected comments are neither displayed nor stored.
-- Artist replies are authenticated and visibly labeled.
-- Double opt-in, expired confirmation, unsubscribe, and re-subscribe flows work.
-- Draft content and administrator APIs cannot be accessed publicly.
-- Backup and restoration steps have been exercised once.
-- Performance, accessibility, security, and cost-control checks pass.
+## 12. Decisions required before implementation
 
-## 18. Items to confirm before implementation
-
-1. Typical and maximum source-image size and format.
-2. Final required artwork fields and treatment of unknown or approximate years.
-3. Whether comments are enabled globally or per artwork.
-4. Final comment length, pagination, and image-count limits.
-5. Home-page composition and visual design.
-6. Public email and social links.
-7. Domain name and AWS account ownership.
-8. Acceptance of Turnstile as the one non-AWS runtime service.
-9. Approval of the proposed $1 and $5 AWS budget alerts.
-
-## 19. References
-
-- [Astro deployment on AWS](https://docs.astro.build/en/guides/deploy/aws/)
-- [AWS Amplify support for Astro](https://docs.aws.amazon.com/amplify/latest/userguide/astro-support.html)
-- [Amplify incoming build webhooks](https://docs.aws.amazon.com/amplify/latest/userguide/create-incoming-webhook.html)
-- [Amazon Bedrock Guardrails ApplyGuardrail](https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails-use-independent-api.html)
-- [Secure static sites with S3 and CloudFront](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/getting-started-secure-static-website-cloudformation-template.html)
+1. Same-tab or new-tab Resume behavior.
+2. Separate Exhibition pages versus one page with sections.
+3. Contact recipient, retention wording, and message limits.
+4. Visible carousel titles versus accessibility text only.
+5. Image dimensions and repository-size budget.
+6. Content schemas, ordering, domain, AWS ownership, budget, and launch date.
