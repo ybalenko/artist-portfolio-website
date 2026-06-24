@@ -2,7 +2,7 @@
 
 **Status:** Draft v0.5  
 **Updated:** June 23, 2026  
-**Related documents:** [Business Requirements](./BUSINESS_REQUIREMENTS.md), [High-Level Design](./HIGH_LEVEL_DESIGN.md)  
+**Related documents:** [Business Requirements](./business.md), [High-Level Design](../architecture/high-level-design.md)  
 **Selected stack:** Astro, TypeScript, AWS
 
 ## 1. Purpose and constraints

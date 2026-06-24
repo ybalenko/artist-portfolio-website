@@ -9,7 +9,7 @@
 
 - Temporary artist-statement copy is acceptable for Milestone 1.
 - A temporary artwork image and temporary meaningful alternative text are acceptable.
-- `mockup/mockup image 01.png` is the approved visual baseline.
+- `docs/design/mockups/mockup image 01.png` is the approved visual baseline.
 - Unfinished navigation destinations will open simple “Coming soon” placeholder pages.
 - Footer text is `© 2026 Yulia Balenko. All rights reserved.`
 - Milestone 1 targets desktop web browsers only. Mobile and tablet responsiveness are deferred.
@@ -25,7 +25,7 @@ Milestone 1 includes:
 5. Display the Home artwork/hero image.
 6. Display the artist statement.
 7. Implement the footer with copyright text.
-8. Apply the approved visual direction from `mockup/mockup image 01.png`.
+8. Apply the approved visual direction from `docs/design/mockups/mockup image 01.png`.
 9. Add simple placeholder pages for unfinished navigation destinations.
 10. Make the application runnable through documented local commands.
 11. Verify desktop layout, accessibility basics, and production build output.

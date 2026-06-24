@@ -20,7 +20,7 @@ This file records approved decisions that affect implementation or more than one
 | D-014 | 2026-06-24 | Temporary Home statement and artwork are acceptable in Milestone 1                    | Allows implementation before final content exists                    | Active for M1 |
 | D-015 | 2026-06-24 | Unfinished navigation destinations use Coming soon placeholders in Milestone 1        | Prevents broken navigation                                           | Active for M1 |
 | D-016 | 2026-06-24 | Footer text is `© 2026 Yulia Balenko. All rights reserved.`                           | Approved copyright presentation                                      | Active        |
-| D-017 | 2026-06-24 | `mockup/mockup image 01.png` is the Milestone 1 visual baseline                       | Defines Home layout and visual acceptance reference                  | Active for M1 |
+| D-017 | 2026-06-24 | `docs/design/mockups/mockup image 01.png` is the Milestone 1 visual baseline          | Defines Home layout and visual acceptance reference                  | Active for M1 |
 
 ## Adding a decision
 

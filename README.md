@@ -2,7 +2,7 @@
 
 An artwork-first website for artist **Yulia Balenko**, presenting approximately 100 oil and watercolor works, press coverage, current/past/upcoming exhibitions, a résumé PDF, and visitor contact options.
 
-> **Project status:** Milestone 1 is complete. Track current progress in [PROJECT_STATUS.md](./PROJECT_STATUS.md).
+> **Project status:** Milestone 1 is complete. Track current progress in [Project status](./docs/project/status.md).
 
 ## Vision
 
@@ -43,12 +43,13 @@ The architecture is code-managed and static-first: Home, Press, Exhibitions, Por
 
 ## Documentation
 
-- [Business requirements](./BUSINESS_REQUIREMENTS.md) — goals, scope, visitor experience, and acceptance criteria
-- [High-level design](./HIGH_LEVEL_DESIGN.md) — architecture, components, data flows, and key tradeoffs
-- [Technical requirements](./TECHNICAL_REQUIREMENTS.md) — implementation, security, accessibility, testing, and deployment requirements
-- [Project status](./PROJECT_STATUS.md) — current milestone, progress, blockers, and roadmap
-- [Project process](./PROJECT_PROCESS.md) — milestone lifecycle, tracking, verification, and handoff workflow
-- [Decision log](./DECISIONS.md) — approved project and milestone decisions
+- [Documentation index](./docs/README.md) — organized entry point for project documentation
+- [Business requirements](./docs/requirements/business.md) — goals, scope, visitor experience, and acceptance criteria
+- [High-level design](./docs/architecture/high-level-design.md) — architecture, components, data flows, and key tradeoffs
+- [Technical requirements](./docs/requirements/technical.md) — implementation, security, accessibility, testing, and deployment requirements
+- [Project status](./docs/project/status.md) — current milestone, progress, blockers, and roadmap
+- [Project process](./docs/project/process.md) — milestone lifecycle, tracking, verification, and handoff workflow
+- [Decision log](./docs/project/decisions.md) — approved project and milestone decisions
 - [Agent instructions](./AGENTS.md) — required workflow for future coding agents
 
 ## Local development

@@ -6,14 +6,14 @@
 
 ## Milestone overview
 
-| Milestone | Scope                                              | Status   | Tasks | Progress | Plan                                         |
-| --------- | -------------------------------------------------- | -------- | ----: | -------: | -------------------------------------------- |
-| M1        | Desktop Home page and local project foundation     | Complete | 27/27 |     100% | [MILESTONE_1_PLAN.md](./MILESTONE_1_PLAN.md) |
-| M2        | Press page                                         | Planned  |     — |        — | To be created                                |
-| M3        | Exhibitions pages and submenu                      | Planned  |     — |        — | To be created                                |
-| M4        | Portfolio gallery and carousel                     | Planned  |     — |        — | To be created                                |
-| M5        | Resume and Contacts                                | Planned  |     — |        — | To be created                                |
-| M6        | Mailing list, AWS deployment, and launch readiness | Planned  |     — |        — | To be created                                |
+| Milestone | Scope                                              | Status   | Tasks | Progress | Plan                                        |
+| --------- | -------------------------------------------------- | -------- | ----: | -------: | ------------------------------------------- |
+| M1        | Desktop Home page and local project foundation     | Complete | 27/27 |     100% | [Milestone 1](../milestones/milestone-1.md) |
+| M2        | Press page                                         | Planned  |     — |        — | To be created                               |
+| M3        | Exhibitions pages and submenu                      | Planned  |     — |        — | To be created                               |
+| M4        | Portfolio gallery and carousel                     | Planned  |     — |        — | To be created                               |
+| M5        | Resume and Contacts                                | Planned  |     — |        — | To be created                               |
+| M6        | Mailing list, AWS deployment, and launch readiness | Planned  |     — |        — | To be created                               |
 
 Future milestone boundaries are provisional until their plans are approved.
 
@@ -32,8 +32,8 @@ Future milestone boundaries are provisional until their plans are approved.
 ### Milestone 1 — Home Page
 
 - **Status:** Complete
-- **Progress source:** Checked implementation tasks in [MILESTONE_1_PLAN.md](./MILESTONE_1_PLAN.md)
-- **Approved baseline:** [`mockup/mockup image 01.png`](<./mockup/mockup image 01.png>)
+- **Progress source:** Checked implementation tasks in [Milestone 1](../milestones/milestone-1.md)
+- **Approved baseline:** [`mockup image 01.png`](<../design/mockups/mockup image 01.png>)
 - **Target:** Desktop web browsers only
 - **Open blockers:** None
 - **Deferred:** Final statement, final artwork, mobile, and tablet layouts
@@ -49,12 +49,13 @@ Future milestone boundaries are provisional until their plans are approved.
 - Image dimensions and repository-size budget
 - Budget and launch date
 
-See [DECISIONS.md](./DECISIONS.md) for resolved decisions and [PROJECT_PROCESS.md](./PROJECT_PROCESS.md) for update rules.
+See the [Decision log](./decisions.md) for resolved decisions and [Project process](./process.md) for update rules.
 
 ## Recent progress
 
 | Date       | Update                                                  |
 | ---------- | ------------------------------------------------------- |
+| 2026-06-24 | Project documents reorganized under `docs/`             |
 | 2026-06-24 | Milestone 1 completed; all 27 tasks verified            |
 | 2026-06-24 | Astro Home page and five placeholder routes implemented |
 | 2026-06-24 | Milestone 1 implementation started                      |

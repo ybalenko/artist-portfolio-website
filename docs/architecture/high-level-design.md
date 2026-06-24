@@ -2,7 +2,7 @@
 
 **Status:** Draft v0.5  
 **Updated:** June 23, 2026  
-**Related documents:** [Business Requirements](./BUSINESS_REQUIREMENTS.md), [Technical Requirements](./TECHNICAL_REQUIREMENTS.md)  
+**Related documents:** [Business Requirements](../requirements/business.md), [Technical Requirements](../requirements/technical.md)  
 **Style:** Code-managed static website with contact and subscription APIs
 
 ## 1. Design summary

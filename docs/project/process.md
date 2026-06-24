@@ -2,19 +2,19 @@
 
 ## 1. Purpose
 
-Define the repeatable process for planning, implementing, verifying, and completing milestones. This is the detailed process referenced by [AGENTS.md](./AGENTS.md).
+Define the repeatable process for planning, implementing, verifying, and completing milestones. This is the detailed process referenced by [AGENTS.md](../../AGENTS.md).
 
 ## 2. Sources of truth
 
-| Document                                                 | Purpose                                                                        |
-| -------------------------------------------------------- | ------------------------------------------------------------------------------ |
-| [BUSINESS_REQUIREMENTS.md](./BUSINESS_REQUIREMENTS.md)   | Product scope and visitor outcomes                                             |
-| [TECHNICAL_REQUIREMENTS.md](./TECHNICAL_REQUIREMENTS.md) | Implementation and quality requirements                                        |
-| [HIGH_LEVEL_DESIGN.md](./HIGH_LEVEL_DESIGN.md)           | Architecture and system boundaries                                             |
-| [PROJECT_STATUS.md](./PROJECT_STATUS.md)                 | Current milestone, progress, blockers, and roadmap                             |
-| `MILESTONE_N_PLAN.md`                                    | Approved scope, tasks, acceptance criteria, and verification for one milestone |
-| [DECISIONS.md](./DECISIONS.md)                           | Approved cross-project and milestone decisions                                 |
-| [AGENTS.md](./AGENTS.md)                                 | Mandatory instructions for agents working in the repository                    |
+| Document                                                  | Purpose                                                                        |
+| --------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| [Business requirements](../requirements/business.md)      | Product scope and visitor outcomes                                             |
+| [Technical requirements](../requirements/technical.md)    | Implementation and quality requirements                                        |
+| [High-level design](../architecture/high-level-design.md) | Architecture and system boundaries                                             |
+| [Project status](./status.md)                             | Current milestone, progress, blockers, and roadmap                             |
+| `docs/milestones/milestone-N.md`                          | Approved scope, tasks, acceptance criteria, and verification for one milestone |
+| [Decision log](./decisions.md)                            | Approved cross-project and milestone decisions                                 |
+| [Agent instructions](../../AGENTS.md)                     | Mandatory instructions for agents working in the repository                    |
 
 When documents conflict, use this priority:
 
@@ -31,12 +31,12 @@ Record a material conflict or changed decision before implementation continues.
 
 ### Planned
 
-- High-level scope is listed in `PROJECT_STATUS.md`.
+- High-level scope is listed in `docs/project/status.md`.
 - A detailed milestone plan may not exist.
 
 ### Ready
 
-- `MILESTONE_N_PLAN.md` exists.
+- `docs/milestones/milestone-N.md` exists.
 - Scope and out-of-scope items are explicit.
 - Required decisions are resolved or intentionally deferred.
 - Tasks and acceptance criteria are testable.
@@ -45,13 +45,13 @@ Record a material conflict or changed decision before implementation continues.
 ### In progress
 
 - At least one implementation task has started.
-- `PROJECT_STATUS.md` is updated to `In progress`.
+- `docs/project/status.md` is updated to `In progress`.
 - Completed tasks are checked in the milestone plan as work is verified.
 
 ### Blocked
 
 - Work cannot continue safely without a user decision, access, missing asset, or external change.
-- The blocker and the exact next action are recorded in both the milestone plan and `PROJECT_STATUS.md`.
+- The blocker and the exact next action are recorded in both the milestone plan and `docs/project/status.md`.
 - A merely difficult or incomplete task is not considered blocked.
 
 ### Complete
@@ -60,7 +60,7 @@ Record a material conflict or changed decision before implementation continues.
 - Every acceptance criterion is verified.
 - Build/tests and manual checks are recorded.
 - Known limitations and deferred work are recorded.
-- `PROJECT_STATUS.md` is updated to `Complete`.
+- `docs/project/status.md` is updated to `Complete`.
 - A commit or Git tag is created only if the user requests or approves it.
 
 ## 4. Milestone plan format
@@ -95,14 +95,14 @@ Rules:
 - A task is checked only after its result is verified.
 - If a task becomes unnecessary, mark it `N/A` with a reason and remove it from the denominator.
 - Round to the nearest whole percent.
-- Update `PROJECT_STATUS.md` whenever checked-task count changes materially or at the end of each work session.
+- Update `docs/project/status.md` whenever checked-task count changes materially or at the end of each work session.
 
 ## 6. Work-session procedure
 
 ### Before work
 
 1. Read `AGENTS.md`.
-2. Read `PROJECT_STATUS.md` and the active milestone plan.
+2. Read `docs/project/status.md` and the active milestone plan.
 3. Review relevant requirements, design, and decisions.
 4. Inspect the working tree and preserve unrelated user changes.
 5. Change the milestone to `In progress` when implementation begins.
@@ -111,7 +111,7 @@ Rules:
 
 1. Work only within approved milestone scope.
 2. Update checklist items after verification, not merely after editing.
-3. Record new material decisions in `DECISIONS.md`.
+3. Record new material decisions in `docs/project/decisions.md`.
 4. Record deferred work instead of quietly expanding scope.
 5. Surface blockers promptly and record them.
 6. Keep implementation, tests, and documentation synchronized.
@@ -121,7 +121,7 @@ Rules:
 1. Run checks proportional to the changes.
 2. Update completed checkboxes.
 3. Recalculate progress.
-4. Update `PROJECT_STATUS.md`, recent progress, blockers, and next action.
+4. Update `docs/project/status.md`, recent progress, blockers, and next action.
 5. Add or update the milestone verification record.
 6. Report what changed, what passed, and what remains.
 
