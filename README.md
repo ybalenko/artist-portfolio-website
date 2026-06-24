@@ -2,7 +2,7 @@
 
 An artwork-first website for artist **Yulia Balenko**, presenting approximately 100 oil and watercolor works, press coverage, current/past/upcoming exhibitions, a résumé PDF, and visitor contact options.
 
-> **Project status:** Planning and architecture. The P0 requirements and high-level design are drafts; implementation has not started.
+> **Project status:** Milestone 1 is approved and ready for implementation. Track current progress in [PROJECT_STATUS.md](./PROJECT_STATUS.md).
 
 ## Vision
 
@@ -46,6 +46,10 @@ The architecture is code-managed and static-first: Home, Press, Exhibitions, Por
 - [Business requirements](./BUSINESS_REQUIREMENTS.md) — goals, scope, visitor experience, and acceptance criteria
 - [High-level design](./HIGH_LEVEL_DESIGN.md) — architecture, components, data flows, and key tradeoffs
 - [Technical requirements](./TECHNICAL_REQUIREMENTS.md) — implementation, security, accessibility, testing, and deployment requirements
+- [Project status](./PROJECT_STATUS.md) — current milestone, progress, blockers, and roadmap
+- [Project process](./PROJECT_PROCESS.md) — milestone lifecycle, tracking, verification, and handoff workflow
+- [Decision log](./DECISIONS.md) — approved project and milestone decisions
+- [Agent instructions](./AGENTS.md) — required workflow for future coding agents
 
 ## Roadmap
 
