@@ -1,0 +1,39 @@
+---
+import "@fontsource/lato/300.css";
+import "@fontsource/lato/400.css";
+import "@fontsource/lato/700.css";
+import "../styles/global.css";
+
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+const currentPath = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <div class="site-shell">
+      <Header currentPath={currentPath} />
+      <main id="main-content" tabindex="-1">
+        <slot />
+      </main>
+      <Footer />
+    </div>
+  </body>
+</html>

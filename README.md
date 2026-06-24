@@ -2,7 +2,7 @@
 
 An artwork-first website for artist **Yulia Balenko**, presenting approximately 100 oil and watercolor works, press coverage, current/past/upcoming exhibitions, a résumé PDF, and visitor contact options.
 
-> **Project status:** Milestone 1 is approved and ready for implementation. Track current progress in [PROJECT_STATUS.md](./PROJECT_STATUS.md).
+> **Project status:** Milestone 1 is complete. Track current progress in [PROJECT_STATUS.md](./PROJECT_STATUS.md).
 
 ## Vision
 
@@ -27,17 +27,17 @@ The initial release will not include sales, payments, visitor accounts, favorite
 
 ## Planned technology
 
-| Area | Technology |
-| --- | --- |
-| Web application | Astro and TypeScript |
-| Public rendering | Static generation and CDN delivery |
-| Hosting and deployment | AWS Amplify Hosting |
-| API | Amazon API Gateway and AWS Lambda |
-| Dynamic data | Amazon DynamoDB for subscriptions |
-| Images | Astro build pipeline and Amplify CDN |
-| Email | Amazon SES |
-| Bot protection | Cloudflare Turnstile |
-| Infrastructure as code | AWS CDK with TypeScript |
+| Area                   | Technology                           |
+| ---------------------- | ------------------------------------ |
+| Web application        | Astro and TypeScript                 |
+| Public rendering       | Static generation and CDN delivery   |
+| Hosting and deployment | AWS Amplify Hosting                  |
+| API                    | Amazon API Gateway and AWS Lambda    |
+| Dynamic data           | Amazon DynamoDB for subscriptions    |
+| Images                 | Astro build pipeline and Amplify CDN |
+| Email                  | Amazon SES                           |
+| Bot protection         | Cloudflare Turnstile                 |
+| Infrastructure as code | AWS CDK with TypeScript              |
 
 The architecture is code-managed and static-first: Home, Press, Exhibitions, Portfolio, Resume, Contacts, navigation, and images deploy from the repository. Contact delivery and subscriptions use serverless APIs. The target operating cost is **$0–$5 USD per month**, excluding the domain.
 
@@ -50,6 +50,25 @@ The architecture is code-managed and static-first: Home, Press, Exhibitions, Por
 - [Project process](./PROJECT_PROCESS.md) — milestone lifecycle, tracking, verification, and handoff workflow
 - [Decision log](./DECISIONS.md) — approved project and milestone decisions
 - [Agent instructions](./AGENTS.md) — required workflow for future coding agents
+
+## Local development
+
+Milestone 1 uses Node.js 22 and npm 10. If you use `nvm`, the repository's `.nvmrc` selects the expected Node major version.
+
+```bash
+nvm use
+npm install
+npm run dev
+```
+
+Astro prints the local URL, normally [http://localhost:4321/](http://localhost:4321/). Other useful commands are:
+
+```bash
+npm run check        # Type and Astro diagnostics
+npm run build        # Production build
+npm run preview      # Preview the production build locally
+npm run format:check # Verify formatting
+```
 
 ## Roadmap
 

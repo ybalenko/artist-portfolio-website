@@ -1,0 +1,18 @@
+---
+import Navigation from "./Navigation.astro";
+
+interface Props {
+  currentPath: string;
+}
+
+const { currentPath } = Astro.props;
+---
+
+<header class="site-header">
+  <div class="site-container header-inner">
+    <a class="wordmark" href="/" aria-label="Yulia Balenko, Home"
+      >Yulia Balenko</a
+    >
+    <Navigation currentPath={currentPath} />
+  </div>
+</header>

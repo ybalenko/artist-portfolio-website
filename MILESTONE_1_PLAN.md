@@ -1,9 +1,9 @@
 # Milestone 1 Plan — Home Page
 
-**Status:** Ready  
+**Status:** Complete  
 **Created:** June 24, 2026  
 **Milestone goal:** Deliver the first locally runnable desktop Home page for the Yulia Balenko artist portfolio.
-**Implementation progress:** 0/27 tasks — 0%
+**Implementation progress:** 27/27 tasks — 100%
 
 ## Confirmed decisions
 
@@ -88,48 +88,48 @@ Primary navigation labels:
 
 ### Step 1 — Project foundation
 
-- [ ] Initialize Astro with TypeScript strict mode.
-- [ ] Add package scripts for development, build, preview, type checking, and formatting.
-- [ ] Pin the chosen Node/package-manager expectations.
-- [ ] Update `.gitignore` for Astro, Node, generated output, local environment files, and macOS files.
-- [ ] Add local setup and run instructions to the README.
+- [x] Initialize Astro with TypeScript strict mode.
+- [x] Add package scripts for development, build, preview, type checking, and formatting.
+- [x] Pin the chosen Node/package-manager expectations.
+- [x] Update `.gitignore` for Astro, Node, generated output, local environment files, and macOS files.
+- [x] Add local setup and run instructions to the README.
 
 ### Step 2 — Design foundation
 
-- [ ] Define reusable CSS variables for colors, typography, spacing, container width, borders, and breakpoints.
-- [ ] Add Lato as a locally served application dependency or self-hosted font asset to avoid a runtime third-party font request.
-- [ ] Add global normalization and accessible focus styles.
-- [ ] Establish responsive image and container defaults.
+- [x] Define reusable CSS variables for colors, typography, spacing, container width, borders, and breakpoints.
+- [x] Add Lato as a locally served application dependency or self-hosted font asset to avoid a runtime third-party font request.
+- [x] Add global normalization and accessible focus styles.
+- [x] Establish responsive image and container defaults.
 
 ### Step 3 — Shared layout
 
-- [ ] Create a base Astro layout with metadata and page landmarks.
-- [ ] Create reusable Header, Navigation, and Footer components.
-- [ ] Mark Home as the current page using accessible navigation markup.
-- [ ] Add a skip-to-content link.
-- [ ] Link incomplete destinations to clear “Coming soon” placeholder pages.
+- [x] Create a base Astro layout with metadata and page landmarks.
+- [x] Create reusable Header, Navigation, and Footer components.
+- [x] Mark Home as the current page using accessible navigation markup.
+- [x] Add a skip-to-content link.
+- [x] Link incomplete destinations to clear “Coming soon” placeholder pages.
 
 ### Step 4 — Home content
 
-- [ ] Add a temporary Home artwork asset with temporary meaningful alternative text.
-- [ ] Render temporary artist-statement copy as semantic HTML.
-- [ ] Match the approved desktop proportions and spacing.
-- [ ] Preserve the artwork's aspect ratio and avoid layout shift.
+- [x] Add a temporary Home artwork asset with temporary meaningful alternative text.
+- [x] Render temporary artist-statement copy as semantic HTML.
+- [x] Match the approved desktop proportions and spacing.
+- [x] Preserve the artwork's aspect ratio and avoid layout shift.
 
 ### Step 5 — Footer
 
-- [ ] Add the copyright owner, current agreed year, and rights statement.
-- [ ] Match the mockup's compact typography and magenta top rule.
-- [ ] Keep the footer at the natural end of short and long pages without fixed positioning.
+- [x] Add the copyright owner, current agreed year, and rights statement.
+- [x] Match the mockup's compact typography and magenta top rule.
+- [x] Keep the footer at the natural end of short and long pages without fixed positioning.
 
 ### Step 6 — Verification
 
-- [ ] Run Astro type checking and production build.
-- [ ] Verify local development and production preview commands.
-- [ ] Check Home at representative 1280 px, 1440 px, and 1920 px desktop widths.
-- [ ] Test keyboard navigation, skip link, focus visibility, and semantic landmarks.
-- [ ] Confirm image loading, alt text, font loading, metadata, favicon behavior, and absence of console errors.
-- [ ] Confirm there is no horizontal overflow or unintended layout movement.
+- [x] Run Astro type checking and production build.
+- [x] Verify local development and production preview commands.
+- [x] Check Home at representative 1280 px, 1440 px, and 1920 px desktop widths.
+- [x] Test keyboard navigation, skip link, focus visibility, and semantic landmarks.
+- [x] Confirm image loading, alt text, font loading, metadata, favicon behavior, and absence of console errors.
+- [x] Confirm there is no horizontal overflow or unintended layout movement.
 
 ## 6. Deliverables
 
@@ -177,13 +177,13 @@ Milestone 1 is complete when:
 
 ## 9. Risks and mitigations
 
-| Risk | Mitigation |
-|---|---|
-| Final copy or artwork is unavailable | Use clearly identified temporary assets and replace them in a later milestone |
-| Mobile/tablet behavior is not implemented | Record it as deferred work and avoid treating desktop completion as final-site responsiveness |
-| Navigation targets are not implemented yet | Link to explicit “Coming soon” placeholder pages |
-| Font loading changes layout | Self-host Lato and preload only the required weights |
-| Large artwork slows local and production rendering | Use an appropriately sized responsive source and Astro optimization |
+| Risk                                               | Mitigation                                                                                    |
+| -------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| Final copy or artwork is unavailable               | Use clearly identified temporary assets and replace them in a later milestone                 |
+| Mobile/tablet behavior is not implemented          | Record it as deferred work and avoid treating desktop completion as final-site responsiveness |
+| Navigation targets are not implemented yet         | Link to explicit “Coming soon” placeholder pages                                              |
+| Font loading changes layout                        | Self-host Lato and preload only the required weights                                          |
+| Large artwork slows local and production rendering | Use an appropriately sized responsive source and Astro optimization                           |
 
 ## 10. Deferred decisions
 
@@ -193,21 +193,31 @@ Milestone 1 is complete when:
 
 ## 11. Verification record
 
-**Date:** Not started  
-**Result:** Not started
+**Date:** June 24, 2026  
+**Result:** Passed
 
 ### Automated checks
 
-- None yet
+- `npm install` — passed; lockfile created from pinned dependencies
+- `npm run check` — passed with 0 errors, warnings, or hints across 15 files
+- `npm run build` — passed; six static pages generated
+- `npm run format:check` — passed
+- Development server — passed; Home and all five placeholder routes returned HTTP 200
+- Production preview — passed; generated Home page and assets returned successfully
 
 ### Manual checks
 
-- None yet
+- Compared Home against the approved mockup at 1280 px, 1440 px, and 1920 px desktop widths — passed
+- Verified header, navigation, artwork, statement, footer, and exact copyright text — passed
+- Verified Home current-page styling and `aria-current="page"` — passed
+- Verified skip link, keyboard focus styles, semantic landmarks, image alternative text, and explicit image dimensions — passed
+- Verified local Lato assets, page metadata, favicon, stable image ratio, and no horizontal overflow at target widths — passed
 
 ### Known limitations
 
 - Milestone 1 is desktop-only.
 - Artist statement and Home artwork are temporary.
+- Navigation destinations contain Milestone 1 placeholder content only.
 
 ### Deferred work
 

@@ -6,15 +6,15 @@ Define the repeatable process for planning, implementing, verifying, and complet
 
 ## 2. Sources of truth
 
-| Document | Purpose |
-|---|---|
-| [BUSINESS_REQUIREMENTS.md](./BUSINESS_REQUIREMENTS.md) | Product scope and visitor outcomes |
-| [TECHNICAL_REQUIREMENTS.md](./TECHNICAL_REQUIREMENTS.md) | Implementation and quality requirements |
-| [HIGH_LEVEL_DESIGN.md](./HIGH_LEVEL_DESIGN.md) | Architecture and system boundaries |
-| [PROJECT_STATUS.md](./PROJECT_STATUS.md) | Current milestone, progress, blockers, and roadmap |
-| `MILESTONE_N_PLAN.md` | Approved scope, tasks, acceptance criteria, and verification for one milestone |
-| [DECISIONS.md](./DECISIONS.md) | Approved cross-project and milestone decisions |
-| [AGENTS.md](./AGENTS.md) | Mandatory instructions for agents working in the repository |
+| Document                                                 | Purpose                                                                        |
+| -------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| [BUSINESS_REQUIREMENTS.md](./BUSINESS_REQUIREMENTS.md)   | Product scope and visitor outcomes                                             |
+| [TECHNICAL_REQUIREMENTS.md](./TECHNICAL_REQUIREMENTS.md) | Implementation and quality requirements                                        |
+| [HIGH_LEVEL_DESIGN.md](./HIGH_LEVEL_DESIGN.md)           | Architecture and system boundaries                                             |
+| [PROJECT_STATUS.md](./PROJECT_STATUS.md)                 | Current milestone, progress, blockers, and roadmap                             |
+| `MILESTONE_N_PLAN.md`                                    | Approved scope, tasks, acceptance criteria, and verification for one milestone |
+| [DECISIONS.md](./DECISIONS.md)                           | Approved cross-project and milestone decisions                                 |
+| [AGENTS.md](./AGENTS.md)                                 | Mandatory instructions for agents working in the repository                    |
 
 When documents conflict, use this priority:
 
@@ -136,15 +136,19 @@ Each milestone plan gains a `Verification record` section containing:
 **Result:** In progress | Passed | Failed
 
 ### Automated checks
+
 - `command` — result
 
 ### Manual checks
+
 - Browser/viewport/check — result
 
 ### Known limitations
+
 - Limitation or `None`
 
 ### Deferred work
+
 - Deferred item or `None`
 ```
 
@@ -176,4 +180,3 @@ A future agent must be able to determine within a few minutes:
 - Relevant decisions and deferred work
 
 If any of those are unclear, update the tracking documents before beginning new implementation.
-

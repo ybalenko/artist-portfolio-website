@@ -2,25 +2,25 @@
 
 This file records approved decisions that affect implementation or more than one milestone. New decisions are appended; existing history should not be silently rewritten.
 
-| ID | Date | Decision | Reason / impact | Status |
-|---|---|---|---|---|
-| D-001 | 2026-06-22 | Use Astro and TypeScript | Content-focused static framework with minimal client JavaScript | Active |
-| D-002 | 2026-06-22 | Use AWS for hosting and serverless services | Selected hosting platform | Active |
-| D-003 | 2026-06-23 | Manage public content through Git and code | Removes CMS, administrator UI, and content database | Active |
-| D-004 | 2026-06-23 | Use Amplify Hosting for the static site | Git-connected builds and CDN delivery | Active |
-| D-005 | 2026-06-23 | Home is `/` and contains the artist statement | Home is the default landing page | Active |
-| D-006 | 2026-06-23 | Primary navigation is Home, Press, Exhibitions, Portfolio, Resume, Contacts | Defines the public information architecture | Active |
-| D-007 | 2026-06-23 | Exhibitions has Current, Past, and Upcoming destinations | Required submenu structure | Active |
-| D-008 | 2026-06-23 | Portfolio contains only images and an accessible carousel | Removes filters, descriptions, comments, and commerce from Portfolio | Active |
-| D-009 | 2026-06-23 | Resume links to a static PDF | Avoids an HTML résumé content model | Active |
-| D-010 | 2026-06-23 | Contacts contains Privacy Notice and Leave a message | Combines contact and privacy content | Active |
-| D-011 | 2026-06-23 | Contact messages are delivered through SES without application persistence | Minimizes stored personal data | Active |
-| D-012 | 2026-06-23 | Use the Hockney site as layout/design inspiration without copying content or identity | Establishes visual direction | Active |
-| D-013 | 2026-06-24 | Milestone 1 is desktop-only | Mobile and tablet layouts are deferred | Active for M1 |
-| D-014 | 2026-06-24 | Temporary Home statement and artwork are acceptable in Milestone 1 | Allows implementation before final content exists | Active for M1 |
-| D-015 | 2026-06-24 | Unfinished navigation destinations use Coming soon placeholders in Milestone 1 | Prevents broken navigation | Active for M1 |
-| D-016 | 2026-06-24 | Footer text is `© 2026 Yulia Balenko. All rights reserved.` | Approved copyright presentation | Active |
-| D-017 | 2026-06-24 | `mockup/mockup image 01.png` is the Milestone 1 visual baseline | Defines Home layout and visual acceptance reference | Active for M1 |
+| ID    | Date       | Decision                                                                              | Reason / impact                                                      | Status        |
+| ----- | ---------- | ------------------------------------------------------------------------------------- | -------------------------------------------------------------------- | ------------- |
+| D-001 | 2026-06-22 | Use Astro and TypeScript                                                              | Content-focused static framework with minimal client JavaScript      | Active        |
+| D-002 | 2026-06-22 | Use AWS for hosting and serverless services                                           | Selected hosting platform                                            | Active        |
+| D-003 | 2026-06-23 | Manage public content through Git and code                                            | Removes CMS, administrator UI, and content database                  | Active        |
+| D-004 | 2026-06-23 | Use Amplify Hosting for the static site                                               | Git-connected builds and CDN delivery                                | Active        |
+| D-005 | 2026-06-23 | Home is `/` and contains the artist statement                                         | Home is the default landing page                                     | Active        |
+| D-006 | 2026-06-23 | Primary navigation is Home, Press, Exhibitions, Portfolio, Resume, Contacts           | Defines the public information architecture                          | Active        |
+| D-007 | 2026-06-23 | Exhibitions has Current, Past, and Upcoming destinations                              | Required submenu structure                                           | Active        |
+| D-008 | 2026-06-23 | Portfolio contains only images and an accessible carousel                             | Removes filters, descriptions, comments, and commerce from Portfolio | Active        |
+| D-009 | 2026-06-23 | Resume links to a static PDF                                                          | Avoids an HTML résumé content model                                  | Active        |
+| D-010 | 2026-06-23 | Contacts contains Privacy Notice and Leave a message                                  | Combines contact and privacy content                                 | Active        |
+| D-011 | 2026-06-23 | Contact messages are delivered through SES without application persistence            | Minimizes stored personal data                                       | Active        |
+| D-012 | 2026-06-23 | Use the Hockney site as layout/design inspiration without copying content or identity | Establishes visual direction                                         | Active        |
+| D-013 | 2026-06-24 | Milestone 1 is desktop-only                                                           | Mobile and tablet layouts are deferred                               | Active for M1 |
+| D-014 | 2026-06-24 | Temporary Home statement and artwork are acceptable in Milestone 1                    | Allows implementation before final content exists                    | Active for M1 |
+| D-015 | 2026-06-24 | Unfinished navigation destinations use Coming soon placeholders in Milestone 1        | Prevents broken navigation                                           | Active for M1 |
+| D-016 | 2026-06-24 | Footer text is `© 2026 Yulia Balenko. All rights reserved.`                           | Approved copyright presentation                                      | Active        |
+| D-017 | 2026-06-24 | `mockup/mockup image 01.png` is the Milestone 1 visual baseline                       | Defines Home layout and visual acceptance reference                  | Active for M1 |
 
 ## Adding a decision
 
@@ -33,4 +33,3 @@ Add a new row with:
 - Status: `Proposed`, `Active`, `Superseded`, or `Reversed`
 
 If a decision changes, add a new decision and mark the previous one `Superseded`; preserve the original record.
-

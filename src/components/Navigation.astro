@@ -1,0 +1,37 @@
+---
+interface Props {
+  currentPath: string;
+}
+
+const { currentPath } = Astro.props;
+
+const navigationItems = [
+  { href: "/", label: "Home" },
+  { href: "/press/", label: "Press" },
+  { href: "/exhibitions/", label: "Exhibitions" },
+  { href: "/portfolio/", label: "Portfolio" },
+  { href: "/resume/", label: "Resume" },
+  { href: "/contacts/", label: "Contacts" },
+];
+
+const isCurrent = (href: string) =>
+  href === "/" ? currentPath === "/" : currentPath.startsWith(href);
+---
+
+<nav class="primary-navigation" aria-label="Primary navigation">
+  <ul>
+    {
+      navigationItems.map((item) => (
+        <li>
+          <a
+            href={item.href}
+            class:list={{ active: isCurrent(item.href) }}
+            aria-current={isCurrent(item.href) ? "page" : undefined}
+          >
+            {item.label}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>

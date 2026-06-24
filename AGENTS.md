@@ -35,4 +35,3 @@ Before changing files, read:
 - Do not hide blockers or silently reinterpret an approved decision.
 
 The full lifecycle, progress calculation, verification format, change-control rules, and handoff standard are defined in [PROJECT_PROCESS.md](./PROJECT_PROCESS.md).
-

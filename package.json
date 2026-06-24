@@ -1,0 +1,29 @@
+{
+  "name": "yulia-balenko-artist-portfolio",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "ASTRO_TELEMETRY_DISABLED=1 astro dev",
+    "build": "ASTRO_TELEMETRY_DISABLED=1 astro build",
+    "preview": "ASTRO_TELEMETRY_DISABLED=1 astro preview",
+    "check": "ASTRO_TELEMETRY_DISABLED=1 astro check",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "engines": {
+    "node": ">=22.12.0 <25",
+    "npm": ">=10"
+  },
+  "packageManager": "npm@10.9.0",
+  "dependencies": {
+    "@fontsource/lato": "5.2.7",
+    "astro": "7.0.2"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.9",
+    "prettier": "3.8.4",
+    "prettier-plugin-astro": "0.14.1",
+    "typescript": "6.0.3"
+  }
+}

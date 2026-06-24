@@ -1,0 +1,37 @@
+---
+import homeArtwork from "../assets/home-artwork.svg";
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Yulia Balenko — Artist"
+  description="The artist portfolio of Yulia Balenko."
+>
+  <div class="site-container home-content">
+    <figure class="hero-artwork">
+      <img
+        src={homeArtwork.src}
+        width={1600}
+        height={960}
+        alt="Temporary abstract artwork in magenta, cobalt blue, ochre, and black"
+        fetchpriority="high"
+      />
+    </figure>
+
+    <section class="artist-statement" aria-labelledby="artist-statement-title">
+      <h1 id="artist-statement-title">Artist Statement</h1>
+      <div class="statement-copy">
+        <p>
+          My work begins with color, memory, and the small shifts that make
+          familiar places feel newly discovered. Each painting is an attempt to
+          hold a moment between observation and imagination.
+        </p>
+        <p>
+          Through oil and watercolor, I explore how light changes a surface and
+          how a simple shape can carry emotion. This temporary statement will be
+          replaced with the artist's final text in a later milestone.
+        </p>
+      </div>
+    </section>
+  </div>
+</BaseLayout>

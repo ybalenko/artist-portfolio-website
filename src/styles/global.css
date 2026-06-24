@@ -1,0 +1,266 @@
+:root {
+  --color-background: #ffffff;
+  --color-text: #171717;
+  --color-muted: #66635f;
+  --color-accent: #ae2a5e;
+  --color-panel: #f2f0ed;
+  --color-focus: #164e9b;
+  --font-body: "Lato", Arial, sans-serif;
+  --container-width: 1170px;
+  --page-gutter: 36px;
+  --header-height: 142px;
+  --space-section: 56px;
+  --border-width: 2px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 1024px;
+  background: var(--color-background);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-synthesis: none;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background: var(--color-background);
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.65;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+a:hover {
+  color: var(--color-accent);
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 4px;
+}
+
+.site-shell {
+  display: grid;
+  min-height: 100vh;
+  grid-template-rows: auto 1fr auto;
+}
+
+.site-container {
+  width: min(calc(100% - (var(--page-gutter) * 2)), var(--container-width));
+  margin-inline: auto;
+}
+
+.skip-link {
+  position: fixed;
+  z-index: 10;
+  top: 16px;
+  left: 16px;
+  padding: 10px 16px;
+  transform: translateY(-180%);
+  background: var(--color-text);
+  color: #fff;
+  font-weight: 700;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+.site-header {
+  background: var(--color-background);
+}
+
+.header-inner {
+  display: flex;
+  min-height: var(--header-height);
+  align-items: center;
+  justify-content: space-between;
+  gap: 48px;
+}
+
+.wordmark {
+  flex: none;
+  color: var(--color-text);
+  font-size: 24px;
+  font-weight: 400;
+  letter-spacing: 0.27em;
+  line-height: 1;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.primary-navigation ul {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+  gap: 29px;
+  list-style: none;
+}
+
+.primary-navigation a {
+  position: relative;
+  display: block;
+  padding-block: 12px;
+  color: var(--color-text);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.09em;
+  line-height: 1;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.primary-navigation a::after {
+  position: absolute;
+  right: 0;
+  bottom: 2px;
+  left: 0;
+  height: var(--border-width);
+  transform: scaleX(0);
+  background: var(--color-accent);
+  content: "";
+  transform-origin: center;
+  transition: transform 150ms ease;
+}
+
+.primary-navigation a:hover,
+.primary-navigation a.active {
+  color: var(--color-accent);
+}
+
+.primary-navigation a:hover::after,
+.primary-navigation a.active::after {
+  transform: scaleX(1);
+}
+
+.home-content {
+  padding-bottom: 72px;
+}
+
+.hero-artwork {
+  margin: 0;
+  overflow: hidden;
+  background: #ece4d5;
+}
+
+.hero-artwork img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 5 / 3;
+  object-fit: cover;
+}
+
+.artist-statement {
+  display: grid;
+  margin-top: 42px;
+  padding: 42px 48px 44px;
+  grid-template-columns: minmax(190px, 0.78fr) minmax(0, 2fr);
+  gap: 54px;
+  background: var(--color-panel);
+}
+
+.artist-statement h1 {
+  margin: 0;
+  color: var(--color-accent);
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.statement-copy {
+  max-width: 670px;
+  color: #373532;
+  font-size: 17px;
+  line-height: 1.75;
+}
+
+.statement-copy p {
+  margin: 0;
+}
+
+.statement-copy p + p {
+  margin-top: 18px;
+}
+
+.site-footer {
+  padding-bottom: 30px;
+}
+
+.footer-inner {
+  border-top: var(--border-width) solid var(--color-accent);
+}
+
+.footer-inner p {
+  margin: 15px 0 0;
+  color: var(--color-muted);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.055em;
+}
+
+.placeholder-content {
+  padding-block: 70px 110px;
+}
+
+.coming-soon {
+  min-height: 330px;
+  padding: 58px 64px;
+  background: var(--color-panel);
+}
+
+.coming-soon .eyebrow {
+  margin: 0 0 10px;
+  color: var(--color-accent);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.coming-soon h1 {
+  margin: 0 0 18px;
+  font-size: 42px;
+  font-weight: 300;
+  letter-spacing: 0.04em;
+}
+
+.coming-soon p {
+  margin: 0 0 24px;
+  color: var(--color-muted);
+  font-size: 18px;
+}
+
+.coming-soon a {
+  color: var(--color-accent);
+  font-weight: 400;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

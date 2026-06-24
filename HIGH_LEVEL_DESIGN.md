@@ -15,17 +15,17 @@ Only contact delivery and mailing-list enrollment are dynamic. API Gateway and L
 
 ## 2. Key decisions
 
-| Concern | Choice |
-|---|---|
-| Framework | Astro and TypeScript |
-| Public content | Typed files and assets in GitHub |
-| Hosting | Static AWS Amplify Hosting |
-| Interactive portfolio | Small accessible carousel component |
-| Dynamic API | API Gateway HTTP API and Lambda |
-| Runtime data | DynamoDB for subscriptions only |
-| Email | SES for contact and subscription delivery |
-| Bot protection | Cloudflare Turnstile |
-| Infrastructure | AWS CDK in TypeScript |
+| Concern               | Choice                                    |
+| --------------------- | ----------------------------------------- |
+| Framework             | Astro and TypeScript                      |
+| Public content        | Typed files and assets in GitHub          |
+| Hosting               | Static AWS Amplify Hosting                |
+| Interactive portfolio | Small accessible carousel component       |
+| Dynamic API           | API Gateway HTTP API and Lambda           |
+| Runtime data          | DynamoDB for subscriptions only           |
+| Email                 | SES for contact and subscription delivery |
+| Bot protection        | Cloudflare Turnstile                      |
+| Infrastructure        | AWS CDK in TypeScript                     |
 
 P0 has no CMS, browser administration, Cognito, comments, Bedrock, upload pipeline, RDS, or continuously running server.
 
@@ -144,17 +144,17 @@ Subscription Lambda stores pending and confirmed consent in DynamoDB. SES sends 
 
 ## 7. Component responsibilities
 
-| Component | Responsibility |
-|---|---|
-| Astro | Static pages, content validation, navigation, submenu, gallery, carousel shell, metadata, Resume redirect |
-| Amplify | Git-connected build, atomic deployment, CDN, TLS, custom domain |
-| API Gateway | Form routes, CORS, throttling, payload limits |
-| Contact Lambda | Validate and forward messages to SES without storage |
-| Subscription Lambda | Double opt-in, unsubscribe, consent, and SES email |
-| DynamoDB | Subscriber, token, consent, and abuse-control state |
-| SES | Contact delivery and subscription email |
-| Turnstile | Bot checks for public write forms |
-| CloudWatch/Budgets | Operational and cost alerts without visitor analytics |
+| Component           | Responsibility                                                                                            |
+| ------------------- | --------------------------------------------------------------------------------------------------------- |
+| Astro               | Static pages, content validation, navigation, submenu, gallery, carousel shell, metadata, Resume redirect |
+| Amplify             | Git-connected build, atomic deployment, CDN, TLS, custom domain                                           |
+| API Gateway         | Form routes, CORS, throttling, payload limits                                                             |
+| Contact Lambda      | Validate and forward messages to SES without storage                                                      |
+| Subscription Lambda | Double opt-in, unsubscribe, consent, and SES email                                                        |
+| DynamoDB            | Subscriber, token, consent, and abuse-control state                                                       |
+| SES                 | Contact delivery and subscription email                                                                   |
+| Turnstile           | Bot checks for public write forms                                                                         |
+| CloudWatch/Budgets  | Operational and cost alerts without visitor analytics                                                     |
 
 ## 8. Security and privacy
 
@@ -197,14 +197,14 @@ sequenceDiagram
 
 ## 10. Tradeoffs
 
-| Decision | Benefit | Cost or risk |
-|---|---|---|
-| Home statement | Clear artist introduction | Adds editorial text outside visual Portfolio |
-| Images-only Portfolio | Focused presentation | Artwork details and filtering are unavailable |
-| Client carousel | Rich browsing | Requires careful accessibility and URL state |
-| Contact via SES only | Minimal data retention | No application inbox or message history |
-| Content in Git | Simple and versioned | Updates require deployment |
-| No admin UI | Small attack surface | Subscriber export uses scripts/AWS tools |
+| Decision              | Benefit                   | Cost or risk                                  |
+| --------------------- | ------------------------- | --------------------------------------------- |
+| Home statement        | Clear artist introduction | Adds editorial text outside visual Portfolio  |
+| Images-only Portfolio | Focused presentation      | Artwork details and filtering are unavailable |
+| Client carousel       | Rich browsing             | Requires careful accessibility and URL state  |
+| Contact via SES only  | Minimal data retention    | No application inbox or message history       |
+| Content in Git        | Simple and versioned      | Updates require deployment                    |
+| No admin UI           | Small attack surface      | Subscriber export uses scripts/AWS tools      |
 
 ## 11. Proof of concept
 
