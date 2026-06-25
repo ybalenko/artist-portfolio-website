@@ -8,7 +8,15 @@ const { currentPath } = Astro.props;
 const navigationItems = [
   { href: "/", label: "Home" },
   { href: "/press/", label: "Press" },
-  { href: "/exhibitions/", label: "Exhibitions" },
+  {
+    href: "/exhibitions/current/",
+    label: "Exhibitions",
+    children: [
+      { href: "/exhibitions/current/", label: "Current" },
+      { href: "/exhibitions/past/", label: "Past" },
+      { href: "/exhibitions/upcoming/", label: "Upcoming" },
+    ],
+  },
   { href: "/portfolio/", label: "Portfolio" },
   { href: "/resume/", label: "Resume" },
   { href: "/contacts/", label: "Contacts" },
@@ -16,20 +24,46 @@ const navigationItems = [
 
 const isCurrent = (href: string) =>
   href === "/" ? currentPath === "/" : currentPath.startsWith(href);
+
+const isExactCurrent = (href: string) => currentPath === href;
+
+const isItemCurrent = (item: (typeof navigationItems)[number]) =>
+  item.children
+    ? item.children.some((child) => isCurrent(child.href))
+    : isCurrent(item.href);
 ---
 
 <nav class="primary-navigation" aria-label="Primary navigation">
   <ul>
     {
       navigationItems.map((item) => (
-        <li>
+        <li class:list={{ "has-submenu": item.children }}>
           <a
             href={item.href}
-            class:list={{ active: isCurrent(item.href) }}
-            aria-current={isCurrent(item.href) ? "page" : undefined}
+            class:list={{ active: isItemCurrent(item) }}
+            aria-current={
+              isItemCurrent(item) && !item.children ? "page" : undefined
+            }
           >
             {item.label}
           </a>
+          {item.children && (
+            <ul class="navigation-submenu" aria-label="Exhibitions submenu">
+              {item.children.map((child) => (
+                <li>
+                  <a
+                    href={child.href}
+                    class:list={{ active: isExactCurrent(child.href) }}
+                    aria-current={
+                      isExactCurrent(child.href) ? "page" : undefined
+                    }
+                  >
+                    {child.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )}
         </li>
       ))
     }

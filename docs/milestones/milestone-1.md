@@ -3,7 +3,7 @@
 **Status:** Complete  
 **Created:** June 24, 2026  
 **Milestone goal:** Deliver the first locally runnable desktop Home page for the Yulia Balenko artist portfolio.
-**Implementation progress:** 27/27 tasks — 100%
+**Implementation progress:** 28/28 tasks — 100%
 
 ## Confirmed decisions
 
@@ -11,7 +11,9 @@
 - A temporary artwork image and temporary meaningful alternative text are acceptable.
 - `docs/design/mockups/mockup image 01.png` is the approved visual baseline.
 - Unfinished navigation destinations will open simple “Coming soon” placeholder pages.
+- Header wordmark displays as `Yulia Balenko`.
 - Footer text is `© 2026 Yulia Balenko. All rights reserved.`
+- The footer includes the public Facebook page link.
 - Milestone 1 targets desktop web browsers only. Mobile and tablet responsiveness are deferred.
 
 ## 1. Scope
@@ -25,10 +27,11 @@ Milestone 1 includes:
 5. Display the Home artwork/hero image.
 6. Display the artist statement.
 7. Implement the footer with copyright text.
-8. Apply the approved visual direction from `docs/design/mockups/mockup image 01.png`.
-9. Add simple placeholder pages for unfinished navigation destinations.
-10. Make the application runnable through documented local commands.
-11. Verify desktop layout, accessibility basics, and production build output.
+8. Add the approved public Facebook page link to the footer.
+9. Apply the approved visual direction from `docs/design/mockups/mockup image 01.png`.
+10. Add simple placeholder pages for unfinished navigation destinations.
+11. Make the application runnable through documented local commands.
+12. Verify desktop layout, accessibility basics, and production build output.
 
 ## 2. Out of scope
 
@@ -49,7 +52,7 @@ The Home page will follow the approved Hockney-inspired mockup:
 - White background
 - Centered maximum-width content container
 - Tall, spacious header
-- `YULIA BALENKO` wordmark in uppercase Lato with wide letter spacing
+- `Yulia Balenko` wordmark in Lato with wide letter spacing
 - Right-aligned primary navigation
 - Magenta Home accent based on `#ae2a5e`
 - Large artwork image
@@ -66,7 +69,7 @@ The implementation will reproduce the design system and layout, not the exact pi
 Home (/)
 ├── Skip link
 ├── Header
-│   ├── YULIA BALENKO wordmark
+│   ├── Yulia Balenko wordmark
 │   └── Desktop navigation
 ├── Main
 │   ├── Hero artwork
@@ -119,6 +122,7 @@ Primary navigation labels:
 ### Step 5 — Footer
 
 - [x] Add the copyright owner, current agreed year, and rights statement.
+- [x] Add the approved public Facebook page link.
 - [x] Match the mockup's compact typography and magenta top rule.
 - [x] Keep the footer at the natural end of short and long pages without fixed positioning.
 
@@ -208,7 +212,7 @@ Milestone 1 is complete when:
 ### Manual checks
 
 - Compared Home against the approved mockup at 1280 px, 1440 px, and 1920 px desktop widths — passed
-- Verified header, navigation, artwork, statement, footer, and exact copyright text — passed
+- Verified header, navigation, artwork, statement, footer, exact copyright text, and Facebook footer link — passed
 - Verified Home current-page styling and `aria-current="page"` — passed
 - Verified skip link, keyboard focus styles, semantic landmarks, image alternative text, and explicit image dimensions — passed
 - Verified local Lato assets, page metadata, favicon, stable image ratio, and no horizontal overflow at target widths — passed
@@ -224,3 +228,23 @@ Milestone 1 is complete when:
 - Final statement copy
 - Final Home artwork and alternative text
 - Mobile and tablet layouts
+
+### Maintenance verification
+
+**Date:** June 25, 2026  
+**Result:** Passed
+
+- Added the approved public Facebook page link to the footer.
+- `npm run format:check` — passed
+- `npm run check` — passed with 0 errors, warnings, or hints across 15 files
+- `npm run build` — passed; six static pages generated
+- Confirmed generated Home HTML contains the footer Facebook link with `target="_blank"` and `rel="noopener noreferrer"`.
+
+**Date:** June 25, 2026  
+**Result:** Passed
+
+- Updated the header wordmark to display as `Yulia Balenko`.
+- `npm run format:check` — passed
+- `npm run check` — passed with 0 errors, warnings, or hints across 15 files
+- `npm run build` — passed; six static pages generated
+- Confirmed generated Home HTML contains the wordmark text `Yulia Balenko`.

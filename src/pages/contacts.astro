@@ -1,13 +1,159 @@
 ---
-import ComingSoon from "../components/ComingSoon.astro";
+import FacebookIcon from "../components/FacebookIcon.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
 <BaseLayout
   title="Contacts — Yulia Balenko"
-  description="Contact Yulia Balenko."
+  description="Contact Yulia Balenko, review privacy information, and join the mailing list."
 >
-  <div class="site-container placeholder-content">
-    <ComingSoon pageName="Contacts" />
+  <div class="site-container contacts-page" aria-labelledby="page-title">
+    <header class="page-intro">
+      <p class="eyebrow">Contacts</p>
+      <h1 id="page-title">Stay in touch</h1>
+      <p>
+        This page is a static draft for now. Message delivery and mailing-list
+        signup will be connected in a later milestone.
+      </p>
+    </header>
+
+    <div class="contacts-grid">
+      <section class="contact-panel" aria-labelledby="message-title">
+        <div class="section-heading">
+          <p class="eyebrow">Draft form</p>
+          <h2 id="message-title">Leave a message</h2>
+        </div>
+        <p class="form-note" id="message-form-note">
+          The form is visible for layout review only. It does not send messages
+          yet.
+        </p>
+        <div
+          class="contact-form"
+          role="form"
+          aria-describedby="message-form-note"
+        >
+          <label for="contact-name">Name</label>
+          <input
+            id="contact-name"
+            name="name"
+            type="text"
+            autocomplete="name"
+          />
+
+          <label for="contact-email">Email</label>
+          <input
+            id="contact-email"
+            name="email"
+            type="email"
+            autocomplete="email"
+          />
+
+          <label for="contact-message">Message</label>
+          <textarea id="contact-message" name="message" rows="7"></textarea>
+
+          <button type="button" disabled>Send message — coming soon</button>
+        </div>
+      </section>
+
+      <aside class="contact-panel contact-sidebar" aria-label="Contact options">
+        <section aria-labelledby="social-title">
+          <div class="section-heading">
+            <p class="eyebrow">Social media</p>
+            <h2 id="social-title">Follow</h2>
+          </div>
+          <a
+            class="social-card"
+            href="https://www.facebook.com/YuliaBalenkoArt"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FacebookIcon />
+            <span>
+              <strong>Yulia Balenko Art</strong>
+              <span>Facebook page</span>
+            </span>
+          </a>
+        </section>
+
+        <section aria-labelledby="mailing-title">
+          <div class="section-heading">
+            <p class="eyebrow">Mailing list</p>
+            <h2 id="mailing-title">Updates</h2>
+          </div>
+          <p class="form-note" id="mailing-form-note">
+            Sign up will be enabled after mailing-list delivery is configured.
+          </p>
+          <div
+            class="mailing-form"
+            role="form"
+            aria-describedby="mailing-form-note"
+          >
+            <label for="mailing-email">Email</label>
+            <input
+              id="mailing-email"
+              name="email"
+              type="email"
+              autocomplete="email"
+            />
+            <button type="button" disabled>Sign up — coming soon</button>
+          </div>
+        </section>
+      </aside>
+    </div>
+
+    <section class="notice-section" aria-labelledby="copyright-title">
+      <div class="section-heading">
+        <p class="eyebrow">Draft notice</p>
+        <h2 id="copyright-title">Copyright Notice</h2>
+      </div>
+      <p>
+        Unless otherwise noted, all artwork images, text, and site materials are
+        copyright © 2026 Yulia Balenko. All rights reserved. Images are provided
+        for portfolio viewing only and may not be copied, downloaded,
+        reproduced, distributed, altered, or used for commercial purposes
+        without written permission from the artist.
+      </p>
+    </section>
+
+    <section
+      class="notice-section privacy-notice"
+      id="privacy-notice"
+      aria-labelledby="privacy-title"
+    >
+      <div class="section-heading">
+        <p class="eyebrow">Draft notice</p>
+        <h2 id="privacy-title">Privacy Notice</h2>
+      </div>
+      <p>
+        This draft Privacy Notice describes the planned behavior of the Contacts
+        page. The page is currently static: the message form and mailing-list
+        signup are visible but do not submit, send, store, or process visitor
+        information.
+      </p>
+      <h3>Contact messages</h3>
+      <p>
+        In a later milestone, the Leave a message form is expected to collect a
+        visitor's name, email address, and message so the artist can respond.
+        Message delivery will be configured to avoid publishing private delivery
+        settings and to avoid storing message bodies in the website database.
+      </p>
+      <h3>Mailing list</h3>
+      <p>
+        In a later milestone, mailing-list signup is expected to collect an
+        email address and use email confirmation before adding a subscriber.
+        Unsubscribe support will be added before the mailing list is active.
+      </p>
+      <h3>Social media links</h3>
+      <p>
+        The Facebook link opens an external website. Facebook may process visits
+        according to its own privacy practices. This website does not control
+        Facebook's data collection.
+      </p>
+      <h3>Cookies and analytics</h3>
+      <p>
+        This website does not use visitor analytics or advertising cookies in
+        the current implementation.
+      </p>
+    </section>
   </div>
 </BaseLayout>
