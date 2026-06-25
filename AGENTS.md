@@ -25,6 +25,9 @@ Before changing files, read:
 - Add command results and manual checks to the milestone verification record.
 - Do not mark a milestone complete until every acceptance criterion is verified.
 - Keep requirements, design, status, and README summaries consistent when scope changes.
+- When scope, milestone status, roadmap, implemented pages, setup steps, or project structure change, review and update both README files as needed:
+  - Root [README.md](./README.md) for the GitHub/project overview.
+  - Docs [README.md](./docs/README.md) for the documentation index.
 
 ## Guardrails
 
