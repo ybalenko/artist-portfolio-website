@@ -1,29 +1,38 @@
 # Yulia Balenko — Artist Portfolio
 
-An artwork-first website for artist **Yulia Balenko**, presenting approximately 100 oil and watercolor works, press coverage, current/past/upcoming exhibitions, a résumé PDF, and visitor contact options.
+An artwork-first website for artist **Yulia Balenko**, built as a simple static portfolio for an amateur artist. The site presents an artist statement, exhibitions, future press coverage, a future image portfolio, a résumé PDF, and visitor contact options.
 
-> **Project status:** Milestone 1 is complete. Track current progress in [Project status](./docs/project/status.md).
+> **Project status:** Milestones 1, 2, and 3 are complete. Milestone 4, the Press page, is awaiting planning. Track current progress in [Project status](./docs/project/status.md).
 
 ## Vision
 
 The portfolio takes inspiration from the restrained, image-led presentation of the [David Hockney website](https://www.hockney.com/home). The Portfolio interaction specifically references its [Drawings — 2010s page](https://www.hockney.com/index.php/works/drawings/2010s): one prominent image, an ordered thumbnail gallery, and minimal interface. The new site will establish its own visual identity.
 
+## Current implementation
+
+- Astro and TypeScript project foundation.
+- Home page as the default landing page with temporary artist statement and artwork.
+- Shared header navigation for Home, Press, Exhibitions, Portfolio, Resume, and Contacts.
+- Exhibitions header submenu with Current, Past, and Upcoming links.
+- Exhibitions routes for `/exhibitions/current/`, `/exhibitions/past/`, and `/exhibitions/upcoming/`.
+- Clear empty states for exhibition sections until real content is available.
+- Contacts page with draft Privacy Notice, copyright notice, Facebook link, disabled message form, and disabled mailing-list signup.
+- Footer copyright and Facebook social link.
+- Documentation and milestone tracking under `docs/`.
+
 ## Planned features
 
-- Home landing page with artist statement
-- Images-only Portfolio with accessible carousel
-- Press page
-- Exhibitions submenu with Current, Past, and Upcoming destinations
-- Resume navigation that opens the current résumé PDF
-- Contacts page with Privacy Notice and protected Leave a message form
-- Navigation for Press, Exhibitions, Portfolio, Resume, and Contacts
-- Code-managed artwork, Press, Exhibitions, résumé, Contacts, and navigation content
-- Protected Leave a message form
-- Double-opt-in mailing-list signup and unsubscribe
-- Accessible, responsive, and search-friendly public pages
-- Build-time optimized web images
+- Press page for publications, articles, interviews, and public mentions.
+- Images-only Portfolio with accessible gallery and carousel.
+- Resume navigation that opens the current résumé PDF.
+- Real exhibition content and optional exhibition images.
+- Code-managed artwork, Press, Exhibitions, résumé, Contacts, and navigation content.
+- Protected Leave a message form using a later AWS backend milestone.
+- Double-opt-in mailing-list signup and unsubscribe using a later AWS backend milestone.
+- Accessible, responsive, and search-friendly public pages.
+- Build-time optimized web images.
 
-The initial release will not include sales, payments, visitor accounts, favorites, analytics, video, or newsletter campaign tools.
+The initial release will not include sales, payments, visitor accounts, favorites, analytics, video, comments, browser-based content editing, or newsletter campaign tools.
 
 ## Planned technology
 
@@ -54,7 +63,7 @@ The architecture is code-managed and static-first: Home, Press, Exhibitions, Por
 
 ## Local development
 
-Milestone 1 uses Node.js 22 and npm 10. If you use `nvm`, the repository's `.nvmrc` selects the expected Node major version.
+The project uses Node.js 22 and npm 10. If you use `nvm`, the repository's `.nvmrc` selects the expected Node major version.
 
 ```bash
 nvm use
@@ -73,12 +82,17 @@ npm run format:check # Verify formatting
 
 ## Roadmap
 
-1. Confirm the content schema, image preparation, visual design, domain, and AWS decisions.
-2. Scaffold the Astro application and AWS CDK infrastructure.
-3. Build Home, navigation, Press, Exhibitions, Portfolio carousel, Resume, and Contacts.
-4. Implement contact delivery and mailing-list enrollment.
-5. Complete accessibility, security, performance, backup, and cost checks.
-6. Add the initial artwork collection and launch.
+| Milestone | Scope                                              | Status   |
+| --------- | -------------------------------------------------- | -------- |
+| M1        | Desktop Home page and local project foundation     | Complete |
+| M2        | Contacts page                                      | Complete |
+| M3        | Exhibitions pages and submenu                      | Complete |
+| M4        | Press page                                         | Planned  |
+| M5        | Portfolio gallery and carousel                     | Planned  |
+| M6        | Resume                                             | Planned  |
+| M7        | Mailing list, AWS deployment, and launch readiness | Planned  |
+
+Future milestone boundaries are provisional until their plans are approved.
 
 ## Guiding principles
 
