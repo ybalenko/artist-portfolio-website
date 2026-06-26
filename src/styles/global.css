@@ -106,7 +106,7 @@ a:hover {
   text-decoration: none;
 }
 
-.primary-navigation ul {
+.primary-navigation > ul {
   display: flex;
   margin: 0;
   padding: 0;

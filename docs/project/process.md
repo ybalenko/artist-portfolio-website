@@ -13,6 +13,7 @@ Define the repeatable process for planning, implementing, verifying, and complet
 | [High-level design](../architecture/high-level-design.md) | Architecture and system boundaries                                             |
 | [Project status](./status.md)                             | Current milestone, progress, blockers, and roadmap                             |
 | `docs/milestones/milestone-N.md`                          | Approved scope, tasks, acceptance criteria, and verification for one milestone |
+| [Change request log](./change-requests.md)                | User-requested scope, behavior, design, process, and rework changes            |
 | [Decision log](./decisions.md)                            | Approved cross-project and milestone decisions                                 |
 | [Agent instructions](../../AGENTS.md)                     | Mandatory instructions for agents working in the repository                    |
 
@@ -158,6 +159,7 @@ Do not mark a milestone complete based only on files existing; verify its behavi
 
 - Small implementation choices within approved scope do not need a new decision entry.
 - Changes to scope, architecture, user-visible behavior, cost, privacy, or milestone acceptance require a decision entry.
+- Material user-requested changes should be recorded in `docs/project/change-requests.md`, including rework of completed milestone items.
 - If the user changes a requirement, update all affected requirement, design, milestone, status, and README documents together.
 - Never silently delete decision history; supersede it.
 

@@ -27,6 +27,7 @@ This file records approved decisions that affect implementation or more than one
 | D-021 | 2026-06-25 | Keep Contacts message and mailing-list forms disabled until backend configuration     | Allows UI review while deferring AWS/API/CAPTCHA/email implementation | Active for M2 |
 | D-022 | 2026-06-25 | Make Milestone 3 the Exhibitions page instead of Press                                | Prioritizes exhibition navigation and empty states before Press       | Active        |
 | D-023 | 2026-06-25 | Use clear empty states for exhibition sections until real content is available        | Avoids inventing exhibition entries                                   | Active for M3 |
+| D-024 | 2026-06-26 | Track material user-requested changes in `docs/project/change-requests.md`            | Creates a dedicated log for scope, design, process, and rework items  | Active        |
 
 ## Adding a decision
 

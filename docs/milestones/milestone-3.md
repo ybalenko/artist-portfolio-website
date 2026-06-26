@@ -181,3 +181,15 @@ Milestone 3 is complete when:
 - `npm run format:check` — passed
 - `npm run check` — passed with 0 errors, warnings, or hints across 18 files
 - `npm run build` — passed; nine static pages generated
+
+**Date:** June 26, 2026  
+**Result:** Passed
+
+- Reopened CR-005 because the top header Exhibitions submenu was still displaying horizontally.
+- Updated the primary navigation CSS so the horizontal flex layout applies only to the top-level navigation list.
+- `npm run format:check` — passed
+- `npm run check` — passed with 0 errors, warnings, or hints across 18 files
+- `npm run build` — passed; nine static pages generated
+- Confirmed built CSS contains `.primary-navigation > ul` as the horizontal flex rule.
+- Confirmed built CSS keeps `.navigation-submenu` as `display: grid`, so the header Exhibitions submenu displays vertically.
+- Confirmed built CSS keeps `.section-navigation` horizontal for the in-page Exhibitions section links.

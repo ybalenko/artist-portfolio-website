@@ -1,6 +1,6 @@
 # Project Status
 
-**Last updated:** June 25, 2026  
+**Last updated:** June 26, 2026  
 **Current phase:** Milestone 3 complete; Milestone 4 awaiting planning  
 **Current milestone:** Milestone 3 — Exhibitions Page (complete)
 
@@ -55,6 +55,8 @@ See the [Decision log](./decisions.md) for resolved decisions and [Project proce
 
 | Date       | Update                                                  |
 | ---------- | ------------------------------------------------------- |
+| 2026-06-26 | Fixed CR-005 vertical Exhibitions header submenu        |
+| 2026-06-26 | Added project change-request tracking document          |
 | 2026-06-25 | Updated Exhibitions header submenu toward Hockney style |
 | 2026-06-25 | Milestone 3 Exhibitions pages completed and verified    |
 | 2026-06-25 | Milestone 3 Exhibitions implementation started          |

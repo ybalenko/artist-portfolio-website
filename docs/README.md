@@ -17,6 +17,7 @@ Current project state: Milestones 1, 2, and 3 are complete. Milestone 4, the Pre
 
 - [Project status](./project/status.md)
 - [Project process](./project/process.md)
+- [Change request log](./project/change-requests.md)
 - [Decision log](./project/decisions.md)
 
 ## Milestones

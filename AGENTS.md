@@ -22,6 +22,7 @@ Before changing files, read:
 - Check a task only after verifying its result.
 - Update progress, recent activity, blockers, and next action at the end of each work session.
 - Record material product, architecture, privacy, cost, or scope decisions in `docs/project/decisions.md`.
+- Record material user-requested changes in `docs/project/change-requests.md`, especially scope, behavior, design, documentation process, or rework of completed milestone items.
 - Add command results and manual checks to the milestone verification record.
 - Do not mark a milestone complete until every acceptance criterion is verified.
 - Keep requirements, design, status, and README summaries consistent when scope changes.

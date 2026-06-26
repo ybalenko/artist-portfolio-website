@@ -58,6 +58,7 @@ The architecture is code-managed and static-first: Home, Press, Exhibitions, Por
 - [Technical requirements](./docs/requirements/technical.md) — implementation, security, accessibility, testing, and deployment requirements
 - [Project status](./docs/project/status.md) — current milestone, progress, blockers, and roadmap
 - [Project process](./docs/project/process.md) — milestone lifecycle, tracking, verification, and handoff workflow
+- [Change request log](./docs/project/change-requests.md) — user-requested scope, design, process, and rework changes
 - [Decision log](./docs/project/decisions.md) — approved project and milestone decisions
 - [Agent instructions](./AGENTS.md) — required workflow for future coding agents
 
