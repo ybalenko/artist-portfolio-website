@@ -28,6 +28,8 @@ This file records approved decisions that affect implementation or more than one
 | D-022 | 2026-06-25 | Make Milestone 3 the Exhibitions page instead of Press                                | Prioritizes exhibition navigation and empty states before Press       | Active        |
 | D-023 | 2026-06-25 | Use clear empty states for exhibition sections until real content is available        | Avoids inventing exhibition entries                                   | Active for M3 |
 | D-024 | 2026-06-26 | Track material user-requested changes in `docs/project/change-requests.md`            | Creates a dedicated log for scope, design, process, and rework items  | Active        |
+| D-025 | 2026-06-26 | Defer Milestone 4 Press and start Milestone 5 Portfolio                               | Prioritizes image gallery and carousel implementation before Press    | Active        |
+| D-026 | 2026-06-26 | Keep temporary Portfolio test images in ignored `public/artwork-local/`               | Allows local gallery testing without checking test artwork into Git   | Active for M5 |
 
 ## Adding a decision
 

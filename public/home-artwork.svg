@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 960" role="img">
+  <defs>
+    <filter id="paper" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence baseFrequency="0.9" numOctaves="3" seed="17" type="fractalNoise" result="noise" />
+      <feColorMatrix in="noise" type="saturate" values="0" result="gray" />
+      <feComponentTransfer in="gray" result="faint">
+        <feFuncA type="table" tableValues="0 0.07" />
+      </feComponentTransfer>
+      <feBlend in="SourceGraphic" in2="faint" mode="multiply" />
+    </filter>
+  </defs>
+
+  <rect width="1600" height="960" fill="#ece4d5" />
+  <g filter="url(#paper)">
+    <path d="M0 90 390 0l170 340L300 610 0 490Z" fill="#b1285e" />
+    <path d="m500 0 510 0-94 310-340 90Z" fill="#e4a72c" />
+    <path d="m1050 0 550 0v400l-310-85Z" fill="#183e8a" />
+    <path d="m0 530 330 100 220 330H0Z" fill="#183e8a" />
+    <path d="m360 550 300-230 255 188-120 452H560Z" fill="#f4eee4" />
+    <path d="m930 350 360-65 310 155v520h-440Z" fill="#b1285e" />
+    <path d="m775 960 120-450 330 450Z" fill="#d69b28" />
+
+    <path d="M110 450 520 170" fill="none" stroke="#171717" stroke-width="34" stroke-linecap="round" />
+    <path d="m575 130 190 710" fill="none" stroke="#171717" stroke-width="24" stroke-linecap="round" />
+    <path d="m900 95 390 665" fill="none" stroke="#171717" stroke-width="30" stroke-linecap="round" />
+    <path d="m1180 220 290 560" fill="none" stroke="#f3eadc" stroke-width="22" stroke-linecap="round" />
+    <path d="M180 790c220-180 385-154 570 10" fill="none" stroke="#b1285e" stroke-width="42" stroke-linecap="round" />
+    <path d="M860 575c170-125 320-106 500 42" fill="none" stroke="#183e8a" stroke-width="44" stroke-linecap="round" />
+
+    <circle cx="382" cy="306" r="91" fill="#f4eee4" stroke="#171717" stroke-width="20" />
+    <circle cx="1035" cy="485" r="70" fill="#e3a329" stroke="#171717" stroke-width="18" />
+    <circle cx="1325" cy="760" r="116" fill="#f4eee4" stroke="#171717" stroke-width="20" />
+  </g>
+</svg>

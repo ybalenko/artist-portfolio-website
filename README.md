@@ -2,7 +2,7 @@
 
 An artwork-first website for artist **Yulia Balenko**, built as a simple static portfolio for an amateur artist. The site presents an artist statement, exhibitions, future press coverage, a future image portfolio, a résumé PDF, and visitor contact options.
 
-> **Project status:** Milestones 1, 2, and 3 are complete. Milestone 4, the Press page, is awaiting planning. Track current progress in [Project status](./docs/project/status.md).
+> **Project status:** Milestones 1, 2, 3, and 5 are complete. Milestone 4, the Press page, is deferred. Milestone 6, Resume, is awaiting planning. Track current progress in [Project status](./docs/project/status.md).
 
 ## Vision
 
@@ -17,6 +17,7 @@ The portfolio takes inspiration from the restrained, image-led presentation of t
 - Exhibitions routes for `/exhibitions/current/`, `/exhibitions/past/`, and `/exhibitions/upcoming/`.
 - Clear empty states for exhibition sections until real content is available.
 - Contacts page with draft Privacy Notice, copyright notice, Facebook link, disabled message form, and disabled mailing-list signup.
+- Portfolio gallery and carousel using local-only test artwork images.
 - Footer copyright and Facebook social link.
 - Documentation and milestone tracking under `docs/`.
 
@@ -88,8 +89,8 @@ npm run format:check # Verify formatting
 | M1        | Desktop Home page and local project foundation     | Complete |
 | M2        | Contacts page                                      | Complete |
 | M3        | Exhibitions pages and submenu                      | Complete |
-| M4        | Press page                                         | Planned  |
-| M5        | Portfolio gallery and carousel                     | Planned  |
+| M4        | Press page                                         | Deferred |
+| M5        | Portfolio gallery and carousel                     | Complete |
 | M6        | Resume                                             | Planned  |
 | M7        | Mailing list, AWS deployment, and launch readiness | Planned  |
 

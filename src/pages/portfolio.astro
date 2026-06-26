@@ -1,13 +1,233 @@
 ---
-import ComingSoon from "../components/ComingSoon.astro";
+import { portfolioImages } from "../data/portfolio";
 import BaseLayout from "../layouts/BaseLayout.astro";
+
+const firstImage = portfolioImages[0];
+const portfolioJson = JSON.stringify(portfolioImages);
 ---
 
 <BaseLayout
   title="Portfolio — Yulia Balenko"
   description="Selected artwork by Yulia Balenko."
 >
-  <div class="site-container placeholder-content">
-    <ComingSoon pageName="Portfolio" />
+  <div class="site-container portfolio-page" aria-labelledby="page-title">
+    <header class="page-intro portfolio-intro">
+      <p class="eyebrow">Portfolio</p>
+      <h1 id="page-title">Selected works</h1>
+    </header>
+
+    <div class="portfolio-content" data-portfolio-content>
+      <section class="portfolio-viewer" aria-label="Artwork gallery">
+        <button
+          class="portfolio-feature"
+          type="button"
+          data-open-carousel
+          data-index="0"
+          aria-label="Open selected artwork in carousel"
+        >
+          <img
+            data-selected-image
+            src={firstImage.src}
+            width={firstImage.width}
+            height={firstImage.height}
+            alt={firstImage.alt}
+            fetchpriority="high"
+          />
+        </button>
+
+        <div class="portfolio-thumbnails" aria-label="Artwork thumbnails">
+          {
+            portfolioImages.map((image, index) => (
+              <button
+                class="portfolio-thumbnail"
+                class:list={{ active: index === 0 }}
+                type="button"
+                data-thumbnail
+                data-index={index}
+                aria-label={`Select artwork ${index + 1}`}
+                aria-current={index === 0 ? "true" : undefined}
+              >
+                <img
+                  src={image.src}
+                  width={image.width}
+                  height={image.height}
+                  alt={image.alt}
+                  loading={index === 0 ? "eager" : "lazy"}
+                />
+              </button>
+            ))
+          }
+        </div>
+      </section>
+    </div>
+
+    <section
+      class="portfolio-carousel"
+      data-carousel
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="carousel-title"
+      hidden
+    >
+      <h2 id="carousel-title" class="visually-hidden">Artwork carousel</h2>
+      <button
+        class="carousel-close"
+        type="button"
+        data-carousel-close
+        aria-label="Close carousel"
+      >
+        Close
+      </button>
+      <button
+        class="carousel-control carousel-control-previous"
+        type="button"
+        data-carousel-previous
+        aria-label="Previous artwork"
+      >
+        Previous
+      </button>
+      <figure class="carousel-artwork">
+        <img
+          data-carousel-image
+          src={firstImage.src}
+          width={firstImage.width}
+          height={firstImage.height}
+          alt={firstImage.alt}
+        />
+      </figure>
+      <button
+        class="carousel-control carousel-control-next"
+        type="button"
+        data-carousel-next
+        aria-label="Next artwork"
+      >
+        Next
+      </button>
+    </section>
   </div>
+
+  <script is:inline define:vars={{ portfolioJson }}>
+    const portfolioImages = JSON.parse(portfolioJson);
+    const selectedImage = document.querySelector("[data-selected-image]");
+    const carousel = document.querySelector("[data-carousel]");
+    const carouselImage = document.querySelector("[data-carousel-image]");
+    const portfolioContent = document.querySelector("[data-portfolio-content]");
+    const openButton = document.querySelector("[data-open-carousel]");
+    const closeButton = document.querySelector("[data-carousel-close]");
+    const previousButton = document.querySelector("[data-carousel-previous]");
+    const nextButton = document.querySelector("[data-carousel-next]");
+    const thumbnailButtons = Array.from(
+      document.querySelectorAll("[data-thumbnail]"),
+    );
+
+    let selectedIndex = 0;
+    let lastCarouselTrigger = openButton;
+
+    const normalizeIndex = (index) =>
+      (index + portfolioImages.length) % portfolioImages.length;
+
+    const updateHash = () => {
+      const image = portfolioImages[selectedIndex];
+      if (!image) return;
+      history.replaceState(null, "", `#${image.id}`);
+    };
+
+    const setSelectedImage = (index, shouldUpdateHash = true) => {
+      selectedIndex = normalizeIndex(index);
+      const image = portfolioImages[selectedIndex];
+
+      selectedImage.src = image.src;
+      selectedImage.alt = image.alt;
+      selectedImage.width = image.width;
+      selectedImage.height = image.height;
+
+      carouselImage.src = image.src;
+      carouselImage.alt = image.alt;
+      carouselImage.width = image.width;
+      carouselImage.height = image.height;
+
+      openButton.dataset.index = String(selectedIndex);
+
+      thumbnailButtons.forEach((button, buttonIndex) => {
+        const isActive = buttonIndex === selectedIndex;
+        button.classList.toggle("active", isActive);
+        if (isActive) {
+          button.setAttribute("aria-current", "true");
+        } else {
+          button.removeAttribute("aria-current");
+        }
+      });
+
+      if (shouldUpdateHash) {
+        updateHash();
+      }
+    };
+
+    const openCarousel = (trigger) => {
+      lastCarouselTrigger = trigger;
+      carousel.hidden = false;
+      portfolioContent.setAttribute("aria-hidden", "true");
+      portfolioContent.inert = true;
+      closeButton.focus();
+    };
+
+    const closeCarousel = () => {
+      carousel.hidden = true;
+      portfolioContent.removeAttribute("aria-hidden");
+      portfolioContent.inert = false;
+      lastCarouselTrigger?.focus();
+    };
+
+    const showPrevious = () => setSelectedImage(selectedIndex - 1);
+    const showNext = () => setSelectedImage(selectedIndex + 1);
+
+    thumbnailButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        setSelectedImage(Number(button.dataset.index));
+      });
+
+      button.addEventListener("dblclick", () => {
+        setSelectedImage(Number(button.dataset.index));
+        openCarousel(button);
+      });
+    });
+
+    openButton.addEventListener("click", () => openCarousel(openButton));
+    closeButton.addEventListener("click", closeCarousel);
+    previousButton.addEventListener("click", showPrevious);
+    nextButton.addEventListener("click", showNext);
+
+    document.addEventListener("keydown", (event) => {
+      if (carousel.hidden) return;
+
+      if (event.key === "Escape") {
+        event.preventDefault();
+        closeCarousel();
+      }
+
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        showPrevious();
+      }
+
+      if (event.key === "ArrowRight") {
+        event.preventDefault();
+        showNext();
+      }
+    });
+
+    const applyHashSelection = () => {
+      const imageId = window.location.hash.replace("#", "");
+      const imageIndex = portfolioImages.findIndex(
+        (image) => image.id === imageId,
+      );
+
+      if (imageIndex >= 0) {
+        setSelectedImage(imageIndex, false);
+      }
+    };
+
+    window.addEventListener("hashchange", applyHashSelection);
+    applyHashSelection();
+  </script>
 </BaseLayout>
