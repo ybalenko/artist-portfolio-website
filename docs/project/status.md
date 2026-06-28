@@ -1,20 +1,20 @@
 # Project Status
 
-**Last updated:** June 26, 2026  
-**Current phase:** Milestone 5 complete; Milestone 6 awaiting planning  
-**Current milestone:** Milestone 5 — Portfolio gallery and carousel (complete)
+**Last updated:** June 28, 2026  
+**Current phase:** Milestone 7 planned; implementation awaiting approval  
+**Current milestone:** Milestone 7 — AWS Deployment and Cloud Portfolio Images (planned)
 
 ## Milestone overview
 
-| Milestone | Scope                                              | Status   | Tasks | Progress | Plan                                        |
-| --------- | -------------------------------------------------- | -------- | ----: | -------: | ------------------------------------------- |
-| M1        | Desktop Home page and local project foundation     | Complete | 28/28 |     100% | [Milestone 1](../milestones/milestone-1.md) |
-| M2        | Contacts page                                      | Complete | 16/16 |     100% | [Milestone 2](../milestones/milestone-2.md) |
-| M3        | Exhibitions pages and submenu                      | Complete | 18/18 |     100% | [Milestone 3](../milestones/milestone-3.md) |
-| M4        | Press page                                         | Deferred |     — |        — | To be created later                         |
-| M5        | Portfolio gallery and carousel                     | Complete | 22/22 |     100% | [Milestone 5](../milestones/milestone-5.md) |
-| M6        | Resume                                             | Planned  |     — |        — | To be created                               |
-| M7        | Mailing list, AWS deployment, and launch readiness | Planned  |     — |        — | To be created                               |
+| Milestone | Scope                                          | Status   | Tasks | Progress | Plan                                        |
+| --------- | ---------------------------------------------- | -------- | ----: | -------: | ------------------------------------------- |
+| M1        | Desktop Home page and local project foundation | Complete | 28/28 |     100% | [Milestone 1](../milestones/milestone-1.md) |
+| M2        | Contacts page                                  | Complete | 16/16 |     100% | [Milestone 2](../milestones/milestone-2.md) |
+| M3        | Exhibitions pages and submenu                  | Complete | 18/18 |     100% | [Milestone 3](../milestones/milestone-3.md) |
+| M4        | Press page                                     | Deferred |     — |        — | To be created later                         |
+| M5        | Portfolio gallery and carousel                 | Complete | 22/22 |     100% | [Milestone 5](../milestones/milestone-5.md) |
+| M6        | Resume                                         | Planned  |     — |        — | To be created                               |
+| M7        | AWS deployment and cloud Portfolio images      | Planned  |  0/42 |       0% | [Milestone 7](../milestones/milestone-7.md) |
 
 Future milestone boundaries are provisional until their plans are approved.
 
@@ -30,14 +30,14 @@ Future milestone boundaries are provisional until their plans are approved.
 
 ## Current milestone summary
 
-### Milestone 5 — Portfolio Gallery and Carousel
+### Milestone 7 — AWS Deployment and Cloud Portfolio Images
 
-- **Status:** Complete
-- **Progress source:** Checked implementation tasks in [Milestone 5](../milestones/milestone-5.md)
+- **Status:** Planned
+- **Progress source:** Checked implementation tasks in [Milestone 7](../milestones/milestone-7.md)
 - **Target:** Desktop web browsers only
 - **Open blockers:** None
-- **Deferred:** Press page, real artwork files, final image hosting/optimization, mobile and tablet layouts
-- **Next action:** Review the completed Portfolio page, then create and approve the Milestone 6 plan
+- **Deferred:** Custom domain, contact form backend, mailing-list backend, CAPTCHA, SES, and final image optimization pipeline
+- **Next action:** Confirm AWS region, GitHub branch, and cloud image storage approach before implementation
 
 ## Project-level open decisions
 
@@ -56,6 +56,7 @@ See the [Decision log](./decisions.md) for resolved decisions and [Project proce
 
 | Date       | Update                                                    |
 | ---------- | --------------------------------------------------------- |
+| 2026-06-28 | Created Milestone 7 AWS deployment plan                   |
 | 2026-06-26 | Fixed local 404 asset requests for Home and touch icons   |
 | 2026-06-26 | Milestone 5 Portfolio completed after live browser tests  |
 | 2026-06-26 | Implemented Portfolio gallery with local-only test images |

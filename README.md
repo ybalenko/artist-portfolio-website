@@ -1,8 +1,8 @@
 # Yulia Balenko — Artist Portfolio
 
-An artwork-first website for artist **Yulia Balenko**, built as a simple static portfolio for an amateur artist. The site presents an artist statement, exhibitions, future press coverage, a future image portfolio, a résumé PDF, and visitor contact options.
+An artwork-first website for artist **Yulia Balenko**, built as a simple static portfolio for an amateur artist. The site presents an artist statement, exhibitions, future press coverage, an image portfolio, a résumé PDF, and visitor contact options.
 
-> **Project status:** Milestones 1, 2, 3, and 5 are complete. Milestone 4, the Press page, is deferred. Milestone 6, Resume, is awaiting planning. Track current progress in [Project status](./docs/project/status.md).
+> **Project status:** Milestones 1, 2, 3, and 5 are complete. Milestone 4, the Press page, is deferred. Milestone 7, AWS deployment and cloud Portfolio images, is planned and awaiting implementation approval. Track current progress in [Project status](./docs/project/status.md).
 
 ## Vision
 
@@ -24,12 +24,13 @@ The portfolio takes inspiration from the restrained, image-led presentation of t
 ## Planned features
 
 - Press page for publications, articles, interviews, and public mentions.
-- Images-only Portfolio with accessible gallery and carousel.
+- Cloud-hosted Portfolio images for the deployed gallery and carousel.
 - Resume navigation that opens the current résumé PDF.
 - Real exhibition content and optional exhibition images.
 - Code-managed artwork, Press, Exhibitions, résumé, Contacts, and navigation content.
 - Protected Leave a message form using a later AWS backend milestone.
 - Double-opt-in mailing-list signup and unsubscribe using a later AWS backend milestone.
+- AWS Amplify deployment and cloud-hosted Portfolio images.
 - Accessible, responsive, and search-friendly public pages.
 - Build-time optimized web images.
 
@@ -44,7 +45,7 @@ The initial release will not include sales, payments, visitor accounts, favorite
 | Hosting and deployment | AWS Amplify Hosting                  |
 | API                    | Amazon API Gateway and AWS Lambda    |
 | Dynamic data           | Amazon DynamoDB for subscriptions    |
-| Images                 | Astro build pipeline and Amplify CDN |
+| Images                 | AWS cloud storage and Astro metadata |
 | Email                  | Amazon SES                           |
 | Bot protection         | Cloudflare Turnstile                 |
 | Infrastructure as code | AWS CDK with TypeScript              |
@@ -84,15 +85,15 @@ npm run format:check # Verify formatting
 
 ## Roadmap
 
-| Milestone | Scope                                              | Status   |
-| --------- | -------------------------------------------------- | -------- |
-| M1        | Desktop Home page and local project foundation     | Complete |
-| M2        | Contacts page                                      | Complete |
-| M3        | Exhibitions pages and submenu                      | Complete |
-| M4        | Press page                                         | Deferred |
-| M5        | Portfolio gallery and carousel                     | Complete |
-| M6        | Resume                                             | Planned  |
-| M7        | Mailing list, AWS deployment, and launch readiness | Planned  |
+| Milestone | Scope                                          | Status   |
+| --------- | ---------------------------------------------- | -------- |
+| M1        | Desktop Home page and local project foundation | Complete |
+| M2        | Contacts page                                  | Complete |
+| M3        | Exhibitions pages and submenu                  | Complete |
+| M4        | Press page                                     | Deferred |
+| M5        | Portfolio gallery and carousel                 | Complete |
+| M6        | Resume                                         | Planned  |
+| M7        | AWS deployment and cloud Portfolio images      | Planned  |
 
 Future milestone boundaries are provisional until their plans are approved.
 

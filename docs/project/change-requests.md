@@ -41,6 +41,7 @@ Also update related requirements, design, milestone plans, status, decisions, RE
 | CR-006 | 2026-06-26 | Update root and docs README files      | Docs    | Done   | Project-wide     | Refreshed README summaries for current milestones and added explicit README maintenance instructions to agent guidance.                                                                                                                              |
 | CR-007 | 2026-06-26 | Defer Press and start Portfolio        | Scope   | Done   | M5               | Deferred Milestone 4 Press and started Milestone 5 Portfolio. Portfolio will use local-only test images under `public/artwork-local/`, ignored by Git.                                                                                               |
 | CR-008 | 2026-06-26 | Fix local 404 asset requests           | Quality | Done   | Maintenance      | Moved the Home artwork to a stable public path and added Apple touch icon files/links so dev-server browser requests stop returning 404.                                                                                                             |
+| CR-009 | 2026-06-28 | Plan AWS deployment milestone          | Scope   | Done   | M7               | Created Milestone 7 plan for AWS Amplify public deployment and cloud-hosted Portfolio images. Mailing list and Leave a message backend are deferred to a later iteration.                                                                            |
 
 ## New request template
 
