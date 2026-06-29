@@ -3,7 +3,7 @@
 **Status:** In progress  
 **Created:** June 28, 2026  
 **Milestone goal:** Make the website publicly accessible from an AWS Amplify URL and move Portfolio images from local-only test assets to cloud-hosted image URLs.
-**Implementation progress:** 14/42 tasks — 33%
+**Implementation progress:** 19/42 tasks — 45%
 
 ## Confirmed decisions
 
@@ -161,12 +161,12 @@ A future milestone may add:
 
 ### Step 3 — Amplify Hosting setup
 
-- [ ] Open AWS Amplify Hosting in AWS Console.
-- [ ] Create a new Amplify app.
-- [ ] Connect the GitHub repository.
-- [ ] Select the deployment branch.
+- [x] Open AWS Amplify Hosting in AWS Console.
+- [x] Create a new Amplify app.
+- [x] Connect the GitHub repository.
+- [x] Select the deployment branch.
 - [x] Review detected build settings or use `amplify.yml`.
-- [ ] Start the first Amplify build.
+- [x] Start the first Amplify build.
 - [ ] Record the Amplify app URL.
 
 ### Step 4 — Cloud image storage setup
@@ -274,13 +274,15 @@ Milestone 7 is complete when:
 - Added Amplify configuration to `amplify.yml`.
 - Added deployment runbook at `docs/deployment/aws-amplify.md`.
 - Added Portfolio cloud image runbook at `docs/deployment/portfolio-images.md`.
+- Owner reported that the Amplify project was deployed.
 
 ### Known limitations
 
 - Custom domain is deferred.
 - Mailing list and Leave a message backend are deferred.
 - Final artwork image set may still be temporary.
-- AWS Console setup has not started yet.
+- Amplify URL has not been recorded in the project documentation yet.
+- Public-page verification has not been performed yet.
 - Portfolio still references ignored local test images until cloud URLs are available.
 
 ### Deferred work

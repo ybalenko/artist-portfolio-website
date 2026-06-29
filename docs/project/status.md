@@ -14,7 +14,7 @@
 | M4        | Press page                                     | Deferred    |     — |        — | To be created later                         |
 | M5        | Portfolio gallery and carousel                 | Complete    | 22/22 |     100% | [Milestone 5](../milestones/milestone-5.md) |
 | M6        | Resume                                         | Planned     |     — |        — | To be created                               |
-| M7        | AWS deployment and cloud Portfolio images      | In progress | 14/42 |      33% | [Milestone 7](../milestones/milestone-7.md) |
+| M7        | AWS deployment and cloud Portfolio images      | In progress | 19/42 |      45% | [Milestone 7](../milestones/milestone-7.md) |
 
 Future milestone boundaries are provisional until their plans are approved.
 
@@ -35,9 +35,9 @@ Future milestone boundaries are provisional until their plans are approved.
 - **Status:** In progress
 - **Progress source:** Checked implementation tasks in [Milestone 7](../milestones/milestone-7.md)
 - **Target:** Desktop web browsers only
-- **Open blockers:** AWS Console/GitHub connection and S3 image storage require owner action or explicit approval before external changes.
+- **Open blockers:** Amplify URL and build status are needed before public verification. S3 image storage still requires owner action or explicit approval before external changes.
 - **Deferred:** Custom domain, contact form backend, mailing-list backend, CAPTCHA, SES, and final image optimization pipeline
-- **Next action:** Start owner-approved AWS Amplify setup.
+- **Next action:** Record the Amplify URL/build status, then verify public routes and proceed to cloud Portfolio images.
 
 ## Project-level open decisions
 
@@ -56,6 +56,7 @@ See the [Decision log](./decisions.md) for resolved decisions and [Project proce
 
 | Date       | Update                                                    |
 | ---------- | --------------------------------------------------------- |
+| 2026-06-28 | Owner reported AWS Amplify deployment was created         |
 | 2026-06-28 | Verified local format, Astro check, and production build  |
 | 2026-06-28 | Started Milestone 7 and added Amplify/image runbooks      |
 | 2026-06-28 | Created Milestone 7 AWS deployment plan                   |
