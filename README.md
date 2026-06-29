@@ -2,7 +2,7 @@
 
 An artwork-first website for artist **Yulia Balenko**, built as a simple static portfolio for an amateur artist. The site presents an artist statement, exhibitions, future press coverage, an image portfolio, a résumé PDF, and visitor contact options.
 
-> **Project status:** Milestones 1, 2, 3, and 5 are complete. Milestone 4, the Press page, is deferred. Milestone 7, AWS deployment and cloud Portfolio images, is planned and awaiting implementation approval. Track current progress in [Project status](./docs/project/status.md).
+> **Project status:** Milestones 1, 2, 3, and 5 are complete. Milestone 4, the Press page, is deferred. Milestone 7, AWS deployment and cloud Portfolio images, is in progress. Track current progress in [Project status](./docs/project/status.md).
 
 ## Vision
 
@@ -62,6 +62,8 @@ The architecture is code-managed and static-first: Home, Press, Exhibitions, Por
 - [Project process](./docs/project/process.md) — milestone lifecycle, tracking, verification, and handoff workflow
 - [Change request log](./docs/project/change-requests.md) — user-requested scope, design, process, and rework changes
 - [Decision log](./docs/project/decisions.md) — approved project and milestone decisions
+- [AWS Amplify deployment runbook](./docs/deployment/aws-amplify.md) — deployment steps and settings
+- [Portfolio cloud image runbook](./docs/deployment/portfolio-images.md) — cloud image upload and metadata workflow
 - [Agent instructions](./AGENTS.md) — required workflow for future coding agents
 
 ## Local development
@@ -85,15 +87,15 @@ npm run format:check # Verify formatting
 
 ## Roadmap
 
-| Milestone | Scope                                          | Status   |
-| --------- | ---------------------------------------------- | -------- |
-| M1        | Desktop Home page and local project foundation | Complete |
-| M2        | Contacts page                                  | Complete |
-| M3        | Exhibitions pages and submenu                  | Complete |
-| M4        | Press page                                     | Deferred |
-| M5        | Portfolio gallery and carousel                 | Complete |
-| M6        | Resume                                         | Planned  |
-| M7        | AWS deployment and cloud Portfolio images      | Planned  |
+| Milestone | Scope                                          | Status      |
+| --------- | ---------------------------------------------- | ----------- |
+| M1        | Desktop Home page and local project foundation | Complete    |
+| M2        | Contacts page                                  | Complete    |
+| M3        | Exhibitions pages and submenu                  | Complete    |
+| M4        | Press page                                     | Deferred    |
+| M5        | Portfolio gallery and carousel                 | Complete    |
+| M6        | Resume                                         | Planned     |
+| M7        | AWS deployment and cloud Portfolio images      | In progress |
 
 Future milestone boundaries are provisional until their plans are approved.
 

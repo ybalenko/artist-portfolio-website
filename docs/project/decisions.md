@@ -32,6 +32,7 @@ This file records approved decisions that affect implementation or more than one
 | D-026 | 2026-06-26 | Keep temporary Portfolio test images in ignored `public/artwork-local/`               | Allows local gallery testing without checking test artwork into Git    | Active for M5 |
 | D-027 | 2026-06-28 | Scope Milestone 7 to AWS Amplify deployment and cloud Portfolio images                | Publishes the static site first while deferring forms and mailing list | Active for M7 |
 | D-028 | 2026-06-28 | Use Amplify-provided URL before custom domain                                         | Reduces launch complexity and avoids domain setup in Milestone 7       | Active for M7 |
+| D-029 | 2026-06-28 | Use `us-east-1`, GitHub `main`, and simple S3 public image URLs for Milestone 7       | Provides the cheapest/simple deployment baseline before hardening      | Active for M7 |
 
 ## Adding a decision
 

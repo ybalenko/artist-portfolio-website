@@ -1,9 +1,9 @@
 # Milestone 7 Plan — AWS Deployment and Cloud Portfolio Images
 
-**Status:** Planned  
+**Status:** In progress  
 **Created:** June 28, 2026  
 **Milestone goal:** Make the website publicly accessible from an AWS Amplify URL and move Portfolio images from local-only test assets to cloud-hosted image URLs.
-**Implementation progress:** 0/42 tasks — 0%
+**Implementation progress:** 14/42 tasks — 33%
 
 ## Confirmed decisions
 
@@ -91,18 +91,18 @@ frontend:
 
 Amplify project settings:
 
-| Setting         | Planned value                            |
-| --------------- | ---------------------------------------- |
-| Hosting         | AWS Amplify Hosting                      |
-| Source provider | GitHub                                   |
-| Branch          | To be confirmed, likely `main`           |
-| Build command   | `npm run build`                          |
-| Install command | `npm ci`                                 |
-| Publish folder  | `dist`                                   |
-| Public URL      | Amplify-provided URL                     |
-| Custom domain   | Deferred                                 |
-| Forms/backend   | Deferred                                 |
-| AWS region      | To be confirmed, recommended `us-east-1` |
+| Setting         | Planned value        |
+| --------------- | -------------------- |
+| Hosting         | AWS Amplify Hosting  |
+| Source provider | GitHub               |
+| Branch          | `main`               |
+| Build command   | `npm run build`      |
+| Install command | `npm ci`             |
+| Publish folder  | `dist`               |
+| Public URL      | Amplify-provided URL |
+| Custom domain   | Deferred             |
+| Forms/backend   | Deferred             |
+| AWS region      | `us-east-1`          |
 
 ## 5. Cloud image approach
 
@@ -145,19 +145,19 @@ A future milestone may add:
 
 ### Step 1 — Planning and tracking
 
-- [ ] Confirm AWS region.
-- [ ] Confirm GitHub repository and deployment branch.
-- [ ] Confirm cloud image storage approach.
-- [ ] Record Milestone 7 deployment/image decisions.
-- [ ] Update project status and README summaries.
+- [x] Confirm AWS region.
+- [x] Confirm GitHub repository and deployment branch.
+- [x] Confirm cloud image storage approach.
+- [x] Record Milestone 7 deployment/image decisions.
+- [x] Update project status and README summaries.
 
 ### Step 2 — Repository deployment readiness
 
-- [ ] Add `amplify.yml`.
-- [ ] Verify `package-lock.json` is committed and suitable for `npm ci`.
-- [ ] Verify Node/npm versions are acceptable for Amplify build.
-- [ ] Run local `npm ci` if needed.
-- [ ] Run local `npm run build`.
+- [x] Add `amplify.yml`.
+- [x] Verify `package-lock.json` is committed and suitable for `npm ci`.
+- [x] Verify Node/npm versions are acceptable for Amplify build.
+- [x] Run local `npm ci` if needed.
+- [x] Run local `npm run build`.
 
 ### Step 3 — Amplify Hosting setup
 
@@ -165,17 +165,17 @@ A future milestone may add:
 - [ ] Create a new Amplify app.
 - [ ] Connect the GitHub repository.
 - [ ] Select the deployment branch.
-- [ ] Review detected build settings or use `amplify.yml`.
+- [x] Review detected build settings or use `amplify.yml`.
 - [ ] Start the first Amplify build.
 - [ ] Record the Amplify app URL.
 
 ### Step 4 — Cloud image storage setup
 
 - [ ] Create/configure cloud image storage.
-- [ ] Define image folder/prefix naming convention.
+- [x] Define image folder/prefix naming convention.
 - [ ] Upload temporary or real Portfolio image files.
 - [ ] Confirm image URLs are reachable publicly.
-- [ ] Record image upload steps for future use.
+- [x] Record image upload steps for future use.
 
 ### Step 5 — Portfolio cloud image migration
 
@@ -200,7 +200,7 @@ A future milestone may add:
 
 - [ ] Record Amplify app URL.
 - [ ] Record cloud image location.
-- [ ] Record deployment branch.
+- [x] Record deployment branch.
 - [ ] Record build/deploy verification.
 - [ ] Update milestone verification record.
 - [ ] Update project status.
@@ -255,22 +255,33 @@ Milestone 7 is complete when:
 
 ## 11. Verification record
 
-**Date:** TBD  
-**Result:** Pending
+**Date:** June 28, 2026  
+**Result:** In progress
 
 ### Automated checks
 
-- Pending
+- `npm run format:check` — passed
+- `npm run check` — passed; 0 errors, 0 warnings, 0 hints
+- `npm run build` — passed; 9 static pages built in `dist/`
 
 ### Manual checks
 
-- Pending
+- Confirmed local Git branch is `main`.
+- Confirmed GitHub remote is `https://github.com/ybalenko/artist-portfolio-website.git`.
+- Confirmed `.nvmrc` requests Node 22.
+- Confirmed `package-lock.json` exists.
+- Confirmed local `npm ci` was not needed before verification because dependencies were already installed, `package-lock.json` exists, and `npm run check` / `npm run build` passed.
+- Added Amplify configuration to `amplify.yml`.
+- Added deployment runbook at `docs/deployment/aws-amplify.md`.
+- Added Portfolio cloud image runbook at `docs/deployment/portfolio-images.md`.
 
 ### Known limitations
 
 - Custom domain is deferred.
 - Mailing list and Leave a message backend are deferred.
 - Final artwork image set may still be temporary.
+- AWS Console setup has not started yet.
+- Portfolio still references ignored local test images until cloud URLs are available.
 
 ### Deferred work
 

@@ -1,20 +1,20 @@
 # Project Status
 
 **Last updated:** June 28, 2026  
-**Current phase:** Milestone 7 planned; implementation awaiting approval  
-**Current milestone:** Milestone 7 — AWS Deployment and Cloud Portfolio Images (planned)
+**Current phase:** Milestone 7 implementation in progress  
+**Current milestone:** Milestone 7 — AWS Deployment and Cloud Portfolio Images (in progress)
 
 ## Milestone overview
 
-| Milestone | Scope                                          | Status   | Tasks | Progress | Plan                                        |
-| --------- | ---------------------------------------------- | -------- | ----: | -------: | ------------------------------------------- |
-| M1        | Desktop Home page and local project foundation | Complete | 28/28 |     100% | [Milestone 1](../milestones/milestone-1.md) |
-| M2        | Contacts page                                  | Complete | 16/16 |     100% | [Milestone 2](../milestones/milestone-2.md) |
-| M3        | Exhibitions pages and submenu                  | Complete | 18/18 |     100% | [Milestone 3](../milestones/milestone-3.md) |
-| M4        | Press page                                     | Deferred |     — |        — | To be created later                         |
-| M5        | Portfolio gallery and carousel                 | Complete | 22/22 |     100% | [Milestone 5](../milestones/milestone-5.md) |
-| M6        | Resume                                         | Planned  |     — |        — | To be created                               |
-| M7        | AWS deployment and cloud Portfolio images      | Planned  |  0/42 |       0% | [Milestone 7](../milestones/milestone-7.md) |
+| Milestone | Scope                                          | Status      | Tasks | Progress | Plan                                        |
+| --------- | ---------------------------------------------- | ----------- | ----: | -------: | ------------------------------------------- |
+| M1        | Desktop Home page and local project foundation | Complete    | 28/28 |     100% | [Milestone 1](../milestones/milestone-1.md) |
+| M2        | Contacts page                                  | Complete    | 16/16 |     100% | [Milestone 2](../milestones/milestone-2.md) |
+| M3        | Exhibitions pages and submenu                  | Complete    | 18/18 |     100% | [Milestone 3](../milestones/milestone-3.md) |
+| M4        | Press page                                     | Deferred    |     — |        — | To be created later                         |
+| M5        | Portfolio gallery and carousel                 | Complete    | 22/22 |     100% | [Milestone 5](../milestones/milestone-5.md) |
+| M6        | Resume                                         | Planned     |     — |        — | To be created                               |
+| M7        | AWS deployment and cloud Portfolio images      | In progress | 14/42 |      33% | [Milestone 7](../milestones/milestone-7.md) |
 
 Future milestone boundaries are provisional until their plans are approved.
 
@@ -32,12 +32,12 @@ Future milestone boundaries are provisional until their plans are approved.
 
 ### Milestone 7 — AWS Deployment and Cloud Portfolio Images
 
-- **Status:** Planned
+- **Status:** In progress
 - **Progress source:** Checked implementation tasks in [Milestone 7](../milestones/milestone-7.md)
 - **Target:** Desktop web browsers only
-- **Open blockers:** None
+- **Open blockers:** AWS Console/GitHub connection and S3 image storage require owner action or explicit approval before external changes.
 - **Deferred:** Custom domain, contact form backend, mailing-list backend, CAPTCHA, SES, and final image optimization pipeline
-- **Next action:** Confirm AWS region, GitHub branch, and cloud image storage approach before implementation
+- **Next action:** Start owner-approved AWS Amplify setup.
 
 ## Project-level open decisions
 
@@ -56,6 +56,8 @@ See the [Decision log](./decisions.md) for resolved decisions and [Project proce
 
 | Date       | Update                                                    |
 | ---------- | --------------------------------------------------------- |
+| 2026-06-28 | Verified local format, Astro check, and production build  |
+| 2026-06-28 | Started Milestone 7 and added Amplify/image runbooks      |
 | 2026-06-28 | Created Milestone 7 AWS deployment plan                   |
 | 2026-06-26 | Fixed local 404 asset requests for Home and touch icons   |
 | 2026-06-26 | Milestone 5 Portfolio completed after live browser tests  |
