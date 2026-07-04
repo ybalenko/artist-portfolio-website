@@ -3,7 +3,7 @@
 **Status:** In progress  
 **Created:** June 28, 2026  
 **Milestone goal:** Make the website publicly accessible from an AWS Amplify URL and move Portfolio images from local-only test assets to cloud-hosted image URLs.
-**Implementation progress:** 19/42 tasks — 45%
+**Implementation progress:** 22/42 tasks — 52%
 
 ## Confirmed decisions
 
@@ -171,10 +171,10 @@ A future milestone may add:
 
 ### Step 4 — Cloud image storage setup
 
-- [ ] Create/configure cloud image storage.
+- [x] Create/configure cloud image storage.
 - [x] Define image folder/prefix naming convention.
-- [ ] Upload temporary or real Portfolio image files.
-- [ ] Confirm image URLs are reachable publicly.
+- [x] Upload temporary or real Portfolio image files.
+- [x] Confirm image URLs are reachable publicly.
 - [x] Record image upload steps for future use.
 
 ### Step 5 — Portfolio cloud image migration
@@ -255,7 +255,7 @@ Milestone 7 is complete when:
 
 ## 11. Verification record
 
-**Date:** June 28, 2026  
+**Date:** July 4, 2026  
 **Result:** In progress
 
 ### Automated checks
@@ -263,6 +263,8 @@ Milestone 7 is complete when:
 - `npm run format:check` — passed
 - `npm run check` — passed; 0 errors, 0 warnings, 0 hints
 - `npm run build` — passed; 9 static pages built in `dist/`
+- Generated `dist/portfolio/index.html` contains Landscapes and Still life section controls and section containers.
+- Downloaded 18 Still life S3 image URLs to `/tmp` and verified dimensions with `sips`.
 
 ### Manual checks
 
@@ -275,6 +277,9 @@ Milestone 7 is complete when:
 - Added deployment runbook at `docs/deployment/aws-amplify.md`.
 - Added Portfolio cloud image runbook at `docs/deployment/portfolio-images.md`.
 - Owner reported that the Amplify project was deployed.
+- Added Portfolio section structure for Landscapes and Still life using current local test images pending final cloud image URLs.
+- Aligned Exhibitions and Portfolio page-level submenu typography and sizing.
+- Replaced temporary Still life images with 18 public S3 image URLs under `portfolio/stilllifes/`.
 
 ### Known limitations
 
@@ -283,7 +288,7 @@ Milestone 7 is complete when:
 - Final artwork image set may still be temporary.
 - Amplify URL has not been recorded in the project documentation yet.
 - Public-page verification has not been performed yet.
-- Portfolio still references ignored local test images until cloud URLs are available.
+- Landscapes still reference ignored local test images until cloud URLs are available.
 
 ### Deferred work
 

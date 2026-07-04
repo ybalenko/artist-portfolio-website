@@ -33,6 +33,7 @@ This file records approved decisions that affect implementation or more than one
 | D-027 | 2026-06-28 | Scope Milestone 7 to AWS Amplify deployment and cloud Portfolio images                | Publishes the static site first while deferring forms and mailing list | Active for M7 |
 | D-028 | 2026-06-28 | Use Amplify-provided URL before custom domain                                         | Reduces launch complexity and avoids domain setup in Milestone 7       | Active for M7 |
 | D-029 | 2026-06-28 | Use `us-east-1`, GitHub `main`, and simple S3 public image URLs for Milestone 7       | Provides the cheapest/simple deployment baseline before hardening      | Active for M7 |
+| D-030 | 2026-07-04 | Organize Portfolio into Landscapes and Still life sections                            | Supports the prepared artwork set without adding filters/descriptions  | Active        |
 
 ## Adding a decision
 

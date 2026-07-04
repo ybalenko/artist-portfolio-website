@@ -1,9 +1,10 @@
 ---
-import { portfolioImages } from "../data/portfolio";
+import { portfolioSections } from "../data/portfolio";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
-const firstImage = portfolioImages[0];
-const portfolioJson = JSON.stringify(portfolioImages);
+const firstSection = portfolioSections[0];
+const firstImage = firstSection.images[0];
+const portfolioJson = JSON.stringify(portfolioSections);
 ---
 
 <BaseLayout
@@ -16,49 +17,82 @@ const portfolioJson = JSON.stringify(portfolioImages);
       <h1 id="page-title">Selected works</h1>
     </header>
 
-    <div class="portfolio-content" data-portfolio-content>
-      <section class="portfolio-viewer" aria-label="Artwork gallery">
-        <button
-          class="portfolio-feature"
-          type="button"
-          data-open-carousel
-          data-index="0"
-          aria-label="Open selected artwork in carousel"
-        >
-          <img
-            data-selected-image
-            src={firstImage.src}
-            width={firstImage.width}
-            height={firstImage.height}
-            alt={firstImage.alt}
-            fetchpriority="high"
-          />
-        </button>
+    <nav class="portfolio-section-nav" aria-label="Portfolio sections">
+      {
+        portfolioSections.map((section, sectionIndex) => (
+          <button
+            class="portfolio-section-link"
+            class:list={{ active: sectionIndex === 0 }}
+            type="button"
+            data-section-button={section.id}
+            aria-current={sectionIndex === 0 ? "true" : undefined}
+          >
+            {section.label}
+          </button>
+        ))
+      }
+    </nav>
 
-        <div class="portfolio-thumbnails" aria-label="Artwork thumbnails">
-          {
-            portfolioImages.map((image, index) => (
-              <button
-                class="portfolio-thumbnail"
-                class:list={{ active: index === 0 }}
-                type="button"
-                data-thumbnail
-                data-index={index}
-                aria-label={`Select artwork ${index + 1}`}
-                aria-current={index === 0 ? "true" : undefined}
-              >
-                <img
-                  src={image.src}
-                  width={image.width}
-                  height={image.height}
-                  alt={image.alt}
-                  loading={index === 0 ? "eager" : "lazy"}
-                />
-              </button>
-            ))
-          }
-        </div>
-      </section>
+    <div class="portfolio-content" data-portfolio-content>
+      {
+        portfolioSections.map((section, sectionIndex) => (
+          <section
+            class="portfolio-viewer"
+            data-portfolio-section={section.id}
+            aria-labelledby={`portfolio-section-${section.id}`}
+            hidden={sectionIndex === 0 ? undefined : true}
+          >
+            <header class="portfolio-section-header">
+              <h2 id={`portfolio-section-${section.id}`}>{section.label}</h2>
+            </header>
+
+            <button
+              class="portfolio-feature"
+              type="button"
+              data-open-carousel
+              data-section={section.id}
+              data-index="0"
+              aria-label={`Open selected ${section.label.toLowerCase()} artwork in carousel`}
+            >
+              <img
+                data-selected-image
+                src={section.images[0].src}
+                width={section.images[0].width}
+                height={section.images[0].height}
+                alt={section.images[0].alt}
+                fetchpriority={sectionIndex === 0 ? "high" : undefined}
+                loading={sectionIndex === 0 ? "eager" : "lazy"}
+              />
+            </button>
+
+            <div
+              class="portfolio-thumbnails"
+              aria-label={`${section.label} thumbnails`}
+            >
+              {section.images.map((image, index) => (
+                <button
+                  class="portfolio-thumbnail"
+                  class:list={{ active: index === 0 }}
+                  type="button"
+                  data-thumbnail
+                  data-section={section.id}
+                  data-index={index}
+                  aria-label={`Select ${section.label.toLowerCase()} artwork ${index + 1}`}
+                  aria-current={index === 0 ? "true" : undefined}
+                >
+                  <img
+                    src={image.src}
+                    width={image.width}
+                    height={image.height}
+                    alt={image.alt}
+                    loading={index === 0 ? "eager" : "lazy"}
+                  />
+                </button>
+              ))}
+            </div>
+          </section>
+        ))
+      }
     </div>
 
     <section
@@ -107,34 +141,61 @@ const portfolioJson = JSON.stringify(portfolioImages);
   </div>
 
   <script is:inline define:vars={{ portfolioJson }}>
-    const portfolioImages = JSON.parse(portfolioJson);
-    const selectedImage = document.querySelector("[data-selected-image]");
+    const portfolioSections = JSON.parse(portfolioJson);
     const carousel = document.querySelector("[data-carousel]");
     const carouselImage = document.querySelector("[data-carousel-image]");
     const portfolioContent = document.querySelector("[data-portfolio-content]");
-    const openButton = document.querySelector("[data-open-carousel]");
     const closeButton = document.querySelector("[data-carousel-close]");
     const previousButton = document.querySelector("[data-carousel-previous]");
     const nextButton = document.querySelector("[data-carousel-next]");
+    const sectionElements = Array.from(
+      document.querySelectorAll("[data-portfolio-section]"),
+    );
+    const sectionButtons = Array.from(
+      document.querySelectorAll("[data-section-button]"),
+    );
+    const openButtons = Array.from(
+      document.querySelectorAll("[data-open-carousel]"),
+    );
     const thumbnailButtons = Array.from(
       document.querySelectorAll("[data-thumbnail]"),
     );
 
+    let activeSectionId = portfolioSections[0].id;
     let selectedIndex = 0;
-    let lastCarouselTrigger = openButton;
+    let lastCarouselTrigger = openButtons[0];
 
-    const normalizeIndex = (index) =>
-      (index + portfolioImages.length) % portfolioImages.length;
+    const getActiveSection = () =>
+      portfolioSections.find((section) => section.id === activeSectionId) ??
+      portfolioSections[0];
+
+    const getActiveSectionElement = () =>
+      sectionElements.find(
+        (sectionElement) =>
+          sectionElement.dataset.portfolioSection === activeSectionId,
+      );
+
+    const normalizeIndex = (index) => {
+      const images = getActiveSection().images;
+      return (index + images.length) % images.length;
+    };
 
     const updateHash = () => {
-      const image = portfolioImages[selectedIndex];
+      const image = getActiveSection().images[selectedIndex];
       if (!image) return;
-      history.replaceState(null, "", `#${image.id}`);
+      history.replaceState(null, "", `#${activeSectionId}/${image.id}`);
     };
 
     const setSelectedImage = (index, shouldUpdateHash = true) => {
       selectedIndex = normalizeIndex(index);
-      const image = portfolioImages[selectedIndex];
+      const image = getActiveSection().images[selectedIndex];
+      const activeSectionElement = getActiveSectionElement();
+      const selectedImage = activeSectionElement?.querySelector(
+        "[data-selected-image]",
+      );
+      const activeOpenButton = activeSectionElement?.querySelector(
+        "[data-open-carousel]",
+      );
 
       selectedImage.src = image.src;
       selectedImage.alt = image.alt;
@@ -146,10 +207,12 @@ const portfolioJson = JSON.stringify(portfolioImages);
       carouselImage.width = image.width;
       carouselImage.height = image.height;
 
-      openButton.dataset.index = String(selectedIndex);
+      activeOpenButton.dataset.index = String(selectedIndex);
 
-      thumbnailButtons.forEach((button, buttonIndex) => {
-        const isActive = buttonIndex === selectedIndex;
+      thumbnailButtons.forEach((button) => {
+        const isActive =
+          button.dataset.section === activeSectionId &&
+          Number(button.dataset.index) === selectedIndex;
         button.classList.toggle("active", isActive);
         if (isActive) {
           button.setAttribute("aria-current", "true");
@@ -161,6 +224,37 @@ const portfolioJson = JSON.stringify(portfolioImages);
       if (shouldUpdateHash) {
         updateHash();
       }
+    };
+
+    const setActiveSection = (
+      sectionId,
+      index = 0,
+      shouldUpdateHash = true,
+    ) => {
+      const requestedSection = portfolioSections.find(
+        (section) => section.id === sectionId,
+      );
+
+      if (!requestedSection) return;
+
+      activeSectionId = requestedSection.id;
+
+      sectionElements.forEach((sectionElement) => {
+        sectionElement.hidden =
+          sectionElement.dataset.portfolioSection !== activeSectionId;
+      });
+
+      sectionButtons.forEach((button) => {
+        const isActive = button.dataset.sectionButton === activeSectionId;
+        button.classList.toggle("active", isActive);
+        if (isActive) {
+          button.setAttribute("aria-current", "true");
+        } else {
+          button.removeAttribute("aria-current");
+        }
+      });
+
+      setSelectedImage(index, shouldUpdateHash);
     };
 
     const openCarousel = (trigger) => {
@@ -181,18 +275,30 @@ const portfolioJson = JSON.stringify(portfolioImages);
     const showPrevious = () => setSelectedImage(selectedIndex - 1);
     const showNext = () => setSelectedImage(selectedIndex + 1);
 
+    sectionButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        setActiveSection(button.dataset.sectionButton);
+      });
+    });
+
     thumbnailButtons.forEach((button) => {
       button.addEventListener("click", () => {
-        setSelectedImage(Number(button.dataset.index));
+        setActiveSection(button.dataset.section, Number(button.dataset.index));
       });
 
       button.addEventListener("dblclick", () => {
-        setSelectedImage(Number(button.dataset.index));
+        setActiveSection(button.dataset.section, Number(button.dataset.index));
         openCarousel(button);
       });
     });
 
-    openButton.addEventListener("click", () => openCarousel(openButton));
+    openButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        setActiveSection(button.dataset.section, Number(button.dataset.index));
+        openCarousel(button);
+      });
+    });
+
     closeButton.addEventListener("click", closeCarousel);
     previousButton.addEventListener("click", showPrevious);
     nextButton.addEventListener("click", showNext);
@@ -217,13 +323,26 @@ const portfolioJson = JSON.stringify(portfolioImages);
     });
 
     const applyHashSelection = () => {
-      const imageId = window.location.hash.replace("#", "");
-      const imageIndex = portfolioImages.findIndex(
+      const hashValue = window.location.hash.replace("#", "");
+      if (!hashValue) return;
+
+      const [sectionId, imageId] = hashValue.includes("/")
+        ? hashValue.split("/")
+        : ["", hashValue];
+      const requestedSection = sectionId
+        ? portfolioSections.find((section) => section.id === sectionId)
+        : portfolioSections.find((section) =>
+            section.images.some((image) => image.id === imageId),
+          );
+
+      if (!requestedSection) return;
+
+      const imageIndex = requestedSection.images.findIndex(
         (image) => image.id === imageId,
       );
 
       if (imageIndex >= 0) {
-        setSelectedImage(imageIndex, false);
+        setActiveSection(requestedSection.id, imageIndex, false);
       }
     };
 

@@ -26,6 +26,12 @@ Recommended file format:
 - `.webp` later if an optimization pipeline is added
 - Web-sized copies rather than private high-resolution originals
 
+Current S3 prefixes used by the project:
+
+```text
+portfolio/stilllifes/
+```
+
 ## Upload workflow
 
 These steps must be performed by the owner in AWS because they create or update cloud resources.

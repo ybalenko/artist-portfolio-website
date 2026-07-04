@@ -1,6 +1,6 @@
 # Project Status
 
-**Last updated:** June 28, 2026  
+**Last updated:** July 4, 2026  
 **Current phase:** Milestone 7 implementation in progress  
 **Current milestone:** Milestone 7 — AWS Deployment and Cloud Portfolio Images (in progress)
 
@@ -14,7 +14,7 @@
 | M4        | Press page                                     | Deferred    |     — |        — | To be created later                         |
 | M5        | Portfolio gallery and carousel                 | Complete    | 22/22 |     100% | [Milestone 5](../milestones/milestone-5.md) |
 | M6        | Resume                                         | Planned     |     — |        — | To be created                               |
-| M7        | AWS deployment and cloud Portfolio images      | In progress | 19/42 |      45% | [Milestone 7](../milestones/milestone-7.md) |
+| M7        | AWS deployment and cloud Portfolio images      | In progress | 22/42 |      52% | [Milestone 7](../milestones/milestone-7.md) |
 
 Future milestone boundaries are provisional until their plans are approved.
 
@@ -37,7 +37,7 @@ Future milestone boundaries are provisional until their plans are approved.
 - **Target:** Desktop web browsers only
 - **Open blockers:** Amplify URL and build status are needed before public verification. S3 image storage still requires owner action or explicit approval before external changes.
 - **Deferred:** Custom domain, contact form backend, mailing-list backend, CAPTCHA, SES, and final image optimization pipeline
-- **Next action:** Record the Amplify URL/build status, then verify public routes and proceed to cloud Portfolio images.
+- **Next action:** Add Landscape cloud image URLs, then record the Amplify URL/build status and verify public routes.
 
 ## Project-level open decisions
 
@@ -56,6 +56,9 @@ See the [Decision log](./decisions.md) for resolved decisions and [Project proce
 
 | Date       | Update                                                    |
 | ---------- | --------------------------------------------------------- |
+| 2026-07-04 | Added 18 Still life S3 image URLs to Portfolio metadata   |
+| 2026-07-04 | Aligned Exhibitions and Portfolio section submenu styling |
+| 2026-07-04 | Added Portfolio Landscapes and Still life section change  |
 | 2026-06-28 | Owner reported AWS Amplify deployment was created         |
 | 2026-06-28 | Verified local format, Astro check, and production build  |
 | 2026-06-28 | Started Milestone 7 and added Amplify/image runbooks      |

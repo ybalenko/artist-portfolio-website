@@ -17,14 +17,14 @@ The portfolio takes inspiration from the restrained, image-led presentation of t
 - Exhibitions routes for `/exhibitions/current/`, `/exhibitions/past/`, and `/exhibitions/upcoming/`.
 - Clear empty states for exhibition sections until real content is available.
 - Contacts page with draft Privacy Notice, copyright notice, Facebook link, disabled message form, and disabled mailing-list signup.
-- Portfolio gallery and carousel using local-only test artwork images.
+- Portfolio gallery and carousel with Landscapes and Still life sections; Still life uses S3 cloud images and Landscapes still uses temporary local test images.
 - Footer copyright and Facebook social link.
 - Documentation and milestone tracking under `docs/`.
 
 ## Planned features
 
 - Press page for publications, articles, interviews, and public mentions.
-- Cloud-hosted Portfolio images for the deployed gallery and carousel.
+- Remaining Landscape cloud image migration for the deployed gallery and carousel.
 - Resume navigation that opens the current résumé PDF.
 - Real exhibition content and optional exhibition images.
 - Code-managed artwork, Press, Exhibitions, résumé, Contacts, and navigation content.

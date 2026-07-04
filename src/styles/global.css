@@ -486,18 +486,26 @@ a:hover {
   padding-bottom: 84px;
 }
 
-.section-navigation {
+.section-navigation,
+.portfolio-section-nav {
   display: flex;
   width: fit-content;
+  gap: 0;
   margin-bottom: 42px;
   border-top: var(--border-width) solid var(--color-accent);
   background: var(--color-panel);
 }
 
-.section-navigation a {
+.section-navigation a,
+.portfolio-section-link {
   display: block;
+  border: 0;
+  border-radius: 0;
   padding: 14px 22px;
+  background: transparent;
   color: var(--color-text);
+  cursor: pointer;
+  font: inherit;
   font-size: 13px;
   font-weight: 400;
   letter-spacing: 0.1em;
@@ -507,7 +515,9 @@ a:hover {
 }
 
 .section-navigation a:hover,
-.section-navigation a.active {
+.section-navigation a.active,
+.portfolio-section-link:hover,
+.portfolio-section-link.active {
   color: var(--color-accent);
 }
 
@@ -584,6 +594,18 @@ a:hover {
 .portfolio-viewer {
   display: grid;
   gap: 30px;
+}
+
+.portfolio-viewer[hidden] {
+  display: none;
+}
+
+.portfolio-section-header h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
 .portfolio-feature,
