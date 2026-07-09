@@ -3,7 +3,7 @@
 **Status:** In progress  
 **Created:** June 28, 2026  
 **Milestone goal:** Make the website publicly accessible from an AWS Amplify URL and move Portfolio images from local-only test assets to cloud-hosted image URLs.
-**Implementation progress:** 30/42 tasks — 71%
+**Implementation progress:** 31/43 tasks — 72%
 
 ## Confirmed decisions
 
@@ -192,6 +192,7 @@ S3-hosted manifest loading is not yet implemented. Until then, `src/data/portfol
 - [x] Run `npm run format:check`.
 - [x] Run `npm run check`.
 - [x] Run `npm run build`.
+- [x] Sort published Portfolio images newest first by artwork year across all sections.
 - [ ] Push changes after user approval.
 
 ### Step 6 — Public verification
@@ -273,6 +274,7 @@ Milestone 7 is complete when:
 - Added Portfolio UI status display for artwork availability.
 - Added Other Portfolio section/tab to implementation and documentation.
 - Removed the Exhibitions header submenu and documented the single-page section-control pattern.
+- Sorted published Portfolio images newest first by artwork year across all sections.
 
 ### Known limitations
 
@@ -284,6 +286,7 @@ Milestone 7 is complete when:
 - `npm run format:check` — passed
 - `npm run check` — passed; 0 errors, 0 warnings, 0 hints
 - `npm run build` — passed; 9 static pages built in `dist/`
+- Generated `dist/portfolio/index.html` was inspected after newest-first sorting; Landscapes begins with 2026 items, Still life begins with 2025 items, and Other has no published items yet.
 - Generated `dist/portfolio/index.html` contains Landscapes, Still life, and Other section controls and section containers.
 - Generated `dist/portfolio/index.html` contains no `/artwork-local/` image references after wiring Portfolio to the local manifest.
 - Downloaded Still life S3 image URLs to `/tmp` and verified dimensions with `sips`; the current manifest contains 17 published Still life images.
@@ -308,8 +311,9 @@ Milestone 7 is complete when:
 - Added manifest design support for availability metadata.
 - Added visible Portfolio and carousel `Status` metadata mapped from `availability`.
 - Wired Portfolio data to the local manifest at `docs/deployment/manifest.json`.
-- Confirmed the local manifest has 17 published Still life items, 0 published Landscapes items, and 0 published Other items.
+- Confirmed the local manifest has 9 published Landscapes items, 17 published Still life items, and 0 published Other items.
 - Updated Exhibitions so `/exhibitions/` hosts Current, Past, and Upcoming sections; legacy status URLs redirect to hash sections.
+- Confirmed generated Portfolio data sorts Landscapes, Still life, and Other newest first by artwork year, preserving manifest order within the same year.
 
 ### Known limitations
 
@@ -318,7 +322,6 @@ Milestone 7 is complete when:
 - Final artwork image set may still be temporary.
 - Amplify URL has not been recorded in the project documentation yet.
 - Public-page verification has not been performed yet.
-- Landscapes has no published manifest images yet, so it shows an empty state.
 - Other has no published manifest images yet, so it shows an empty state.
 - Several artwork metadata values are placeholders until final name, medium, and size details are provided.
 

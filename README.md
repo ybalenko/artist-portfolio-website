@@ -16,14 +16,14 @@ The portfolio takes inspiration from the restrained, image-led presentation of t
 - Exhibitions page with Current, Past, and Upcoming section controls.
 - Clear empty states for exhibition sections until real content is available.
 - Contacts page with draft Privacy Notice, copyright notice, Facebook link, disabled message form, and disabled mailing-list signup.
-- Portfolio gallery and carousel with Landscapes, Still life, and Other sections, selected-image metadata, and local-manifest-driven S3 Still life images.
+- Portfolio gallery and carousel with Landscapes, Still life, and Other sections, selected-image metadata, newest-first section ordering, and local-manifest-driven S3 images.
 - Footer copyright and Facebook social link.
 - Documentation and milestone tracking under `docs/`.
 
 ## Planned features
 
 - Press page for publications, articles, interviews, and public mentions.
-- Landscape and Other cloud image publishing in the Portfolio manifest.
+- Other cloud image publishing in the Portfolio manifest.
 - Resume navigation that opens the current résumé PDF.
 - Real exhibition content and optional exhibition images.
 - Code-managed artwork, Press, Exhibitions, résumé, Contacts, and navigation content.

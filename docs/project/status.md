@@ -14,7 +14,7 @@
 | M4        | Press page                                     | Deferred    |     — |        — | To be created later                         |
 | M5        | Portfolio gallery and carousel                 | Complete    | 22/22 |     100% | [Milestone 5](../milestones/milestone-5.md) |
 | M6        | Resume                                         | Planned     |     — |        — | To be created                               |
-| M7        | AWS deployment and cloud Portfolio images      | In progress | 30/42 |      71% | [Milestone 7](../milestones/milestone-7.md) |
+| M7        | AWS deployment and cloud Portfolio images      | In progress | 31/43 |      72% | [Milestone 7](../milestones/milestone-7.md) |
 
 Future milestone boundaries are provisional until their plans are approved.
 
@@ -35,9 +35,9 @@ Future milestone boundaries are provisional until their plans are approved.
 - **Status:** In progress
 - **Progress source:** Checked implementation tasks in [Milestone 7](../milestones/milestone-7.md)
 - **Target:** Desktop web browsers only
-- **Open blockers:** Amplify URL and build status are needed before public verification. S3 image storage still requires owner action or explicit approval before external changes.
+- **Open blockers:** Amplify URL and build status are needed before public verification.
 - **Deferred:** Custom domain, contact form backend, mailing-list backend, CAPTCHA, SES, and final image optimization pipeline
-- **Next action:** Record the Amplify URL/build status, then upload/sync the Portfolio manifest to S3 or add published Landscape/Other manifest images when available.
+- **Next action:** Record the Amplify URL/build status and verify the deployed Portfolio carousel against the latest manifest-backed artwork sections.
 
 ## Project-level open decisions
 
@@ -56,6 +56,7 @@ See the [Decision log](./decisions.md) for resolved decisions and [Project proce
 
 | Date       | Update                                                      |
 | ---------- | ----------------------------------------------------------- |
+| 2026-07-09 | Sorted all Portfolio sections newest first by artwork year  |
 | 2026-07-09 | Changed Exhibitions to page sections without header submenu |
 | 2026-07-09 | Wired Portfolio to local manifest data source               |
 | 2026-07-09 | Added Other Portfolio section/tab                           |

@@ -169,6 +169,12 @@ const normalizeBaseUrl = (baseUrl: string) => baseUrl.replace(/\/$/, "");
 const getImageUrl = (baseUrl: string, file: string) =>
   `${normalizeBaseUrl(baseUrl)}/${file}`;
 
+const getSortableYear = (year: string) => {
+  if (/^\d{4}$/.test(year)) return Number(year);
+
+  return Number.NEGATIVE_INFINITY;
+};
+
 const manifest = portfolioManifest as PortfolioManifest;
 
 validateManifest(manifest);
@@ -178,8 +184,17 @@ export const portfolioSections: PortfolioSection[] = manifest.sections.map(
     id: section.id,
     label: section.label,
     images: section.items
-      .filter((item) => item.published)
-      .map((item) => ({
+      .map((item, index) => ({ item, index }))
+      .filter(({ item }) => item.published)
+      .sort((left, right) => {
+        const yearDifference =
+          getSortableYear(right.item.year) - getSortableYear(left.item.year);
+
+        if (yearDifference !== 0) return yearDifference;
+
+        return left.index - right.index;
+      })
+      .map(({ item }) => ({
         id: item.id,
         src: getImageUrl(manifest.baseUrl, item.file),
         alt: item.alt,

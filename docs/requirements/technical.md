@@ -84,6 +84,7 @@ Primary navigation is Home, Press, Exhibitions, Portfolio, Resume, and Contacts.
 - Do not render filters, prices, comments, purchase controls, or video.
 - Organize images into code-managed `landscapes`, `stilllife`, and `other` sections.
 - Each image record includes `name`, `medium`, `size`, `year`, and `availability` metadata.
+- Sort published images newest first within each section by `year`; preserve manifest order for images from the same year.
 - Display the selected image metadata on the Portfolio page and in the carousel.
 - Follow the portfolio interaction pattern of the [David Hockney Drawings — 2010s page](https://www.hockney.com/index.php/works/drawings/2010s): a prominent selected image with a supporting thumbnail collection and minimal surrounding interface.
 - On initial load, display the first configured image prominently and expose the complete ordered thumbnail gallery.

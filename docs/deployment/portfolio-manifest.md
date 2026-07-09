@@ -108,7 +108,7 @@ https://yulia-balenko-portfolio-images.s3.us-east-1.amazonaws.com/portfolio/stil
 
 The display order is the order of records in the manifest.
 
-For Still life, list newer artwork first. For Landscapes, use the desired display order when final images are ready.
+The website sorts published artwork newest first within each section by `year` during the Astro build. Manifest order is still meaningful as the tie-breaker for works from the same year.
 
 This avoids hidden sorting behavior and makes the public gallery order reviewable directly in the manifest.
 

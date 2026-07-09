@@ -102,6 +102,7 @@ The Portfolio route is deliberately visual and takes interaction inspiration fro
 
 - Static markup displays one prominent selected image and an ordered thumbnail collection.
 - The gallery is organized into Landscapes, Still life, and Other sections.
+- Published works appear newest first within each Portfolio section, with manifest order preserved for same-year works.
 - Selected artwork displays restrained metadata: name, medium, size, year, and availability status.
 - It contains no filters, pricing, commerce, or comments.
 - A small client component updates the prominent image and provides carousel behavior.
