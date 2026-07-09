@@ -21,14 +21,14 @@ The primary navigation contains:
 
 1. **Home**
 2. **Press**
-3. **Exhibitions**, with submenus for **Current**, **Past**, and **Upcoming**
+3. **Exhibitions**
 4. **Portfolio**
 5. **Resume**
 6. **Contacts**
 
 Home is the default landing page.
 
-Navigation must work on mobile and desktop, identify the current destination, expose the Exhibitions submenu accessibly, and allow visitors to navigate without relying on browser history.
+Navigation must work on mobile and desktop, identify the current destination, and allow visitors to navigate without relying on browser history.
 
 ### 3.1 Home
 
@@ -44,6 +44,7 @@ Navigation must work on mobile and desktop, identify the current destination, ex
 
 ### 3.3 Exhibitions
 
+- Exhibitions is a single page with section controls similar to the Portfolio page.
 - **Current:** exhibitions taking place now.
 - **Past:** completed exhibitions.
 - **Upcoming:** announced future exhibitions.
@@ -117,7 +118,7 @@ The Privacy Notice explains contact messages, mailing-list data, CAPTCHA, email 
 
 - The website works clearly on current mobile and desktop browsers.
 - Artwork remains the visual focus.
-- Navigation, submenu, carousel, forms, links, and résumé are keyboard accessible and understandable.
+- Navigation, section controls, carousel, forms, links, and résumé are keyboard accessible and understandable.
 - Images are optimized for web delivery.
 - Public forms are protected against spam and unsafe input.
 - Content is recoverable from source control and AWS backups.
@@ -129,7 +130,7 @@ P0 is ready when:
 
 - Home is the default page and displays the artist statement.
 - Visitors can navigate among Home, Press, Exhibitions, Portfolio, Resume, and Contacts.
-- Exhibitions provides accessible Current, Past, and Upcoming submenu destinations.
+- Exhibitions provides accessible Current, Past, and Upcoming page sections.
 - Portfolio displays only images and an accessible carousel and restores gallery context when closed.
 - Press and Exhibitions display configured content and external links correctly.
 - Resume opens the current PDF.
@@ -140,7 +141,7 @@ P0 is ready when:
 ## 9. Remaining decisions
 
 1. Does Resume open in the same tab or a new tab?
-2. Should Exhibitions use separate pages or one page with submenu-controlled sections?
+2. Should the old Exhibitions status URLs remain as redirects permanently?
 3. What address receives contact messages, and how long may delivery diagnostics be retained?
 4. Should carousel images show visible titles or only accessibility text?
 5. What content ordering, visual design, public links, domain, budget, and launch date will be used?

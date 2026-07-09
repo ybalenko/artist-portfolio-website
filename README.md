@@ -13,8 +13,7 @@ The portfolio takes inspiration from the restrained, image-led presentation of t
 - Astro and TypeScript project foundation.
 - Home page as the default landing page with temporary artist statement and artwork.
 - Shared header navigation for Home, Press, Exhibitions, Portfolio, Resume, and Contacts.
-- Exhibitions header submenu with Current, Past, and Upcoming links.
-- Exhibitions routes for `/exhibitions/current/`, `/exhibitions/past/`, and `/exhibitions/upcoming/`.
+- Exhibitions page with Current, Past, and Upcoming section controls.
 - Clear empty states for exhibition sections until real content is available.
 - Contacts page with draft Privacy Notice, copyright notice, Facebook link, disabled message form, and disabled mailing-list signup.
 - Portfolio gallery and carousel with Landscapes, Still life, and Other sections, selected-image metadata, and local-manifest-driven S3 Still life images.
@@ -92,7 +91,7 @@ npm run format:check # Verify formatting
 | --------- | ---------------------------------------------- | ----------- |
 | M1        | Desktop Home page and local project foundation | Complete    |
 | M2        | Contacts page                                  | Complete    |
-| M3        | Exhibitions pages and submenu                  | Complete    |
+| M3        | Exhibitions page and section controls          | Complete    |
 | M4        | Press page                                     | Deferred    |
 | M5        | Portfolio gallery and carousel                 | Complete    |
 | M6        | Resume                                         | Planned     |

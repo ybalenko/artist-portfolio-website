@@ -41,6 +41,7 @@ This file records approved decisions that affect implementation or more than one
 | D-035 | 2026-07-09 | Display availability as `Status` in the Portfolio UI                                  | Uses a visitor-friendly label for artwork availability metadata        | Active        |
 | D-036 | 2026-07-09 | Add `Other` as a Portfolio section                                                    | Supports artwork that does not belong in Landscapes or Still life      | Active        |
 | D-037 | 2026-07-09 | Load Portfolio data from the local manifest during build                              | Removes hardcoded image records while deferring S3 manifest fetching   | Active        |
+| D-038 | 2026-07-09 | Remove the Exhibitions header submenu                                                 | Simplifies navigation; Current/Past/Upcoming move to page sections     | Active        |
 
 ## Adding a decision
 

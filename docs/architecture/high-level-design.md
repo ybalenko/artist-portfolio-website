@@ -72,18 +72,17 @@ flowchart TB
 Home (/)
 Press (/press)
 Exhibitions
-  ├── Current (/exhibitions/current)
-  ├── Past (/exhibitions/past)
-  └── Upcoming (/exhibitions/upcoming)
+  └── Current, Past, Upcoming sections (/exhibitions)
 Portfolio (/portfolio)
 Resume (/resume → PDF)
 Contacts (/contacts)
 ```
 
-- `/exhibitions` redirects to `/exhibitions/current`.
+- `/exhibitions` renders Current, Past, and Upcoming as page sections.
+- `/exhibitions/current`, `/exhibitions/past`, and `/exhibitions/upcoming` redirect to the matching `/exhibitions/` hash section.
 - Contacts contains a linkable Privacy Notice section.
 - There is no About or separate Privacy route.
-- The shared navigation uses normal links and an accessible Exhibitions submenu.
+- The shared navigation uses normal links. Exhibitions does not use a header submenu.
 
 Repository content models are:
 
@@ -146,17 +145,17 @@ Subscription Lambda stores pending and confirmed consent in DynamoDB. SES sends 
 
 ## 7. Component responsibilities
 
-| Component           | Responsibility                                                                                            |
-| ------------------- | --------------------------------------------------------------------------------------------------------- |
-| Astro               | Static pages, content validation, navigation, submenu, gallery, carousel shell, metadata, Resume redirect |
-| Amplify             | Git-connected build, atomic deployment, CDN, TLS, custom domain                                           |
-| API Gateway         | Form routes, CORS, throttling, payload limits                                                             |
-| Contact Lambda      | Validate and forward messages to SES without storage                                                      |
-| Subscription Lambda | Double opt-in, unsubscribe, consent, and SES email                                                        |
-| DynamoDB            | Subscriber, token, consent, and abuse-control state                                                       |
-| SES                 | Contact delivery and subscription email                                                                   |
-| Turnstile           | Bot checks for public write forms                                                                         |
-| CloudWatch/Budgets  | Operational and cost alerts without visitor analytics                                                     |
+| Component           | Responsibility                                                                                                     |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| Astro               | Static pages, content validation, navigation, section controls, gallery, carousel shell, metadata, Resume redirect |
+| Amplify             | Git-connected build, atomic deployment, CDN, TLS, custom domain                                                    |
+| API Gateway         | Form routes, CORS, throttling, payload limits                                                                      |
+| Contact Lambda      | Validate and forward messages to SES without storage                                                               |
+| Subscription Lambda | Double opt-in, unsubscribe, consent, and SES email                                                                 |
+| DynamoDB            | Subscriber, token, consent, and abuse-control state                                                                |
+| SES                 | Contact delivery and subscription email                                                                            |
+| Turnstile           | Bot checks for public write forms                                                                                  |
+| CloudWatch/Budgets  | Operational and cost alerts without visitor analytics                                                              |
 
 ## 8. Security and privacy
 
@@ -213,7 +212,7 @@ sequenceDiagram
 Before implementation, demonstrate:
 
 1. Home is `/` and renders the statement.
-2. Exact navigation and accessible Exhibitions submenu work.
+2. Exact navigation and accessible Exhibitions section controls work.
 3. Press and Exhibition categories generate from validated content.
 4. Portfolio contains only images and the accessible carousel.
 5. Carousel URL, focus restoration, and responsive images work.

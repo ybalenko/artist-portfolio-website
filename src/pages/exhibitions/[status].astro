@@ -1,86 +1,11 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import {
-  exhibitionSections,
-  exhibitionsByStatus,
-  type ExhibitionSection,
-} from "../../data/exhibitions";
-
-interface Props {
-  section: ExhibitionSection;
-}
+import { exhibitionSections } from "../../data/exhibitions";
 
 export function getStaticPaths() {
   return exhibitionSections.map((section) => ({
     params: { status: section.status },
-    props: { section },
   }));
 }
 
-const { section } = Astro.props;
-const entries = exhibitionsByStatus[section.status];
+return Astro.redirect(`/exhibitions/#${Astro.params.status}`);
 ---
-
-<BaseLayout
-  title={`${section.label} Exhibitions — Yulia Balenko`}
-  description={section.description}
->
-  <div class="site-container exhibitions-page" aria-labelledby="page-title">
-    <header class="page-intro">
-      <p class="eyebrow">Exhibitions</p>
-      <h1 id="page-title">{section.title}</h1>
-      <p>
-        Exhibition information is managed through the website source files.
-        Current, past, and upcoming sections can be updated as details become
-        available.
-      </p>
-    </header>
-
-    <nav class="section-navigation" aria-label="Exhibition sections">
-      {
-        exhibitionSections.map((item) => (
-          <a
-            href={`/exhibitions/${item.status}/`}
-            class:list={{ active: item.status === section.status }}
-            aria-current={item.status === section.status ? "page" : undefined}
-          >
-            {item.label}
-          </a>
-        ))
-      }
-    </nav>
-
-    <section class="exhibition-list" aria-labelledby="list-title">
-      <h2 id="list-title" class="visually-hidden">{section.title}</h2>
-      {
-        entries.length > 0 ? (
-          entries.map((entry) => (
-            <article class="exhibition-card">
-              <div>
-                <h3>{entry.title}</h3>
-                <p class="exhibition-meta">
-                  {[entry.venue, entry.location].filter(Boolean).join(" · ")}
-                </p>
-                <p class="exhibition-date">
-                  {entry.startDate}
-                  {entry.endDate ? ` – ${entry.endDate}` : ""}
-                </p>
-                {entry.description && <p>{entry.description}</p>}
-              </div>
-              {entry.url && (
-                <a href={entry.url} target="_blank" rel="noopener noreferrer">
-                  Visit exhibition page
-                </a>
-              )}
-            </article>
-          ))
-        ) : (
-          <div class="empty-state">
-            <p class="eyebrow">Nothing listed</p>
-            <p>{section.emptyMessage}</p>
-          </div>
-        )
-      }
-    </section>
-  </div>
-</BaseLayout>

@@ -1,3 +1,152 @@
 ---
-return Astro.redirect("/exhibitions/current/");
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { exhibitionSections, exhibitionsByStatus } from "../data/exhibitions";
+
+const exhibitionsJson = JSON.stringify(exhibitionSections);
 ---
+
+<BaseLayout
+  title="Exhibitions — Yulia Balenko"
+  description="Current, past, and upcoming exhibitions featuring work by Yulia Balenko."
+>
+  <div class="site-container exhibitions-page" aria-labelledby="page-title">
+    <header class="page-intro">
+      <p class="eyebrow">Exhibitions</p>
+      <h1 id="page-title">Exhibitions</h1>
+      <p>
+        Exhibition information is managed through the website source files.
+        Current, past, and upcoming sections can be updated as details become
+        available.
+      </p>
+    </header>
+
+    <nav class="section-navigation" aria-label="Exhibition sections">
+      {
+        exhibitionSections.map((section, sectionIndex) => (
+          <button
+            class="section-navigation-button"
+            class:list={{ active: sectionIndex === 0 }}
+            type="button"
+            data-exhibition-section-button={section.status}
+            aria-current={sectionIndex === 0 ? "true" : undefined}
+          >
+            {section.label}
+          </button>
+        ))
+      }
+    </nav>
+
+    <div class="exhibition-sections" data-exhibition-sections>
+      {
+        exhibitionSections.map((section, sectionIndex) => {
+          const entries = exhibitionsByStatus[section.status];
+
+          return (
+            <section
+              class="exhibition-view"
+              data-exhibition-section={section.status}
+              aria-labelledby={`exhibition-section-${section.status}`}
+              hidden={sectionIndex === 0 ? undefined : true}
+            >
+              <header class="portfolio-section-header exhibition-section-header">
+                <h2 id={`exhibition-section-${section.status}`}>
+                  {section.title}
+                </h2>
+              </header>
+
+              <div class="exhibition-list">
+                {entries.length > 0 ? (
+                  entries.map((entry) => (
+                    <article class="exhibition-card">
+                      <div>
+                        <h3>{entry.title}</h3>
+                        <p class="exhibition-meta">
+                          {[entry.venue, entry.location]
+                            .filter(Boolean)
+                            .join(" · ")}
+                        </p>
+                        <p class="exhibition-date">
+                          {entry.startDate}
+                          {entry.endDate ? ` – ${entry.endDate}` : ""}
+                        </p>
+                        {entry.description && <p>{entry.description}</p>}
+                      </div>
+                      {entry.url && (
+                        <a
+                          href={entry.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          Visit exhibition page
+                        </a>
+                      )}
+                    </article>
+                  ))
+                ) : (
+                  <div class="empty-state">
+                    <p class="eyebrow">Nothing listed</p>
+                    <p>{section.emptyMessage}</p>
+                  </div>
+                )}
+              </div>
+            </section>
+          );
+        })
+      }
+    </div>
+  </div>
+
+  <script is:inline define:vars={{ exhibitionsJson }}>
+    const exhibitionSections = JSON.parse(exhibitionsJson);
+    const sectionButtons = Array.from(
+      document.querySelectorAll("[data-exhibition-section-button]"),
+    );
+    const sectionElements = Array.from(
+      document.querySelectorAll("[data-exhibition-section]"),
+    );
+
+    const setActiveSection = (sectionId, shouldUpdateHash = true) => {
+      const requestedSection = exhibitionSections.find(
+        (section) => section.status === sectionId,
+      );
+
+      if (!requestedSection) return;
+
+      sectionElements.forEach((sectionElement) => {
+        sectionElement.hidden =
+          sectionElement.dataset.exhibitionSection !== requestedSection.status;
+      });
+
+      sectionButtons.forEach((button) => {
+        const isActive =
+          button.dataset.exhibitionSectionButton === requestedSection.status;
+        button.classList.toggle("active", isActive);
+        if (isActive) {
+          button.setAttribute("aria-current", "true");
+        } else {
+          button.removeAttribute("aria-current");
+        }
+      });
+
+      if (shouldUpdateHash) {
+        history.replaceState(null, "", `#${requestedSection.status}`);
+      }
+    };
+
+    sectionButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        setActiveSection(button.dataset.exhibitionSectionButton);
+      });
+    });
+
+    const applyHashSelection = () => {
+      const hashValue = window.location.hash.replace("#", "");
+      if (!hashValue) return;
+
+      setActiveSection(hashValue, false);
+    };
+
+    window.addEventListener("hashchange", applyHashSelection);
+    applyHashSelection();
+  </script>
+</BaseLayout>

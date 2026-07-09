@@ -49,7 +49,7 @@ Deferred and planned future milestones:
 
 - Home — default landing page with temporary artist statement and artwork.
 - Contacts — static contact page with draft privacy/copyright sections, Facebook link, disabled message form, and disabled mailing-list signup.
-- Exhibitions — Current, Past, and Upcoming static routes with empty states and a header submenu.
+- Exhibitions — single page with Current, Past, and Upcoming section controls and empty states.
 - Portfolio — image gallery and carousel with Landscapes, Still life, and Other sections, selected-image metadata, and local-manifest-driven S3 Still life images. Landscapes and Other currently show empty states until published manifest images are added.
 
 AWS deployment and cloud Portfolio images are in progress for Milestone 7. Press, Resume, backend form wiring, and mailing-list behavior remain planned future work.

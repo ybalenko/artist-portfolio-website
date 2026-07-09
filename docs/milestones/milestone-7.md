@@ -272,6 +272,7 @@ Milestone 7 is complete when:
 - Added `availability` manifest metadata and simplified its current allowed value to `available`.
 - Added Portfolio UI status display for artwork availability.
 - Added Other Portfolio section/tab to implementation and documentation.
+- Removed the Exhibitions header submenu and documented the single-page section-control pattern.
 
 ### Known limitations
 
@@ -308,6 +309,7 @@ Milestone 7 is complete when:
 - Added visible Portfolio and carousel `Status` metadata mapped from `availability`.
 - Wired Portfolio data to the local manifest at `docs/deployment/manifest.json`.
 - Confirmed the local manifest has 17 published Still life items, 0 published Landscapes items, and 0 published Other items.
+- Updated Exhibitions so `/exhibitions/` hosts Current, Past, and Upcoming sections; legacy status URLs redirect to hash sections.
 
 ### Known limitations
 

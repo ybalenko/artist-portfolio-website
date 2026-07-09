@@ -36,10 +36,10 @@ Press and Exhibition entries may use a `published` flag. Invalid content must fa
 
 - `/` — Home with artist statement
 - `/press`
-- `/exhibitions` — redirect to `/exhibitions/current`
-- `/exhibitions/current`
-- `/exhibitions/past`
-- `/exhibitions/upcoming`
+- `/exhibitions` — single Exhibitions page with Current, Past, and Upcoming sections
+- `/exhibitions/current` — redirects to `/exhibitions/#current`
+- `/exhibitions/past` — redirects to `/exhibitions/#past`
+- `/exhibitions/upcoming` — redirects to `/exhibitions/#upcoming`
 - `/portfolio`
 - `/resume` — redirect to résumé PDF
 - `/contacts` — public links, Leave a message, Privacy Notice, mailing signup
@@ -47,12 +47,11 @@ Press and Exhibition entries may use a `published` flag. Invalid content must fa
 
 There must be no About or standalone Privacy route.
 
-Primary navigation is Home, Press, Exhibitions, Portfolio, Resume, and Contacts. Exhibitions exposes Current, Past, and Upcoming through an accessible submenu.
+Primary navigation is Home, Press, Exhibitions, Portfolio, Resume, and Contacts. Exhibitions exposes Current, Past, and Upcoming as page-level section controls, not as a header submenu.
 
 - Links work without a client-side router.
 - Current page and exhibition subsection are identified visually and accessibly.
-- Desktop submenu supports pointer and keyboard interaction without relying on hover.
-- Mobile submenu exposes correct expanded state and focus behavior.
+- Section controls support pointer and keyboard interaction.
 - Resume is labeled as a PDF destination.
 
 ## 4. Page requirements
@@ -73,6 +72,7 @@ Primary navigation is Home, Press, Exhibitions, Portfolio, Resume, and Contacts.
 ### 4.3 Exhibitions
 
 - Render Current, Past, and Upcoming from validated content.
+- Render the three exhibition statuses as sections on `/exhibitions`.
 - Support title, venue, location, dates, description, optional image, and optional `https` URL.
 - Validate that end date is not before start date.
 - Show an explicit empty state when a category has no entries.
@@ -193,7 +193,7 @@ Messages must not be stored in DynamoDB. Logs must not contain message bodies, n
 Testing must cover:
 
 - Home default route and artist statement
-- Exact primary navigation and Exhibitions submenu
+- Exact primary navigation and Exhibitions section controls
 - Press and Exhibition content, empty states, dates, and external links
 - Portfolio containing only images/carousel
 - Carousel URL state, focus, keyboard, controls, touch, and gallery restoration

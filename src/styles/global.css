@@ -155,46 +155,6 @@ a:hover {
   transform: scaleX(1);
 }
 
-.navigation-submenu {
-  position: absolute;
-  z-index: 2;
-  top: calc(100% + 4px);
-  left: 3px;
-  display: grid;
-  min-width: 110px;
-  margin: 0;
-  padding: 0 6px;
-  transform: none;
-  gap: 0;
-  align-items: stretch;
-  border: 0;
-  border-top: 4px solid #fff;
-  background: #f9d8e5;
-  box-shadow: 6px 4px 10px rgb(0 0 0 / 7.5%);
-  list-style: none;
-  opacity: 0;
-  pointer-events: none;
-}
-
-.has-submenu:hover .navigation-submenu,
-.has-submenu:focus-within .navigation-submenu {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.navigation-submenu a {
-  padding: 5px 0;
-  color: var(--color-accent);
-  font-size: 12px;
-  letter-spacing: 0.04em;
-  text-transform: lowercase;
-  white-space: nowrap;
-}
-
-.navigation-submenu li + li {
-  border-top: 1px solid #fff;
-}
-
 .home-content {
   padding-bottom: 72px;
 }
@@ -497,6 +457,7 @@ a:hover {
 }
 
 .section-navigation a,
+.section-navigation-button,
 .portfolio-section-link {
   display: block;
   border: 0;
@@ -516,9 +477,33 @@ a:hover {
 
 .section-navigation a:hover,
 .section-navigation a.active,
+.section-navigation-button:hover,
+.section-navigation-button.active,
 .portfolio-section-link:hover,
 .portfolio-section-link.active {
   color: var(--color-accent);
+}
+
+.section-navigation-button {
+  cursor: pointer;
+}
+
+.exhibition-sections {
+  display: grid;
+  gap: 24px;
+}
+
+.exhibition-view {
+  display: grid;
+  gap: 24px;
+}
+
+.exhibition-view[hidden] {
+  display: none;
+}
+
+.exhibition-section-header {
+  margin-top: 6px;
 }
 
 .exhibition-list {

@@ -50,9 +50,7 @@ Verify these routes from the Amplify URL:
 
 - `/`
 - `/contacts/`
-- `/exhibitions/current/`
-- `/exhibitions/past/`
-- `/exhibitions/upcoming/`
+- `/exhibitions/`
 - `/portfolio/`
 - `/press/`
 - `/resume/`
@@ -60,7 +58,8 @@ Verify these routes from the Amplify URL:
 Also verify:
 
 - Header navigation works.
-- The Exhibitions dropdown works.
+- The Exhibitions section controls work.
+- Legacy `/exhibitions/current/`, `/exhibitions/past/`, and `/exhibitions/upcoming/` URLs redirect to the matching `/exhibitions/` hash section.
 - Contacts forms remain disabled.
 - Portfolio carousel controls work.
 - Portfolio images load from cloud URLs after the image migration step is complete.

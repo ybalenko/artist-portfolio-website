@@ -54,6 +54,7 @@ Also update related requirements, design, milestone plans, status, decisions, RE
 | CR-019 | 2026-07-09 | Display artwork status in Portfolio UI | UI      | Done   | M7               | Added a visible `Status` metadata field to the Portfolio page and carousel, mapping `availability: "available"` to the visitor-facing label `Available`.                                                                                             |
 | CR-020 | 2026-07-09 | Add Other Portfolio section            | UI      | Done   | M7               | Added an `Other` Portfolio section/tab with a temporary local placeholder image and updated the manifest design, requirements, README summaries, and tracking docs.                                                                                  |
 | CR-021 | 2026-07-09 | Wire Portfolio to local manifest       | Data    | Done   | M7               | Replaced hardcoded Portfolio image records with build-time loading from `docs/deployment/manifest.json`; unpublished manifest records remain hidden and empty sections show an empty state.                                                          |
+| CR-022 | 2026-07-09 | Remove Exhibitions header submenu      | UI      | Done   | M7 maintenance   | Removed Current/Past/Upcoming from the primary-navigation dropdown and made `/exhibitions/` a single page with Portfolio-style section controls. Legacy status URLs redirect to matching hash sections.                                              |
 
 ## New request template
 
