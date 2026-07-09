@@ -3,7 +3,7 @@
 **Status:** In progress  
 **Created:** June 28, 2026  
 **Milestone goal:** Make the website publicly accessible from an AWS Amplify URL and move Portfolio images from local-only test assets to cloud-hosted image URLs.
-**Implementation progress:** 22/42 tasks — 52%
+**Implementation progress:** 30/42 tasks — 71%
 
 ## Confirmed decisions
 
@@ -141,6 +141,14 @@ A future milestone may add:
 - Admin upload UI
 - Access-control automation
 
+### Local manifest workflow
+
+Portfolio images and metadata now load from a local manifest at `docs/deployment/manifest.json`.
+
+The manifest format is documented in [Portfolio manifest design](../deployment/portfolio-manifest.md). It keeps the website static because Astro reads and validates the manifest at build time, then generates the same Portfolio page and carousel from JSON data.
+
+S3-hosted manifest loading is not yet implemented. Until then, `src/data/portfolio.ts` reads the local manifest file.
+
 ## 6. Implementation plan
 
 ### Step 1 — Planning and tracking
@@ -179,11 +187,11 @@ A future milestone may add:
 
 ### Step 5 — Portfolio cloud image migration
 
-- [ ] Update `src/data/portfolio.ts` from local `/artwork-local/` paths to cloud image URLs.
-- [ ] Remove or keep local test-image fallback decision.
-- [ ] Run `npm run format:check`.
-- [ ] Run `npm run check`.
-- [ ] Run `npm run build`.
+- [x] Update `src/data/portfolio.ts` from local `/artwork-local/` paths to cloud image URLs.
+- [x] Remove or keep local test-image fallback decision.
+- [x] Run `npm run format:check`.
+- [x] Run `npm run check`.
+- [x] Run `npm run build`.
 - [ ] Push changes after user approval.
 
 ### Step 6 — Public verification
@@ -202,9 +210,9 @@ A future milestone may add:
 - [ ] Record cloud image location.
 - [x] Record deployment branch.
 - [ ] Record build/deploy verification.
-- [ ] Update milestone verification record.
-- [ ] Update project status.
-- [ ] Update root README and docs README.
+- [x] Update milestone verification record.
+- [x] Update project status.
+- [x] Update root README and docs README.
 
 ## 7. Deliverables
 
@@ -255,16 +263,29 @@ Milestone 7 is complete when:
 
 ## 11. Verification record
 
-**Date:** July 7, 2026  
+**Date:** July 9, 2026  
 **Result:** In progress
+
+### Documentation checks
+
+- Added proposed Portfolio manifest design and example JSON.
+- Added `availability` manifest metadata and simplified its current allowed value to `available`.
+- Added Portfolio UI status display for artwork availability.
+- Added Other Portfolio section/tab to implementation and documentation.
+
+### Known limitations
+
+- S3 manifest loading is not implemented yet.
+- Updating only the future S3 manifest will not automatically trigger an Amplify rebuild unless a future webhook or build trigger is added.
 
 ### Automated checks
 
 - `npm run format:check` — passed
 - `npm run check` — passed; 0 errors, 0 warnings, 0 hints
 - `npm run build` — passed; 9 static pages built in `dist/`
-- Generated `dist/portfolio/index.html` contains Landscapes and Still life section controls and section containers.
-- Downloaded 18 Still life S3 image URLs to `/tmp` and verified dimensions with `sips`.
+- Generated `dist/portfolio/index.html` contains Landscapes, Still life, and Other section controls and section containers.
+- Generated `dist/portfolio/index.html` contains no `/artwork-local/` image references after wiring Portfolio to the local manifest.
+- Downloaded Still life S3 image URLs to `/tmp` and verified dimensions with `sips`; the current manifest contains 17 published Still life images.
 
 ### Manual checks
 
@@ -282,6 +303,11 @@ Milestone 7 is complete when:
 - Replaced temporary Still life images with 18 public S3 image URLs under `portfolio/stilllifes/`.
 - Sorted Still life images by S3 URL year, newest first.
 - Added selected artwork metadata display for name, medium, size, and year.
+- Removed `yulia-art-2025-05` from Still life metadata because the S3 object was removed.
+- Added manifest design support for availability metadata.
+- Added visible Portfolio and carousel `Status` metadata mapped from `availability`.
+- Wired Portfolio data to the local manifest at `docs/deployment/manifest.json`.
+- Confirmed the local manifest has 17 published Still life items, 0 published Landscapes items, and 0 published Other items.
 
 ### Known limitations
 
@@ -290,7 +316,8 @@ Milestone 7 is complete when:
 - Final artwork image set may still be temporary.
 - Amplify URL has not been recorded in the project documentation yet.
 - Public-page verification has not been performed yet.
-- Landscapes still reference ignored local test images until cloud URLs are available.
+- Landscapes has no published manifest images yet, so it shows an empty state.
+- Other has no published manifest images yet, so it shows an empty state.
 - Several artwork metadata values are placeholders until final name, medium, and size details are provided.
 
 ### Deferred work

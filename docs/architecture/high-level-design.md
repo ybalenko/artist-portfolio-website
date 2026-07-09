@@ -102,8 +102,8 @@ Astro validates these models during build. Git history is the source of truth an
 The Portfolio route is deliberately visual and takes interaction inspiration from the [David Hockney Drawings — 2010s page](https://www.hockney.com/index.php/works/drawings/2010s), without copying its identity or its category/decade navigation:
 
 - Static markup displays one prominent selected image and an ordered thumbnail collection.
-- The gallery is organized into Landscapes and Still life sections.
-- Selected artwork displays restrained metadata: name, medium, size, and year.
+- The gallery is organized into Landscapes, Still life, and Other sections.
+- Selected artwork displays restrained metadata: name, medium, size, year, and availability status.
 - It contains no filters, pricing, commerce, or comments.
 - A small client component updates the prominent image and provides carousel behavior.
 - URL state preserves and shares the selected image.

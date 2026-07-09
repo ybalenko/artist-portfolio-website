@@ -1,3 +1,5 @@
+import portfolioManifest from "../../docs/deployment/manifest.json";
+
 export interface PortfolioImage {
   id: string;
   src: string;
@@ -6,183 +8,191 @@ export interface PortfolioImage {
   medium: string;
   size: string;
   year: string;
+  availability: "available";
   width: number;
   height: number;
 }
 
+type PortfolioSectionId = "landscapes" | "stilllife" | "other";
+
 export interface PortfolioSection {
-  id: "landscapes" | "stilllife";
+  id: PortfolioSectionId;
   label: string;
   images: PortfolioImage[];
 }
 
-const getYearFromArtworkId = (id: string) => id.split("-")[2] ?? "TBD";
+interface PortfolioManifest {
+  schemaVersion: 1;
+  updatedAt: string;
+  baseUrl: string;
+  sections: PortfolioManifestSection[];
+}
 
-const getSequenceFromArtworkId = (id: string) => id.split("-")[3] ?? "";
+interface PortfolioManifestSection {
+  id: PortfolioSectionId;
+  label: string;
+  items: PortfolioManifestItem[];
+}
 
-const formatStillLifeName = (id: string) => {
-  const year = getYearFromArtworkId(id);
-  const sequence = getSequenceFromArtworkId(id);
-  return sequence ? `Still life ${year}-${sequence}` : `Still life ${year}`;
-};
-
-const stillLifeImage = ({
-  id,
-  width,
-  height,
-}: {
+interface PortfolioManifestItem {
   id: string;
+  file: string;
+  alt: string;
+  name: string;
+  medium: string;
+  size: string;
+  year: string;
+  availability: "available";
   width: number;
   height: number;
-}): PortfolioImage => ({
-  id,
-  src: `https://yulia-balenko-portfolio-images.s3.us-east-1.amazonaws.com/portfolio/stilllifes/${id}.jpg`,
-  alt: `Still life artwork by Yulia Balenko from ${getYearFromArtworkId(id)}`,
-  name: formatStillLifeName(id),
-  medium: "TBD",
-  size: "TBD",
-  year: getYearFromArtworkId(id),
-  width,
-  height,
-});
+  published: boolean;
+}
 
-export const portfolioSections: PortfolioSection[] = [
-  {
-    id: "landscapes",
-    label: "Landscapes",
-    images: [
-      {
-        id: "landscape-test-01",
-        src: "/artwork-local/test-01.svg",
-        alt: "Temporary abstract landscape artwork with magenta and ochre shapes",
-        name: "Temporary landscape 01",
-        medium: "TBD",
-        size: "TBD",
-        year: "TBD",
-        width: 1200,
-        height: 900,
-      },
-      {
-        id: "landscape-test-02",
-        src: "/artwork-local/test-02.svg",
-        alt: "Temporary abstract landscape artwork with blue and rose blocks",
-        name: "Temporary landscape 02",
-        medium: "TBD",
-        size: "TBD",
-        year: "TBD",
-        width: 1200,
-        height: 900,
-      },
-      {
-        id: "landscape-test-03",
-        src: "/artwork-local/test-03.svg",
-        alt: "Temporary abstract landscape artwork with dark linework and warm fields",
-        name: "Temporary landscape 03",
-        medium: "TBD",
-        size: "TBD",
-        year: "TBD",
-        width: 1200,
-        height: 900,
-      },
-    ],
-  },
-  {
-    id: "stilllife",
-    label: "Still life",
-    images: [
-      stillLifeImage({
-        id: "yulia-art-2025-01",
-        width: 1600,
-        height: 1600,
-      }),
-      stillLifeImage({
-        id: "yulia-art-2025-02",
-        width: 1600,
-        height: 1248,
-      }),
-      stillLifeImage({
-        id: "yulia-art-2025-03",
-        width: 1600,
-        height: 1600,
-      }),
-      stillLifeImage({
-        id: "yulia-art-2025-04",
-        width: 1600,
-        height: 1600,
-      }),
-      stillLifeImage({
-        id: "yulia-art-2025-05",
-        width: 1600,
-        height: 1600,
-      }),
-      stillLifeImage({
-        id: "yulia-art-2024-02",
-        width: 1600,
-        height: 1613,
-      }),
-      stillLifeImage({
-        id: "yulia-art-2024-03",
-        width: 1246,
-        height: 1600,
-      }),
-      stillLifeImage({
-        id: "yulia-art-2023-01",
-        width: 1252,
-        height: 1600,
-      }),
-      stillLifeImage({
-        id: "yulia-art-2023-02",
-        width: 1254,
-        height: 1600,
-      }),
-      stillLifeImage({
-        id: "yulia-art-2023-03",
-        width: 1600,
-        height: 1258,
-      }),
-      stillLifeImage({
-        id: "yulia-art-2023-04",
-        width: 1258,
-        height: 1600,
-      }),
-      stillLifeImage({
-        id: "yulia-art-2023-05",
-        width: 1600,
-        height: 1600,
-      }),
-      stillLifeImage({
-        id: "yulia-art-2023-06",
-        width: 1600,
-        height: 1609,
-      }),
-      stillLifeImage({
-        id: "yulia-art-2023-07",
-        width: 1234,
-        height: 1600,
-      }),
-      stillLifeImage({
-        id: "yulia-art-2023-08",
-        width: 1600,
-        height: 1606,
-      }),
-      stillLifeImage({
-        id: "yulia-art-2023-09",
-        width: 1600,
-        height: 1257,
-      }),
-      stillLifeImage({
-        id: "yulia-art-2019-01",
-        width: 1200,
-        height: 960,
-      }),
-      stillLifeImage({
-        id: "yulia-art-2019-02",
-        width: 1200,
-        height: 960,
-      }),
-    ],
-  },
-];
+const allowedSectionIds = new Set<PortfolioSectionId>([
+  "landscapes",
+  "stilllife",
+  "other",
+]);
+
+const isPortfolioSectionId = (value: string): value is PortfolioSectionId =>
+  allowedSectionIds.has(value as PortfolioSectionId);
+
+export const formatAvailabilityStatus = (
+  availability: PortfolioImage["availability"],
+) => {
+  if (availability === "available") return "Available";
+
+  return availability;
+};
+
+const validateManifest = (manifest: PortfolioManifest) => {
+  const errors: string[] = [];
+  const sectionIds = new Set<string>();
+  const imageIds = new Set<string>();
+
+  if (manifest.schemaVersion !== 1) {
+    errors.push("schemaVersion must be 1.");
+  }
+
+  if (!manifest.updatedAt) {
+    errors.push("updatedAt is required.");
+  }
+
+  if (!manifest.baseUrl || !manifest.baseUrl.startsWith("https://")) {
+    errors.push("baseUrl must be an HTTPS URL.");
+  }
+
+  if (!Array.isArray(manifest.sections)) {
+    errors.push("sections must be an array.");
+  }
+
+  for (const section of manifest.sections ?? []) {
+    const sectionContext = `section ${section.id || "<missing>"}`;
+
+    if (!section.id || !isPortfolioSectionId(section.id)) {
+      errors.push(
+        `${sectionContext}: id must be landscapes, stilllife, or other.`,
+      );
+    }
+
+    if (sectionIds.has(section.id)) {
+      errors.push(`${sectionContext}: duplicate section id.`);
+    }
+
+    sectionIds.add(section.id);
+
+    if (!section.label) {
+      errors.push(`${sectionContext}: label is required.`);
+    }
+
+    if (!Array.isArray(section.items)) {
+      errors.push(`${sectionContext}: items must be an array.`);
+    }
+
+    for (const item of section.items ?? []) {
+      const itemContext = `${sectionContext} item ${item.id || "<missing>"}`;
+
+      for (const field of [
+        "id",
+        "file",
+        "alt",
+        "name",
+        "medium",
+        "size",
+        "year",
+        "availability",
+      ] as const) {
+        if (typeof item[field] !== "string" || item[field].trim() === "") {
+          errors.push(`${itemContext}: ${field} is required.`);
+        }
+      }
+
+      if (imageIds.has(item.id)) {
+        errors.push(`${itemContext}: duplicate artwork id.`);
+      }
+
+      imageIds.add(item.id);
+
+      if (item.file.startsWith("/") || item.file.startsWith("http")) {
+        errors.push(`${itemContext}: file must be a relative path.`);
+      }
+
+      if (item.year !== "TBD" && !/^\d{4}$/.test(item.year)) {
+        errors.push(`${itemContext}: year must be TBD or YYYY.`);
+      }
+
+      if (item.availability !== "available") {
+        errors.push(`${itemContext}: availability must be available.`);
+      }
+
+      if (!Number.isFinite(item.width) || item.width <= 0) {
+        errors.push(`${itemContext}: width must be a positive number.`);
+      }
+
+      if (!Number.isFinite(item.height) || item.height <= 0) {
+        errors.push(`${itemContext}: height must be a positive number.`);
+      }
+
+      if (typeof item.published !== "boolean") {
+        errors.push(`${itemContext}: published must be boolean.`);
+      }
+    }
+  }
+
+  if (errors.length > 0) {
+    throw new Error(`Invalid Portfolio manifest:\n- ${errors.join("\n- ")}`);
+  }
+};
+
+const normalizeBaseUrl = (baseUrl: string) => baseUrl.replace(/\/$/, "");
+
+const getImageUrl = (baseUrl: string, file: string) =>
+  `${normalizeBaseUrl(baseUrl)}/${file}`;
+
+const manifest = portfolioManifest as PortfolioManifest;
+
+validateManifest(manifest);
+
+export const portfolioSections: PortfolioSection[] = manifest.sections.map(
+  (section) => ({
+    id: section.id,
+    label: section.label,
+    images: section.items
+      .filter((item) => item.published)
+      .map((item) => ({
+        id: item.id,
+        src: getImageUrl(manifest.baseUrl, item.file),
+        alt: item.alt,
+        name: item.name,
+        medium: item.medium,
+        size: item.size,
+        year: item.year,
+        availability: item.availability,
+        width: item.width,
+        height: item.height,
+      })),
+  }),
+);
 
 export const portfolioImages = portfolioSections.flatMap(
   (section) => section.images,

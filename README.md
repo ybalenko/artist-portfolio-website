@@ -17,14 +17,14 @@ The portfolio takes inspiration from the restrained, image-led presentation of t
 - Exhibitions routes for `/exhibitions/current/`, `/exhibitions/past/`, and `/exhibitions/upcoming/`.
 - Clear empty states for exhibition sections until real content is available.
 - Contacts page with draft Privacy Notice, copyright notice, Facebook link, disabled message form, and disabled mailing-list signup.
-- Portfolio gallery and carousel with Landscapes and Still life sections, selected-image metadata, S3 Still life images, and temporary local Landscape images.
+- Portfolio gallery and carousel with Landscapes, Still life, and Other sections, selected-image metadata, and local-manifest-driven S3 Still life images.
 - Footer copyright and Facebook social link.
 - Documentation and milestone tracking under `docs/`.
 
 ## Planned features
 
 - Press page for publications, articles, interviews, and public mentions.
-- Remaining Landscape cloud image migration for the deployed gallery and carousel.
+- Landscape and Other cloud image publishing in the Portfolio manifest.
 - Resume navigation that opens the current résumé PDF.
 - Real exhibition content and optional exhibition images.
 - Code-managed artwork, Press, Exhibitions, résumé, Contacts, and navigation content.
@@ -64,6 +64,7 @@ The architecture is code-managed and static-first: Home, Press, Exhibitions, Por
 - [Decision log](./docs/project/decisions.md) — approved project and milestone decisions
 - [AWS Amplify deployment runbook](./docs/deployment/aws-amplify.md) — deployment steps and settings
 - [Portfolio cloud image runbook](./docs/deployment/portfolio-images.md) — cloud image upload and metadata workflow
+- [Portfolio manifest design](./docs/deployment/portfolio-manifest.md) — local/S3 JSON catalog for Portfolio images and metadata
 - [Agent instructions](./AGENTS.md) — required workflow for future coding agents
 
 ## Local development

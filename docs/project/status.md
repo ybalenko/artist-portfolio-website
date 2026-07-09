@@ -1,6 +1,6 @@
 # Project Status
 
-**Last updated:** July 7, 2026  
+**Last updated:** July 9, 2026  
 **Current phase:** Milestone 7 implementation in progress  
 **Current milestone:** Milestone 7 — AWS Deployment and Cloud Portfolio Images (in progress)
 
@@ -14,7 +14,7 @@
 | M4        | Press page                                     | Deferred    |     — |        — | To be created later                         |
 | M5        | Portfolio gallery and carousel                 | Complete    | 22/22 |     100% | [Milestone 5](../milestones/milestone-5.md) |
 | M6        | Resume                                         | Planned     |     — |        — | To be created                               |
-| M7        | AWS deployment and cloud Portfolio images      | In progress | 22/42 |      52% | [Milestone 7](../milestones/milestone-7.md) |
+| M7        | AWS deployment and cloud Portfolio images      | In progress | 30/42 |      71% | [Milestone 7](../milestones/milestone-7.md) |
 
 Future milestone boundaries are provisional until their plans are approved.
 
@@ -37,7 +37,7 @@ Future milestone boundaries are provisional until their plans are approved.
 - **Target:** Desktop web browsers only
 - **Open blockers:** Amplify URL and build status are needed before public verification. S3 image storage still requires owner action or explicit approval before external changes.
 - **Deferred:** Custom domain, contact form backend, mailing-list backend, CAPTCHA, SES, and final image optimization pipeline
-- **Next action:** Add Landscape cloud image URLs, then record the Amplify URL/build status and verify public routes.
+- **Next action:** Record the Amplify URL/build status, then upload/sync the Portfolio manifest to S3 or add published Landscape/Other manifest images when available.
 
 ## Project-level open decisions
 
@@ -56,6 +56,12 @@ See the [Decision log](./decisions.md) for resolved decisions and [Project proce
 
 | Date       | Update                                                    |
 | ---------- | --------------------------------------------------------- |
+| 2026-07-09 | Wired Portfolio to local manifest data source             |
+| 2026-07-09 | Added Other Portfolio section/tab                         |
+| 2026-07-09 | Added Portfolio UI status metadata display                |
+| 2026-07-09 | Simplified manifest availability to only `available`      |
+| 2026-07-09 | Designed proposed S3 Portfolio manifest format            |
+| 2026-07-09 | Removed deleted Still life image from Portfolio metadata  |
 | 2026-07-07 | Added Portfolio metadata fields and display               |
 | 2026-07-07 | Sorted Still life Portfolio images newest-first by year   |
 | 2026-07-04 | Added 18 Still life S3 image URLs to Portfolio metadata   |

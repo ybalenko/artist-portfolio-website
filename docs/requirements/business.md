@@ -54,14 +54,14 @@ Navigation must work on mobile and desktop, identify the current destination, ex
 
 - Contains only an image gallery and carousel experience.
 - Displays approximately 100 Oil and Watercolor artwork images.
-- Organizes artwork into **Landscapes** and **Still life** sections.
+- Organizes artwork into **Landscapes**, **Still life**, and **Other** sections.
 - Uses the [David Hockney Drawings — 2010s page](https://www.hockney.com/index.php/works/drawings/2010s) as interaction and layout inspiration, without copying its branding.
 - Presents one prominent selected image together with a browsable thumbnail gallery.
 - Selecting an image opens an accessible carousel/lightbox.
 - The carousel supports previous/next navigation, keyboard control, touch gestures where practical, and closing back to the previous gallery position.
 - The interface around the artwork remains minimal and visually restrained.
-- Images include accessibility text and display restrained artwork metadata: name, medium, size, and year.
-- The page does not display filters, prices, availability, comments, purchasing, or video.
+- Images include accessibility text and display restrained artwork metadata: name, medium, size, year, and availability status.
+- The page does not display filters, prices, comments, purchasing, or video.
 
 ### 3.5 Resume
 

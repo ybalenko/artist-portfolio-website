@@ -1,0 +1,272 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-07-09",
+  "baseUrl": "https://yulia-balenko-portfolio-images.s3.us-east-1.amazonaws.com/portfolio",
+  "sections": [
+    {
+      "id": "landscapes",
+      "label": "Landscapes",
+      "items": [
+        {
+          "id": "landscape-2026-01",
+          "file": "landscapes/landscape-2026-01.jpg",
+          "alt": "Landscape artwork by Yulia Balenko",
+          "name": "Landscape 2026-01",
+          "medium": "TBD",
+          "size": "TBD",
+          "year": "2026",
+          "availability": "available",
+          "width": 1600,
+          "height": 1200,
+          "published": false
+        }
+      ]
+    },
+    {
+      "id": "stilllife",
+      "label": "Still life",
+      "items": [
+        {
+          "id": "yulia-art-2025-01",
+          "file": "stilllifes/yulia-art-2025-01.jpg",
+          "alt": "Still life artwork by Yulia Balenko from 2025",
+          "name": "Still life 2025-01",
+          "medium": "oil on canvas board",
+          "size": "12X12",
+          "year": "2025",
+          "availability": "available",
+          "width": 1600,
+          "height": 1600,
+          "published": true
+        },
+        {
+          "id": "yulia-art-2025-02",
+          "file": "stilllifes/yulia-art-2025-02.jpg",
+          "alt": "Still life artwork by Yulia Balenko from 2025",
+          "name": "Still life 2025-02",
+          "medium": "oil on canvas board",
+          "size": "11X14",
+          "year": "2025",
+          "availability": "available",
+          "width": 1600,
+          "height": 1248,
+          "published": true
+        },
+        {
+          "id": "yulia-art-2025-03",
+          "file": "stilllifes/yulia-art-2025-03.jpg",
+          "alt": "Still life artwork by Yulia Balenko from 2025",
+          "name": "Still life 2025-03",
+          "medium": "oil on canvas board",
+          "size": "12X12",
+          "year": "2025",
+          "availability": "available",
+          "width": 1600,
+          "height": 1600,
+          "published": true
+        },
+        {
+          "id": "yulia-art-2025-04",
+          "file": "stilllifes/yulia-art-2025-04.jpg",
+          "alt": "Still life artwork by Yulia Balenko from 2025",
+          "name": "Still life 2025-04",
+          "medium": "oil on canvas board",
+          "size": "12X12",
+          "year": "2025",
+          "availability": "available",
+          "width": 1600,
+          "height": 1600,
+          "published": true
+        },
+        {
+          "id": "yulia-art-2024-03",
+          "file": "stilllifes/yulia-art-2024-03.jpg",
+          "alt": "Still life artwork by Yulia Balenko from 2024",
+          "name": "Still life 2024-03",
+          "medium": "oil on canvas board",
+          "size": "11X14",
+          "year": "2024",
+          "availability": "available",
+          "width": 1246,
+          "height": 1600,
+          "published": true
+        },
+        {
+          "id": "yulia-art-2024-02",
+          "file": "stilllifes/yulia-art-2024-02.jpg",
+          "alt": "Still life artwork by Yulia Balenko from 2024",
+          "name": "Still life 2024-02",
+          "medium": "oil on canvas board",
+          "size": "TBD",
+          "year": "2024",
+          "availability": "available",
+          "width": 1600,
+          "height": 1613,
+          "published": true
+        },
+        {
+          "id": "yulia-art-2023-01",
+          "file": "stilllifes/yulia-art-2023-01.jpg",
+          "alt": "Still life artwork by Yulia Balenko from 2023",
+          "name": "Still life 2023-01",
+          "medium": "oil on canvas board",
+          "size": "TBD",
+          "year": "2023",
+          "availability": "available",
+          "width": 1252,
+          "height": 1600,
+          "published": true
+        },
+        {
+          "id": "yulia-art-2023-02",
+          "file": "stilllifes/yulia-art-2023-02.jpg",
+          "alt": "Still life artwork by Yulia Balenko from 2023",
+          "name": "Still life 2023-02",
+          "medium": "oil on canvas board",
+          "size": "TBD",
+          "year": "2023",
+          "availability": "available",
+          "width": 1254,
+          "height": 1200,
+          "published": true
+        },
+        {
+          "id": "yulia-art-2023-03",
+          "file": "stilllifes/yulia-art-2023-03.jpg",
+          "alt": "Still life artwork by Yulia Balenko from 2023",
+          "name": "Still life 2023-03",
+          "medium": "oil on canvas board",
+          "size": "TBD",
+          "year": "2023",
+          "availability": "available",
+          "width": 1600,
+          "height": 1258,
+          "published": true
+        },
+        {
+          "id": "yulia-art-2023-04",
+          "file": "stilllifes/yulia-art-2023-04.jpg",
+          "alt": "Still life artwork by Yulia Balenko from 2023",
+          "name": "Still life 2023-04",
+          "medium": "oil on canvas board",
+          "size": "TBD",
+          "year": "2023",
+          "availability": "available",
+          "width": 1258,
+          "height": 1600,
+          "published": true
+        },
+        {
+          "id": "yulia-art-2023-05",
+          "file": "stilllifes/yulia-art-2023-05.jpg",
+          "alt": "Still life artwork by Yulia Balenko from 2023",
+          "name": "Still life 2023-05",
+          "medium": "oil on canvas board",
+          "size": "TBD",
+          "year": "2023",
+          "availability": "available",
+          "width": 1600,
+          "height": 1600,
+          "published": true
+        },
+        {
+          "id": "yulia-art-2023-06",
+          "file": "stilllifes/yulia-art-2023-06.jpg",
+          "alt": "Still life artwork by Yulia Balenko from 2023",
+          "name": "Still life 2023-06",
+          "medium": "oil on canvas board",
+          "size": "TBD",
+          "year": "2023",
+          "availability": "available",
+          "width": 1600,
+          "height": 1609,
+          "published": true
+        },
+        {
+          "id": "yulia-art-2023-07",
+          "file": "stilllifes/yulia-art-2023-07.jpg",
+          "alt": "Still life artwork by Yulia Balenko from 2023",
+          "name": "Still life 2023-07",
+          "medium": "oil on canvas board",
+          "size": "TBD",
+          "year": "2023",
+          "availability": "available",
+          "width": 1234,
+          "height": 1600,
+          "published": true
+        },
+        {
+          "id": "yulia-art-2023-08",
+          "file": "stilllifes/yulia-art-2023-08.jpg",
+          "alt": "Still life artwork by Yulia Balenko from 2023",
+          "name": "Still life 2023-08",
+          "medium": "oil on canvas board",
+          "size": "TBD",
+          "year": "2023",
+          "availability": "available",
+          "width": 1600,
+          "height": 1606,
+          "published": true
+        },
+        {
+          "id": "yulia-art-2023-09",
+          "file": "stilllifes/yulia-art-2023-09.jpg",
+          "alt": "Still life artwork by Yulia Balenko from 2023",
+          "name": "Still life 2023-09",
+          "medium": "oil on canvas board",
+          "size": "TBD",
+          "year": "2023",
+          "availability": "available",
+          "width": 1600,
+          "height": 1257,
+          "published": true
+        },
+        {
+          "id": "yulia-art-2019-01",
+          "file": "stilllifes/yulia-art-2019-01.jpg",
+          "alt": "Still life artwork by Yulia Balenko from 2019",
+          "name": "Still life 2019-01",
+          "medium": "oil on canvas board",
+          "size": "TBD",
+          "year": "2019",
+          "availability": "available",
+          "width": 1200,
+          "height": 960,
+          "published": true
+        },
+        {
+          "id": "yulia-art-2019-02",
+          "file": "stilllifes/yulia-art-2019-02.jpg",
+          "alt": "Still life artwork by Yulia Balenko from 2019",
+          "name": "Still life 2019-02",
+          "medium": "oil on canvas board",
+          "size": "TBD",
+          "year": "2019",
+          "availability": "available",
+          "width": 1200,
+          "height": 960,
+          "published": true
+        }
+      ]
+    },
+    {
+      "id": "other",
+      "label": "Other",
+      "items": [
+        {
+          "id": "other-2026-01",
+          "file": "other/other-2026-01.jpg",
+          "alt": "Artwork by Yulia Balenko",
+          "name": "Other 2026-01",
+          "medium": "TBD",
+          "size": "TBD",
+          "year": "2026",
+          "availability": "available",
+          "width": 1600,
+          "height": 1200,
+          "published": false
+        }
+      ]
+    }
+  ]
+}

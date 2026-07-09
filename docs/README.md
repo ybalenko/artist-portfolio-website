@@ -24,6 +24,8 @@ Current project state: Milestones 1, 2, 3, and 5 are complete. Milestone 4, the 
 
 - [AWS Amplify deployment runbook](./deployment/aws-amplify.md)
 - [Portfolio cloud image runbook](./deployment/portfolio-images.md)
+- [Portfolio manifest design](./deployment/portfolio-manifest.md)
+- [Local Portfolio manifest](./deployment/manifest.json)
 
 ## Milestones
 
@@ -48,6 +50,6 @@ Deferred and planned future milestones:
 - Home — default landing page with temporary artist statement and artwork.
 - Contacts — static contact page with draft privacy/copyright sections, Facebook link, disabled message form, and disabled mailing-list signup.
 - Exhibitions — Current, Past, and Upcoming static routes with empty states and a header submenu.
-- Portfolio — image gallery and carousel with Landscapes and Still life sections, selected-image metadata, S3 Still life images, and temporary local Landscape images.
+- Portfolio — image gallery and carousel with Landscapes, Still life, and Other sections, selected-image metadata, and local-manifest-driven S3 Still life images. Landscapes and Other currently show empty states until published manifest images are added.
 
 AWS deployment and cloud Portfolio images are in progress for Milestone 7. Press, Resume, backend form wiring, and mailing-list behavior remain planned future work.
