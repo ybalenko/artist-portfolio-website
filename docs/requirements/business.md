@@ -60,7 +60,8 @@ Navigation must work on mobile and desktop, identify the current destination, ex
 - Selecting an image opens an accessible carousel/lightbox.
 - The carousel supports previous/next navigation, keyboard control, touch gestures where practical, and closing back to the previous gallery position.
 - The interface around the artwork remains minimal and visually restrained.
-- Images include accessibility text, but the page does not display artwork descriptions, filters, prices, availability, comments, purchasing, or video.
+- Images include accessibility text and display restrained artwork metadata: name, medium, size, and year.
+- The page does not display filters, prices, availability, comments, purchasing, or video.
 
 ### 3.5 Resume
 

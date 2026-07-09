@@ -17,7 +17,7 @@ The portfolio takes inspiration from the restrained, image-led presentation of t
 - Exhibitions routes for `/exhibitions/current/`, `/exhibitions/past/`, and `/exhibitions/upcoming/`.
 - Clear empty states for exhibition sections until real content is available.
 - Contacts page with draft Privacy Notice, copyright notice, Facebook link, disabled message form, and disabled mailing-list signup.
-- Portfolio gallery and carousel with Landscapes and Still life sections; Still life uses S3 cloud images and Landscapes still uses temporary local test images.
+- Portfolio gallery and carousel with Landscapes and Still life sections, selected-image metadata, S3 Still life images, and temporary local Landscape images.
 - Footer copyright and Facebook social link.
 - Documentation and milestone tracking under `docs/`.
 

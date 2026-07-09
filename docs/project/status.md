@@ -1,6 +1,6 @@
 # Project Status
 
-**Last updated:** July 4, 2026  
+**Last updated:** July 7, 2026  
 **Current phase:** Milestone 7 implementation in progress  
 **Current milestone:** Milestone 7 — AWS Deployment and Cloud Portfolio Images (in progress)
 
@@ -56,6 +56,8 @@ See the [Decision log](./decisions.md) for resolved decisions and [Project proce
 
 | Date       | Update                                                    |
 | ---------- | --------------------------------------------------------- |
+| 2026-07-07 | Added Portfolio metadata fields and display               |
+| 2026-07-07 | Sorted Still life Portfolio images newest-first by year   |
 | 2026-07-04 | Added 18 Still life S3 image URLs to Portfolio metadata   |
 | 2026-07-04 | Aligned Exhibitions and Portfolio section submenu styling |
 | 2026-07-04 | Added Portfolio Landscapes and Still life section change  |

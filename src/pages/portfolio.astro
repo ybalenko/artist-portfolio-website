@@ -65,6 +65,25 @@ const portfolioJson = JSON.stringify(portfolioSections);
               />
             </button>
 
+            <dl class="portfolio-metadata" data-selected-metadata>
+              <div>
+                <dt>Name</dt>
+                <dd data-metadata-name>{section.images[0].name}</dd>
+              </div>
+              <div>
+                <dt>Medium</dt>
+                <dd data-metadata-medium>{section.images[0].medium}</dd>
+              </div>
+              <div>
+                <dt>Size</dt>
+                <dd data-metadata-size>{section.images[0].size}</dd>
+              </div>
+              <div>
+                <dt>Year</dt>
+                <dd data-metadata-year>{section.images[0].year}</dd>
+              </div>
+            </dl>
+
             <div
               class="portfolio-thumbnails"
               aria-label={`${section.label} thumbnails`}
@@ -128,6 +147,29 @@ const portfolioJson = JSON.stringify(portfolioSections);
           height={firstImage.height}
           alt={firstImage.alt}
         />
+        <figcaption>
+          <dl
+            class="portfolio-metadata carousel-metadata"
+            data-carousel-metadata
+          >
+            <div>
+              <dt>Name</dt>
+              <dd data-metadata-name>{firstImage.name}</dd>
+            </div>
+            <div>
+              <dt>Medium</dt>
+              <dd data-metadata-medium>{firstImage.medium}</dd>
+            </div>
+            <div>
+              <dt>Size</dt>
+              <dd data-metadata-size>{firstImage.size}</dd>
+            </div>
+            <div>
+              <dt>Year</dt>
+              <dd data-metadata-year>{firstImage.year}</dd>
+            </div>
+          </dl>
+        </figcaption>
       </figure>
       <button
         class="carousel-control carousel-control-next"
@@ -144,6 +186,7 @@ const portfolioJson = JSON.stringify(portfolioSections);
     const portfolioSections = JSON.parse(portfolioJson);
     const carousel = document.querySelector("[data-carousel]");
     const carouselImage = document.querySelector("[data-carousel-image]");
+    const carouselMetadata = document.querySelector("[data-carousel-metadata]");
     const portfolioContent = document.querySelector("[data-portfolio-content]");
     const closeButton = document.querySelector("[data-carousel-close]");
     const previousButton = document.querySelector("[data-carousel-previous]");
@@ -186,6 +229,19 @@ const portfolioJson = JSON.stringify(portfolioSections);
       history.replaceState(null, "", `#${activeSectionId}/${image.id}`);
     };
 
+    const setMetadata = (metadataElement, image) => {
+      if (!metadataElement) return;
+
+      metadataElement.querySelector("[data-metadata-name]").textContent =
+        image.name;
+      metadataElement.querySelector("[data-metadata-medium]").textContent =
+        image.medium;
+      metadataElement.querySelector("[data-metadata-size]").textContent =
+        image.size;
+      metadataElement.querySelector("[data-metadata-year]").textContent =
+        image.year;
+    };
+
     const setSelectedImage = (index, shouldUpdateHash = true) => {
       selectedIndex = normalizeIndex(index);
       const image = getActiveSection().images[selectedIndex];
@@ -195,6 +251,9 @@ const portfolioJson = JSON.stringify(portfolioSections);
       );
       const activeOpenButton = activeSectionElement?.querySelector(
         "[data-open-carousel]",
+      );
+      const activeMetadata = activeSectionElement?.querySelector(
+        "[data-selected-metadata]",
       );
 
       selectedImage.src = image.src;
@@ -206,6 +265,9 @@ const portfolioJson = JSON.stringify(portfolioSections);
       carouselImage.alt = image.alt;
       carouselImage.width = image.width;
       carouselImage.height = image.height;
+
+      setMetadata(activeMetadata, image);
+      setMetadata(carouselMetadata, image);
 
       activeOpenButton.dataset.index = String(selectedIndex);
 

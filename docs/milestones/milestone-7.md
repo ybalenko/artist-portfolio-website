@@ -255,7 +255,7 @@ Milestone 7 is complete when:
 
 ## 11. Verification record
 
-**Date:** July 4, 2026  
+**Date:** July 7, 2026  
 **Result:** In progress
 
 ### Automated checks
@@ -280,6 +280,8 @@ Milestone 7 is complete when:
 - Added Portfolio section structure for Landscapes and Still life using current local test images pending final cloud image URLs.
 - Aligned Exhibitions and Portfolio page-level submenu typography and sizing.
 - Replaced temporary Still life images with 18 public S3 image URLs under `portfolio/stilllifes/`.
+- Sorted Still life images by S3 URL year, newest first.
+- Added selected artwork metadata display for name, medium, size, and year.
 
 ### Known limitations
 
@@ -289,6 +291,7 @@ Milestone 7 is complete when:
 - Amplify URL has not been recorded in the project documentation yet.
 - Public-page verification has not been performed yet.
 - Landscapes still reference ignored local test images until cloud URLs are available.
+- Several artwork metadata values are placeholders until final name, medium, and size details are provided.
 
 ### Deferred work
 

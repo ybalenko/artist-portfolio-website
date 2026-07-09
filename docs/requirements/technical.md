@@ -81,8 +81,10 @@ Primary navigation is Home, Press, Exhibitions, Portfolio, Resume, and Contacts.
 ### 4.4 Portfolio
 
 - Render only an ordered image gallery and carousel interface.
-- Do not render filters, artwork descriptions, prices, availability, comments, purchase controls, or video.
+- Do not render filters, prices, availability, comments, purchase controls, or video.
 - Organize images into code-managed `landscapes` and `stilllife` sections.
+- Each image record includes `name`, `medium`, `size`, and `year` metadata.
+- Display the selected image metadata on the Portfolio page and in the carousel.
 - Follow the portfolio interaction pattern of the [David Hockney Drawings — 2010s page](https://www.hockney.com/index.php/works/drawings/2010s): a prominent selected image with a supporting thumbnail collection and minimal surrounding interface.
 - On initial load, display the first configured image prominently and expose the complete ordered thumbnail gallery.
 - Selecting a thumbnail updates the prominent image and carousel state without leaving the page.

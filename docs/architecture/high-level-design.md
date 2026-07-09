@@ -103,7 +103,8 @@ The Portfolio route is deliberately visual and takes interaction inspiration fro
 
 - Static markup displays one prominent selected image and an ordered thumbnail collection.
 - The gallery is organized into Landscapes and Still life sections.
-- It contains no filters, descriptive sections, pricing, or comments.
+- Selected artwork displays restrained metadata: name, medium, size, and year.
+- It contains no filters, pricing, commerce, or comments.
 - A small client component updates the prominent image and provides carousel behavior.
 - URL state preserves and shares the selected image.
 - Visible previous, next, and close controls complement keyboard and touch input.
