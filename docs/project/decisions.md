@@ -37,11 +37,12 @@ This file records approved decisions that affect implementation or more than one
 | D-031 | 2026-07-07 | Display selected artwork metadata in Portfolio                                        | Shows name, medium, size, and year while keeping the gallery minimal   | Active        |
 | D-032 | 2026-07-09 | Design Portfolio image metadata around an S3-hosted JSON manifest                     | Reduces hardcoded image lists while preserving static Amplify hosting  | Proposed      |
 | D-033 | 2026-07-09 | Add Portfolio artwork `availability` metadata                                         | Allows artwork to be tagged as available                               | Active        |
-| D-034 | 2026-07-09 | Restrict Portfolio manifest availability values                                       | Simplifies current manifest to only use available artwork status       | Active        |
+| D-034 | 2026-07-09 | Restrict Portfolio manifest availability values                                       | Simplifies current manifest to only use available artwork status       | Superseded    |
 | D-035 | 2026-07-09 | Display availability as `Status` in the Portfolio UI                                  | Uses a visitor-friendly label for artwork availability metadata        | Active        |
 | D-036 | 2026-07-09 | Add `Other` as a Portfolio section                                                    | Supports artwork that does not belong in Landscapes or Still life      | Active        |
 | D-037 | 2026-07-09 | Load Portfolio data from the local manifest during build                              | Removes hardcoded image records while deferring S3 manifest fetching   | Active        |
 | D-038 | 2026-07-09 | Remove the Exhibitions header submenu                                                 | Simplifies navigation; Current/Past/Upcoming move to page sections     | Active        |
+| D-039 | 2026-07-14 | Treat Portfolio availability as free-text status                                      | Allows manually entered public artwork status labels in the manifest   | Active        |
 
 ## Adding a decision
 

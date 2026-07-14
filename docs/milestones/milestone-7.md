@@ -286,6 +286,8 @@ Milestone 7 is complete when:
 - `npm run format:check` — passed
 - `npm run check` — passed; 0 errors, 0 warnings, 0 hints
 - `npm run build` — passed; 9 static pages built in `dist/`
+- `node` manifest availability validation — passed; all manifest items have non-empty availability text.
+- `node` source inspection — passed; strict `availability: "available"` restriction is removed and availability is typed as free text.
 - Generated `dist/portfolio/index.html` was inspected after newest-first sorting; Landscapes begins with 2026 items, Still life begins with 2025 items, and Other has no published items yet.
 - Generated `dist/portfolio/index.html` contains Landscapes, Still life, and Other section controls and section containers.
 - Generated `dist/portfolio/index.html` contains no `/artwork-local/` image references after wiring Portfolio to the local manifest.
@@ -310,10 +312,12 @@ Milestone 7 is complete when:
 - Removed `yulia-art-2025-05` from Still life metadata because the S3 object was removed.
 - Added manifest design support for availability metadata.
 - Added visible Portfolio and carousel `Status` metadata mapped from `availability`.
+- Removed the strict `available`-only manifest rule so `availability` can now contain any non-empty public status text.
 - Wired Portfolio data to the local manifest at `docs/deployment/manifest.json`.
 - Confirmed the local manifest has 9 published Landscapes items, 17 published Still life items, and 0 published Other items.
 - Updated Exhibitions so `/exhibitions/` hosts Current, Past, and Upcoming sections; legacy status URLs redirect to hash sections.
 - Confirmed generated Portfolio data sorts Landscapes, Still life, and Other newest first by artwork year, preserving manifest order within the same year.
+- Replaced two invalid Landscape manifest availability values, `In Private Collection`, with the currently allowed `available` value after an Amplify build failure.
 
 ### Known limitations
 

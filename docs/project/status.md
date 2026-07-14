@@ -1,6 +1,6 @@
 # Project Status
 
-**Last updated:** July 9, 2026  
+**Last updated:** July 14, 2026  
 **Current phase:** Milestone 7 implementation in progress  
 **Current milestone:** Milestone 7 — AWS Deployment and Cloud Portfolio Images (in progress)
 
@@ -56,6 +56,8 @@ See the [Decision log](./decisions.md) for resolved decisions and [Project proce
 
 | Date       | Update                                                      |
 | ---------- | ----------------------------------------------------------- |
+| 2026-07-14 | Removed availability value restriction from Portfolio data  |
+| 2026-07-14 | Fixed invalid Portfolio manifest availability values        |
 | 2026-07-09 | Sorted all Portfolio sections newest first by artwork year  |
 | 2026-07-09 | Changed Exhibitions to page sections without header submenu |
 | 2026-07-09 | Wired Portfolio to local manifest data source               |

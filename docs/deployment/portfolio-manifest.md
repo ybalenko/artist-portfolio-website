@@ -83,14 +83,12 @@ Allowed P0 section IDs:
 | `medium`       | Yes      | `Oil`                              | Use `TBD` if not known yet                         |
 | `size`         | Yes      | `16 × 20 in`                       | Use `TBD` if not known yet                         |
 | `year`         | Yes      | `2025`                             | Four-digit year, or `TBD` if unknown               |
-| `availability` | Yes      | `available`                        | Must be `available` for the current manifest       |
+| `availability` | Yes      | `Available`                        | Free-text status displayed in the Portfolio UI     |
 | `width`        | Yes      | `1600`                             | Web image width in pixels                          |
 | `height`       | Yes      | `1200`                             | Web image height in pixels                         |
 | `published`    | Yes      | `true`                             | `false` hides the item without deleting its record |
 
-Allowed `availability` value:
-
-- `available` — artwork is available.
+`availability` is free text. Use the exact wording that should appear publicly, such as `Available`, `Private collection`, `Sold`, or another manually chosen status.
 
 The site will derive the final image URL as:
 

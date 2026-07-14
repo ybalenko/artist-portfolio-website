@@ -8,7 +8,7 @@ export interface PortfolioImage {
   medium: string;
   size: string;
   year: string;
-  availability: "available";
+  availability: string;
   width: number;
   height: number;
 }
@@ -42,7 +42,7 @@ interface PortfolioManifestItem {
   medium: string;
   size: string;
   year: string;
-  availability: "available";
+  availability: string;
   width: number;
   height: number;
   published: boolean;
@@ -139,10 +139,6 @@ const validateManifest = (manifest: PortfolioManifest) => {
 
       if (item.year !== "TBD" && !/^\d{4}$/.test(item.year)) {
         errors.push(`${itemContext}: year must be TBD or YYYY.`);
-      }
-
-      if (item.availability !== "available") {
-        errors.push(`${itemContext}: availability must be available.`);
       }
 
       if (!Number.isFinite(item.width) || item.width <= 0) {

@@ -56,6 +56,7 @@ Also update related requirements, design, milestone plans, status, decisions, RE
 | CR-021 | 2026-07-09 | Wire Portfolio to local manifest       | Data    | Done   | M7               | Replaced hardcoded Portfolio image records with build-time loading from `docs/deployment/manifest.json`; unpublished manifest records remain hidden and empty sections show an empty state.                                                          |
 | CR-022 | 2026-07-09 | Remove Exhibitions header submenu      | UI      | Done   | M7 maintenance   | Removed Current/Past/Upcoming from the primary-navigation dropdown and made `/exhibitions/` a single page with Portfolio-style section controls. Legacy status URLs redirect to matching hash sections.                                              |
 | CR-023 | 2026-07-09 | Sort Portfolio sections newest first   | Content | Done   | M7               | Portfolio now sorts published images newest first by artwork `year` in every section, including Landscapes, Still life, and Other. Manifest order remains the tie-breaker for works from the same year.                                              |
+| CR-024 | 2026-07-14 | Make artwork availability free text    | Content | Done   | M7               | Removed the manifest restriction that only allowed `availability: "available"`. Availability remains required but can now contain any non-empty manually typed public status text.                                                                   |
 
 ## New request template
 
