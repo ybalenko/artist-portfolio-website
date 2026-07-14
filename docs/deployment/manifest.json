@@ -21,6 +21,32 @@
           "published": true
         },
         {
+          "id": "yulia-art-2024-02",
+          "file": "landscapes/yulia-art-2024-02.jpg",
+          "alt": "Landscape artwork by Yulia Balenko",
+          "name": "Whispers of the Horizon",
+          "medium": "oil on canvas board",
+          "size": "11 X 14",
+          "year": "2024",
+          "availability": "In Private Collection",
+          "width": 1600,
+          "height": 1244,
+          "published": true
+        },
+        {
+          "id": "yulia-art-2024-01",
+          "file": "landscapes/yulia-art-2024-01.jpg",
+          "alt": "Landscape artwork by Yulia Balenko",
+          "name": "Marina in Edmonds",
+          "medium": "oil on canvas board",
+          "size": "11 X 14",
+          "year": "2024",
+          "availability": "In Private Collection",
+          "width": 1600,
+          "height": 1247,
+          "published": true
+        },
+        {
           "id": "landscape-2025-01",
           "file": "landscapes/landscape-2025-01.jpg",
           "alt": "Landscape artwork by Yulia Balenko",
@@ -122,6 +148,19 @@
           "availability": "available",
           "width": 1600,
           "height": 1254,
+          "published": true
+        },
+        {
+          "id": "yulia-art-2026-05",
+          "file": "landscapes/yulia-art-2026-05.jpg",
+          "alt": "Landscape artwork by Yulia Balenko",
+          "name": "Lime Kiln Lighthouse",
+          "medium": "oil on canvas board",
+          "size": "11 X 14",
+          "year": "2026",
+          "availability": "available",
+          "width": 1600,
+          "height": 1252,
           "published": true
         }
       ]
