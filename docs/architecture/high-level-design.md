@@ -7,7 +7,7 @@
 
 ## 1. Design summary
 
-Astro compiles Home, Press, Exhibitions, Portfolio, Resume, Contacts, navigation, and Privacy content into a static website. AWS Amplify Hosting builds and distributes it through a CDN.
+Astro compiles Home, Exhibitions, Portfolio, Resume, Contacts, navigation, and Privacy content into a static website. AWS Amplify Hosting builds and distributes it through a CDN.
 
 Home is the default route and contains the artist statement with an optional compact, manually curated Home carousel. Portfolio contains only images and a client-side carousel—no filters, descriptions, or comments.
 
@@ -70,7 +70,6 @@ flowchart TB
 
 ```text
 Home (/)
-Press (/press)
 Exhibitions
   └── Current, Past, Upcoming sections (/exhibitions)
 Portfolio (/portfolio)
@@ -87,7 +86,6 @@ Contacts (/contacts)
 Repository content models are:
 
 - `ArtistStatement`
-- `PressEntry`
 - `ExhibitionEntry`
 - `PortfolioImage`
 - `HomeCarouselImage`
@@ -219,7 +217,7 @@ Before implementation, demonstrate:
 
 1. Home is `/` and renders the statement.
 2. Exact navigation and accessible Exhibitions section controls work.
-3. Press and Exhibition categories generate from validated content.
+3. Exhibition categories generate from validated content.
 4. Portfolio contains only images and the accessible carousel.
 5. Carousel URL, focus restoration, and responsive images work.
 6. Resume redirects correctly and Contacts exposes the Privacy anchor.

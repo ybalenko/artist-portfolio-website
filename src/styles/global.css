@@ -165,6 +165,18 @@ a:hover {
   gap: 34px;
 }
 
+.home-page-intro {
+  justify-self: start;
+  margin-bottom: 0;
+}
+
+.home-carousel-shell {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  gap: 18px;
+  align-items: center;
+}
+
 .artist-statement {
   display: grid;
   width: 100%;
@@ -174,7 +186,7 @@ a:hover {
   background: var(--color-panel);
 }
 
-.artist-statement h1 {
+.artist-statement h2 {
   margin: 0;
   color: var(--color-accent);
   font-size: 20px;
@@ -202,12 +214,10 @@ a:hover {
 
 .home-carousel {
   --home-carousel-size: 320px;
-  --home-carousel-side-control-space: 58px;
 
   display: grid;
-  position: relative;
   width: max-content;
-  padding: 22px var(--home-carousel-side-control-space);
+  padding: 22px;
   align-content: start;
   border: var(--border-width) solid var(--color-panel);
   justify-items: center;
@@ -225,42 +235,8 @@ a:hover {
   object-fit: cover;
 }
 
-.home-carousel-controls {
-  position: absolute;
-  inset: 22px 12px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  pointer-events: none;
-}
-
 .home-carousel-control {
-  display: inline-grid;
-  width: 38px;
-  height: 38px;
-  border-radius: 999px;
-  border: var(--border-width) solid var(--color-accent);
-  background: transparent;
-  color: var(--color-accent);
-  cursor: pointer;
-  font-size: 29px;
-  font-weight: 700;
-  line-height: 1;
-  place-items: center;
-  pointer-events: auto;
-  transition:
-    background-color 160ms ease,
-    color 160ms ease;
-}
-
-.home-carousel-control:hover {
-  background: var(--color-accent);
-  color: #fff;
-}
-
-.home-carousel-control:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 3px;
+  min-width: 106px;
 }
 
 .site-footer {
@@ -786,6 +762,17 @@ a:hover {
 .carousel-control {
   min-height: 48px;
   padding: 14px 18px;
+}
+
+.home-carousel-shell .home-carousel-control {
+  border: var(--border-width) solid #ae2a5e;
+  background: #f2f0ed;
+  color: #ae2a5e;
+}
+
+.home-carousel-shell .home-carousel-control:hover {
+  background: #ae2a5e;
+  color: #f2f0ed;
 }
 
 .visually-hidden {

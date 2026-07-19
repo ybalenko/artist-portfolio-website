@@ -2,7 +2,7 @@
 
 This folder contains the working documentation for the Yulia Balenko artist portfolio website.
 
-Current project state: Milestones 1, 2, 3, and 5 are complete. Milestone 4, the Press page, is deferred. Milestone 7, AWS deployment and cloud Portfolio images, is in progress.
+Current project state: Milestones 1, 2, 3, and 5 are complete. Press has been removed from the current website scope. Milestone 7, AWS deployment and cloud Portfolio images, is in progress.
 
 ## Requirements
 
@@ -37,7 +37,6 @@ Current project state: Milestones 1, 2, 3, and 5 are complete. Milestone 4, the 
 
 Deferred and planned future milestones:
 
-- Milestone 4 — Press Page (deferred)
 - Milestone 6 — Resume
 - Mailing list and Leave a message backend — deferred to a later iteration
 
@@ -53,4 +52,4 @@ Deferred and planned future milestones:
 - Exhibitions — single page with Current, Past, and Upcoming section controls and empty states.
 - Portfolio — image gallery and carousel with Landscapes, Still life, and Other sections, selected-image metadata, newest-first section ordering, and local-manifest-driven S3 images. Other currently shows an empty state until published manifest images are added.
 
-AWS deployment and cloud Portfolio images are in progress for Milestone 7. Press, Resume, backend form wiring, and mailing-list behavior remain planned future work.
+AWS deployment and cloud Portfolio images are in progress for Milestone 7. Resume, backend form wiring, and mailing-list behavior remain planned future work.

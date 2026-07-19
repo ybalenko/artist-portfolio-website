@@ -231,7 +231,7 @@ S3-hosted manifest loading is not yet implemented. Until then, `src/data/portfol
 Milestone 7 is complete when:
 
 - The website is publicly accessible from an Amplify-provided URL.
-- Home, Contacts, Exhibitions, Portfolio, Press placeholder, and Resume placeholder routes load from the public URL.
+- Home, Contacts, Exhibitions, Portfolio, and Resume placeholder routes load from the public URL.
 - Pushes to the connected GitHub branch trigger Amplify build/deploy.
 - Amplify build succeeds using repository configuration.
 - Portfolio images are hosted in AWS cloud storage or an approved AWS-hosted image location.
@@ -287,7 +287,7 @@ Milestone 7 is complete when:
 
 - `npm run format:check` — passed
 - `npm run check` — passed; 0 errors, 0 warnings, 0 hints
-- `npm run build` — passed; 9 static pages built in `dist/`
+- `npm run build` — passed; 8 static pages built in `dist/`
 - Generated `dist/index.html` was inspected and contains the artist statement plus the separate compact Home carousel.
 - Home carousel CSS was updated so the image displays as a smaller square with `aspect-ratio: 1` and `max-width: 240px`.
 - Home carousel temporary source SVG and metadata were updated from `1600 x 960` to square `960 x 960` dimensions.
@@ -302,6 +302,13 @@ Milestone 7 is complete when:
 - Published seven owner-uploaded S3 Home carousel images from `portfolio/home-carousel/`.
 - Moved Home carousel previous/next controls from below the image to left and right overlay buttons.
 - Moved Home carousel previous/next controls outside the image into the carousel side margins.
+- Removed Press from current website scope, primary navigation, public route generation, and public verification scope.
+- Added a Home page intro with the shared eyebrow and page-title pattern used by the other top-level pages.
+- Moved Home carousel controls outside the bordered image container and reused the Portfolio carousel control styling.
+- Inverted Home carousel control colors to a white background with red accent text.
+- Updated Home carousel controls so hover uses a red background with white text while inactive buttons remain white with red text.
+- Set exact Home carousel button colors to `#f2f0ed` background / `#ae2a5e` text, with the colors reversed on hover.
+- Fixed the Home carousel button color cascade so the shared Portfolio carousel control background no longer overrides the inactive Home button state.
 - `node` manifest availability validation — passed; all manifest items have non-empty availability text.
 - `node` source inspection — passed; strict `availability: "available"` restriction is removed and availability is typed as free text.
 - Generated `dist/portfolio/index.html` was inspected after newest-first sorting; Landscapes begins with 2026 items, Still life begins with 2025 items, and Other has no published items yet.

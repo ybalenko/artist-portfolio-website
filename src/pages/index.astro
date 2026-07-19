@@ -12,35 +12,44 @@ const homeCarouselJson = JSON.stringify(publishedHomeCarouselImages);
   title="Yulia Balenko — Artist"
   description="The artist portfolio of Yulia Balenko."
 >
-  <div class="site-container home-content home-introduction">
+  <div
+    class="site-container home-content home-introduction"
+    aria-labelledby="page-title"
+  >
+    <header class="page-intro home-page-intro">
+      <p class="eyebrow">Home</p>
+      <h1 id="page-title">Artist Statement</h1>
+    </header>
+
     {
       hasCarouselImages && (
-        <aside
-          class="home-carousel"
-          aria-label="Home carousel"
-          data-home-carousel
-        >
-          <figure class="home-carousel-figure">
-            <img
-              src={firstCarouselImage.src}
-              width={firstCarouselImage.width}
-              height={firstCarouselImage.height}
-              alt={firstCarouselImage.alt}
-              fetchpriority="high"
-              data-home-carousel-image
-            />
-          </figure>
+        <div class="home-carousel-shell" data-home-carousel>
+          {hasMultipleCarouselImages && (
+            <button
+              type="button"
+              class="carousel-control home-carousel-control home-carousel-control-previous"
+              aria-label="Show previous home carousel image"
+              data-home-carousel-previous
+            >
+              Previous
+            </button>
+          )}
+
+          <aside class="home-carousel" aria-label="Home carousel">
+            <figure class="home-carousel-figure">
+              <img
+                src={firstCarouselImage.src}
+                width={firstCarouselImage.width}
+                height={firstCarouselImage.height}
+                alt={firstCarouselImage.alt}
+                fetchpriority="high"
+                data-home-carousel-image
+              />
+            </figure>
+          </aside>
 
           {hasMultipleCarouselImages && (
-            <div class="home-carousel-controls">
-              <button
-                type="button"
-                class="home-carousel-control home-carousel-control-previous"
-                aria-label="Show previous home carousel image"
-                data-home-carousel-previous
-              >
-                ‹
-              </button>
+            <>
               <p
                 class="visually-hidden"
                 aria-live="polite"
@@ -50,20 +59,20 @@ const homeCarouselJson = JSON.stringify(publishedHomeCarouselImages);
               </p>
               <button
                 type="button"
-                class="home-carousel-control home-carousel-control-next"
+                class="carousel-control home-carousel-control home-carousel-control-next"
                 aria-label="Show next home carousel image"
                 data-home-carousel-next
               >
-                ›
+                Next
               </button>
-            </div>
+            </>
           )}
-        </aside>
+        </div>
       )
     }
 
     <section class="artist-statement" aria-labelledby="artist-statement-title">
-      <h1 id="artist-statement-title">Artist Statement</h1>
+      <h2 id="artist-statement-title">Artist Statement</h2>
       <div class="statement-copy">
         <p>
           I paint the places, objects, and moments that make me pause. Drawn to

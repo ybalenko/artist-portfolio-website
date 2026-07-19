@@ -23,7 +23,6 @@ The repository contains typed, build-validated content for:
 
 - Artist statement
 - Home carousel images
-- Press entries
 - Current, Past, and Upcoming exhibitions
 - Ordered Portfolio images and accessibility text
 - Public contact and social links
@@ -31,12 +30,11 @@ The repository contains typed, build-validated content for:
 - Résumé PDF
 - Navigation and shared text
 
-Press and Exhibition entries may use a `published` flag. Invalid content must fail the build, and Git provides history and rollback.
+Exhibition entries may use a `published` flag. Invalid content must fail the build, and Git provides history and rollback.
 
 ## 3. Routes and navigation
 
 - `/` — Home with artist statement
-- `/press`
 - `/exhibitions` — single Exhibitions page with Current, Past, and Upcoming sections
 - `/exhibitions/current` — redirects to `/exhibitions/#current`
 - `/exhibitions/past` — redirects to `/exhibitions/#past`
@@ -48,7 +46,7 @@ Press and Exhibition entries may use a `published` flag. Invalid content must fa
 
 There must be no About or standalone Privacy route.
 
-Primary navigation is Home, Press, Exhibitions, Portfolio, Resume, and Contacts. Exhibitions exposes Current, Past, and Upcoming as page-level section controls, not as a header submenu.
+Primary navigation is Home, Exhibitions, Portfolio, Resume, and Contacts. Exhibitions exposes Current, Past, and Upcoming as page-level section controls, not as a header submenu.
 
 - Links work without a client-side router.
 - Current page and exhibition subsection are identified visually and accessibly.
@@ -66,14 +64,7 @@ Primary navigation is Home, Press, Exhibitions, Portfolio, Resume, and Contacts.
 - Do not duplicate the Portfolio gallery or Portfolio carousel behavior.
 - Provide unique title, description, canonical URL, and social metadata.
 
-### 4.2 Press
-
-- Render published entries in configured order.
-- Support title, text, source, date, and optional `https` URL.
-- Require understandable text or a URL.
-- Identify external links and apply safe attributes.
-
-### 4.3 Exhibitions
+### 4.2 Exhibitions
 
 - Render Current, Past, and Upcoming from validated content.
 - Render the three exhibition statuses as sections on `/exhibitions`.
@@ -82,7 +73,7 @@ Primary navigation is Home, Press, Exhibitions, Portfolio, Resume, and Contacts.
 - Show an explicit empty state when a category has no entries.
 - Exhibition status is editorially assigned; it is not inferred at runtime.
 
-### 4.4 Portfolio
+### 4.3 Portfolio
 
 - Render only an ordered image gallery and carousel interface.
 - Do not render filters, prices, comments, purchase controls, or video.
@@ -102,14 +93,14 @@ Primary navigation is Home, Press, Exhibitions, Portfolio, Resume, and Contacts.
 - Generate responsive variants with explicit dimensions to prevent layout shift.
 - Lazy-load off-screen thumbnails and preload only the adjacent carousel images.
 
-### 4.5 Resume
+### 4.4 Resume
 
 - `/resume` redirects to a versioned or cache-safe PDF in the static deployment.
 - Serve it as `application/pdf` over HTTPS.
 - Keep it at or below 10 MB and label links as PDF.
 - The PDF itself should be accessible.
 
-### 4.6 Contacts
+### 4.5 Contacts
 
 - Render configured public contact and social links.
 - Render the Privacy Notice with a linkable section anchor.
@@ -199,7 +190,7 @@ Testing must cover:
 
 - Home default route and artist statement
 - Exact primary navigation and Exhibitions section controls
-- Press and Exhibition content, empty states, dates, and external links
+- Exhibition content, empty states, dates, and external links
 - Portfolio containing only images/carousel
 - Carousel URL state, focus, keyboard, controls, touch, and gallery restoration
 - Resume redirect, PDF type, size, caching, and accessibility

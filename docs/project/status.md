@@ -11,7 +11,6 @@
 | M1        | Desktop Home page and local project foundation | Complete    | 28/28 |     100% | [Milestone 1](../milestones/milestone-1.md) |
 | M2        | Contacts page                                  | Complete    | 16/16 |     100% | [Milestone 2](../milestones/milestone-2.md) |
 | M3        | Exhibitions page and section controls          | Complete    | 18/18 |     100% | [Milestone 3](../milestones/milestone-3.md) |
-| M4        | Press page                                     | Deferred    |     — |        — | To be created later                         |
 | M5        | Portfolio gallery and carousel                 | Complete    | 22/22 |     100% | [Milestone 5](../milestones/milestone-5.md) |
 | M6        | Resume                                         | Planned     |     — |        — | To be created                               |
 | M7        | AWS deployment and cloud Portfolio images      | In progress | 31/43 |      72% | [Milestone 7](../milestones/milestone-7.md) |
@@ -56,6 +55,13 @@ See the [Decision log](./decisions.md) for resolved decisions and [Project proce
 
 | Date       | Update                                                        |
 | ---------- | ------------------------------------------------------------- |
+| 2026-07-19 | Fixed Home carousel button color cascade                      |
+| 2026-07-19 | Set exact Home carousel button inactive and hover colors      |
+| 2026-07-19 | Updated Home carousel hover buttons to red background         |
+| 2026-07-19 | Inverted Home carousel button colors                          |
+| 2026-07-19 | Matched Home carousel controls to Portfolio button styling    |
+| 2026-07-19 | Added Home page eyebrow and page title                        |
+| 2026-07-19 | Removed Press from current website scope and navigation       |
 | 2026-07-19 | Moved Home carousel side controls outside the image           |
 | 2026-07-19 | Moved Home carousel controls to left and right image edges    |
 | 2026-07-19 | Published seven S3 Home carousel images                       |

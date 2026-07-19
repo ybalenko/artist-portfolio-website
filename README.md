@@ -1,8 +1,8 @@
 # Yulia Balenko — Artist Portfolio
 
-An artwork-first website for artist **Yulia Balenko**, built as a simple static portfolio for an amateur artist. The site presents an artist statement, exhibitions, future press coverage, an image portfolio, a résumé PDF, and visitor contact options.
+An artwork-first website for artist **Yulia Balenko**, built as a simple static portfolio for an amateur artist. The site presents an artist statement, exhibitions, an image portfolio, a résumé PDF, and visitor contact options.
 
-> **Project status:** Milestones 1, 2, 3, and 5 are complete. Milestone 4, the Press page, is deferred. Milestone 7, AWS deployment and cloud Portfolio images, is in progress. Track current progress in [Project status](./docs/project/status.md).
+> **Project status:** Milestones 1, 2, 3, and 5 are complete. Press has been removed from the current website scope. Milestone 7, AWS deployment and cloud Portfolio images, is in progress. Track current progress in [Project status](./docs/project/status.md).
 
 ## Vision
 
@@ -12,7 +12,7 @@ The portfolio takes inspiration from the restrained, image-led presentation of t
 
 - Astro and TypeScript project foundation.
 - Home page as the default landing page with the artist statement and a compact curated carousel that is separate from Portfolio artwork.
-- Shared header navigation for Home, Press, Exhibitions, Portfolio, Resume, and Contacts.
+- Shared header navigation for Home, Exhibitions, Portfolio, Resume, and Contacts.
 - Exhibitions page with Current, Past, and Upcoming section controls.
 - Clear empty states for exhibition sections until real content is available.
 - Contacts page with draft Privacy Notice, copyright notice, Facebook link, disabled message form, and disabled mailing-list signup.
@@ -22,11 +22,10 @@ The portfolio takes inspiration from the restrained, image-led presentation of t
 
 ## Planned features
 
-- Press page for publications, articles, interviews, and public mentions.
 - Other cloud image publishing in the Portfolio manifest.
 - Resume navigation that opens the current résumé PDF.
 - Real exhibition content and optional exhibition images.
-- Code-managed Home carousel, artwork, Press, Exhibitions, résumé, Contacts, and navigation content.
+- Code-managed Home carousel, artwork, Exhibitions, résumé, Contacts, and navigation content.
 - S3-hosted Home carousel images referenced from repository metadata, without storing carousel image files in GitHub.
 - Protected Leave a message form using a later AWS backend milestone.
 - Double-opt-in mailing-list signup and unsubscribe using a later AWS backend milestone.
@@ -50,7 +49,7 @@ The initial release will not include sales, payments, visitor accounts, favorite
 | Bot protection         | Cloudflare Turnstile                 |
 | Infrastructure as code | AWS CDK with TypeScript              |
 
-The architecture is code-managed and static-first: Home, Press, Exhibitions, Portfolio, Resume, Contacts, navigation, and images deploy from the repository. Contact delivery and subscriptions use serverless APIs. The target operating cost is **$0–$5 USD per month**, excluding the domain.
+The architecture is code-managed and static-first: Home, Exhibitions, Portfolio, Resume, Contacts, navigation, and images deploy from the repository. Contact delivery and subscriptions use serverless APIs. The target operating cost is **$0–$5 USD per month**, excluding the domain.
 
 ## Documentation
 
@@ -93,7 +92,6 @@ npm run format:check # Verify formatting
 | M1        | Desktop Home page and local project foundation | Complete    |
 | M2        | Contacts page                                  | Complete    |
 | M3        | Exhibitions page and section controls          | Complete    |
-| M4        | Press page                                     | Deferred    |
 | M5        | Portfolio gallery and carousel                 | Complete    |
 | M6        | Resume                                         | Planned     |
 | M7        | AWS deployment and cloud Portfolio images      | In progress |

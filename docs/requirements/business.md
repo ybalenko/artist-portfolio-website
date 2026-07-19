@@ -6,13 +6,13 @@
 
 ## 1. Purpose
 
-Create a simple static website where Yulia Balenko can present an artist statement and artwork, share press coverage and exhibitions, provide a résumé, and receive messages from visitors.
+Create a simple static website where Yulia Balenko can present an artist statement and artwork, share exhibitions, provide a résumé, and receive messages from visitors.
 
 This is an amateur artist portfolio, not an online store or commercial gallery platform.
 
 ## 2. Users
 
-- **Visitor:** reads the artist statement, explores images, press, exhibitions, and résumé, and can leave a message or join the mailing list.
+- **Visitor:** reads the artist statement, explores images, exhibitions, and résumé, and can leave a message or join the mailing list.
 - **Site maintainer:** updates public content through repository files and deploys changes with the website code.
 
 ## 3. P0 pages and navigation
@@ -20,11 +20,10 @@ This is an amateur artist portfolio, not an online store or commercial gallery p
 The primary navigation contains:
 
 1. **Home**
-2. **Press**
-3. **Exhibitions**
-4. **Portfolio**
-5. **Resume**
-6. **Contacts**
+2. **Exhibitions**
+3. **Portfolio**
+4. **Resume**
+5. **Contacts**
 
 Home is the default landing page.
 
@@ -35,14 +34,7 @@ Navigation must work on mobile and desktop, identify the current destination, an
 - Contains the artist statement.
 - May include a compact manually curated Home carousel that supports the statement, but the carousel images remain distinct from the Portfolio gallery and are not automatically pulled from Portfolio artwork.
 
-### 3.2 Press
-
-- Contains text and/or links to publications, articles, interviews, and public mentions of the artist.
-- An entry may include title, short text, publication/source, date, and external link.
-- Text-only and link-only entries are allowed when understandable.
-- External links must be clearly identified and open safely.
-
-### 3.3 Exhibitions
+### 3.2 Exhibitions
 
 - Exhibitions is a single page with section controls similar to the Portfolio page.
 - **Current:** exhibitions taking place now.
@@ -51,7 +43,7 @@ Navigation must work on mobile and desktop, identify the current destination, an
 - Each entry may include title, venue, location, start/end dates, description, image, and external link.
 - Empty sections show a clear message rather than a blank page.
 
-### 3.4 Portfolio
+### 3.3 Portfolio
 
 - Contains only an image gallery and carousel experience.
 - Displays approximately 100 Oil and Watercolor artwork images.
@@ -65,12 +57,12 @@ Navigation must work on mobile and desktop, identify the current destination, an
 - Images include accessibility text and display restrained artwork metadata: name, medium, size, year, and availability status.
 - The page does not display filters, prices, comments, purchasing, or video.
 
-### 3.5 Resume
+### 3.4 Resume
 
 - Resume redirects to or opens a PDF containing the artist's accomplishments.
 - The PDF has a stable public destination and is labeled as a PDF before opening.
 
-### 3.6 Contacts
+### 3.5 Contacts
 
 Contacts contains:
 
@@ -99,7 +91,7 @@ The Privacy Notice explains contact messages, mailing-list data, CAPTCHA, email 
 ## 5. Content updates
 
 - Public content is stored in the source repository as typed data, text, images, and the résumé PDF.
-- Home, Press, Exhibitions, Portfolio, Resume, Contacts, navigation, and Privacy Notice changes deploy through the code workflow.
+- Home, Exhibitions, Portfolio, Resume, Contacts, navigation, and Privacy Notice changes deploy through the code workflow.
 - P0 does not include a browser-based content-management interface.
 - Subscriber export, if needed, uses protected scripts or AWS tools.
 
@@ -131,10 +123,10 @@ P0 is ready when:
 
 - Home is the default page and displays the artist statement.
 - Home may display a compact curated carousel beside the artist statement without duplicating the Portfolio gallery.
-- Visitors can navigate among Home, Press, Exhibitions, Portfolio, Resume, and Contacts.
+- Visitors can navigate among Home, Exhibitions, Portfolio, Resume, and Contacts.
 - Exhibitions provides accessible Current, Past, and Upcoming page sections.
 - Portfolio displays only images and an accessible carousel and restores gallery context when closed.
-- Press and Exhibitions display configured content and external links correctly.
+- Exhibitions display configured content and external links correctly.
 - Resume opens the current PDF.
 - Contacts displays public links, Privacy Notice, and a functioning protected message form.
 - Repository content changes produce an updated static deployment.

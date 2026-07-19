@@ -52,7 +52,6 @@ Verify these routes from the Amplify URL:
 - `/contacts/`
 - `/exhibitions/`
 - `/portfolio/`
-- `/press/`
 - `/resume/`
 
 Also verify:
