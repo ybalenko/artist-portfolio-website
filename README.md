@@ -11,7 +11,7 @@ The portfolio takes inspiration from the restrained, image-led presentation of t
 ## Current implementation
 
 - Astro and TypeScript project foundation.
-- Home page as the default landing page with temporary artist statement and a compact curated carousel that is separate from Portfolio artwork.
+- Home page as the default landing page with the artist statement and a compact curated carousel that is separate from Portfolio artwork.
 - Shared header navigation for Home, Press, Exhibitions, Portfolio, Resume, and Contacts.
 - Exhibitions page with Current, Past, and Upcoming section controls.
 - Clear empty states for exhibition sections until real content is available.
@@ -27,6 +27,7 @@ The portfolio takes inspiration from the restrained, image-led presentation of t
 - Resume navigation that opens the current résumé PDF.
 - Real exhibition content and optional exhibition images.
 - Code-managed Home carousel, artwork, Press, Exhibitions, résumé, Contacts, and navigation content.
+- S3-hosted Home carousel images referenced from repository metadata, without storing carousel image files in GitHub.
 - Protected Leave a message form using a later AWS backend milestone.
 - Double-opt-in mailing-list signup and unsubscribe using a later AWS backend milestone.
 - AWS Amplify deployment and cloud-hosted Portfolio images.
@@ -62,7 +63,7 @@ The architecture is code-managed and static-first: Home, Press, Exhibitions, Por
 - [Change request log](./docs/project/change-requests.md) — user-requested scope, design, process, and rework changes
 - [Decision log](./docs/project/decisions.md) — approved project and milestone decisions
 - [AWS Amplify deployment runbook](./docs/deployment/aws-amplify.md) — deployment steps and settings
-- [Portfolio cloud image runbook](./docs/deployment/portfolio-images.md) — cloud image upload and metadata workflow
+- [Portfolio and Home cloud image runbook](./docs/deployment/portfolio-images.md) — cloud image upload and metadata workflow
 - [Portfolio manifest design](./docs/deployment/portfolio-manifest.md) — local/S3 JSON catalog for Portfolio images and metadata
 - [Agent instructions](./AGENTS.md) — required workflow for future coding agents
 

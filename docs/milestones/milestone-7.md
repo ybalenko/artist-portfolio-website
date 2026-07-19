@@ -264,7 +264,7 @@ Milestone 7 is complete when:
 
 ## 11. Verification record
 
-**Date:** July 18, 2026  
+**Date:** July 19, 2026  
 **Result:** In progress
 
 ### Documentation checks
@@ -296,6 +296,12 @@ Milestone 7 is complete when:
 - Home carousel visible heading and caption were removed while preserving an accessible carousel label.
 - Temporary Home artist statement text was replaced with the owner-provided final artist statement.
 - Home statement centering was rolled back; only the statement body copy is justified.
+- Superseded the local `public/home-carousel/` upload folder with an S3-backed Home carousel approach using the `home-carousel/` prefix.
+- Updated `src/data/homeCarousel.ts` so published Home carousel images must use public `https` URLs, with an unpublished S3 example entry until final images are uploaded.
+- Updated the Home carousel S3 prefix to the owner-created `portfolio/home-carousel/` location.
+- Published seven owner-uploaded S3 Home carousel images from `portfolio/home-carousel/`.
+- Moved Home carousel previous/next controls from below the image to left and right overlay buttons.
+- Moved Home carousel previous/next controls outside the image into the carousel side margins.
 - `node` manifest availability validation — passed; all manifest items have non-empty availability text.
 - `node` source inspection — passed; strict `availability: "available"` restriction is removed and availability is typed as free text.
 - Generated `dist/portfolio/index.html` was inspected after newest-first sorting; Landscapes begins with 2026 items, Still life begins with 2025 items, and Other has no published items yet.

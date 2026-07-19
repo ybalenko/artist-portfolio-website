@@ -35,20 +35,26 @@ const homeCarouselJson = JSON.stringify(publishedHomeCarouselImages);
             <div class="home-carousel-controls">
               <button
                 type="button"
+                class="home-carousel-control home-carousel-control-previous"
                 aria-label="Show previous home carousel image"
                 data-home-carousel-previous
               >
-                Previous
+                ‹
               </button>
-              <p aria-live="polite" data-home-carousel-status>
+              <p
+                class="visually-hidden"
+                aria-live="polite"
+                data-home-carousel-status
+              >
                 1 / {publishedHomeCarouselImages.length}
               </p>
               <button
                 type="button"
+                class="home-carousel-control home-carousel-control-next"
                 aria-label="Show next home carousel image"
                 data-home-carousel-next
               >
-                Next
+                ›
               </button>
             </div>
           )}

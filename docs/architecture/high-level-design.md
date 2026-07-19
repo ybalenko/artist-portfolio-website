@@ -99,7 +99,7 @@ Astro validates these models during build. Git history is the source of truth an
 
 ## 5. Home carousel design
 
-Home carousel images are managed separately from Portfolio artwork records. They can be used for selected details, studio glimpses, or other small supporting visuals on the Home page without changing the Portfolio gallery.
+Home carousel images are managed separately from Portfolio artwork records, but they use the same AWS-hosted image strategy as Portfolio assets. Home carousel files live outside GitHub under the `portfolio/home-carousel/` S3 prefix and are referenced from `src/data/homeCarousel.ts` with public `https` URLs. They can be used for selected details, studio glimpses, or other small supporting visuals on the Home page without changing the Portfolio gallery.
 
 ## 6. Portfolio design
 

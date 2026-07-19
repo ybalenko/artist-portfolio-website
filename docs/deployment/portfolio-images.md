@@ -1,12 +1,12 @@
-# Portfolio Cloud Image Runbook
+# Portfolio and Home Cloud Image Runbook
 
-This runbook covers the Milestone 7 approach for hosting Portfolio images outside GitHub.
+This runbook covers the Milestone 7 approach for hosting Portfolio and Home carousel images outside GitHub.
 
 ## Milestone 7 image strategy
 
 Use an AWS-hosted image location, preferably an S3 bucket with public object URLs for this milestone.
 
-This keeps artwork image files out of GitHub while allowing the deployed Portfolio carousel to load images from the internet.
+This keeps artwork image files out of GitHub while allowing the deployed Portfolio and Home carousel images to load from the internet.
 
 ## Recommended naming
 
@@ -18,6 +18,9 @@ portfolio/
   test-02.jpg
   yulia-balenko-oil-001.jpg
   yulia-balenko-watercolor-001.jpg
+  home-carousel/
+    home-carousel-01.jpg
+    home-carousel-02.jpg
 ```
 
 Recommended file format:
@@ -40,7 +43,13 @@ portfolio/stilllifes/
 portfolio/other/
 ```
 
-## Upload workflow
+Home carousel prefix:
+
+```text
+portfolio/home-carousel/
+```
+
+## Portfolio upload workflow
 
 These steps must be performed by the owner in AWS because they create or update cloud resources.
 
@@ -53,6 +62,34 @@ These steps must be performed by the owner in AWS because they create or update 
 7. Rebuild the website after switching the build-time manifest source to S3.
 
 The site currently loads Portfolio data from the local manifest during build.
+
+## Home carousel upload workflow
+
+1. Upload square, web-sized Home carousel images to the same image bucket under `portfolio/home-carousel/`.
+2. Confirm each uploaded object is publicly reachable.
+3. Add each public image URL to `src/data/homeCarousel.ts`.
+4. Set `published: true` only after the S3 object exists and the URL works.
+5. Run local checks and rebuild the website.
+
+Example Home carousel URL:
+
+```text
+https://yulia-balenko-portfolio-images.s3.us-east-1.amazonaws.com/portfolio/home-carousel/home-carousel-01.jpg
+```
+
+Example Home carousel data entry:
+
+```ts
+{
+  id: "home-carousel-01",
+  src: "https://yulia-balenko-portfolio-images.s3.us-east-1.amazonaws.com/portfolio/home-carousel/home-carousel-01.jpg",
+  alt: "Curated Home carousel image by Yulia Balenko",
+  width: 960,
+  height: 960,
+  published: true,
+  displayOrder: 1,
+}
+```
 
 ## Metadata example
 

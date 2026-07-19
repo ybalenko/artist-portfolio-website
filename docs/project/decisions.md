@@ -44,6 +44,9 @@ This file records approved decisions that affect implementation or more than one
 | D-038 | 2026-07-09 | Remove the Exhibitions header submenu                                                 | Simplifies navigation; Current/Past/Upcoming move to page sections                                      | Active        |
 | D-039 | 2026-07-14 | Treat Portfolio availability as free-text status                                      | Allows manually entered public artwork status labels in the manifest                                    | Active        |
 | D-040 | 2026-07-18 | Manage Home carousel images separately from Portfolio artwork                         | Allows curated small Home visuals beside the artist statement without duplicating the Portfolio gallery | Active        |
+| D-041 | 2026-07-18 | Store local Home carousel uploads under `public/home-carousel/`                       | Gives Home carousel images a dedicated upload location separate from Portfolio images                   | Superseded    |
+| D-042 | 2026-07-19 | Store Home carousel images in S3 under `home-carousel/`                               | Keeps Home carousel image files out of GitHub while reusing the Portfolio cloud-image approach          | Superseded    |
+| D-043 | 2026-07-19 | Store Home carousel images in S3 under `portfolio/home-carousel/`                     | Matches the owner-created S3 upload location inside the existing Portfolio image prefix                 | Active        |
 
 ## Adding a decision
 

@@ -202,12 +202,13 @@ a:hover {
 
 .home-carousel {
   --home-carousel-size: 320px;
+  --home-carousel-side-control-space: 58px;
 
   display: grid;
+  position: relative;
   width: max-content;
-  padding: 22px;
+  padding: 22px var(--home-carousel-side-control-space);
   align-content: start;
-  gap: 18px;
   border: var(--border-width) solid var(--color-panel);
   justify-items: center;
 }
@@ -225,37 +226,41 @@ a:hover {
 }
 
 .home-carousel-controls {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  gap: 12px;
+  position: absolute;
+  inset: 22px 12px;
+  display: flex;
   align-items: center;
+  justify-content: space-between;
+  pointer-events: none;
 }
 
-.home-carousel-controls button {
-  padding: 10px 12px;
+.home-carousel-control {
+  display: inline-grid;
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
   border: var(--border-width) solid var(--color-accent);
   background: transparent;
   color: var(--color-accent);
   cursor: pointer;
-  font-size: 11px;
+  font-size: 29px;
   font-weight: 700;
-  letter-spacing: 0.1em;
   line-height: 1;
-  text-transform: uppercase;
+  place-items: center;
+  pointer-events: auto;
+  transition:
+    background-color 160ms ease,
+    color 160ms ease;
 }
 
-.home-carousel-controls button:hover {
+.home-carousel-control:hover {
   background: var(--color-accent);
   color: #fff;
 }
 
-.home-carousel-controls p {
-  margin: 0;
-  color: var(--color-muted);
-  font-size: 12px;
-  font-weight: 400;
-  letter-spacing: 0.07em;
-  line-height: 1;
+.home-carousel-control:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
 }
 
 .site-footer {

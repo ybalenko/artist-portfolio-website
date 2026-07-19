@@ -47,7 +47,8 @@ Deferred and planned future milestones:
 
 ## Implemented pages
 
-- Home — default landing page with temporary artist statement and a compact curated carousel separate from Portfolio artwork.
+- Home — default landing page with artist statement and a compact curated carousel separate from Portfolio artwork.
+- Home carousel images — S3-hosted images belong under the `portfolio/home-carousel/` prefix and are referenced from `src/data/homeCarousel.ts`.
 - Contacts — static contact page with draft privacy/copyright sections, Facebook link, disabled message form, and disabled mailing-list signup.
 - Exhibitions — single page with Current, Past, and Upcoming section controls and empty states.
 - Portfolio — image gallery and carousel with Landscapes, Still life, and Other sections, selected-image metadata, newest-first section ordering, and local-manifest-driven S3 images. Other currently shows an empty state until published manifest images are added.
