@@ -1,6 +1,6 @@
 # Project Status
 
-**Last updated:** July 14, 2026  
+**Last updated:** July 18, 2026  
 **Current phase:** Milestone 7 implementation in progress  
 **Current milestone:** Milestone 7 — AWS Deployment and Cloud Portfolio Images (in progress)
 
@@ -43,7 +43,7 @@ Future milestone boundaries are provisional until their plans are approved.
 
 - Final domain and AWS account ownership
 - Final content schemas and ordering
-- Final Home statement and artwork
+- Final Home artwork
 - Final résumé behavior
 - Exhibition route presentation
 - Image dimensions and repository-size budget
@@ -56,6 +56,14 @@ See the [Decision log](./decisions.md) for resolved decisions and [Project proce
 
 | Date       | Update                                                      |
 | ---------- | ----------------------------------------------------------- |
+| 2026-07-18 | Justified Home artist statement body text                   |
+| 2026-07-18 | Added final Home artist statement text                      |
+| 2026-07-18 | Removed Home carousel heading and caption                   |
+| 2026-07-18 | Fixed Home carousel CSS to use explicit square image size   |
+| 2026-07-18 | Moved Home carousel above statement and centered it         |
+| 2026-07-18 | Made Home carousel source artwork asset square              |
+| 2026-07-18 | Made Home carousel image square and smaller                 |
+| 2026-07-18 | Added separate compact Home carousel beside statement       |
 | 2026-07-14 | Removed availability value restriction from Portfolio data  |
 | 2026-07-14 | Fixed invalid Portfolio manifest availability values        |
 | 2026-07-09 | Sorted all Portfolio sections newest first by artwork year  |

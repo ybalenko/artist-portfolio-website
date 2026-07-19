@@ -1,36 +1,149 @@
 ---
+import { publishedHomeCarouselImages } from "../data/homeCarousel";
 import BaseLayout from "../layouts/BaseLayout.astro";
+
+const firstCarouselImage = publishedHomeCarouselImages[0];
+const hasCarouselImages = Boolean(firstCarouselImage);
+const hasMultipleCarouselImages = publishedHomeCarouselImages.length > 1;
+const homeCarouselJson = JSON.stringify(publishedHomeCarouselImages);
 ---
 
 <BaseLayout
   title="Yulia Balenko — Artist"
   description="The artist portfolio of Yulia Balenko."
 >
-  <div class="site-container home-content">
-    <figure class="hero-artwork">
-      <img
-        src="/home-artwork.svg"
-        width={1600}
-        height={960}
-        alt="Temporary abstract artwork in magenta, cobalt blue, ochre, and black"
-        fetchpriority="high"
-      />
-    </figure>
+  <div class="site-container home-content home-introduction">
+    {
+      hasCarouselImages && (
+        <aside
+          class="home-carousel"
+          aria-label="Home carousel"
+          data-home-carousel
+        >
+          <figure class="home-carousel-figure">
+            <img
+              src={firstCarouselImage.src}
+              width={firstCarouselImage.width}
+              height={firstCarouselImage.height}
+              alt={firstCarouselImage.alt}
+              fetchpriority="high"
+              data-home-carousel-image
+            />
+          </figure>
+
+          {hasMultipleCarouselImages && (
+            <div class="home-carousel-controls">
+              <button
+                type="button"
+                aria-label="Show previous home carousel image"
+                data-home-carousel-previous
+              >
+                Previous
+              </button>
+              <p aria-live="polite" data-home-carousel-status>
+                1 / {publishedHomeCarouselImages.length}
+              </p>
+              <button
+                type="button"
+                aria-label="Show next home carousel image"
+                data-home-carousel-next
+              >
+                Next
+              </button>
+            </div>
+          )}
+        </aside>
+      )
+    }
 
     <section class="artist-statement" aria-labelledby="artist-statement-title">
       <h1 id="artist-statement-title">Artist Statement</h1>
       <div class="statement-copy">
         <p>
-          My work begins with color, memory, and the small shifts that make
-          familiar places feel newly discovered. Each painting is an attempt to
-          hold a moment between observation and imagination.
+          I paint the places, objects, and moments that make me pause. Drawn to
+          subjects that evoke a sense of beauty, calm, and connection, I strive
+          to capture not only what I see, but also what I feel.
         </p>
         <p>
-          Through oil and watercolor, I explore how light changes a surface and
-          how a simple shape can carry emotion. This temporary statement will be
-          replaced with the artist's final text in a later milestone.
+          Many of my paintings are inspired by places I have explored while
+          hiking and traveling. Others emerge from quiet, everyday moments that
+          spark curiosity or leave a lasting impression. Rather than creating a
+          literal representation, I seek to convey the atmosphere, light, and
+          emotion that first drew me to each subject.
+        </p>
+        <p>
+          Through my work, I hope to invite viewers to slow down, reflect, and
+          discover beauty in both extraordinary landscapes and the quiet moments
+          of everyday life.
         </p>
       </div>
     </section>
   </div>
+
+  <script is:inline define:vars={{ homeCarouselJson }}>
+    const homeCarouselImages = JSON.parse(homeCarouselJson);
+
+    if (homeCarouselImages.length > 1) {
+      const carousel = document.querySelector("[data-home-carousel]");
+      const carouselImage = document.querySelector(
+        "[data-home-carousel-image]",
+      );
+      const carouselStatus = document.querySelector(
+        "[data-home-carousel-status]",
+      );
+      const previousButton = document.querySelector(
+        "[data-home-carousel-previous]",
+      );
+      const nextButton = document.querySelector("[data-home-carousel-next]");
+      const prefersReducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      );
+
+      let activeIndex = 0;
+      let rotationTimer;
+
+      const setActiveImage = (nextIndex) => {
+        activeIndex =
+          (nextIndex + homeCarouselImages.length) % homeCarouselImages.length;
+        const image = homeCarouselImages[activeIndex];
+
+        carouselImage.src = image.src;
+        carouselImage.alt = image.alt;
+        carouselImage.width = image.width;
+        carouselImage.height = image.height;
+        carouselStatus.textContent = `${activeIndex + 1} / ${homeCarouselImages.length}`;
+      };
+
+      const stopRotation = () => {
+        window.clearInterval(rotationTimer);
+      };
+
+      const startRotation = () => {
+        if (prefersReducedMotion.matches) return;
+
+        stopRotation();
+        rotationTimer = window.setInterval(() => {
+          setActiveImage(activeIndex + 1);
+        }, 7000);
+      };
+
+      previousButton.addEventListener("click", () => {
+        setActiveImage(activeIndex - 1);
+        startRotation();
+      });
+
+      nextButton.addEventListener("click", () => {
+        setActiveImage(activeIndex + 1);
+        startRotation();
+      });
+
+      carousel.addEventListener("mouseenter", stopRotation);
+      carousel.addEventListener("mouseleave", startRotation);
+      carousel.addEventListener("focusin", stopRotation);
+      carousel.addEventListener("focusout", startRotation);
+      prefersReducedMotion.addEventListener("change", startRotation);
+
+      startRotation();
+    }
+  </script>
 </BaseLayout>

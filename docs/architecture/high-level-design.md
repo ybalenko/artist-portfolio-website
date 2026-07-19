@@ -9,7 +9,7 @@
 
 Astro compiles Home, Press, Exhibitions, Portfolio, Resume, Contacts, navigation, and Privacy content into a static website. AWS Amplify Hosting builds and distributes it through a CDN.
 
-Home is the default route and contains the artist statement. Portfolio contains only images and a client-side carousel—no filters, descriptions, or comments.
+Home is the default route and contains the artist statement with an optional compact, manually curated Home carousel. Portfolio contains only images and a client-side carousel—no filters, descriptions, or comments.
 
 Only contact delivery and mailing-list enrollment are dynamic. API Gateway and Lambda handle forms, DynamoDB stores subscriber state, and SES delivers contact and subscription email.
 
@@ -90,13 +90,18 @@ Repository content models are:
 - `PressEntry`
 - `ExhibitionEntry`
 - `PortfolioImage`
+- `HomeCarouselImage`
 - `SiteLinks`
 - `PrivacyNotice`
 - Résumé PDF
 
 Astro validates these models during build. Git history is the source of truth and rollback mechanism.
 
-## 5. Portfolio design
+## 5. Home carousel design
+
+Home carousel images are managed separately from Portfolio artwork records. They can be used for selected details, studio glimpses, or other small supporting visuals on the Home page without changing the Portfolio gallery.
+
+## 6. Portfolio design
 
 The Portfolio route is deliberately visual and takes interaction inspiration from the [David Hockney Drawings — 2010s page](https://www.hockney.com/index.php/works/drawings/2010s), without copying its identity or its category/decade navigation:
 
@@ -116,7 +121,7 @@ The Portfolio route is deliberately visual and takes interaction inspiration fro
 
 Without JavaScript, the prominent first image and thumbnail collection remain visible; selection and carousel enhancement require JavaScript.
 
-## 6. Dynamic flows
+## 7. Dynamic flows
 
 ### Contact message
 
@@ -144,7 +149,7 @@ The application does not store contact messages or log personal form content.
 
 Subscription Lambda stores pending and confirmed consent in DynamoDB. SES sends double-opt-in email. Confirmation and unsubscribe require deliberate actions to prevent automatic link scanners from changing state.
 
-## 7. Component responsibilities
+## 8. Component responsibilities
 
 | Component           | Responsibility                                                                                                     |
 | ------------------- | ------------------------------------------------------------------------------------------------------------------ |
@@ -158,7 +163,7 @@ Subscription Lambda stores pending and confirmed consent in DynamoDB. SES sends 
 | Turnstile           | Bot checks for public write forms                                                                                  |
 | CloudWatch/Budgets  | Operational and cost alerts without visitor analytics                                                              |
 
-## 8. Security and privacy
+## 9. Security and privacy
 
 - All dynamic input is validated server-side.
 - Turnstile, API throttling, payload limits, and Lambda concurrency protect forms.
@@ -171,7 +176,7 @@ Subscription Lambda stores pending and confirmed consent in DynamoDB. SES sends 
 - Subscriber export uses a protected script with short-lived AWS credentials.
 - No visitor analytics or advertising scripts are loaded.
 
-## 9. Deployment and operations
+## 10. Deployment and operations
 
 ```mermaid
 sequenceDiagram
@@ -197,7 +202,7 @@ sequenceDiagram
 - Lambda retries are bounded, and asynchronous failure handling is configured where needed.
 - API and email quotas plus $1/$5 budgets constrain cost.
 
-## 10. Tradeoffs
+## 11. Tradeoffs
 
 | Decision              | Benefit                   | Cost or risk                                  |
 | --------------------- | ------------------------- | --------------------------------------------- |
@@ -208,7 +213,7 @@ sequenceDiagram
 | Content in Git        | Simple and versioned      | Updates require deployment                    |
 | No admin UI           | Small attack surface      | Subscriber export uses scripts/AWS tools      |
 
-## 11. Proof of concept
+## 12. Proof of concept
 
 Before implementation, demonstrate:
 
@@ -221,7 +226,7 @@ Before implementation, demonstrate:
 7. Contact delivery works through Turnstile and SES without persistence.
 8. Mailing double opt-in works outside the SES sandbox.
 
-## 12. Open decisions
+## 13. Open decisions
 
 - Same-tab or new-tab Resume behavior
 - Separate Exhibition pages versus one page with sections
@@ -231,7 +236,7 @@ Before implementation, demonstrate:
 - Content schemas and ordering
 - Domain, AWS ownership, budget, and launch date
 
-## 13. References
+## 14. References
 
 - [Astro deployment on AWS](https://docs.astro.build/en/guides/deploy/aws/)
 - [AWS Amplify static hosting](https://docs.aws.amazon.com/amplify/latest/userguide/welcome.html)

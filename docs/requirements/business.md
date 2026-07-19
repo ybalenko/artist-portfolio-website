@@ -33,7 +33,7 @@ Navigation must work on mobile and desktop, identify the current destination, an
 ### 3.1 Home
 
 - Contains the artist statement.
-- May include restrained visual presentation supporting the statement, but must remain distinct from the Portfolio gallery.
+- May include a compact manually curated Home carousel that supports the statement, but the carousel images remain distinct from the Portfolio gallery and are not automatically pulled from Portfolio artwork.
 
 ### 3.2 Press
 
@@ -130,6 +130,7 @@ The Privacy Notice explains contact messages, mailing-list data, CAPTCHA, email 
 P0 is ready when:
 
 - Home is the default page and displays the artist statement.
+- Home may display a compact curated carousel beside the artist statement without duplicating the Portfolio gallery.
 - Visitors can navigate among Home, Press, Exhibitions, Portfolio, Resume, and Contacts.
 - Exhibitions provides accessible Current, Past, and Upcoming page sections.
 - Portfolio displays only images and an accessible carousel and restores gallery context when closed.

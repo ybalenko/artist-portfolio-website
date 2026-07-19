@@ -11,7 +11,7 @@ The portfolio takes inspiration from the restrained, image-led presentation of t
 ## Current implementation
 
 - Astro and TypeScript project foundation.
-- Home page as the default landing page with temporary artist statement and artwork.
+- Home page as the default landing page with temporary artist statement and a compact curated carousel that is separate from Portfolio artwork.
 - Shared header navigation for Home, Press, Exhibitions, Portfolio, Resume, and Contacts.
 - Exhibitions page with Current, Past, and Upcoming section controls.
 - Clear empty states for exhibition sections until real content is available.
@@ -26,7 +26,7 @@ The portfolio takes inspiration from the restrained, image-led presentation of t
 - Other cloud image publishing in the Portfolio manifest.
 - Resume navigation that opens the current résumé PDF.
 - Real exhibition content and optional exhibition images.
-- Code-managed artwork, Press, Exhibitions, résumé, Contacts, and navigation content.
+- Code-managed Home carousel, artwork, Press, Exhibitions, résumé, Contacts, and navigation content.
 - Protected Leave a message form using a later AWS backend milestone.
 - Double-opt-in mailing-list signup and unsubscribe using a later AWS backend milestone.
 - AWS Amplify deployment and cloud-hosted Portfolio images.

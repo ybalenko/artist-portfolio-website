@@ -264,11 +264,13 @@ Milestone 7 is complete when:
 
 ## 11. Verification record
 
-**Date:** July 9, 2026  
+**Date:** July 18, 2026  
 **Result:** In progress
 
 ### Documentation checks
 
+- Added a separate compact Home carousel design beside the artist statement.
+- Documented that Home carousel images are managed separately from Portfolio artwork.
 - Added proposed Portfolio manifest design and example JSON.
 - Added `availability` manifest metadata and simplified its current allowed value to `available`.
 - Added Portfolio UI status display for artwork availability.
@@ -286,6 +288,14 @@ Milestone 7 is complete when:
 - `npm run format:check` — passed
 - `npm run check` — passed; 0 errors, 0 warnings, 0 hints
 - `npm run build` — passed; 9 static pages built in `dist/`
+- Generated `dist/index.html` was inspected and contains the artist statement plus the separate compact Home carousel.
+- Home carousel CSS was updated so the image displays as a smaller square with `aspect-ratio: 1` and `max-width: 240px`.
+- Home carousel temporary source SVG and metadata were updated from `1600 x 960` to square `960 x 960` dimensions.
+- Home layout was updated so the square carousel appears centered above the artist statement instead of in the right column.
+- Home carousel CSS now uses an explicit equal `width` and `height` image size instead of a narrow flexible wrapper.
+- Home carousel visible heading and caption were removed while preserving an accessible carousel label.
+- Temporary Home artist statement text was replaced with the owner-provided final artist statement.
+- Home statement centering was rolled back; only the statement body copy is justified.
 - `node` manifest availability validation — passed; all manifest items have non-empty availability text.
 - `node` source inspection — passed; strict `availability: "available"` restriction is removed and availability is typed as free text.
 - Generated `dist/portfolio/index.html` was inspected after newest-first sorting; Landscapes begins with 2026 items, Still life begins with 2025 items, and Other has no published items yet.

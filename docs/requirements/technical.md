@@ -22,6 +22,7 @@ Implement a code-managed static artist website. Only contact delivery and mailin
 The repository contains typed, build-validated content for:
 
 - Artist statement
+- Home carousel images
 - Press entries
 - Current, Past, and Upcoming exhibitions
 - Ordered Portfolio images and accessibility text
@@ -59,7 +60,9 @@ Primary navigation is Home, Press, Exhibitions, Portfolio, Resume, and Contacts.
 ### 4.1 Home
 
 - Render the complete artist statement as static HTML.
-- Do not duplicate the Portfolio gallery or carousel.
+- Render any Home carousel images from a manually managed Home carousel data source, separate from Portfolio artwork data.
+- Keep the Home carousel compact so it supports the artist statement rather than becoming a second Portfolio gallery.
+- Do not duplicate the Portfolio gallery or Portfolio carousel behavior.
 - Provide unique title, description, canonical URL, and social metadata.
 
 ### 4.2 Press
