@@ -73,7 +73,8 @@ Home (/)
 Exhibitions
   └── Current, Past, Upcoming sections (/exhibitions)
 Portfolio (/portfolio)
-Resume (/resume → PDF)
+Resume navigation → S3 PDF
+Resume fallback page (/resume)
 Contacts (/contacts)
 ```
 
@@ -81,7 +82,7 @@ Contacts (/contacts)
 - `/exhibitions/current`, `/exhibitions/past`, and `/exhibitions/upcoming` redirect to the matching `/exhibitions/` hash section.
 - Contacts contains a linkable Privacy Notice section.
 - There is no About or separate Privacy route.
-- The shared navigation uses normal links. Exhibitions does not use a header submenu.
+- The shared navigation uses normal links. Resume opens the configured S3-hosted PDF in a new browser tab. Exhibitions does not use a header submenu.
 
 Repository content models are:
 
@@ -91,7 +92,7 @@ Repository content models are:
 - `HomeCarouselImage`
 - `SiteLinks`
 - `PrivacyNotice`
-- Résumé PDF
+- Résumé PDF URL
 
 Astro validates these models during build. Git history is the source of truth and rollback mechanism.
 
@@ -151,7 +152,7 @@ Subscription Lambda stores pending and confirmed consent in DynamoDB. SES sends 
 
 | Component           | Responsibility                                                                                                     |
 | ------------------- | ------------------------------------------------------------------------------------------------------------------ |
-| Astro               | Static pages, content validation, navigation, section controls, gallery, carousel shell, metadata, Resume redirect |
+| Astro               | Static pages, content validation, navigation, section controls, gallery, carousel shell, metadata, Resume PDF link |
 | Amplify             | Git-connected build, atomic deployment, CDN, TLS, custom domain                                                    |
 | API Gateway         | Form routes, CORS, throttling, payload limits                                                                      |
 | Contact Lambda      | Validate and forward messages to SES without storage                                                               |
@@ -220,13 +221,13 @@ Before implementation, demonstrate:
 3. Exhibition categories generate from validated content.
 4. Portfolio contains only images and the accessible carousel.
 5. Carousel URL, focus restoration, and responsive images work.
-6. Resume redirects correctly and Contacts exposes the Privacy anchor.
+6. Resume navigation opens the configured S3-hosted PDF in a new browser tab and Contacts exposes the Privacy anchor.
 7. Contact delivery works through Turnstile and SES without persistence.
 8. Mailing double opt-in works outside the SES sandbox.
 
 ## 13. Open decisions
 
-- Same-tab or new-tab Resume behavior
+- Final Resume PDF filename and upload timing
 - Separate Exhibition pages versus one page with sections
 - Visible carousel titles versus accessibility text only
 - Contact recipient and diagnostic retention

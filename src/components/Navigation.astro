@@ -1,4 +1,6 @@
 ---
+import { resume } from "../data/resume";
+
 interface Props {
   currentPath: string;
 }
@@ -9,7 +11,12 @@ const navigationItems = [
   { href: "/", label: "Home" },
   { href: "/exhibitions/", label: "Exhibitions" },
   { href: "/portfolio/", label: "Portfolio" },
-  { href: "/resume/", label: "Resume" },
+  {
+    href: resume.pdfUrl,
+    label: "Resume",
+    target: "_blank",
+    rel: "noopener noreferrer",
+  },
   { href: "/contacts/", label: "Contacts" },
 ];
 
@@ -24,6 +31,8 @@ const isCurrent = (href: string) =>
         <li>
           <a
             href={item.href}
+            target={item.target}
+            rel={item.rel}
             class:list={{ active: isCurrent(item.href) }}
             aria-current={isCurrent(item.href) ? "page" : undefined}
           >

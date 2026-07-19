@@ -51,5 +51,6 @@ Deferred and planned future milestones:
 - Contacts — static contact page with draft privacy/copyright sections, Facebook link, disabled message form, and disabled mailing-list signup.
 - Exhibitions — single page with Current, Past, and Upcoming section controls and empty states.
 - Portfolio — image gallery and carousel with Landscapes, Still life, and Other sections, selected-image metadata, newest-first section ordering, and local-manifest-driven S3 images. Other currently shows an empty state until published manifest images are added.
+- Resume — primary navigation opens the S3-hosted résumé PDF in a new browser tab; `/resume/` remains a fallback link page configured from `src/data/resume.ts`.
 
-AWS deployment and cloud Portfolio images are in progress for Milestone 7. Resume, backend form wiring, and mailing-list behavior remain planned future work.
+AWS deployment and cloud Portfolio images are in progress for Milestone 7. Backend form wiring, mailing-list behavior, and the final résumé PDF replacement workflow remain planned future work.

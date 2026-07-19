@@ -448,6 +448,48 @@ a:hover {
   font-size: 14px;
 }
 
+.resume-page {
+  padding-bottom: 84px;
+}
+
+.resume-panel {
+  padding: 42px 48px 48px;
+  background: var(--color-panel);
+}
+
+.resume-panel-header {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 28px;
+}
+
+.resume-pdf-link {
+  flex: none;
+  min-height: 44px;
+  border: var(--border-width) solid var(--color-accent);
+  padding: 10px 18px;
+  background: #fff;
+  color: var(--color-accent);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  line-height: 1.5;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.resume-pdf-link:hover {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+.resume-fallback {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 14px;
+}
+
 .notice-section {
   margin-top: 42px;
   padding: 42px 48px;

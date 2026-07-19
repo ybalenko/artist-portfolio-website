@@ -36,14 +36,14 @@ Future milestone boundaries are provisional until their plans are approved.
 - **Target:** Desktop web browsers only
 - **Open blockers:** Amplify URL and build status are needed before public verification.
 - **Deferred:** Custom domain, contact form backend, mailing-list backend, CAPTCHA, SES, and final image optimization pipeline
-- **Next action:** Record the Amplify URL/build status and verify the deployed Portfolio carousel against the latest manifest-backed artwork sections.
+- **Next action:** Record the Amplify URL/build status and verify the deployed Portfolio page and Resume PDF navigation.
 
 ## Project-level open decisions
 
 - Final domain and AWS account ownership
 - Final content schemas and ordering
 - Final Home carousel S3 image set
-- Final résumé behavior
+- Final résumé PDF replacement workflow
 - Exhibition route presentation
 - Image dimensions and repository-size budget
 - Budget and launch date
@@ -55,6 +55,9 @@ See the [Decision log](./decisions.md) for resolved decisions and [Project proce
 
 | Date       | Update                                                        |
 | ---------- | ------------------------------------------------------------- |
+| 2026-07-19 | Changed Resume navigation to open PDF in a new tab            |
+| 2026-07-19 | Verified public S3 résumé PDF URL                             |
+| 2026-07-19 | Added static Resume page with S3 PDF link                     |
 | 2026-07-19 | Fixed Home carousel button color cascade                      |
 | 2026-07-19 | Set exact Home carousel button inactive and hover colors      |
 | 2026-07-19 | Updated Home carousel hover buttons to red background         |

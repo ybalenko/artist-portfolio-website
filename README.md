@@ -17,13 +17,14 @@ The portfolio takes inspiration from the restrained, image-led presentation of t
 - Clear empty states for exhibition sections until real content is available.
 - Contacts page with draft Privacy Notice, copyright notice, Facebook link, disabled message form, and disabled mailing-list signup.
 - Portfolio gallery and carousel with Landscapes, Still life, and Other sections, selected-image metadata, newest-first section ordering, and local-manifest-driven S3 images.
+- Resume navigation that opens the S3-hosted résumé PDF in a new browser tab.
 - Footer copyright and Facebook social link.
 - Documentation and milestone tracking under `docs/`.
 
 ## Planned features
 
 - Other cloud image publishing in the Portfolio manifest.
-- Resume navigation that opens the current résumé PDF.
+- Final résumé PDF replacement workflow.
 - Real exhibition content and optional exhibition images.
 - Code-managed Home carousel, artwork, Exhibitions, résumé, Contacts, and navigation content.
 - S3-hosted Home carousel images referenced from repository metadata, without storing carousel image files in GitHub.

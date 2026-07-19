@@ -309,6 +309,9 @@ Milestone 7 is complete when:
 - Updated Home carousel controls so hover uses a red background with white text while inactive buttons remain white with red text.
 - Set exact Home carousel button colors to `#f2f0ed` background / `#ae2a5e` text, with the colors reversed on hover.
 - Fixed the Home carousel button color cascade so the shared Portfolio carousel control background no longer overrides the inactive Home button state.
+- Replaced the Resume placeholder with a static Resume page that embeds and links to the expected S3 résumé PDF URL.
+- Updated Resume navigation to open the configured S3 résumé PDF directly in a new browser tab and removed the embedded PDF viewer from the fallback Resume page.
+- `curl -L -I` verified the configured résumé PDF URL returns `200 OK`, `Content-Type: application/pdf`, and `Content-Length: 82316`.
 - `node` manifest availability validation — passed; all manifest items have non-empty availability text.
 - `node` source inspection — passed; strict `availability: "available"` restriction is removed and availability is typed as free text.
 - Generated `dist/portfolio/index.html` was inspected after newest-first sorting; Landscapes begins with 2026 items, Still life begins with 2025 items, and Other has no published items yet.

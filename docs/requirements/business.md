@@ -90,7 +90,7 @@ The Privacy Notice explains contact messages, mailing-list data, CAPTCHA, email 
 
 ## 5. Content updates
 
-- Public content is stored in the source repository as typed data, text, images, and the résumé PDF.
+- Public content is stored in the source repository as typed data and text. Large media files, including artwork images and the résumé PDF, may be stored in AWS-hosted public object storage and referenced from repository metadata.
 - Home, Exhibitions, Portfolio, Resume, Contacts, navigation, and Privacy Notice changes deploy through the code workflow.
 - P0 does not include a browser-based content-management interface.
 - Subscriber export, if needed, uses protected scripts or AWS tools.

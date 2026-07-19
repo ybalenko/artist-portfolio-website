@@ -27,7 +27,7 @@ The repository contains typed, build-validated content for:
 - Ordered Portfolio images and accessibility text
 - Public contact and social links
 - Privacy Notice
-- Résumé PDF
+- Résumé PDF URL
 - Navigation and shared text
 
 Exhibition entries may use a `published` flag. Invalid content must fail the build, and Git provides history and rollback.
@@ -40,7 +40,8 @@ Exhibition entries may use a `published` flag. Invalid content must fail the bui
 - `/exhibitions/past` — redirects to `/exhibitions/#past`
 - `/exhibitions/upcoming` — redirects to `/exhibitions/#upcoming`
 - `/portfolio`
-- `/resume` — redirect to résumé PDF
+- Resume navigation — opens the S3-hosted résumé PDF in a new browser tab
+- `/resume` — fallback static Resume page with a link to the résumé PDF
 - `/contacts` — public links, Leave a message, Privacy Notice, mailing signup
 - mailing confirmation/unsubscribe result and not-found pages
 
@@ -51,7 +52,7 @@ Primary navigation is Home, Exhibitions, Portfolio, Resume, and Contacts. Exhibi
 - Links work without a client-side router.
 - Current page and exhibition subsection are identified visually and accessibly.
 - Section controls support pointer and keyboard interaction.
-- Resume is labeled as a PDF destination.
+- Resume clearly labels the PDF destination and opens it in a new browser tab from primary navigation.
 
 ## 4. Page requirements
 
@@ -95,8 +96,10 @@ Primary navigation is Home, Exhibitions, Portfolio, Resume, and Contacts. Exhibi
 
 ### 4.4 Resume
 
-- `/resume` redirects to a versioned or cache-safe PDF in the static deployment.
-- Serve it as `application/pdf` over HTTPS.
+- The primary Resume navigation item opens the configured résumé PDF URL in a new browser tab.
+- `/resume` renders a fallback static page with a résumé PDF link and no embedded PDF viewer.
+- Store the résumé PDF outside GitHub in the same AWS-hosted image location used for Portfolio images, under the `portfolio/resume/` prefix, and reference it with a public `https` URL from `src/data/resume.ts`.
+- Serve the S3 PDF as `application/pdf` over HTTPS.
 - Keep it at or below 10 MB and label links as PDF.
 - The PDF itself should be accessible.
 
@@ -165,7 +168,7 @@ Messages must not be stored in DynamoDB. Logs must not contain message bodies, n
 - Pull requests run formatting, type checks, content validation, tests, security checks, and `astro build`.
 - Merging to production triggers Amplify deployment.
 - Use Amplify's integration or GitHub OIDC rather than stored AWS keys.
-- Fail builds on invalid navigation, dates, URLs, image references, alt text, or missing résumé PDF.
+- Fail builds on invalid navigation, dates, URLs, image references, alt text, or missing résumé PDF URL.
 - Keep only web-appropriate images in Git; private high-resolution originals remain outside deployment.
 - Generate responsive variants during build.
 - A failed build leaves the previous deployment online.
@@ -193,7 +196,7 @@ Testing must cover:
 - Exhibition content, empty states, dates, and external links
 - Portfolio containing only images/carousel
 - Carousel URL state, focus, keyboard, controls, touch, and gallery restoration
-- Resume redirect, PDF type, size, caching, and accessibility
+- Resume page, PDF link, PDF type, size, caching, and accessibility
 - Contacts Privacy Notice, validation, Turnstile, spam controls, SES delivery, and failure states
 - No personal message data in DynamoDB or logs
 - Mailing double opt-in, unsubscribe, bounce, complaint, and abuse controls
@@ -203,7 +206,7 @@ P0 is technically ready when business acceptance criteria pass, the site deploys
 
 ## 12. Decisions required before implementation
 
-1. Same-tab or new-tab Resume behavior.
+1. Final Resume PDF filename and upload timing.
 2. Separate Exhibition pages versus one page with sections.
 3. Contact recipient, retention wording, and message limits.
 4. Visible carousel titles versus accessibility text only.

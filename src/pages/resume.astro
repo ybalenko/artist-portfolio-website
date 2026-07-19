@@ -1,13 +1,46 @@
 ---
-import ComingSoon from "../components/ComingSoon.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { resume } from "../data/resume";
 ---
 
 <BaseLayout
   title="Resume — Yulia Balenko"
-  description="Resume of artist Yulia Balenko."
+  description="View or open the artist resume PDF for Yulia Balenko."
 >
-  <div class="site-container placeholder-content">
-    <ComingSoon pageName="Resume" />
+  <div class="site-container resume-page" aria-labelledby="page-title">
+    <header class="page-intro">
+      <p class="eyebrow">Resume</p>
+      <h1 id="page-title">{resume.title}</h1>
+      <p>
+        The Resume navigation opens Yulia Balenko’s artist résumé PDF in a new
+        browser tab. The file is hosted in S3 so it can be updated without
+        storing the PDF in GitHub.
+      </p>
+    </header>
+
+    <section class="resume-panel" aria-labelledby="resume-preview-title">
+      <div class="resume-panel-header">
+        <div class="section-heading">
+          <p class="eyebrow">PDF</p>
+          <h2 id="resume-preview-title">Open resume PDF</h2>
+        </div>
+        <a
+          class="resume-pdf-link"
+          href={resume.pdfUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Open Résumé PDF
+        </a>
+      </div>
+
+      <p class="resume-fallback">
+        Open{" "}
+        <a href={resume.pdfUrl} target="_blank" rel="noopener noreferrer">
+          {resume.filename}
+        </a>{" "}
+        in a new browser tab.
+      </p>
+    </section>
   </div>
 </BaseLayout>
