@@ -2,7 +2,7 @@
 
 An artwork-first website for artist **Yulia Balenko**, built as a simple static portfolio for an amateur artist. The site presents an artist statement, an image portfolio, a résumé PDF, and visitor contact options; Exhibitions are scaffolded but temporarily disabled.
 
-> **Project status:** Milestones 1, 2, 3, 5, and 6 are complete. Press has been removed from the current website scope. Milestone 7, AWS deployment and cloud Portfolio images, is in progress at **31/43 tasks (72%)**. The next milestone action is to record the Amplify URL/build status and verify the deployed Portfolio page plus Resume PDF navigation. Track current progress in [Project status](./docs/project/status.md).
+> **Project status:** Milestones 1, 2, 3, 5, and 6 are complete. Press has been removed from the current website scope, and Exhibitions are scaffolded but hidden behind a feature flag until the content workflow is decided. Milestone 7, AWS deployment and cloud Portfolio images, is in progress at **31/43 tasks (72%)**. The current blocker is missing Amplify URL/build-status evidence; the next action is to record that evidence and verify the deployed Home page, Portfolio cloud images, Resume PDF navigation, and disabled Exhibitions fallback. Track current progress in [Project status](./docs/project/status.md).
 
 ## Vision
 

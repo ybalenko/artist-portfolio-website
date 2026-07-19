@@ -85,6 +85,7 @@ Also update related requirements, design, milestone plans, status, decisions, RE
 | CR-050 | 2026-07-19 | Add Home artist portrait               | UI      | Done       | M7 maintenance   | Removed visible Home carousel Previous/Next controls, added the S3-hosted `Yulia_Balenko.jpg` artist portrait beside the carousel, and aligned both visuals with the statement box underneath.                                                       |
 | CR-051 | 2026-07-19 | Emphasize footer Facebook icon         | UI      | Done       | M7 maintenance   | Updated the footer Facebook link so its icon renders in Facebook blue, uses a stronger hover blue, and appears larger than the muted footer text.                                                                                                    |
 | CR-052 | 2026-07-19 | Refresh project documentation          | Docs    | Done       | M7 maintenance   | Updated README summaries, Home requirements/design wording, and the cloud image runbook so they describe the buttonless Home carousel, S3 artist portrait, and more visible footer Facebook icon.                                                    |
+| CR-053 | 2026-07-19 | Correct main README project status     | Docs    | Done       | M7 maintenance   | Revised the root README project status callout so it matches the canonical project status: M7 remains in progress, Exhibitions are feature-flagged, and Amplify URL/build evidence is still needed before public verification.                       |
 
 ## New request template
 

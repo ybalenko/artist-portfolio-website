@@ -55,6 +55,7 @@ See the [Decision log](./decisions.md) for resolved decisions and [Project proce
 
 | Date       | Update                                                        |
 | ---------- | ------------------------------------------------------------- |
+| 2026-07-19 | Revised main README project status summary                    |
 | 2026-07-19 | Refreshed README and project docs for latest Home/footer UI   |
 | 2026-07-19 | Made footer Facebook icon blue and more visible               |
 | 2026-07-19 | Added Home artist portrait beside buttonless carousel         |
