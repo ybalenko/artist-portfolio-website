@@ -2,7 +2,7 @@
 
 An artwork-first website for artist **Yulia Balenko**, built as a simple static portfolio for an amateur artist. The site presents an artist statement, exhibitions, an image portfolio, a résumé PDF, and visitor contact options.
 
-> **Project status:** Milestones 1, 2, 3, and 5 are complete. Press has been removed from the current website scope. Milestone 7, AWS deployment and cloud Portfolio images, is in progress. Track current progress in [Project status](./docs/project/status.md).
+> **Project status:** Milestones 1, 2, 3, 5, and 6 are complete. Press has been removed from the current website scope. Milestone 7, AWS deployment and cloud Portfolio images, is in progress at **31/43 tasks (72%)**. The next milestone action is to record the Amplify URL/build status and verify the deployed Portfolio page plus Resume PDF navigation. Track current progress in [Project status](./docs/project/status.md).
 
 ## Vision
 
@@ -11,26 +11,26 @@ The portfolio takes inspiration from the restrained, image-led presentation of t
 ## Current implementation
 
 - Astro and TypeScript project foundation.
-- Home page as the default landing page with the artist statement and a compact curated carousel that is separate from Portfolio artwork.
-- Shared header navigation for Home, Exhibitions, Portfolio, Resume, and Contacts.
+- Home page as the default landing page with the final artist statement and a centered compact curated carousel that is separate from Portfolio artwork.
+- S3-hosted Home carousel images under `portfolio/home-carousel/`, referenced from repository metadata without storing image files in GitHub.
+- Shared header navigation for Home, Exhibitions, Portfolio, Resume, and Contacts. Resume opens the S3-hosted résumé PDF in a new browser tab.
 - Exhibitions page with Current, Past, and Upcoming section controls.
 - Clear empty states for exhibition sections until real content is available.
 - Contacts page with draft Privacy Notice, copyright notice, Facebook link, disabled message form, and disabled mailing-list signup.
-- Portfolio gallery and carousel with Landscapes, Still life, and Other sections, selected-image metadata, newest-first section ordering, and local-manifest-driven S3 images.
-- Resume navigation that opens the S3-hosted résumé PDF in a new browser tab.
+- Portfolio gallery and carousel with Landscapes, Still life, and Other sections, selected-image metadata, free-text status metadata, newest-first section ordering, and local-manifest-driven S3 images.
+- S3-hosted résumé PDF configured from `src/data/resume.ts`; `/resume/` remains a fallback link page.
+- AWS Amplify build configuration and deployment/image runbooks.
 - Footer copyright and Facebook social link.
 - Documentation and milestone tracking under `docs/`.
 
-## Planned features
+## Remaining work
 
-- Other cloud image publishing in the Portfolio manifest.
+- Record the Amplify app URL and build status.
+- Verify the deployed public site, especially Portfolio cloud images and Resume PDF navigation.
+- Publish real content for empty or draft areas, including Exhibitions and the Portfolio `Other` section.
 - Final résumé PDF replacement workflow.
-- Real exhibition content and optional exhibition images.
-- Code-managed Home carousel, artwork, Exhibitions, résumé, Contacts, and navigation content.
-- S3-hosted Home carousel images referenced from repository metadata, without storing carousel image files in GitHub.
 - Protected Leave a message form using a later AWS backend milestone.
 - Double-opt-in mailing-list signup and unsubscribe using a later AWS backend milestone.
-- AWS Amplify deployment and cloud-hosted Portfolio images.
 - Accessible, responsive, and search-friendly public pages.
 - Build-time optimized web images.
 
@@ -65,6 +65,7 @@ The architecture is code-managed and static-first: Home, Exhibitions, Portfolio,
 - [AWS Amplify deployment runbook](./docs/deployment/aws-amplify.md) — deployment steps and settings
 - [Portfolio and Home cloud image runbook](./docs/deployment/portfolio-images.md) — cloud image upload and metadata workflow
 - [Portfolio manifest design](./docs/deployment/portfolio-manifest.md) — local/S3 JSON catalog for Portfolio images and metadata
+- [Milestone 6](./docs/milestones/milestone-6.md) — completed Resume PDF navigation milestone
 - [Agent instructions](./AGENTS.md) — required workflow for future coding agents
 
 ## Local development
@@ -94,7 +95,7 @@ npm run format:check # Verify formatting
 | M2        | Contacts page                                  | Complete    |
 | M3        | Exhibitions page and section controls          | Complete    |
 | M5        | Portfolio gallery and carousel                 | Complete    |
-| M6        | Resume                                         | Planned     |
+| M6        | Resume PDF navigation                          | Complete    |
 | M7        | AWS deployment and cloud Portfolio images      | In progress |
 
 Future milestone boundaries are provisional until their plans are approved.

@@ -57,6 +57,8 @@ Verify these routes from the Amplify URL:
 Also verify:
 
 - Header navigation works.
+- The Resume navigation opens the configured S3-hosted résumé PDF in a new browser tab.
+- The fallback `/resume/` page links to the configured S3-hosted résumé PDF and does not embed a PDF viewer.
 - The Exhibitions section controls work.
 - Legacy `/exhibitions/current/`, `/exhibitions/past/`, and `/exhibitions/upcoming/` URLs redirect to the matching `/exhibitions/` hash section.
 - Contacts forms remain disabled.

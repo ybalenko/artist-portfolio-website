@@ -2,7 +2,7 @@
 
 This folder contains the working documentation for the Yulia Balenko artist portfolio website.
 
-Current project state: Milestones 1, 2, 3, and 5 are complete. Press has been removed from the current website scope. Milestone 7, AWS deployment and cloud Portfolio images, is in progress.
+Current project state: Milestones 1, 2, 3, 5, and 6 are complete. Press has been removed from the current website scope. Milestone 7, AWS deployment and cloud Portfolio images, is in progress at **31/43 tasks (72%)**. The next milestone action is to record the Amplify URL/build status and verify the deployed Portfolio page plus Resume PDF navigation.
 
 ## Requirements
 
@@ -33,12 +33,13 @@ Current project state: Milestones 1, 2, 3, and 5 are complete. Press has been re
 - [Milestone 2 — Contacts Page](./milestones/milestone-2.md)
 - [Milestone 3 — Exhibitions Page](./milestones/milestone-3.md)
 - [Milestone 5 — Portfolio Gallery and Carousel](./milestones/milestone-5.md)
+- [Milestone 6 — Resume PDF Navigation](./milestones/milestone-6.md)
 - [Milestone 7 — AWS Deployment and Cloud Portfolio Images](./milestones/milestone-7.md)
 
-Deferred and planned future milestones:
+Deferred future work:
 
-- Milestone 6 — Resume
-- Mailing list and Leave a message backend — deferred to a later iteration
+- Résumé PDF replacement/versioning workflow
+- Mailing list and Leave a message backend
 
 ## Design references
 
@@ -46,11 +47,12 @@ Deferred and planned future milestones:
 
 ## Implemented pages
 
-- Home — default landing page with artist statement and a compact curated carousel separate from Portfolio artwork.
+- Home — default landing page with the final artist statement and a centered compact curated carousel separate from Portfolio artwork.
 - Home carousel images — S3-hosted images belong under the `portfolio/home-carousel/` prefix and are referenced from `src/data/homeCarousel.ts`.
 - Contacts — static contact page with draft privacy/copyright sections, Facebook link, disabled message form, and disabled mailing-list signup.
 - Exhibitions — single page with Current, Past, and Upcoming section controls and empty states.
-- Portfolio — image gallery and carousel with Landscapes, Still life, and Other sections, selected-image metadata, newest-first section ordering, and local-manifest-driven S3 images. Other currently shows an empty state until published manifest images are added.
+- Portfolio — image gallery and carousel with Landscapes, Still life, and Other sections, selected-image metadata, free-text status metadata, newest-first section ordering, and local-manifest-driven S3 images. Other currently shows an empty state until published manifest images are added.
 - Resume — primary navigation opens the S3-hosted résumé PDF in a new browser tab; `/resume/` remains a fallback link page configured from `src/data/resume.ts`.
+- Deployment — `amplify.yml`, AWS Amplify setup notes, and cloud image runbooks are present; Amplify URL/build status still needs to be recorded.
 
-AWS deployment and cloud Portfolio images are in progress for Milestone 7. Backend form wiring, mailing-list behavior, and the final résumé PDF replacement workflow remain planned future work.
+AWS deployment and cloud Portfolio images are in progress for Milestone 7. Backend form wiring, mailing-list behavior, final résumé PDF replacement workflow, final content curation, and public deployment verification remain planned future work.

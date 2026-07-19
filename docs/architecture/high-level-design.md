@@ -227,7 +227,7 @@ Before implementation, demonstrate:
 
 ## 13. Open decisions
 
-- Final Resume PDF filename and upload timing
+- Ongoing Resume PDF replacement/versioning workflow
 - Separate Exhibition pages versus one page with sections
 - Visible carousel titles versus accessibility text only
 - Contact recipient and diagnostic retention

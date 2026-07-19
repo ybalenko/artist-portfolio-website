@@ -206,7 +206,7 @@ P0 is technically ready when business acceptance criteria pass, the site deploys
 
 ## 12. Decisions required before implementation
 
-1. Final Resume PDF filename and upload timing.
+1. Ongoing Resume PDF replacement/versioning workflow.
 2. Separate Exhibition pages versus one page with sections.
 3. Contact recipient, retention wording, and message limits.
 4. Visible carousel titles versus accessibility text only.

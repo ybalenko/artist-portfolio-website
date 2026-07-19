@@ -77,6 +77,7 @@ Also update related requirements, design, milestone plans, status, decisions, RE
 | CR-042 | 2026-07-19 | Add S3-hosted Resume page              | UI      | Superseded | M7 maintenance   | Replaced the Resume placeholder with a static page that previews and links to an S3-hosted résumé PDF at `portfolio/resume/yulia-balenko-resume.pdf`; superseded by CR-044.                                                                          |
 | CR-043 | 2026-07-19 | Verify S3 résumé PDF                   | Content | Done       | M7 maintenance   | Confirmed the configured S3 résumé PDF URL is public, returns `200 OK`, and is served as `application/pdf`.                                                                                                                                          |
 | CR-044 | 2026-07-19 | Open Resume PDF from navigation        | UI      | Done       | M7 maintenance   | Updated the primary Resume navigation item to open the S3-hosted résumé PDF in a new browser tab and removed the embedded PDF viewer from the fallback Resume page.                                                                                  |
+| CR-045 | 2026-07-19 | Reconcile project milestones           | Docs    | Done       | M7 maintenance   | Added a completed Milestone 6 Resume PDF navigation plan and updated milestone/status/README summaries so the documentation matches the implemented Resume behavior.                                                                                 |
 
 ## New request template
 

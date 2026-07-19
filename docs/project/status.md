@@ -12,7 +12,7 @@
 | M2        | Contacts page                                  | Complete    | 16/16 |     100% | [Milestone 2](../milestones/milestone-2.md) |
 | M3        | Exhibitions page and section controls          | Complete    | 18/18 |     100% | [Milestone 3](../milestones/milestone-3.md) |
 | M5        | Portfolio gallery and carousel                 | Complete    | 22/22 |     100% | [Milestone 5](../milestones/milestone-5.md) |
-| M6        | Resume                                         | Planned     |     — |        — | To be created                               |
+| M6        | Resume PDF navigation                          | Complete    |   6/6 |     100% | [Milestone 6](../milestones/milestone-6.md) |
 | M7        | AWS deployment and cloud Portfolio images      | In progress | 31/43 |      72% | [Milestone 7](../milestones/milestone-7.md) |
 
 Future milestone boundaries are provisional until their plans are approved.
@@ -55,6 +55,7 @@ See the [Decision log](./decisions.md) for resolved decisions and [Project proce
 
 | Date       | Update                                                        |
 | ---------- | ------------------------------------------------------------- |
+| 2026-07-19 | Added completed Milestone 6 Resume PDF navigation plan        |
 | 2026-07-19 | Changed Resume navigation to open PDF in a new tab            |
 | 2026-07-19 | Verified public S3 résumé PDF URL                             |
 | 2026-07-19 | Added static Resume page with S3 PDF link                     |

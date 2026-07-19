@@ -134,8 +134,8 @@ P0 is ready when:
 
 ## 9. Remaining decisions
 
-1. Does Resume open in the same tab or a new tab?
-2. Should the old Exhibitions status URLs remain as redirects permanently?
-3. What address receives contact messages, and how long may delivery diagnostics be retained?
-4. Should carousel images show visible titles or only accessibility text?
-5. What content ordering, visual design, public links, domain, budget, and launch date will be used?
+1. Should the old Exhibitions status URLs remain as redirects permanently?
+2. What address receives contact messages, and how long may delivery diagnostics be retained?
+3. Should carousel images show visible titles or only accessibility text?
+4. What content ordering, visual design, public links, domain, budget, and launch date will be used?
+5. What ongoing résumé PDF replacement/versioning workflow should be used?

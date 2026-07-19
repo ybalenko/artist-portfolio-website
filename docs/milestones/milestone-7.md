@@ -223,6 +223,7 @@ S3-hosted manifest loading is not yet implemented. Until then, `src/data/portfol
 - Cloud-hosted Portfolio image files
 - Portfolio metadata updated to cloud image URLs
 - Verified deployed Portfolio carousel
+- Verified deployed Resume PDF navigation
 - Updated project status, decisions, change request log, and README summaries
 - Deployment and image upload notes for future maintenance
 
@@ -231,7 +232,8 @@ S3-hosted manifest loading is not yet implemented. Until then, `src/data/portfol
 Milestone 7 is complete when:
 
 - The website is publicly accessible from an Amplify-provided URL.
-- Home, Contacts, Exhibitions, Portfolio, and Resume placeholder routes load from the public URL.
+- Home, Contacts, Exhibitions, Portfolio, and the fallback Resume route load from the public URL.
+- The primary Resume navigation opens the configured S3-hosted résumé PDF in a new browser tab.
 - Pushes to the connected GitHub branch trigger Amplify build/deploy.
 - Amplify build succeeds using repository configuration.
 - Portfolio images are hosted in AWS cloud storage or an approved AWS-hosted image location.
