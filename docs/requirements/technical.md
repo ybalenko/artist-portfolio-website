@@ -22,7 +22,7 @@ Implement a code-managed static artist website. Only contact delivery and mailin
 The repository contains typed, build-validated content for:
 
 - Artist statement
-- Home carousel images
+- Home carousel and artist portrait images
 - Current, Past, and Upcoming exhibitions
 - Ordered Portfolio images and accessibility text
 - Public contact and social links

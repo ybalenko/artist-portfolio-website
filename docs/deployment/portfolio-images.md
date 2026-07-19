@@ -1,12 +1,12 @@
 # Portfolio and Home Cloud Image Runbook
 
-This runbook covers the Milestone 7 approach for hosting Portfolio and Home carousel images outside GitHub.
+This runbook covers the Milestone 7 approach for hosting Portfolio images plus Home carousel and artist portrait images outside GitHub.
 
 ## Milestone 7 image strategy
 
 Use an AWS-hosted image location, preferably an S3 bucket with public object URLs for this milestone.
 
-This keeps artwork image files out of GitHub while allowing the deployed Portfolio and Home carousel images to load from the internet.
+This keeps artwork image files out of GitHub while allowing the deployed Portfolio, Home carousel, and Home artist portrait images to load from the internet.
 
 ## Recommended naming
 
@@ -21,6 +21,7 @@ portfolio/
   home-carousel/
     home-carousel-01.jpg
     home-carousel-02.jpg
+    Yulia_Balenko.jpg
 ```
 
 Recommended file format:
@@ -63,18 +64,25 @@ These steps must be performed by the owner in AWS because they create or update 
 
 The site currently loads Portfolio data from the local manifest during build.
 
-## Home carousel upload workflow
+## Home carousel and artist portrait upload workflow
 
 1. Upload square, web-sized Home carousel images to the same image bucket under `portfolio/home-carousel/`.
-2. Confirm each uploaded object is publicly reachable.
-3. Add each public image URL to `src/data/homeCarousel.ts`.
-4. Set `published: true` only after the S3 object exists and the URL works.
-5. Run local checks and rebuild the website.
+2. Upload the Home artist portrait to the same prefix when it changes.
+3. Confirm each uploaded object is publicly reachable.
+4. Add or update each public image URL in `src/data/homeCarousel.ts`.
+5. Set `published: true` only after each carousel S3 object exists and the URL works.
+6. Run local checks and rebuild the website.
 
 Example Home carousel URL:
 
 ```text
 https://yulia-balenko-portfolio-images.s3.us-east-1.amazonaws.com/portfolio/home-carousel/home-carousel-01.jpg
+```
+
+Current Home artist portrait URL:
+
+```text
+https://yulia-balenko-portfolio-images.s3.us-east-1.amazonaws.com/portfolio/home-carousel/Yulia_Balenko.jpg
 ```
 
 Example Home carousel data entry:

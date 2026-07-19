@@ -84,6 +84,7 @@ Also update related requirements, design, milestone plans, status, decisions, RE
 | CR-049 | 2026-07-19 | Box Home statement text                | UI      | Done       | M7 maintenance   | Removed the duplicate `Artist Statement` heading from the lower Home statement section and changed the statement panel from a two-column layout to a centered single-column text box.                                                                |
 | CR-050 | 2026-07-19 | Add Home artist portrait               | UI      | Done       | M7 maintenance   | Removed visible Home carousel Previous/Next controls, added the S3-hosted `Yulia_Balenko.jpg` artist portrait beside the carousel, and aligned both visuals with the statement box underneath.                                                       |
 | CR-051 | 2026-07-19 | Emphasize footer Facebook icon         | UI      | Done       | M7 maintenance   | Updated the footer Facebook link so its icon renders in Facebook blue, uses a stronger hover blue, and appears larger than the muted footer text.                                                                                                    |
+| CR-052 | 2026-07-19 | Refresh project documentation          | Docs    | Done       | M7 maintenance   | Updated README summaries, Home requirements/design wording, and the cloud image runbook so they describe the buttonless Home carousel, S3 artist portrait, and more visible footer Facebook icon.                                                    |
 
 ## New request template
 

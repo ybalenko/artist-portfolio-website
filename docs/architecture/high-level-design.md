@@ -9,7 +9,7 @@
 
 Astro compiles Home, Exhibitions, Portfolio, Resume, Contacts, navigation, and Privacy content into a static website. AWS Amplify Hosting builds and distributes it through a CDN.
 
-Home is the default route and contains the artist statement with an optional compact, manually curated Home carousel. Portfolio contains only images and a client-side carousel—no filters, descriptions, or comments.
+Home is the default route and contains the artist statement with an optional compact, manually curated Home carousel and artist portrait. Portfolio contains only images and a client-side carousel—no filters, descriptions, or comments.
 
 Only contact delivery and mailing-list enrollment are dynamic. API Gateway and Lambda handle forms, DynamoDB stores subscriber state, and SES delivers contact and subscription email.
 

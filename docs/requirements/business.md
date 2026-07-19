@@ -124,7 +124,7 @@ The Privacy Notice explains contact messages, mailing-list data, CAPTCHA, email 
 P0 is ready when:
 
 - Home is the default page and displays the artist statement.
-- Home may display a compact curated carousel beside the artist statement without duplicating the Portfolio gallery.
+- Home may display a compact curated carousel and artist portrait above the artist statement without duplicating the Portfolio gallery.
 - Visitors can navigate among Home, Portfolio, Resume, and Contacts while Exhibitions is disabled; Exhibitions returns to navigation when re-enabled.
 - Exhibitions provides accessible Current, Past, and Upcoming page sections after the feature is re-enabled.
 - Portfolio displays only images and an accessible carousel and restores gallery context when closed.

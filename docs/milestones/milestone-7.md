@@ -324,6 +324,7 @@ Milestone 7 is complete when:
 - Removed the duplicate lower Home statement heading and tightened the statement into a centered single-column text box.
 - Removed visible Home carousel previous/next buttons, added the S3-hosted artist portrait beside the carousel, and aligned the visual row with the statement box below.
 - Made the footer Facebook icon blue, larger, and more visible while preserving the existing footer link target.
+- Refreshed README summaries, requirements/design wording, and the cloud image runbook for the latest Home visuals and footer Facebook styling.
 - `node` manifest availability validation — passed; all manifest items have non-empty availability text.
 - `node` source inspection — passed; strict `availability: "available"` restriction is removed and availability is typed as free text.
 - Generated `dist/portfolio/index.html` was inspected after newest-first sorting; Landscapes begins with 2026 items, Still life begins with 2025 items, and Other has no published items yet.

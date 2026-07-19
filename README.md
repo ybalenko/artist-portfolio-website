@@ -20,7 +20,7 @@ The portfolio takes inspiration from the restrained, image-led presentation of t
 - Portfolio gallery and carousel with Landscapes, Still life, and Other sections, selected-image metadata, free-text status metadata, newest-first section ordering, and local-manifest-driven S3 images.
 - S3-hosted résumé PDF configured from `src/data/resume.ts`; `/resume/` remains a fallback link page.
 - AWS Amplify build configuration and deployment/image runbooks.
-- Footer copyright and Facebook social link.
+- Footer copyright and more visible blue Facebook social link.
 - Documentation and milestone tracking under `docs/`.
 
 ## Remaining work
