@@ -59,8 +59,9 @@ Also verify:
 - Header navigation works.
 - The Resume navigation opens the configured S3-hosted résumé PDF in a new browser tab.
 - The fallback `/resume/` page links to the configured S3-hosted résumé PDF and does not embed a PDF viewer.
-- The Exhibitions section controls work.
-- Legacy `/exhibitions/current/`, `/exhibitions/past/`, and `/exhibitions/upcoming/` URLs redirect to the matching `/exhibitions/` hash section.
+- Exhibitions is hidden from primary navigation while `featureFlags.exhibitions` is `false`.
+- `/exhibitions/` shows the disabled/coming-soon fallback while Exhibitions is disabled.
+- Legacy `/exhibitions/current/`, `/exhibitions/past/`, and `/exhibitions/upcoming/` URLs redirect to `/exhibitions/` while Exhibitions is disabled.
 - Contacts forms remain disabled.
 - Portfolio carousel controls work.
 - Portfolio images load from cloud URLs after the image migration step is complete.

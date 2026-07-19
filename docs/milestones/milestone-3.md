@@ -3,6 +3,8 @@
 **Status:** Complete  
 **Created:** June 25, 2026  
 **Milestone goal:** Replace the Exhibitions placeholder with Current, Past, and Upcoming exhibition destinations and accessible navigation.
+
+**Current note:** The Milestone 3 code scaffold remains complete, but the public Exhibitions feature is now disabled behind `featureFlags.exhibitions` until the content update workflow and real exhibition content are ready.
 **Implementation progress:** 18/18 tasks — 100%
 
 ## Confirmed decisions

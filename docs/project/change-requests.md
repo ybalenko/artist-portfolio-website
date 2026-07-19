@@ -78,6 +78,7 @@ Also update related requirements, design, milestone plans, status, decisions, RE
 | CR-043 | 2026-07-19 | Verify S3 résumé PDF                   | Content | Done       | M7 maintenance   | Confirmed the configured S3 résumé PDF URL is public, returns `200 OK`, and is served as `application/pdf`.                                                                                                                                          |
 | CR-044 | 2026-07-19 | Open Resume PDF from navigation        | UI      | Done       | M7 maintenance   | Updated the primary Resume navigation item to open the S3-hosted résumé PDF in a new browser tab and removed the embedded PDF viewer from the fallback Resume page.                                                                                  |
 | CR-045 | 2026-07-19 | Reconcile project milestones           | Docs    | Done       | M7 maintenance   | Added a completed Milestone 6 Resume PDF navigation plan and updated milestone/status/README summaries so the documentation matches the implemented Resume behavior.                                                                                 |
+| CR-046 | 2026-07-19 | Disable Exhibitions for now            | Scope   | Done       | M7 maintenance   | Added an Exhibitions feature flag, hid Exhibitions from public navigation, kept existing route code behind the flag, and added Exhibitions content workflow/re-enable tasks to the backlog.                                                          |
 
 ## New request template
 

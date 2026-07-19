@@ -1,4 +1,5 @@
 ---
+import { featureFlags } from "../config/featureFlags";
 import { resume } from "../data/resume";
 
 interface Props {
@@ -7,9 +8,18 @@ interface Props {
 
 const { currentPath } = Astro.props;
 
-const navigationItems = [
+interface NavigationItem {
+  href: string;
+  label: string;
+  target?: string;
+  rel?: string;
+}
+
+const navigationItems: NavigationItem[] = [
   { href: "/", label: "Home" },
-  { href: "/exhibitions/", label: "Exhibitions" },
+  ...(featureFlags.exhibitions
+    ? [{ href: "/exhibitions/", label: "Exhibitions" }]
+    : []),
   { href: "/portfolio/", label: "Portfolio" },
   {
     href: resume.pdfUrl,

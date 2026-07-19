@@ -35,10 +35,10 @@ Exhibition entries may use a `published` flag. Invalid content must fail the bui
 ## 3. Routes and navigation
 
 - `/` — Home with artist statement
-- `/exhibitions` — single Exhibitions page with Current, Past, and Upcoming sections
-- `/exhibitions/current` — redirects to `/exhibitions/#current`
-- `/exhibitions/past` — redirects to `/exhibitions/#past`
-- `/exhibitions/upcoming` — redirects to `/exhibitions/#upcoming`
+- `/exhibitions` — feature-flagged route; currently shows a disabled/coming-soon fallback while the existing Current, Past, and Upcoming implementation remains in code
+- `/exhibitions/current` — currently redirects to `/exhibitions/`; re-enable work should restore the matching hash redirect if section deep links are still wanted
+- `/exhibitions/past` — currently redirects to `/exhibitions/`; re-enable work should restore the matching hash redirect if section deep links are still wanted
+- `/exhibitions/upcoming` — currently redirects to `/exhibitions/`; re-enable work should restore the matching hash redirect if section deep links are still wanted
 - `/portfolio`
 - Resume navigation — opens the S3-hosted résumé PDF in a new browser tab
 - `/resume` — fallback static Resume page with a link to the résumé PDF
@@ -47,7 +47,7 @@ Exhibition entries may use a `published` flag. Invalid content must fail the bui
 
 There must be no About or standalone Privacy route.
 
-Primary navigation is Home, Exhibitions, Portfolio, Resume, and Contacts. Exhibitions exposes Current, Past, and Upcoming as page-level section controls, not as a header submenu.
+Primary navigation is Home, Portfolio, Resume, and Contacts while Exhibitions is disabled. When `featureFlags.exhibitions` is enabled, Exhibitions returns to primary navigation and exposes Current, Past, and Upcoming as page-level section controls, not as a header submenu.
 
 - Links work without a client-side router.
 - Current page and exhibition subsection are identified visually and accessibly.
@@ -69,6 +69,7 @@ Primary navigation is Home, Exhibitions, Portfolio, Resume, and Contacts. Exhibi
 
 - Render Current, Past, and Upcoming from validated content.
 - Render the three exhibition statuses as sections on `/exhibitions`.
+- Keep Exhibitions disabled with `featureFlags.exhibitions = false` until the content update workflow and real content are ready.
 - Support title, venue, location, dates, description, optional image, and optional `https` URL.
 - Validate that end date is not before start date.
 - Show an explicit empty state when a category has no entries.
@@ -207,8 +208,9 @@ P0 is technically ready when business acceptance criteria pass, the site deploys
 ## 12. Decisions required before implementation
 
 1. Ongoing Resume PDF replacement/versioning workflow.
-2. Separate Exhibition pages versus one page with sections.
-3. Contact recipient, retention wording, and message limits.
-4. Visible carousel titles versus accessibility text only.
-5. Image dimensions and repository-size budget.
-6. Content schemas, ordering, domain, AWS ownership, budget, and launch date.
+2. Exhibitions content update workflow and re-enable timing.
+3. Separate Exhibition pages versus one page with sections.
+4. Contact recipient, retention wording, and message limits.
+5. Visible carousel titles versus accessibility text only.
+6. Image dimensions and repository-size budget.
+7. Content schemas, ordering, domain, AWS ownership, budget, and launch date.

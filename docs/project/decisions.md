@@ -50,6 +50,7 @@ This file records approved decisions that affect implementation or more than one
 | D-044 | 2026-07-19 | Remove Press from the current website scope and navigation                            | Owner does not need Press right now; public navigation and route scope are Home, Exhibitions, Portfolio, Resume, and Contacts | Active        |
 | D-045 | 2026-07-19 | Render Resume as a static page with an S3-hosted PDF link                             | Keeps the Resume tab consistent with other pages while storing the PDF outside GitHub under `portfolio/resume/`               | Superseded    |
 | D-046 | 2026-07-19 | Open the S3-hosted résumé PDF directly from Resume navigation                         | Owner prefers the Resume tab to open the PDF URL in a new browser tab instead of showing an embedded PDF viewer               | Active        |
+| D-047 | 2026-07-19 | Disable Exhibitions publicly behind a feature flag                                    | Owner wants to keep existing code but defer content workflow and data updates until later                                     | Active        |
 
 ## Adding a decision
 

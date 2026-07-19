@@ -37,6 +37,7 @@ Navigation must work on mobile and desktop, identify the current destination, an
 ### 3.2 Exhibitions
 
 - Exhibitions is a single page with section controls similar to the Portfolio page.
+- Current implementation keeps the Exhibitions scaffold in code but disables public navigation with a feature flag until the content update workflow is decided.
 - **Current:** exhibitions taking place now.
 - **Past:** completed exhibitions.
 - **Upcoming:** announced future exhibitions.
@@ -123,10 +124,10 @@ P0 is ready when:
 
 - Home is the default page and displays the artist statement.
 - Home may display a compact curated carousel beside the artist statement without duplicating the Portfolio gallery.
-- Visitors can navigate among Home, Exhibitions, Portfolio, Resume, and Contacts.
-- Exhibitions provides accessible Current, Past, and Upcoming page sections.
+- Visitors can navigate among Home, Portfolio, Resume, and Contacts while Exhibitions is disabled; Exhibitions returns to navigation when re-enabled.
+- Exhibitions provides accessible Current, Past, and Upcoming page sections after the feature is re-enabled.
 - Portfolio displays only images and an accessible carousel and restores gallery context when closed.
-- Exhibitions display configured content and external links correctly.
+- Exhibitions display configured content and external links correctly after the feature is re-enabled.
 - Resume opens the current PDF.
 - Contacts displays public links, Privacy Notice, and a functioning protected message form.
 - Repository content changes produce an updated static deployment.
@@ -135,7 +136,8 @@ P0 is ready when:
 ## 9. Remaining decisions
 
 1. Should the old Exhibitions status URLs remain as redirects permanently?
-2. What address receives contact messages, and how long may delivery diagnostics be retained?
-3. Should carousel images show visible titles or only accessibility text?
-4. What content ordering, visual design, public links, domain, budget, and launch date will be used?
-5. What ongoing résumé PDF replacement/versioning workflow should be used?
+2. What is the best content update workflow for Current, Past, and Upcoming exhibition data?
+3. What address receives contact messages, and how long may delivery diagnostics be retained?
+4. Should carousel images show visible titles or only accessibility text?
+5. What content ordering, visual design, public links, domain, budget, and launch date will be used?
+6. What ongoing résumé PDF replacement/versioning workflow should be used?

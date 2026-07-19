@@ -10,7 +10,7 @@
 | --------- | ---------------------------------------------- | ----------- | ----: | -------: | ------------------------------------------- |
 | M1        | Desktop Home page and local project foundation | Complete    | 28/28 |     100% | [Milestone 1](../milestones/milestone-1.md) |
 | M2        | Contacts page                                  | Complete    | 16/16 |     100% | [Milestone 2](../milestones/milestone-2.md) |
-| M3        | Exhibitions page and section controls          | Complete    | 18/18 |     100% | [Milestone 3](../milestones/milestone-3.md) |
+| M3        | Exhibitions scaffold and section controls      | Complete    | 18/18 |     100% | [Milestone 3](../milestones/milestone-3.md) |
 | M5        | Portfolio gallery and carousel                 | Complete    | 22/22 |     100% | [Milestone 5](../milestones/milestone-5.md) |
 | M6        | Resume PDF navigation                          | Complete    |   6/6 |     100% | [Milestone 6](../milestones/milestone-6.md) |
 | M7        | AWS deployment and cloud Portfolio images      | In progress | 31/43 |      72% | [Milestone 7](../milestones/milestone-7.md) |
@@ -36,7 +36,7 @@ Future milestone boundaries are provisional until their plans are approved.
 - **Target:** Desktop web browsers only
 - **Open blockers:** Amplify URL and build status are needed before public verification.
 - **Deferred:** Custom domain, contact form backend, mailing-list backend, CAPTCHA, SES, and final image optimization pipeline
-- **Next action:** Record the Amplify URL/build status and verify the deployed Portfolio page and Resume PDF navigation.
+- **Next action:** Record the Amplify URL/build status and verify the deployed Portfolio page, Resume PDF navigation, and disabled Exhibitions fallback.
 
 ## Project-level open decisions
 
@@ -44,7 +44,7 @@ Future milestone boundaries are provisional until their plans are approved.
 - Final content schemas and ordering
 - Final Home carousel S3 image set
 - Final résumé PDF replacement workflow
-- Exhibition route presentation
+- Exhibitions content update workflow and re-enable timing
 - Image dimensions and repository-size budget
 - Budget and launch date
 - Final Portfolio image hosting strategy
@@ -55,6 +55,7 @@ See the [Decision log](./decisions.md) for resolved decisions and [Project proce
 
 | Date       | Update                                                        |
 | ---------- | ------------------------------------------------------------- |
+| 2026-07-19 | Disabled Exhibitions with feature flag and added backlog      |
 | 2026-07-19 | Added completed Milestone 6 Resume PDF navigation plan        |
 | 2026-07-19 | Changed Resume navigation to open PDF in a new tab            |
 | 2026-07-19 | Verified public S3 résumé PDF URL                             |

@@ -232,7 +232,8 @@ S3-hosted manifest loading is not yet implemented. Until then, `src/data/portfol
 Milestone 7 is complete when:
 
 - The website is publicly accessible from an Amplify-provided URL.
-- Home, Contacts, Exhibitions, Portfolio, and the fallback Resume route load from the public URL.
+- Home, Contacts, Portfolio, the disabled Exhibitions fallback, and the fallback Resume route load from the public URL.
+- Exhibitions is hidden from primary navigation while `featureFlags.exhibitions` is `false`.
 - The primary Resume navigation opens the configured S3-hosted résumé PDF in a new browser tab.
 - Pushes to the connected GitHub branch trigger Amplify build/deploy.
 - Amplify build succeeds using repository configuration.
@@ -314,6 +315,10 @@ Milestone 7 is complete when:
 - Replaced the Resume placeholder with a static Resume page that embeds and links to the expected S3 résumé PDF URL.
 - Updated Resume navigation to open the configured S3 résumé PDF directly in a new browser tab and removed the embedded PDF viewer from the fallback Resume page.
 - `curl -L -I` verified the configured résumé PDF URL returns `200 OK`, `Content-Type: application/pdf`, and `Content-Length: 82316`.
+- Added `featureFlags.exhibitions` with public Exhibitions disabled by default while preserving existing Exhibitions implementation code.
+- Generated Home, Portfolio, Contacts, and Resume HTML was inspected and contains no `/exhibitions/` primary navigation link while Exhibitions is disabled.
+- Generated `dist/exhibitions/index.html` was inspected and shows the coming-soon fallback while Exhibitions is disabled.
+- Generated legacy Exhibitions status pages redirect to `/exhibitions/` while Exhibitions is disabled.
 - `node` manifest availability validation — passed; all manifest items have non-empty availability text.
 - `node` source inspection — passed; strict `availability: "available"` restriction is removed and availability is typed as free text.
 - Generated `dist/portfolio/index.html` was inspected after newest-first sorting; Landscapes begins with 2026 items, Still life begins with 2025 items, and Other has no published items yet.
@@ -354,6 +359,7 @@ Milestone 7 is complete when:
 - Final artwork image set may still be temporary.
 - Amplify URL has not been recorded in the project documentation yet.
 - Public-page verification has not been performed yet.
+- Exhibitions public navigation is disabled pending a content update workflow and real exhibition content.
 - Other has no published manifest images yet, so it shows an empty state.
 - Several artwork metadata values are placeholders until final name, medium, and size details are provided.
 

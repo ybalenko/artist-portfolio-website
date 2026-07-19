@@ -1,6 +1,6 @@
 # Yulia Balenko — Artist Portfolio
 
-An artwork-first website for artist **Yulia Balenko**, built as a simple static portfolio for an amateur artist. The site presents an artist statement, exhibitions, an image portfolio, a résumé PDF, and visitor contact options.
+An artwork-first website for artist **Yulia Balenko**, built as a simple static portfolio for an amateur artist. The site presents an artist statement, an image portfolio, a résumé PDF, and visitor contact options; Exhibitions are scaffolded but temporarily disabled.
 
 > **Project status:** Milestones 1, 2, 3, 5, and 6 are complete. Press has been removed from the current website scope. Milestone 7, AWS deployment and cloud Portfolio images, is in progress at **31/43 tasks (72%)**. The next milestone action is to record the Amplify URL/build status and verify the deployed Portfolio page plus Resume PDF navigation. Track current progress in [Project status](./docs/project/status.md).
 
@@ -13,8 +13,8 @@ The portfolio takes inspiration from the restrained, image-led presentation of t
 - Astro and TypeScript project foundation.
 - Home page as the default landing page with the final artist statement and a centered compact curated carousel that is separate from Portfolio artwork.
 - S3-hosted Home carousel images under `portfolio/home-carousel/`, referenced from repository metadata without storing image files in GitHub.
-- Shared header navigation for Home, Exhibitions, Portfolio, Resume, and Contacts. Resume opens the S3-hosted résumé PDF in a new browser tab.
-- Exhibitions page with Current, Past, and Upcoming section controls.
+- Shared header navigation for Home, Portfolio, Resume, and Contacts. Resume opens the S3-hosted résumé PDF in a new browser tab.
+- Exhibitions scaffold with Current, Past, and Upcoming section controls is kept in code but hidden behind `featureFlags.exhibitions` until the content update workflow is decided.
 - Clear empty states for exhibition sections until real content is available.
 - Contacts page with draft Privacy Notice, copyright notice, Facebook link, disabled message form, and disabled mailing-list signup.
 - Portfolio gallery and carousel with Landscapes, Still life, and Other sections, selected-image metadata, free-text status metadata, newest-first section ordering, and local-manifest-driven S3 images.
@@ -26,8 +26,9 @@ The portfolio takes inspiration from the restrained, image-led presentation of t
 ## Remaining work
 
 - Record the Amplify app URL and build status.
-- Verify the deployed public site, especially Portfolio cloud images and Resume PDF navigation.
-- Publish real content for empty or draft areas, including Exhibitions and the Portfolio `Other` section.
+- Verify the deployed public site, especially Portfolio cloud images, Resume PDF navigation, and the disabled Exhibitions fallback.
+- Decide the Exhibitions content update workflow, add real exhibition content, and re-enable the feature flag when ready.
+- Publish real content for empty or draft areas, including the Portfolio `Other` section.
 - Final résumé PDF replacement workflow.
 - Protected Leave a message form using a later AWS backend milestone.
 - Double-opt-in mailing-list signup and unsubscribe using a later AWS backend milestone.
@@ -60,6 +61,7 @@ The architecture is code-managed and static-first: Home, Exhibitions, Portfolio,
 - [Technical requirements](./docs/requirements/technical.md) — implementation, security, accessibility, testing, and deployment requirements
 - [Project status](./docs/project/status.md) — current milestone, progress, blockers, and roadmap
 - [Project process](./docs/project/process.md) — milestone lifecycle, tracking, verification, and handoff workflow
+- [Project backlog](./docs/project/backlog.md) — future work that has not been moved into an active milestone
 - [Change request log](./docs/project/change-requests.md) — user-requested scope, design, process, and rework changes
 - [Decision log](./docs/project/decisions.md) — approved project and milestone decisions
 - [AWS Amplify deployment runbook](./docs/deployment/aws-amplify.md) — deployment steps and settings
@@ -93,7 +95,7 @@ npm run format:check # Verify formatting
 | --------- | ---------------------------------------------- | ----------- |
 | M1        | Desktop Home page and local project foundation | Complete    |
 | M2        | Contacts page                                  | Complete    |
-| M3        | Exhibitions page and section controls          | Complete    |
+| M3        | Exhibitions scaffold and section controls      | Complete    |
 | M5        | Portfolio gallery and carousel                 | Complete    |
 | M6        | Resume PDF navigation                          | Complete    |
 | M7        | AWS deployment and cloud Portfolio images      | In progress |

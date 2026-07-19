@@ -70,19 +70,20 @@ flowchart TB
 
 ```text
 Home (/)
-Exhibitions
-  └── Current, Past, Upcoming sections (/exhibitions)
+Exhibitions disabled fallback (/exhibitions)
+  └── Current, Past, Upcoming sections remain in code behind feature flag
 Portfolio (/portfolio)
 Resume navigation → S3 PDF
 Resume fallback page (/resume)
 Contacts (/contacts)
 ```
 
-- `/exhibitions` renders Current, Past, and Upcoming as page sections.
-- `/exhibitions/current`, `/exhibitions/past`, and `/exhibitions/upcoming` redirect to the matching `/exhibitions/` hash section.
+- `/exhibitions` currently renders a disabled/coming-soon fallback while `featureFlags.exhibitions` is `false`.
+- When enabled, `/exhibitions` renders Current, Past, and Upcoming as page sections.
+- `/exhibitions/current`, `/exhibitions/past`, and `/exhibitions/upcoming` currently redirect to `/exhibitions/`; restoring matching hash redirects can be handled when Exhibitions is re-enabled.
 - Contacts contains a linkable Privacy Notice section.
 - There is no About or separate Privacy route.
-- The shared navigation uses normal links. Resume opens the configured S3-hosted PDF in a new browser tab. Exhibitions does not use a header submenu.
+- The shared navigation uses normal links. Resume opens the configured S3-hosted PDF in a new browser tab. Exhibitions is hidden while disabled and does not use a header submenu when re-enabled.
 
 Repository content models are:
 
@@ -217,7 +218,7 @@ sequenceDiagram
 Before implementation, demonstrate:
 
 1. Home is `/` and renders the statement.
-2. Exact navigation and accessible Exhibitions section controls work.
+2. Exact navigation works, Exhibitions is hidden while disabled, and accessible Exhibitions section controls work when re-enabled.
 3. Exhibition categories generate from validated content.
 4. Portfolio contains only images and the accessible carousel.
 5. Carousel URL, focus restoration, and responsive images work.
@@ -228,6 +229,7 @@ Before implementation, demonstrate:
 ## 13. Open decisions
 
 - Ongoing Resume PDF replacement/versioning workflow
+- Exhibitions content update workflow and re-enable timing
 - Separate Exhibition pages versus one page with sections
 - Visible carousel titles versus accessibility text only
 - Contact recipient and diagnostic retention
