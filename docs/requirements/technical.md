@@ -61,6 +61,7 @@ Primary navigation is Home, Portfolio, Resume, and Contacts while Exhibitions is
 - Render the complete artist statement as static HTML.
 - Render any Home carousel images from a manually managed Home carousel data source, separate from Portfolio artwork data.
 - Store Home carousel image files outside GitHub in the same AWS-hosted image location used for Portfolio images, under the `portfolio/home-carousel/` prefix, and reference them with public `https` URLs from `src/data/homeCarousel.ts`.
+- Render the Home artist portrait from the same S3-backed Home image data source and align it beside the carousel, above the artist statement.
 - Keep the Home carousel compact so it supports the artist statement rather than becoming a second Portfolio gallery.
 - Do not duplicate the Portfolio gallery or Portfolio carousel behavior.
 - Provide unique title, description, canonical URL, and social metadata.

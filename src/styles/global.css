@@ -160,6 +160,8 @@ a:hover {
 }
 
 .home-introduction {
+  --home-visual-width: 820px;
+
   display: grid;
   justify-items: center;
   gap: 34px;
@@ -172,32 +174,26 @@ a:hover {
 
 .home-carousel-shell {
   display: grid;
-  grid-template-columns: auto auto auto;
-  gap: 18px;
-  align-items: center;
+  align-items: stretch;
+}
+
+.home-visuals {
+  display: grid;
+  width: min(100%, var(--home-visual-width));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+  align-items: stretch;
 }
 
 .artist-statement {
-  display: grid;
-  width: 100%;
-  padding: 42px 48px 44px;
-  grid-template-columns: minmax(190px, 0.78fr) minmax(0, 2fr);
-  gap: 54px;
+  width: min(100%, var(--home-visual-width));
+  padding: 38px 44px 40px;
   background: var(--color-panel);
 }
 
-.artist-statement h2 {
-  margin: 0;
-  color: var(--color-accent);
-  font-size: 20px;
-  font-weight: 400;
-  letter-spacing: 0.15em;
-  line-height: 1.3;
-  text-transform: uppercase;
-}
-
 .statement-copy {
-  max-width: 670px;
+  max-width: 720px;
+  margin: 0 auto;
   color: #373532;
   font-size: 17px;
   line-height: 1.75;
@@ -213,30 +209,37 @@ a:hover {
 }
 
 .home-carousel {
-  --home-carousel-size: 320px;
-
   display: grid;
-  width: max-content;
+  width: 100%;
   padding: 22px;
   align-content: start;
   border: var(--border-width) solid var(--color-panel);
   justify-items: center;
 }
 
-.home-carousel-figure {
-  margin: 0;
-  width: var(--home-carousel-size);
+.home-artist-photo {
+  display: grid;
+  width: 100%;
+  padding: 22px;
+  align-content: start;
+  border: var(--border-width) solid var(--color-panel);
+  justify-items: center;
 }
 
-.home-carousel-figure img {
-  width: var(--home-carousel-size);
-  height: var(--home-carousel-size);
+.home-carousel-figure,
+.home-artist-photo-figure {
+  margin: 0;
+  width: 100%;
+  aspect-ratio: 1;
+}
+
+.home-carousel-figure img,
+.home-artist-photo-figure img {
+  display: block;
+  width: 100%;
+  height: 100%;
   background: #ece4d5;
   object-fit: cover;
-}
-
-.home-carousel-control {
-  min-width: 106px;
 }
 
 .site-footer {
@@ -273,6 +276,19 @@ a:hover {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+}
+
+.footer-inner .social-icon-link {
+  color: #1877f2;
+}
+
+.footer-inner .social-icon-link:hover {
+  color: #0f5fcf;
+}
+
+.footer-inner .social-icon-link .facebook-icon {
+  width: 30px;
+  height: 30px;
 }
 
 .facebook-icon {
@@ -804,17 +820,6 @@ a:hover {
 .carousel-control {
   min-height: 48px;
   padding: 14px 18px;
-}
-
-.home-carousel-shell .home-carousel-control {
-  border: var(--border-width) solid #ae2a5e;
-  background: #f2f0ed;
-  color: #ae2a5e;
-}
-
-.home-carousel-shell .home-carousel-control:hover {
-  background: #ae2a5e;
-  color: #f2f0ed;
 }
 
 .visually-hidden {

@@ -33,6 +33,7 @@ Navigation must work on mobile and desktop, identify the current destination, an
 
 - Contains the artist statement.
 - May include a compact manually curated Home carousel that supports the statement, but the carousel images remain distinct from the Portfolio gallery and are not automatically pulled from Portfolio artwork.
+- May include an S3-hosted artist portrait beside the Home carousel as a supporting visual.
 
 ### 3.2 Exhibitions
 

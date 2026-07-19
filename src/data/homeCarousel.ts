@@ -11,6 +11,14 @@ export interface HomeCarouselImage {
 const homeCarouselBaseUrl =
   "https://yulia-balenko-portfolio-images.s3.us-east-1.amazonaws.com/portfolio/home-carousel";
 
+export const homeArtistPortrait = {
+  id: "yulia-balenko-portrait",
+  src: `${homeCarouselBaseUrl}/Yulia_Balenko.jpg`,
+  alt: "Portrait of artist Yulia Balenko",
+  width: 960,
+  height: 961,
+};
+
 export const homeCarouselImages: HomeCarouselImage[] = [
   {
     id: "home-carousel-01",

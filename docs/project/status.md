@@ -55,6 +55,11 @@ See the [Decision log](./decisions.md) for resolved decisions and [Project proce
 
 | Date       | Update                                                        |
 | ---------- | ------------------------------------------------------------- |
+| 2026-07-19 | Made footer Facebook icon blue and more visible               |
+| 2026-07-19 | Added Home artist portrait beside buttonless carousel         |
+| 2026-07-19 | Removed duplicate Home statement heading and boxed text       |
+| 2026-07-19 | Changed Home carousel arrows to angle characters              |
+| 2026-07-19 | Changed Home carousel controls to borderless arrows           |
 | 2026-07-19 | Disabled Exhibitions with feature flag and added backlog      |
 | 2026-07-19 | Added completed Milestone 6 Resume PDF navigation plan        |
 | 2026-07-19 | Changed Resume navigation to open PDF in a new tab            |

@@ -1,5 +1,8 @@
 ---
-import { publishedHomeCarouselImages } from "../data/homeCarousel";
+import {
+  homeArtistPortrait,
+  publishedHomeCarouselImages,
+} from "../data/homeCarousel";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 const firstCarouselImage = publishedHomeCarouselImages[0];
@@ -21,35 +24,24 @@ const homeCarouselJson = JSON.stringify(publishedHomeCarouselImages);
       <h1 id="page-title">Artist Statement</h1>
     </header>
 
-    {
-      hasCarouselImages && (
-        <div class="home-carousel-shell" data-home-carousel>
-          {hasMultipleCarouselImages && (
-            <button
-              type="button"
-              class="carousel-control home-carousel-control home-carousel-control-previous"
-              aria-label="Show previous home carousel image"
-              data-home-carousel-previous
-            >
-              Previous
-            </button>
-          )}
+    <div class="home-visuals">
+      {
+        hasCarouselImages && (
+          <div class="home-carousel-shell" data-home-carousel>
+            <aside class="home-carousel" aria-label="Home carousel">
+              <figure class="home-carousel-figure">
+                <img
+                  src={firstCarouselImage.src}
+                  width={firstCarouselImage.width}
+                  height={firstCarouselImage.height}
+                  alt={firstCarouselImage.alt}
+                  fetchpriority="high"
+                  data-home-carousel-image
+                />
+              </figure>
+            </aside>
 
-          <aside class="home-carousel" aria-label="Home carousel">
-            <figure class="home-carousel-figure">
-              <img
-                src={firstCarouselImage.src}
-                width={firstCarouselImage.width}
-                height={firstCarouselImage.height}
-                alt={firstCarouselImage.alt}
-                fetchpriority="high"
-                data-home-carousel-image
-              />
-            </figure>
-          </aside>
-
-          {hasMultipleCarouselImages && (
-            <>
+            {hasMultipleCarouselImages && (
               <p
                 class="visually-hidden"
                 aria-live="polite"
@@ -57,22 +49,25 @@ const homeCarouselJson = JSON.stringify(publishedHomeCarouselImages);
               >
                 1 / {publishedHomeCarouselImages.length}
               </p>
-              <button
-                type="button"
-                class="carousel-control home-carousel-control home-carousel-control-next"
-                aria-label="Show next home carousel image"
-                data-home-carousel-next
-              >
-                Next
-              </button>
-            </>
-          )}
-        </div>
-      )
-    }
+            )}
+          </div>
+        )
+      }
 
-    <section class="artist-statement" aria-labelledby="artist-statement-title">
-      <h2 id="artist-statement-title">Artist Statement</h2>
+      <aside class="home-artist-photo" aria-label="Artist portrait">
+        <figure class="home-artist-photo-figure">
+          <img
+            src={homeArtistPortrait.src}
+            width={homeArtistPortrait.width}
+            height={homeArtistPortrait.height}
+            alt={homeArtistPortrait.alt}
+            loading="eager"
+          />
+        </figure>
+      </aside>
+    </div>
+
+    <section class="artist-statement">
       <div class="statement-copy">
         <p>
           I paint the places, objects, and moments that make me pause. Drawn to
@@ -106,10 +101,6 @@ const homeCarouselJson = JSON.stringify(publishedHomeCarouselImages);
       const carouselStatus = document.querySelector(
         "[data-home-carousel-status]",
       );
-      const previousButton = document.querySelector(
-        "[data-home-carousel-previous]",
-      );
-      const nextButton = document.querySelector("[data-home-carousel-next]");
       const prefersReducedMotion = window.matchMedia(
         "(prefers-reduced-motion: reduce)",
       );
@@ -141,16 +132,6 @@ const homeCarouselJson = JSON.stringify(publishedHomeCarouselImages);
           setActiveImage(activeIndex + 1);
         }, 7000);
       };
-
-      previousButton.addEventListener("click", () => {
-        setActiveImage(activeIndex - 1);
-        startRotation();
-      });
-
-      nextButton.addEventListener("click", () => {
-        setActiveImage(activeIndex + 1);
-        startRotation();
-      });
 
       carousel.addEventListener("mouseenter", stopRotation);
       carousel.addEventListener("mouseleave", startRotation);

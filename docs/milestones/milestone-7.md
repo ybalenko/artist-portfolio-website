@@ -319,6 +319,11 @@ Milestone 7 is complete when:
 - Generated Home, Portfolio, Contacts, and Resume HTML was inspected and contains no `/exhibitions/` primary navigation link while Exhibitions is disabled.
 - Generated `dist/exhibitions/index.html` was inspected and shows the coming-soon fallback while Exhibitions is disabled.
 - Generated legacy Exhibitions status pages redirect to `/exhibitions/` while Exhibitions is disabled.
+- Changed Home carousel controls from visible Previous/Next text to borderless left/right arrow buttons while preserving accessible labels.
+- Updated the Home carousel controls to use simple `<` and `>` direction characters.
+- Removed the duplicate lower Home statement heading and tightened the statement into a centered single-column text box.
+- Removed visible Home carousel previous/next buttons, added the S3-hosted artist portrait beside the carousel, and aligned the visual row with the statement box below.
+- Made the footer Facebook icon blue, larger, and more visible while preserving the existing footer link target.
 - `node` manifest availability validation — passed; all manifest items have non-empty availability text.
 - `node` source inspection — passed; strict `availability: "available"` restriction is removed and availability is typed as free text.
 - Generated `dist/portfolio/index.html` was inspected after newest-first sorting; Landscapes begins with 2026 items, Still life begins with 2025 items, and Other has no published items yet.

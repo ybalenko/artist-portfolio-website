@@ -11,8 +11,8 @@ The portfolio takes inspiration from the restrained, image-led presentation of t
 ## Current implementation
 
 - Astro and TypeScript project foundation.
-- Home page as the default landing page with the final artist statement and a centered compact curated carousel that is separate from Portfolio artwork.
-- S3-hosted Home carousel images under `portfolio/home-carousel/`, referenced from repository metadata without storing image files in GitHub.
+- Home page as the default landing page with the final artist statement, a buttonless compact curated carousel, and an aligned artist portrait.
+- S3-hosted Home carousel and artist portrait images under `portfolio/home-carousel/`, referenced from repository metadata without storing image files in GitHub.
 - Shared header navigation for Home, Portfolio, Resume, and Contacts. Resume opens the S3-hosted résumé PDF in a new browser tab.
 - Exhibitions scaffold with Current, Past, and Upcoming section controls is kept in code but hidden behind `featureFlags.exhibitions` until the content update workflow is decided.
 - Clear empty states for exhibition sections until real content is available.
