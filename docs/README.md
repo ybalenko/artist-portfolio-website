@@ -2,7 +2,7 @@
 
 This folder contains the working documentation for the Yulia Balenko artist portfolio website.
 
-Current project state: Milestones 1, 2, 3, 5, and 6 are complete. Press has been removed from the current website scope. Exhibitions are scaffolded but temporarily disabled behind a feature flag. Milestone 7, AWS deployment and cloud Portfolio images, is blocked at **31/43 tasks (72%)** until the Amplify URL/build status is recorded. Milestone 8, protected Leave a message form, is in progress at **30/49 tasks (61%)**. Turnstile/CAPTCHA is deferred for now, and mailing-list signup is hidden/deferred.
+Current project state: Milestones 1, 2, 3, 5, and 6 are complete. Press has been removed from the current website scope. Exhibitions are scaffolded but temporarily disabled behind a feature flag. Milestone 7, AWS deployment and cloud Portfolio images, is blocked at **31/43 tasks (72%)** until the Amplify URL/build status is recorded. Milestone 8, protected Leave a message form, is in progress at **42/49 tasks (86%)**. Turnstile/CAPTCHA is deferred for now, and mailing-list signup is hidden/deferred.
 
 ## Requirements
 
@@ -52,7 +52,7 @@ Deferred future work:
 
 - Home — default landing page with the final artist statement, a buttonless compact curated carousel, and an aligned artist portrait separate from Portfolio artwork.
 - Home carousel and artist portrait images — S3-hosted images belong under the `portfolio/home-carousel/` prefix and are referenced from `src/data/homeCarousel.ts`.
-- Contacts — contact page with one consolidated Notice section containing Copyright Notice and Privacy Notice, Facebook link, visibly marked required fields on the Leave a message form, API-gated message delivery, and no visible mailing-list signup; the footer also includes a more visible blue Facebook icon.
+- Contacts — contact page with one consolidated Notice section containing Copyright Notice and Privacy Notice, Facebook link, visibly marked required fields on the Leave a message form, API-gated message delivery, CDK contact API infrastructure, and no visible mailing-list signup; the footer also includes a more visible blue Facebook icon.
 - Exhibitions — scaffolded single page with Current, Past, and Upcoming section controls. The public navigation is currently hidden behind `featureFlags.exhibitions` until the content update workflow is decided.
 - Portfolio — image gallery and carousel with Landscapes, Still life, and Other sections, selected-image metadata, free-text status metadata, newest-first section ordering, and local-manifest-driven S3 images. Other currently shows an empty state until published manifest images are added.
 - Resume — primary navigation opens the S3-hosted résumé PDF in a new browser tab; `/resume/` remains a fallback link page configured from `src/data/resume.ts`.

@@ -2,7 +2,7 @@
 
 An artwork-first website for artist **Yulia Balenko**, built as a simple static portfolio for an amateur artist. The site presents an artist statement, an image portfolio, a résumé PDF, and visitor contact options; Exhibitions are scaffolded but temporarily disabled.
 
-> **Project status:** Milestones 1, 2, 3, 5, and 6 are complete. Milestone 7, AWS deployment and cloud Portfolio images, is blocked at **31/43 tasks (72%)** until Amplify URL/build-status evidence is recorded. Milestone 8, protected Leave a message form, is in progress at **30/49 tasks (61%)**. Press has been removed from scope, Exhibitions are hidden behind a feature flag, Turnstile/CAPTCHA is deferred for now, and mailing-list signup is hidden/deferred. Track current progress in [Project status](./docs/project/status.md).
+> **Project status:** Milestones 1, 2, 3, 5, and 6 are complete. Milestone 7, AWS deployment and cloud Portfolio images, is blocked at **31/43 tasks (72%)** until Amplify URL/build-status evidence is recorded. Milestone 8, protected Leave a message form, is in progress at **42/49 tasks (86%)**. Press has been removed from scope, Exhibitions are hidden behind a feature flag, Turnstile/CAPTCHA is deferred for now, and mailing-list signup is hidden/deferred. Track current progress in [Project status](./docs/project/status.md).
 
 ## Vision
 
@@ -17,7 +17,7 @@ The portfolio takes inspiration from the restrained, image-led presentation of t
 - Exhibitions scaffold with Current, Past, and Upcoming section controls is kept in code but hidden behind `featureFlags.exhibitions` until the content update workflow is decided.
 - Clear empty states for exhibition sections until real content is available.
 - Contacts page with one consolidated Notice section containing Copyright Notice and Privacy Notice, Facebook link, visibly marked required fields on the Leave a message form, API-gated message delivery, and no visible mailing-list signup.
-- Public Contacts configuration via `PUBLIC_CONTACT_API_URL`, with private recipient email and SES settings intentionally kept out of GitHub.
+- Public Contacts configuration via `PUBLIC_CONTACT_API_URL`, with CDK contact API infrastructure under `infra/contact-form/` and private recipient email, SES sender, and abuse salt intentionally kept out of GitHub.
 - Portfolio gallery and carousel with Landscapes, Still life, and Other sections, selected-image metadata, free-text status metadata, newest-first section ordering, and local-manifest-driven S3 images.
 - S3-hosted résumé PDF configured from `src/data/resume.ts`; `/resume/` remains a fallback link page.
 - AWS Amplify build configuration and deployment/image runbooks.
@@ -28,8 +28,7 @@ The portfolio takes inspiration from the restrained, image-led presentation of t
 
 - Record the Amplify app URL and build status.
 - Verify the deployed public site, especially Portfolio cloud images, Resume PDF navigation, and the disabled Exhibitions fallback.
-- Confirm the exact custom-domain origin for Contacts CORS.
-- Configure SES sender identity, private recipient secret, and the contact API backend so Leave a message can send email.
+- Deploy the contact API stack and configure Amplify with `PUBLIC_CONTACT_API_URL` so Leave a message can send email.
 - Decide the Exhibitions content update workflow, add real exhibition content, and re-enable the feature flag when ready.
 - Publish real content for empty or draft areas, including the Portfolio `Other` section.
 - Final résumé PDF replacement workflow.
@@ -89,6 +88,7 @@ Astro prints the local URL, normally [http://localhost:4321/](http://localhost:4
 ```bash
 npm run check        # Type and Astro diagnostics
 npm run build        # Production build
+npm run contact:synth # Synthesize the Contact API CDK stack
 npm run preview      # Preview the production build locally
 npm run format:check # Verify formatting
 ```

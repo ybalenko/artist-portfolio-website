@@ -14,7 +14,7 @@
 | M5        | Portfolio gallery and carousel                 | Complete    | 22/22 |     100% | [Milestone 5](../milestones/milestone-5.md) |
 | M6        | Resume PDF navigation                          | Complete    |   6/6 |     100% | [Milestone 6](../milestones/milestone-6.md) |
 | M7        | AWS deployment and cloud Portfolio images      | Blocked     | 31/43 |      72% | [Milestone 7](../milestones/milestone-7.md) |
-| M8        | Protected Leave a message form                 | In progress | 30/49 |      61% | [Milestone 8](../milestones/milestone-8.md) |
+| M8        | Protected Leave a message form                 | In progress | 42/49 |      86% | [Milestone 8](../milestones/milestone-8.md) |
 
 Future milestone boundaries are provisional until their plans are approved.
 
@@ -35,9 +35,9 @@ Future milestone boundaries are provisional until their plans are approved.
 - **Status:** In progress
 - **Progress source:** Checked implementation tasks in [Milestone 8](../milestones/milestone-8.md)
 - **Target:** Desktop web browsers only
-- **Open blockers:** Exact deployed custom-domain origin, SES sender identity, private recipient secret, and approved AWS contact API setup are needed before the form can send messages.
+- **Open blockers:** Approved contact API deployment, generated API URL, and Amplify `PUBLIC_CONTACT_API_URL` configuration are needed before the form can send messages.
 - **Deferred:** Visible mailing-list signup, Turnstile/CAPTCHA bot protection, mailing-list backend, subscriber storage, newsletter workflow, and final image optimization pipeline
-- **Next action:** Confirm the custom-domain origin and create/configure SES and the contact API backend without committing private recipient details.
+- **Next action:** Deploy the contact API stack after approval and configure Amplify with the generated `PUBLIC_CONTACT_API_URL`.
 
 ### Milestone 7 — AWS Deployment and Cloud Portfolio Images
 
@@ -50,7 +50,8 @@ Future milestone boundaries are provisional until their plans are approved.
 
 ## Project-level open decisions
 
-- Exact custom-domain origin and Amplify domain connection status
+- Amplify custom-domain public verification evidence
+- Contact API deployment approval and generated API URL
 - Final content schemas and ordering
 - Final Home carousel S3 image set
 - Final résumé PDF replacement workflow
@@ -58,7 +59,7 @@ Future milestone boundaries are provisional until their plans are approved.
 - Image dimensions and repository-size budget
 - Budget and launch date
 - Final Portfolio image hosting strategy
-- SES sender identity and contact-message diagnostic retention
+- SES sandbox production-access need after deployed delivery testing
 
 See the [Decision log](./decisions.md) for resolved decisions and [Project process](./process.md) for update rules.
 
@@ -66,6 +67,10 @@ See the [Decision log](./decisions.md) for resolved decisions and [Project proce
 
 | Date       | Update                                                        |
 | ---------- | ------------------------------------------------------------- |
+| 2026-07-19 | Confirmed SES sender identity verification                    |
+| 2026-07-19 | Confirmed private SSM contact parameters exist                |
+| 2026-07-19 | Added domain contact email enhancement to backlog             |
+| 2026-07-19 | Added CDK contact API backend infrastructure                  |
 | 2026-07-19 | Fixed Contacts Notice eyebrow font treatment                  |
 | 2026-07-19 | Restored Contacts Notice eyebrow and removed Notice header    |
 | 2026-07-19 | Refined Contacts Notice heading hierarchy and casing          |

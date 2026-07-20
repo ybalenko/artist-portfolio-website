@@ -117,6 +117,8 @@ Primary navigation is Home, Portfolio, Resume, and Contacts while Exhibitions is
 - Current implementation focus is Leave a message only; mailing-list signup is hidden and deferred until a later milestone.
 - The Leave a message submit button remains disabled unless the public contact API URL is configured.
 - Turnstile/CAPTCHA bot protection is deferred for now by owner request; current protection relies on server-side validation, CORS/origin checks, payload limits, honeypot handling, abuse throttling, and SES controls.
+- The current contact API infrastructure is defined under `infra/contact-form/`.
+- The canonical Contacts origin is `https://yuliabalenko.com`; `https://www.yuliabalenko.com` is also allowed while both domains are active.
 
 ## 5. Dynamic API
 
@@ -142,6 +144,8 @@ All write operations must validate server-side, enforce payload/rate limits, avo
 Messages must not be stored in DynamoDB. Logs must not contain message bodies, names, or email addresses. Delivery metadata uses short retention, while the recipient mailbox copy follows the Privacy Notice.
 
 The private recipient email address, SES sender settings, and any abuse-control secrets must not be committed to the repository. If Turnstile/CAPTCHA is added later, its secret key must also stay outside the repository and be validated server-side.
+
+The current Milestone 8 backend stores only short-lived throttling fingerprints in DynamoDB with TTL and keeps Lambda logs to one week.
 
 ## 7. Mailing list
 

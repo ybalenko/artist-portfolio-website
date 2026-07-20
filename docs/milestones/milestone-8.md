@@ -3,7 +3,7 @@
 **Status:** In progress  
 **Created:** July 19, 2026  
 **Milestone goal:** Implement the Contacts page Leave a message workflow with server-side validation, basic abuse controls, and private email delivery while keeping mailing-list signup hidden and deferred.
-**Implementation progress:** 30/49 tasks — 61%
+**Implementation progress:** 42/49 tasks — 86%
 
 ## Confirmed decisions
 
@@ -14,6 +14,9 @@
 - Use the public browser environment variable `PUBLIC_CONTACT_API_URL` for the contact API endpoint.
 - Store private email delivery settings outside GitHub.
 - Skip Turnstile/CAPTCHA bot protection for now by owner request.
+- Use `https://yuliabalenko.com` as the canonical Contacts origin.
+- Allow both `https://yuliabalenko.com` and `https://www.yuliabalenko.com` while both domains are active.
+- Keep one week of Lambda operational logs and about 25 hours of non-message throttling fingerprints.
 
 ## 1. Scope
 
@@ -81,22 +84,22 @@ The browser uses only public configuration. Lambda owns all private delivery det
 
 ### Step 3 — Backend prerequisites
 
-- [ ] Confirm the exact production custom domain and deployed origin.
-- [ ] Confirm whether the custom domain is connected to Amplify before form launch.
-- [ ] Verify an SES sender identity.
+- [x] Confirm the exact production custom domain and deployed origin.
+- [x] Confirm whether the custom domain is connected to Amplify before form launch.
+- [x] Verify an SES sender identity.
 - [ ] Move SES out of sandbox if required for the selected sender/recipient flow.
-- [ ] Store the private recipient email outside the repository.
-- [ ] Decide diagnostic retention for delivery metadata.
+- [x] Store the private recipient email outside the repository.
+- [x] Decide diagnostic retention for delivery metadata.
 
 ### Step 4 — AWS contact backend
 
-- [ ] Add infrastructure for API Gateway, Lambda, permissions, and runtime settings.
-- [ ] Implement Lambda payload validation.
-- [ ] Implement origin/CORS enforcement for the deployed site origin.
-- [ ] Implement honeypot handling and abuse throttling.
-- [ ] Implement SES send with verified sender and visitor `Reply-To`.
-- [ ] Prevent message bodies, names, emails, and tokens from being logged.
-- [ ] Configure safe generic API responses for success and failure.
+- [x] Add infrastructure for API Gateway, Lambda, permissions, and runtime settings.
+- [x] Implement Lambda payload validation.
+- [x] Implement origin/CORS enforcement for the deployed site origin.
+- [x] Implement honeypot handling and abuse throttling.
+- [x] Implement SES send with verified sender and visitor `Reply-To`.
+- [x] Prevent message bodies, names, emails, and tokens from being logged.
+- [x] Configure safe generic API responses for success and failure.
 - [ ] Configure Amplify with `PUBLIC_CONTACT_API_URL`.
 
 ### Step 5 — Documentation and verification
@@ -158,10 +161,7 @@ Milestone 8 is complete when:
 
 ## 8. Deferred decisions
 
-- Exact custom domain value and Amplify domain connection timing
-- SES sender identity until the domain/email strategy is finalized
-- Diagnostic metadata retention window
-- Whether backend infrastructure is implemented with CDK in this repository or created manually first
+- Future domain sender identity after the initial verified single-email sender launch
 - Turnstile/CAPTCHA provider and timing if basic abuse controls are not enough
 
 ## Verification record
@@ -174,6 +174,10 @@ Milestone 8 is complete when:
 - `npm run format:check` — passed.
 - `npm run check` — passed with 0 errors, 0 warnings, and 0 hints.
 - `npm run build` — passed and generated 8 pages.
+- `npm run format:check` — passed after SES sender verification tracking updates.
+- `npm run contact:synth` — passed and synthesized API Gateway, Lambda, DynamoDB throttling, SSM parameter access, SES send permission, allowed `https://yuliabalenko.com` / `https://www.yuliabalenko.com` origins, and `ContactApiUrl` output. The command emitted npm's experimental CommonJS/ESM warning and CDK's feature-flag notice, but exited successfully.
+- `npm audit --audit-level=high` — passed with no high or critical advisories; npm reported 4 moderate advisories in the Astro language-server YAML dependency chain.
+- `rg -n "contact_message_failed|console\\.|ALLOWED_ORIGINS|ReplyToAddresses|GetParameterCommand|UpdateItemCommand|SendEmailCommand|message\\.body|contactMessage\\.message" infra/contact-form/lambda/contact-message.ts infra/contact-form/cdk-app.mjs` — confirmed allowed origins are configured in CDK, private settings are read from SSM, throttling uses DynamoDB, SES uses `ReplyToAddresses`, message body is only passed to SES email content, and logging is limited to `contact_message_failed` with safe error metadata.
 - `rg -n "turnstileToken|challenges.cloudflare|PUBLIC_TURNSTILE|Turnstile site key|Turnstile token" src docs/deployment/contact-form.md docs/milestones/milestone-8.md dist/contacts/index.html .env.example` — no active current-scope references found.
 - `rg -n "required|Notice|Draft notice|DRAFT NOTICE|basic abuse controls|CAPTCHA and Turnstile" dist/contacts/index.html` — confirmed required field markers, current notice labels/copy, and no active `Draft notice` label in built Contacts output.
 - `rg -n "Mailing list|Bot protection|Draft notice|DRAFT NOTICE" dist/contacts/index.html` — no results, confirming removed Contacts page sections/labels are absent from the built output.
@@ -193,10 +197,14 @@ Milestone 8 is complete when:
 - Static output check: Contact form, Social media, and Notice eyebrows remain visible in the Contacts markup.
 - Source CSS check: Notice body copy styles no longer apply to `.eyebrow`, allowing the restored Notice eyebrow to use the shared eyebrow font, color, spacing, and uppercase treatment.
 - Static output check: Notice eyebrow is restored and the large Notice header remains removed.
+- Source check: `infra/contact-form/` defines the contact backend without private email addresses or secret values committed to the repository.
+- Source check: the canonical origin is `https://yuliabalenko.com`; `https://www.yuliabalenko.com` remains allowed for launch.
+- Owner-reported AWS check: `aws ssm get-parameters` for `/yulia-balenko/contact/recipient-email`, `/yulia-balenko/contact/ses-sender-email`, and `/yulia-balenko/contact/abuse-salt` returned no invalid parameters.
+- Owner-reported AWS check: SES sender identity verification status was confirmed through CloudShell.
 
 ### Known limitations
 
-- Form does not send until `PUBLIC_CONTACT_API_URL`, SES sender, private recipient secret, and CORS origin are configured.
+- Form does not send until the contact API stack is deployed and Amplify is configured with `PUBLIC_CONTACT_API_URL`.
 
 ### Deferred work
 

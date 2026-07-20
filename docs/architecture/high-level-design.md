@@ -144,6 +144,8 @@ The application does not store contact messages or log personal form content.
 
 The browser form is enabled only when the public contact API URL is configured. Private delivery settings, including the recipient email address and SES sender settings, live outside the repository in backend configuration. Turnstile/CAPTCHA is deferred for the current Leave a message iteration.
 
+The current contact API infrastructure is defined under `infra/contact-form/`. It treats `https://yuliabalenko.com` as the canonical origin and also allows `https://www.yuliabalenko.com` while both domains are active.
+
 ### Mailing list
 
 Subscription Lambda stores pending and confirmed consent in DynamoDB. SES sends double-opt-in email. Confirmation and unsubscribe require deliberate actions to prevent automatic link scanners from changing state.
@@ -155,7 +157,7 @@ Subscription Lambda stores pending and confirmed consent in DynamoDB. SES sends 
 | Astro               | Static pages, content validation, navigation, section controls, gallery, carousel shell, metadata, Resume PDF link |
 | Amplify             | Git-connected build, atomic deployment, CDN, TLS, custom domain                                                    |
 | API Gateway         | Form routes, CORS, throttling, payload limits                                                                      |
-| Contact Lambda      | Validate and forward messages to SES without storage                                                               |
+| Contact Lambda      | Validate, throttle, and forward messages to SES without storage                                                    |
 | Subscription Lambda | Double opt-in, unsubscribe, consent, and SES email                                                                 |
 | DynamoDB            | Subscriber, token, consent, and abuse-control state                                                                |
 | SES                 | Contact delivery and subscription email                                                                            |
@@ -166,7 +168,7 @@ Subscription Lambda stores pending and confirmed consent in DynamoDB. SES sends 
 - All dynamic input is validated server-side.
 - API throttling, payload limits, honeypot handling, CORS/origin checks, and Lambda concurrency protect the current contact form. Turnstile/CAPTCHA may be added later if spam becomes a problem.
 - SES sender is verified; visitor email is used only as validated Reply-To.
-- Contact messages never enter DynamoDB or application logs.
+- Contact messages never enter DynamoDB or application logs; DynamoDB stores only short-lived salted throttling fingerprints.
 - Lambda roles are separate and least-privileged.
 - Secrets and the private recipient address live in Parameter Store or Secrets Manager.
 - CORS allows the deployed origin only.

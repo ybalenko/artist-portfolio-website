@@ -8,6 +8,7 @@
     "build": "ASTRO_TELEMETRY_DISABLED=1 astro build",
     "preview": "ASTRO_TELEMETRY_DISABLED=1 astro preview",
     "check": "ASTRO_TELEMETRY_DISABLED=1 astro check",
+    "contact:synth": "cdk synth --app \"node infra/contact-form/cdk-app.mjs\"",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
@@ -17,11 +18,19 @@
   },
   "packageManager": "npm@10.9.0",
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.1090.0",
+    "@aws-sdk/client-sesv2": "^3.1090.0",
+    "@aws-sdk/client-ssm": "^3.1090.0",
     "@fontsource/lato": "5.2.7",
     "astro": "7.0.2"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.9",
+    "@types/node": "^26.1.1",
+    "aws-cdk": "^2.1132.0",
+    "aws-cdk-lib": "^2.261.0",
+    "constructs": "^10.7.0",
+    "esbuild": "^0.28.1",
     "prettier": "3.8.4",
     "prettier-plugin-astro": "0.14.1",
     "typescript": "6.0.3"
