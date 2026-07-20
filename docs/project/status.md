@@ -35,9 +35,9 @@ Future milestone boundaries are provisional until their plans are approved.
 - **Status:** In progress
 - **Progress source:** Checked implementation tasks in [Milestone 8](../milestones/milestone-8.md)
 - **Target:** Desktop web browsers only
-- **Open blockers:** Approved contact API deployment, generated API URL, and Amplify `PUBLIC_CONTACT_API_URL` configuration are needed before the form can send messages.
+- **Open blockers:** Contact API deployment is paused; generated API URL and Amplify `PUBLIC_CONTACT_API_URL` configuration are still needed before the form can send messages.
 - **Deferred:** Visible mailing-list signup, Turnstile/CAPTCHA bot protection, mailing-list backend, subscriber storage, newsletter workflow, and final image optimization pipeline
-- **Next action:** Deploy the contact API stack after approval and configure Amplify with the generated `PUBLIC_CONTACT_API_URL`.
+- **Next action:** When ready, deploy the contact API stack from AWS CloudShell or another AWS-configured CDK environment, then configure Amplify with the generated `PUBLIC_CONTACT_API_URL`.
 
 ### Milestone 7 — AWS Deployment and Cloud Portfolio Images
 
@@ -67,6 +67,7 @@ See the [Decision log](./decisions.md) for resolved decisions and [Project proce
 
 | Date       | Update                                                        |
 | ---------- | ------------------------------------------------------------- |
+| 2026-07-19 | Paused CDK deployment; no AWS resources were created locally  |
 | 2026-07-19 | Confirmed SES sender identity verification                    |
 | 2026-07-19 | Confirmed private SSM contact parameters exist                |
 | 2026-07-19 | Added domain contact email enhancement to backlog             |

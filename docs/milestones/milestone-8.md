@@ -175,7 +175,9 @@ Milestone 8 is complete when:
 - `npm run check` — passed with 0 errors, 0 warnings, and 0 hints.
 - `npm run build` — passed and generated 8 pages.
 - `npm run format:check` — passed after SES sender verification tracking updates.
+- `npm run format:check` — passed after documenting paused CDK deployment status.
 - `npm run contact:synth` — passed and synthesized API Gateway, Lambda, DynamoDB throttling, SSM parameter access, SES send permission, allowed `https://yuliabalenko.com` / `https://www.yuliabalenko.com` origins, and `ContactApiUrl` output. The command emitted npm's experimental CommonJS/ESM warning and CDK's feature-flag notice, but exited successfully.
+- `npx cdk deploy --app "node infra/contact-form/cdk-app.mjs" --require-approval never` — stopped before deployment with `Unable to resolve AWS account to use`; no AWS resources were created or changed from the local environment.
 - `npm audit --audit-level=high` — passed with no high or critical advisories; npm reported 4 moderate advisories in the Astro language-server YAML dependency chain.
 - `rg -n "contact_message_failed|console\\.|ALLOWED_ORIGINS|ReplyToAddresses|GetParameterCommand|UpdateItemCommand|SendEmailCommand|message\\.body|contactMessage\\.message" infra/contact-form/lambda/contact-message.ts infra/contact-form/cdk-app.mjs` — confirmed allowed origins are configured in CDK, private settings are read from SSM, throttling uses DynamoDB, SES uses `ReplyToAddresses`, message body is only passed to SES email content, and logging is limited to `contact_message_failed` with safe error metadata.
 - `rg -n "turnstileToken|challenges.cloudflare|PUBLIC_TURNSTILE|Turnstile site key|Turnstile token" src docs/deployment/contact-form.md docs/milestones/milestone-8.md dist/contacts/index.html .env.example` — no active current-scope references found.
@@ -205,6 +207,7 @@ Milestone 8 is complete when:
 ### Known limitations
 
 - Form does not send until the contact API stack is deployed and Amplify is configured with `PUBLIC_CONTACT_API_URL`.
+- Local CDK deployment is paused because the local environment cannot resolve an AWS account; deploy later from AWS CloudShell or another AWS-configured CDK environment.
 
 ### Deferred work
 

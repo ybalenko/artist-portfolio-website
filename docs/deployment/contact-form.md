@@ -13,6 +13,7 @@ This runbook tracks the planned setup for the Contacts page Leave a message form
 - `https://www.yuliabalenko.com` is also allowed for launch because both domains are currently working.
 - The private recipient email address is not stored in the repository.
 - The private SSM parameters have been created and the SES sender identity has been verified by the owner.
+- CDK deployment is paused; the local deployment attempt stopped before creating AWS resources because the local environment could not resolve an AWS account.
 
 ## Public environment variables
 
@@ -107,6 +108,10 @@ Deploy only after the owner approves the external AWS change:
 ```bash
 npx cdk deploy --app "node infra/contact-form/cdk-app.mjs"
 ```
+
+If the local machine does not have AWS credentials/account/region configured,
+run the deploy from AWS CloudShell in the same region as the SSM parameters and
+SES sender identity.
 
 The stack outputs `ContactApiUrl`. Configure that exact value in Amplify as:
 
