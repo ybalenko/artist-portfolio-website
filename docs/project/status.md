@@ -67,6 +67,7 @@ See the [Decision log](./decisions.md) for resolved decisions and [Project proce
 
 | Date       | Update                                                        |
 | ---------- | ------------------------------------------------------------- |
+| 2026-07-19 | Rewrote Contacts Contact messages notice in plain English     |
 | 2026-07-19 | Paused CDK deployment; no AWS resources were created locally  |
 | 2026-07-19 | Confirmed SES sender identity verification                    |
 | 2026-07-19 | Confirmed private SSM contact parameters exist                |

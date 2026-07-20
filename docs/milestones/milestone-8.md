@@ -174,6 +174,8 @@ Milestone 8 is complete when:
 - `npm run format:check` — passed.
 - `npm run check` — passed with 0 errors, 0 warnings, and 0 hints.
 - `npm run build` — passed and generated 8 pages.
+- `npm run build` — passed after rewriting the Contacts `Contact messages` notice copy and generated 8 pages.
+- `npm run format:check` — passed after rewriting the Contacts `Contact messages` notice copy.
 - `npm run format:check` — passed after SES sender verification tracking updates.
 - `npm run format:check` — passed after documenting paused CDK deployment status.
 - `npm run contact:synth` — passed and synthesized API Gateway, Lambda, DynamoDB throttling, SSM parameter access, SES send permission, allowed `https://yuliabalenko.com` / `https://www.yuliabalenko.com` origins, and `ContactApiUrl` output. The command emitted npm's experimental CommonJS/ESM warning and CDK's feature-flag notice, but exited successfully.
@@ -197,6 +199,7 @@ Milestone 8 is complete when:
 - Static output check: Contacts Copyright Notice and Privacy Notice use `Notice` eyebrow labels instead of `Draft notice`.
 - Static output check: Contacts has no visible Mailing list or Bot protection section in the built output.
 - Static output check: Contact form, Social media, and Notice eyebrows remain visible in the Contacts markup.
+- Source copy check: Contacts `Contact messages` notice was rewritten in plain English while preserving the privacy meaning.
 - Source CSS check: Notice body copy styles no longer apply to `.eyebrow`, allowing the restored Notice eyebrow to use the shared eyebrow font, color, spacing, and uppercase treatment.
 - Static output check: Notice eyebrow is restored and the large Notice header remains removed.
 - Source check: `infra/contact-form/` defines the contact backend without private email addresses or secret values committed to the repository.
