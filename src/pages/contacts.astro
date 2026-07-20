@@ -1,58 +1,120 @@
 ---
 import FacebookIcon from "../components/FacebookIcon.astro";
+import { contactMessageFormConfig } from "../config/contact";
 import BaseLayout from "../layouts/BaseLayout.astro";
+
+const contactFormClientConfig = {
+  apiUrl: contactMessageFormConfig.apiUrl,
+  isEnabled: contactMessageFormConfig.isEnabled,
+  maxNameLength: contactMessageFormConfig.maxNameLength,
+  maxMessageLength: contactMessageFormConfig.maxMessageLength,
+  successMessage: contactMessageFormConfig.successMessage,
+  setupMessage: contactMessageFormConfig.setupMessage,
+  failureMessage: contactMessageFormConfig.failureMessage,
+};
 ---
 
 <BaseLayout
   title="Contacts — Yulia Balenko"
-  description="Contact Yulia Balenko, review privacy information, and join the mailing list."
+  description="Contact Yulia Balenko, leave a message, review privacy information, and find social links."
 >
   <div class="site-container contacts-page" aria-labelledby="page-title">
     <header class="page-intro">
       <p class="eyebrow">Contacts</p>
       <h1 id="page-title">Stay in touch</h1>
       <p>
-        This page is a static draft for now. Message delivery and mailing-list
-        signup will be connected in a later milestone.
+        Send a note to the artist, follow her work on Facebook, and review how
+        contact information is handled.
       </p>
     </header>
 
     <div class="contacts-grid">
       <section class="contact-panel" aria-labelledby="message-title">
         <div class="section-heading">
-          <p class="eyebrow">Draft form</p>
+          <p class="eyebrow">Contact form</p>
           <h2 id="message-title">Leave a message</h2>
         </div>
         <p class="form-note" id="message-form-note">
-          The form is visible for layout review only. It does not send messages
-          yet.
+          Use this form for questions, studio visits, exhibitions, or artwork
+          inquiries. Messages are delivered by email and are not stored in the
+          website database.
         </p>
-        <div
+        <form
           class="contact-form"
-          role="form"
-          aria-describedby="message-form-note"
+          data-contact-form
+          aria-describedby="message-form-note message-form-status"
         >
-          <label for="contact-name">Name</label>
+          <label for="contact-name">
+            Name <span class="required-marker" aria-hidden="true">*</span>
+            <span class="required-text">required</span>
+          </label>
           <input
             id="contact-name"
             name="name"
             type="text"
             autocomplete="name"
+            maxlength={contactMessageFormConfig.maxNameLength}
+            required
           />
 
-          <label for="contact-email">Email</label>
+          <label for="contact-email">
+            Email <span class="required-marker" aria-hidden="true">*</span>
+            <span class="required-text">required</span>
+          </label>
           <input
             id="contact-email"
             name="email"
             type="email"
             autocomplete="email"
+            required
           />
 
-          <label for="contact-message">Message</label>
-          <textarea id="contact-message" name="message" rows="7"></textarea>
+          <label for="contact-message">
+            Message <span class="required-marker" aria-hidden="true">*</span>
+            <span class="required-text">required</span>
+          </label>
+          <textarea
+            id="contact-message"
+            name="message"
+            rows="7"
+            maxlength={contactMessageFormConfig.maxMessageLength}
+            required></textarea>
 
-          <button type="button" disabled>Send message — coming soon</button>
-        </div>
+          <label class="visually-hidden" for="contact-company">
+            Company website
+          </label>
+          <input
+            class="contact-honeypot"
+            id="contact-company"
+            name="company"
+            type="text"
+            autocomplete="off"
+            tabindex="-1"
+            aria-hidden="true"
+          />
+
+          <p
+            class="form-status"
+            id="message-form-status"
+            data-contact-form-status
+            role="status"
+            aria-live="polite"
+          >
+            {
+              contactMessageFormConfig.isEnabled
+                ? "Please complete the form before sending."
+                : contactMessageFormConfig.setupMessage
+            }
+          </p>
+
+          <button type="submit" disabled={!contactMessageFormConfig.isEnabled}>
+            {
+              contactMessageFormConfig.isEnabled
+                ? "Send message"
+                : "Send message — setup in progress"
+            }
+          </button>
+        </form>
       </section>
 
       <aside class="contact-panel contact-sidebar" aria-label="Contact options">
@@ -74,38 +136,18 @@ import BaseLayout from "../layouts/BaseLayout.astro";
             </span>
           </a>
         </section>
-
-        <section aria-labelledby="mailing-title">
-          <div class="section-heading">
-            <p class="eyebrow">Mailing list</p>
-            <h2 id="mailing-title">Updates</h2>
-          </div>
-          <p class="form-note" id="mailing-form-note">
-            Sign up will be enabled after mailing-list delivery is configured.
-          </p>
-          <div
-            class="mailing-form"
-            role="form"
-            aria-describedby="mailing-form-note"
-          >
-            <label for="mailing-email">Email</label>
-            <input
-              id="mailing-email"
-              name="email"
-              type="email"
-              autocomplete="email"
-            />
-            <button type="button" disabled>Sign up — coming soon</button>
-          </div>
-        </section>
       </aside>
     </div>
 
-    <section class="notice-section" aria-labelledby="copyright-title">
+    <section
+      class="notice-section privacy-notice"
+      id="privacy-notice"
+      aria-labelledby="notice-eyebrow"
+    >
       <div class="section-heading">
-        <p class="eyebrow">Draft notice</p>
-        <h2 id="copyright-title">Copyright Notice</h2>
+        <p class="eyebrow" id="notice-eyebrow">Notice</p>
       </div>
+      <h2 id="copyright-title" class="notice-subtitle">Copyright notice</h2>
       <p>
         Unless otherwise noted, all artwork images, text, and site materials are
         copyright © 2026 Yulia Balenko. All rights reserved. Images are provided
@@ -113,47 +155,117 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         reproduced, distributed, altered, or used for commercial purposes
         without written permission from the artist.
       </p>
-    </section>
 
-    <section
-      class="notice-section privacy-notice"
-      id="privacy-notice"
-      aria-labelledby="privacy-title"
-    >
-      <div class="section-heading">
-        <p class="eyebrow">Draft notice</p>
-        <h2 id="privacy-title">Privacy Notice</h2>
-      </div>
+      <h2 id="privacy-title" class="notice-subtitle">Privacy notice</h2>
       <p>
-        This draft Privacy Notice describes the planned behavior of the Contacts
-        page. The page is currently static: the message form and mailing-list
-        signup are visible but do not submit, send, store, or process visitor
-        information.
+        This Privacy Notice describes the current Contacts page behavior. The
+        Leave a message form is prepared in the website interface but will not
+        send messages until the contact API, email sender, private recipient,
+        and deployed site origin are configured.
       </p>
-      <h3>Contact messages</h3>
+      <h2 class="notice-subtitle">Contact messages</h2>
       <p>
-        In a later milestone, the Leave a message form is expected to collect a
-        visitor's name, email address, and message so the artist can respond.
-        Message delivery will be configured to avoid publishing private delivery
-        settings and to avoid storing message bodies in the website database.
+        The Leave a message form collects a visitor's name, email address, and
+        message so the artist can respond after delivery is enabled. Required
+        fields are marked in the form. When configured, the website will send
+        the message through a contact API with server-side validation, origin
+        checks, honeypot handling, rate limits, and email delivery. Message
+        bodies are not stored in the website database, and private delivery
+        settings are not published in the repository.
       </p>
-      <h3>Mailing list</h3>
-      <p>
-        In a later milestone, mailing-list signup is expected to collect an
-        email address and use email confirmation before adding a subscriber.
-        Unsubscribe support will be added before the mailing list is active.
-      </p>
-      <h3>Social media links</h3>
+      <h2 class="notice-subtitle">Social media links</h2>
       <p>
         The Facebook link opens an external website. Facebook may process visits
         according to its own privacy practices. This website does not control
         Facebook's data collection.
       </p>
-      <h3>Cookies and analytics</h3>
+      <h2 class="notice-subtitle">Cookies and analytics</h2>
       <p>
         This website does not use visitor analytics or advertising cookies in
         the current implementation.
       </p>
     </section>
   </div>
+
+  <script is:inline define:vars={{ contactFormClientConfig }}>
+    const form = document.querySelector("[data-contact-form]");
+    const statusElement = document.querySelector("[data-contact-form-status]");
+
+    if (form instanceof HTMLFormElement && statusElement) {
+      const submitButton = form.querySelector("button[type='submit']");
+
+      const setStatus = (message, type = "neutral") => {
+        statusElement.textContent = message;
+        statusElement.setAttribute("data-status-type", type);
+      };
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        if (!contactFormClientConfig.isEnabled) {
+          setStatus(contactFormClientConfig.setupMessage);
+          return;
+        }
+
+        if (!form.reportValidity()) {
+          setStatus("Please complete the required fields.", "error");
+          return;
+        }
+
+        const formData = new FormData(form);
+        const payload = {
+          name: String(formData.get("name") ?? "").trim(),
+          email: String(formData.get("email") ?? "").trim(),
+          message: String(formData.get("message") ?? "").trim(),
+          company: String(formData.get("company") ?? "").trim(),
+        };
+
+        if (payload.company) {
+          form.reset();
+          setStatus(contactFormClientConfig.successMessage, "success");
+          return;
+        }
+
+        if (
+          !payload.name ||
+          !payload.email ||
+          !payload.message ||
+          payload.name.length > contactFormClientConfig.maxNameLength ||
+          payload.message.length > contactFormClientConfig.maxMessageLength
+        ) {
+          setStatus("Please check the form fields and try again.", "error");
+          return;
+        }
+
+        if (submitButton instanceof HTMLButtonElement) {
+          submitButton.disabled = true;
+          submitButton.textContent = "Sending…";
+        }
+
+        try {
+          const response = await fetch(contactFormClientConfig.apiUrl, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(payload),
+          });
+
+          if (!response.ok) {
+            throw new Error("Contact API request failed.");
+          }
+
+          form.reset();
+          setStatus(contactFormClientConfig.successMessage, "success");
+        } catch {
+          setStatus(contactFormClientConfig.failureMessage, "error");
+        } finally {
+          if (submitButton instanceof HTMLButtonElement) {
+            submitButton.disabled = false;
+            submitButton.textContent = "Send message";
+          }
+        }
+      });
+    }
+  </script>
 </BaseLayout>

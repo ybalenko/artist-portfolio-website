@@ -1,8 +1,8 @@
 # Project Status
 
 **Last updated:** July 19, 2026  
-**Current phase:** Milestone 7 implementation in progress  
-**Current milestone:** Milestone 7 — AWS Deployment and Cloud Portfolio Images (in progress)
+**Current phase:** Milestone 8 implementation in progress  
+**Current milestone:** Milestone 8 — Protected Leave a message form (in progress)
 
 ## Milestone overview
 
@@ -13,7 +13,8 @@
 | M3        | Exhibitions scaffold and section controls      | Complete    | 18/18 |     100% | [Milestone 3](../milestones/milestone-3.md) |
 | M5        | Portfolio gallery and carousel                 | Complete    | 22/22 |     100% | [Milestone 5](../milestones/milestone-5.md) |
 | M6        | Resume PDF navigation                          | Complete    |   6/6 |     100% | [Milestone 6](../milestones/milestone-6.md) |
-| M7        | AWS deployment and cloud Portfolio images      | In progress | 31/43 |      72% | [Milestone 7](../milestones/milestone-7.md) |
+| M7        | AWS deployment and cloud Portfolio images      | Blocked     | 31/43 |      72% | [Milestone 7](../milestones/milestone-7.md) |
+| M8        | Protected Leave a message form                 | In progress | 30/49 |      61% | [Milestone 8](../milestones/milestone-8.md) |
 
 Future milestone boundaries are provisional until their plans are approved.
 
@@ -29,18 +30,27 @@ Future milestone boundaries are provisional until their plans are approved.
 
 ## Current milestone summary
 
-### Milestone 7 — AWS Deployment and Cloud Portfolio Images
+### Milestone 8 — Protected Leave a message form
 
 - **Status:** In progress
+- **Progress source:** Checked implementation tasks in [Milestone 8](../milestones/milestone-8.md)
+- **Target:** Desktop web browsers only
+- **Open blockers:** Exact deployed custom-domain origin, SES sender identity, private recipient secret, and approved AWS contact API setup are needed before the form can send messages.
+- **Deferred:** Visible mailing-list signup, Turnstile/CAPTCHA bot protection, mailing-list backend, subscriber storage, newsletter workflow, and final image optimization pipeline
+- **Next action:** Confirm the custom-domain origin and create/configure SES and the contact API backend without committing private recipient details.
+
+### Milestone 7 — AWS Deployment and Cloud Portfolio Images
+
+- **Status:** Blocked pending public deployment evidence
 - **Progress source:** Checked implementation tasks in [Milestone 7](../milestones/milestone-7.md)
 - **Target:** Desktop web browsers only
 - **Open blockers:** Amplify URL and build status are needed before public verification.
-- **Deferred:** Custom domain, contact form backend, mailing-list backend, CAPTCHA, SES, and final image optimization pipeline
+- **Deferred:** Final image optimization pipeline
 - **Next action:** Record the Amplify URL/build status and verify the deployed Portfolio page, Resume PDF navigation, and disabled Exhibitions fallback.
 
 ## Project-level open decisions
 
-- Final domain and AWS account ownership
+- Exact custom-domain origin and Amplify domain connection status
 - Final content schemas and ordering
 - Final Home carousel S3 image set
 - Final résumé PDF replacement workflow
@@ -48,6 +58,7 @@ Future milestone boundaries are provisional until their plans are approved.
 - Image dimensions and repository-size budget
 - Budget and launch date
 - Final Portfolio image hosting strategy
+- SES sender identity and contact-message diagnostic retention
 
 See the [Decision log](./decisions.md) for resolved decisions and [Project process](./process.md) for update rules.
 
@@ -55,6 +66,14 @@ See the [Decision log](./decisions.md) for resolved decisions and [Project proce
 
 | Date       | Update                                                        |
 | ---------- | ------------------------------------------------------------- |
+| 2026-07-19 | Fixed Contacts Notice eyebrow font treatment                  |
+| 2026-07-19 | Restored Contacts Notice eyebrow and removed Notice header    |
+| 2026-07-19 | Refined Contacts Notice heading hierarchy and casing          |
+| 2026-07-19 | Consolidated Contacts notices and hid mailing-list section    |
+| 2026-07-19 | Marked Contacts required fields and refreshed notices         |
+| 2026-07-19 | Removed Turnstile requirement from current contact form scope |
+| 2026-07-19 | Started Milestone 8 protected Leave a message form            |
+| 2026-07-19 | Added Contacts form config and setup runbook                  |
 | 2026-07-19 | Revised main README project status summary                    |
 | 2026-07-19 | Refreshed README and project docs for latest Home/footer UI   |
 | 2026-07-19 | Made footer Facebook icon blue and more visible               |

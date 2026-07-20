@@ -2,7 +2,7 @@
 
 An artwork-first website for artist **Yulia Balenko**, built as a simple static portfolio for an amateur artist. The site presents an artist statement, an image portfolio, a résumé PDF, and visitor contact options; Exhibitions are scaffolded but temporarily disabled.
 
-> **Project status:** Milestones 1, 2, 3, 5, and 6 are complete. Press has been removed from the current website scope, and Exhibitions are scaffolded but hidden behind a feature flag until the content workflow is decided. Milestone 7, AWS deployment and cloud Portfolio images, is in progress at **31/43 tasks (72%)**. The current blocker is missing Amplify URL/build-status evidence; the next action is to record that evidence and verify the deployed Home page, Portfolio cloud images, Resume PDF navigation, and disabled Exhibitions fallback. Track current progress in [Project status](./docs/project/status.md).
+> **Project status:** Milestones 1, 2, 3, 5, and 6 are complete. Milestone 7, AWS deployment and cloud Portfolio images, is blocked at **31/43 tasks (72%)** until Amplify URL/build-status evidence is recorded. Milestone 8, protected Leave a message form, is in progress at **30/49 tasks (61%)**. Press has been removed from scope, Exhibitions are hidden behind a feature flag, Turnstile/CAPTCHA is deferred for now, and mailing-list signup is hidden/deferred. Track current progress in [Project status](./docs/project/status.md).
 
 ## Vision
 
@@ -16,7 +16,8 @@ The portfolio takes inspiration from the restrained, image-led presentation of t
 - Shared header navigation for Home, Portfolio, Resume, and Contacts. Resume opens the S3-hosted résumé PDF in a new browser tab.
 - Exhibitions scaffold with Current, Past, and Upcoming section controls is kept in code but hidden behind `featureFlags.exhibitions` until the content update workflow is decided.
 - Clear empty states for exhibition sections until real content is available.
-- Contacts page with draft Privacy Notice, copyright notice, Facebook link, disabled message form, and disabled mailing-list signup.
+- Contacts page with one consolidated Notice section containing Copyright Notice and Privacy Notice, Facebook link, visibly marked required fields on the Leave a message form, API-gated message delivery, and no visible mailing-list signup.
+- Public Contacts configuration via `PUBLIC_CONTACT_API_URL`, with private recipient email and SES settings intentionally kept out of GitHub.
 - Portfolio gallery and carousel with Landscapes, Still life, and Other sections, selected-image metadata, free-text status metadata, newest-first section ordering, and local-manifest-driven S3 images.
 - S3-hosted résumé PDF configured from `src/data/resume.ts`; `/resume/` remains a fallback link page.
 - AWS Amplify build configuration and deployment/image runbooks.
@@ -27,10 +28,11 @@ The portfolio takes inspiration from the restrained, image-led presentation of t
 
 - Record the Amplify app URL and build status.
 - Verify the deployed public site, especially Portfolio cloud images, Resume PDF navigation, and the disabled Exhibitions fallback.
+- Confirm the exact custom-domain origin for Contacts CORS.
+- Configure SES sender identity, private recipient secret, and the contact API backend so Leave a message can send email.
 - Decide the Exhibitions content update workflow, add real exhibition content, and re-enable the feature flag when ready.
 - Publish real content for empty or draft areas, including the Portfolio `Other` section.
 - Final résumé PDF replacement workflow.
-- Protected Leave a message form using a later AWS backend milestone.
 - Double-opt-in mailing-list signup and unsubscribe using a later AWS backend milestone.
 - Accessible, responsive, and search-friendly public pages.
 - Build-time optimized web images.
@@ -48,7 +50,7 @@ The initial release will not include sales, payments, visitor accounts, favorite
 | Dynamic data           | Amazon DynamoDB for subscriptions    |
 | Images                 | AWS cloud storage and Astro metadata |
 | Email                  | Amazon SES                           |
-| Bot protection         | Cloudflare Turnstile                 |
+| Spam controls          | Honeypot and backend throttling      |
 | Infrastructure as code | AWS CDK with TypeScript              |
 
 The architecture is code-managed and static-first: Home, Exhibitions, Portfolio, Resume, Contacts, navigation, and images deploy from the repository. Contact delivery and subscriptions use serverless APIs. The target operating cost is **$0–$5 USD per month**, excluding the domain.
@@ -66,8 +68,10 @@ The architecture is code-managed and static-first: Home, Exhibitions, Portfolio,
 - [Decision log](./docs/project/decisions.md) — approved project and milestone decisions
 - [AWS Amplify deployment runbook](./docs/deployment/aws-amplify.md) — deployment steps and settings
 - [Portfolio and Home cloud image runbook](./docs/deployment/portfolio-images.md) — cloud image upload and metadata workflow
+- [Leave a message form runbook](./docs/deployment/contact-form.md) — Contacts API, SES, and environment setup notes
 - [Portfolio manifest design](./docs/deployment/portfolio-manifest.md) — local/S3 JSON catalog for Portfolio images and metadata
 - [Milestone 6](./docs/milestones/milestone-6.md) — completed Resume PDF navigation milestone
+- [Milestone 8](./docs/milestones/milestone-8.md) — protected Leave a message form milestone
 - [Agent instructions](./AGENTS.md) — required workflow for future coding agents
 
 ## Local development
@@ -98,7 +102,8 @@ npm run format:check # Verify formatting
 | M3        | Exhibitions scaffold and section controls      | Complete    |
 | M5        | Portfolio gallery and carousel                 | Complete    |
 | M6        | Resume PDF navigation                          | Complete    |
-| M7        | AWS deployment and cloud Portfolio images      | In progress |
+| M7        | AWS deployment and cloud Portfolio images      | Blocked     |
+| M8        | Protected Leave a message form                 | In progress |
 
 Future milestone boundaries are provisional until their plans are approved.
 

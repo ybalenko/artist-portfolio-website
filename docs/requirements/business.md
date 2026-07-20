@@ -71,17 +71,18 @@ Contacts contains:
 - Configured public email and social links.
 - A **Leave a message** form.
 - The website's **Privacy Notice**.
-- Optional mailing-list signup.
+- Mailing-list signup is deferred and hidden for now.
 
 The message form collects name, email, and message. It must:
 
 - Validate required fields.
-- Use CAPTCHA and spam/rate-limit protection.
+- Visibly identify which message form fields are required.
+- Use spam and rate-limit protection. CAPTCHA or Turnstile bot protection is deferred for now.
 - Deliver legitimate messages to the artist without exposing private delivery configuration.
 - Show clear success and failure states.
 - Avoid retaining messages longer than required for delivery and troubleshooting.
 
-The Privacy Notice explains contact messages, mailing-list data, CAPTCHA, email delivery, and operational logs.
+The Privacy Notice explains contact messages, email delivery, operational logs, and any future mailing-list or bot-protection provider if one is added later.
 
 ## 4. Mailing list
 

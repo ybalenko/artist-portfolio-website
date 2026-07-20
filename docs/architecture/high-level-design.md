@@ -1,7 +1,7 @@
 # Yulia Balenko Artist Portfolio — High-Level Design
 
-**Status:** Draft v0.5  
-**Updated:** June 23, 2026  
+**Status:** Draft v0.6  
+**Updated:** July 19, 2026  
 **Related documents:** [Business Requirements](../requirements/business.md), [Technical Requirements](../requirements/technical.md)  
 **Style:** Code-managed static website with contact and subscription APIs
 
@@ -12,6 +12,8 @@ Astro compiles Home, Exhibitions, Portfolio, Resume, Contacts, navigation, and P
 Home is the default route and contains the artist statement with an optional compact, manually curated Home carousel and artist portrait. Portfolio contains only images and a client-side carousel—no filters, descriptions, or comments.
 
 Only contact delivery and mailing-list enrollment are dynamic. API Gateway and Lambda handle forms, DynamoDB stores subscriber state, and SES delivers contact and subscription email.
+
+The Contacts page currently focuses on Leave a message only. Mailing-list signup is hidden and deferred while protected message delivery is implemented.
 
 ## 2. Key decisions
 
@@ -24,7 +26,7 @@ Only contact delivery and mailing-list enrollment are dynamic. API Gateway and L
 | Dynamic API           | API Gateway HTTP API and Lambda           |
 | Runtime data          | DynamoDB for subscriptions only           |
 | Email                 | SES for contact and subscription delivery |
-| Bot protection        | Cloudflare Turnstile                      |
+| Spam controls         | Honeypot and backend throttling           |
 | Infrastructure        | AWS CDK in TypeScript                     |
 
 P0 has no CMS, browser administration, Cognito, comments, Bedrock, upload pipeline, RDS, or continuously running server.
@@ -47,7 +49,6 @@ flowchart TB
         Ops[CloudWatch and Budgets]
     end
 
-    Turnstile[Cloudflare Turnstile]
     Inbox[Artist mailbox]
 
     Maintainer -->|Commit code/content| GitHub
@@ -56,10 +57,8 @@ flowchart TB
     Visitor -->|Message or subscribe| API
     API --> Contact
     API --> Subscription
-    Contact --> Turnstile
     Contact --> SES
     SES --> Inbox
-    Subscription --> Turnstile
     Subscription --> SES
     Subscription --> DB
     Contact --> Ops
@@ -130,20 +129,20 @@ sequenceDiagram
     actor V as Visitor
     participant C as Contacts page
     participant API as Contact API
-    participant T as Turnstile
     participant SES as Amazon SES
     participant I as Artist inbox
 
     V->>C: Submit name, email, message
-    C->>API: Form and bot token
-    API->>T: Verify token
-    API->>API: Validate, throttle, reject spam/injection
+    C->>API: Form payload
+    API->>API: Validate origin/payload, throttle, reject spam/injection
     API->>SES: Send from verified site address
     SES->>I: Deliver with visitor Reply-To
     API-->>C: Safe success or failure
 ```
 
 The application does not store contact messages or log personal form content.
+
+The browser form is enabled only when the public contact API URL is configured. Private delivery settings, including the recipient email address and SES sender settings, live outside the repository in backend configuration. Turnstile/CAPTCHA is deferred for the current Leave a message iteration.
 
 ### Mailing list
 
@@ -160,13 +159,12 @@ Subscription Lambda stores pending and confirmed consent in DynamoDB. SES sends 
 | Subscription Lambda | Double opt-in, unsubscribe, consent, and SES email                                                                 |
 | DynamoDB            | Subscriber, token, consent, and abuse-control state                                                                |
 | SES                 | Contact delivery and subscription email                                                                            |
-| Turnstile           | Bot checks for public write forms                                                                                  |
 | CloudWatch/Budgets  | Operational and cost alerts without visitor analytics                                                              |
 
 ## 9. Security and privacy
 
 - All dynamic input is validated server-side.
-- Turnstile, API throttling, payload limits, and Lambda concurrency protect forms.
+- API throttling, payload limits, honeypot handling, CORS/origin checks, and Lambda concurrency protect the current contact form. Turnstile/CAPTCHA may be added later if spam becomes a problem.
 - SES sender is verified; visitor email is used only as validated Reply-To.
 - Contact messages never enter DynamoDB or application logs.
 - Lambda roles are separate and least-privileged.
@@ -223,7 +221,7 @@ Before implementation, demonstrate:
 4. Portfolio contains only images and the accessible carousel.
 5. Carousel URL, focus restoration, and responsive images work.
 6. Resume navigation opens the configured S3-hosted PDF in a new browser tab and Contacts exposes the Privacy anchor.
-7. Contact delivery works through Turnstile and SES without persistence.
+7. Contact delivery works through SES without persistence and with server-side validation, throttling, and abuse controls.
 8. Mailing double opt-in works outside the SES sandbox.
 
 ## 13. Open decisions
@@ -232,10 +230,10 @@ Before implementation, demonstrate:
 - Exhibitions content update workflow and re-enable timing
 - Separate Exhibition pages versus one page with sections
 - Visible carousel titles versus accessibility text only
-- Contact recipient and diagnostic retention
+- Contact sender identity, private recipient configuration, and diagnostic retention
 - Image dimensions and repository-size budget
 - Content schemas and ordering
-- Domain, AWS ownership, budget, and launch date
+- Exact custom-domain origin, AWS ownership, budget, and launch date
 
 ## 14. References
 

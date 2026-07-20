@@ -110,9 +110,13 @@ Primary navigation is Home, Portfolio, Resume, and Contacts while Exhibitions is
 - Render configured public contact and social links.
 - Render the Privacy Notice with a linkable section anchor.
 - Provide Leave a message fields for name, email, and message.
+- Visibly mark name, email, and message as required fields.
 - Proposed limits are 100 name and 5,000 message characters.
 - Provide accessible pending, success, validation-error, and temporary-failure states.
 - Provide mailing-list signup with email and optional name.
+- Current implementation focus is Leave a message only; mailing-list signup is hidden and deferred until a later milestone.
+- The Leave a message submit button remains disabled unless the public contact API URL is configured.
+- Turnstile/CAPTCHA bot protection is deferred for now by owner request; current protection relies on server-side validation, CORS/origin checks, payload limits, honeypot handling, abuse throttling, and SES controls.
 
 ## 5. Dynamic API
 
@@ -124,11 +128,11 @@ Operations:
 - Start, confirm, and unsubscribe a mailing-list subscription.
 - Export confirmed subscribers through a protected operational script.
 
-All write operations must validate server-side, enforce payload/rate limits, verify Turnstile, avoid leaking implementation details, and handle retries idempotently.
+All write operations must validate server-side, enforce payload/rate limits, avoid leaking implementation details, and handle retries idempotently. Turnstile/CAPTCHA verification is deferred for the current Leave a message iteration.
 
 ## 6. Contact-message delivery
 
-1. Validate name, email, message, deployed origin, and Turnstile token.
+1. Validate name, email, message, and deployed origin.
 2. Apply abuse throttling and a hidden honeypot where appropriate.
 3. Reject header injection, URLs/spam patterns, and unsafe control characters.
 4. Send through SES from a verified site address to a configured private artist address.
@@ -136,6 +140,8 @@ All write operations must validate server-side, enforce payload/rate limits, ver
 6. Return success only after SES accepts the message.
 
 Messages must not be stored in DynamoDB. Logs must not contain message bodies, names, or email addresses. Delivery metadata uses short retention, while the recipient mailbox copy follows the Privacy Notice.
+
+The private recipient email address, SES sender settings, and any abuse-control secrets must not be committed to the repository. If Turnstile/CAPTCHA is added later, its secret key must also stay outside the repository and be validated server-side.
 
 ## 7. Mailing list
 
@@ -160,7 +166,7 @@ Messages must not be stored in DynamoDB. Logs must not contain message bodies, n
 - Apply CSP, HSTS, MIME-sniffing, referrer, and framing protections.
 - Do not log personal messages, emails, tokens, or unnecessary IP addresses.
 - Protected scripts use short-lived AWS credentials.
-- The Contacts Privacy Notice identifies AWS, SES, Turnstile, mailbox delivery, retention, and deletion/contact procedures.
+- The Contacts Privacy Notice identifies AWS, SES, mailbox delivery, retention, deletion/contact procedures, and any future mailing-list, CAPTCHA, or bot-protection provider if added.
 - Subscriber exports are encrypted and restricted.
 
 ## 9. Build and deployment
@@ -199,7 +205,7 @@ Testing must cover:
 - Portfolio containing only images/carousel
 - Carousel URL state, focus, keyboard, controls, touch, and gallery restoration
 - Resume page, PDF link, PDF type, size, caching, and accessibility
-- Contacts Privacy Notice, validation, Turnstile, spam controls, SES delivery, and failure states
+- Contacts Privacy Notice, validation, spam controls, SES delivery, and failure states
 - No personal message data in DynamoDB or logs
 - Mailing double opt-in, unsubscribe, bounce, complaint, and abuse controls
 - Build validation, rollback, backup, and cost controls

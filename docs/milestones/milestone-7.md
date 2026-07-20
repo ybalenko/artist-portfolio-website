@@ -1,9 +1,11 @@
 # Milestone 7 Plan — AWS Deployment and Cloud Portfolio Images
 
-**Status:** In progress  
+**Status:** Blocked pending Amplify URL/build evidence  
 **Created:** June 28, 2026  
 **Milestone goal:** Make the website publicly accessible from an AWS Amplify URL and move Portfolio images from local-only test assets to cloud-hosted image URLs.
 **Implementation progress:** 31/43 tasks — 72%
+
+**Current note:** Milestone 7 public verification is blocked until the Amplify URL and build status are recorded. Milestone 8 has started for protected Contacts message delivery while this deployment evidence remains outstanding.
 
 ## Confirmed decisions
 
