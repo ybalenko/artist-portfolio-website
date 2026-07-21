@@ -3,7 +3,7 @@
 **Status:** In progress  
 **Created:** July 19, 2026  
 **Milestone goal:** Implement the Contacts page Leave a message workflow with server-side validation, basic abuse controls, and private email delivery while keeping mailing-list signup hidden and deferred.
-**Implementation progress:** 42/49 tasks — 86%
+**Implementation progress:** 43/50 tasks — 86%
 
 ## Confirmed decisions
 
@@ -124,6 +124,7 @@ The browser uses only public configuration. Lambda owns all private delivery det
 - [ ] Verify SES delivery with the visitor email as `Reply-To`.
 - [ ] Verify no message content is stored or logged by the application.
 - [x] Verify mailing-list signup remains hidden.
+- [x] Improve responsive layout for current public pages.
 
 ## 5. Deliverables
 
@@ -174,6 +175,10 @@ Milestone 8 is complete when:
 - `npm run format:check` — passed.
 - `npm run check` — passed with 0 errors, 0 warnings, and 0 hints.
 - `npm run build` — passed and generated 8 pages.
+- `npm run format:check` — passed after responsive layout enhancement.
+- `npm run check` — passed after responsive layout enhancement with 0 errors, 0 warnings, and 0 hints.
+- `npm run build` — passed after responsive layout enhancement and generated 8 pages.
+- Generated `dist/_astro/*.css` was inspected and confirmed the old `html` 1024px minimum width is absent and 900px, 640px, and 420px responsive breakpoints are present.
 - `npm run build` — passed after rewriting the Contacts `Contact messages` notice copy and generated 8 pages.
 - `npm run format:check` — passed after rewriting the Contacts `Contact messages` notice copy.
 - `npm run format:check` — passed after SES sender verification tracking updates.
@@ -194,6 +199,7 @@ Milestone 8 is complete when:
 ### Manual checks
 
 - Static output check: `dist/contacts/index.html` contains `Send message — setup in progress`, the setup-in-progress status copy, and a disabled submit button when contact environment variables are not configured.
+- Source CSS check: current public pages now have responsive rules for the header/navigation, Home visuals, Contacts grid, Resume panel, Portfolio thumbnails/metadata/carousel, footer, shared panels, and disabled Exhibitions fallback.
 - Static output check: `dist/contacts/index.html` contains the updated Privacy Notice wording, "basic abuse controls", and no Turnstile widget markup.
 - Static output check: `dist/contacts/index.html` contains visible `required` text for Name, Email, and Message.
 - Static output check: Contacts Copyright Notice and Privacy Notice use `Notice` eyebrow labels instead of `Draft notice`.

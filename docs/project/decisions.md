@@ -59,6 +59,7 @@ This file records approved decisions that affect implementation or more than one
 | D-053 | 2026-07-19 | Use `https://yuliabalenko.com` as the canonical contact form origin                   | Owner confirmed both apex and `www` domains work; apex is canonical while both apex and `www` are allowed during launch                      | Active        |
 | D-054 | 2026-07-19 | Implement contact API infrastructure with AWS CDK                                     | Keeps API Gateway, Lambda, SES permissions, and throttling table reproducible in code without committing private recipient or sender data    | Active        |
 | D-055 | 2026-07-19 | Retain contact diagnostics briefly without storing messages                           | Lambda logs retain operational errors for one week and DynamoDB throttling fingerprints expire after about 25 hours; messages are not stored | Active        |
+| D-056 | 2026-07-21 | Support responsive layouts for current public pages                                   | Removes the desktop-only viewport constraint and improves mobile/tablet browsing without changing page scope                                 | Active        |
 
 ## Adding a decision
 

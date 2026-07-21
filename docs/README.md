@@ -50,12 +50,13 @@ Deferred future work:
 
 ## Implemented pages
 
-- Home — default landing page with the final artist statement, a buttonless compact curated carousel, and an aligned artist portrait separate from Portfolio artwork.
+- Home — default landing page with the final artist statement, a buttonless compact curated carousel, an aligned artist portrait separate from Portfolio artwork, and responsive layout behavior.
 - Home carousel and artist portrait images — S3-hosted images belong under the `portfolio/home-carousel/` prefix and are referenced from `src/data/homeCarousel.ts`.
 - Contacts — contact page with one consolidated Notice section containing Copyright Notice and Privacy Notice, Facebook link, visibly marked required fields on the Leave a message form, API-gated message delivery, CDK contact API infrastructure, and no visible mailing-list signup; the footer also includes a more visible blue Facebook icon.
 - Exhibitions — scaffolded single page with Current, Past, and Upcoming section controls. The public navigation is currently hidden behind `featureFlags.exhibitions` until the content update workflow is decided.
 - Portfolio — image gallery and carousel with Landscapes, Still life, and Other sections, selected-image metadata, free-text status metadata, newest-first section ordering, and local-manifest-driven S3 images. Other currently shows an empty state until published manifest images are added.
 - Resume — primary navigation opens the S3-hosted résumé PDF in a new browser tab; `/resume/` remains a fallback link page configured from `src/data/resume.ts`.
+- Responsive behavior — current public pages adapt across narrow, tablet, and desktop viewports.
 - Deployment — `amplify.yml`, AWS Amplify setup notes, and cloud image runbooks are present; Amplify URL/build status still needs to be recorded.
 
 AWS deployment and cloud Portfolio images are blocked pending public verification evidence for Milestone 7. Protected Leave a message delivery is in progress for Milestone 8. Mailing-list behavior, final résumé PDF replacement workflow, final content curation, and public deployment verification remain planned future work.

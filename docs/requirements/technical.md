@@ -188,6 +188,7 @@ The current Milestone 8 backend stores only short-lived throttling fingerprints 
 ## 10. Quality, operations, and cost
 
 - Core journeys must meet WCAG 2.2 AA.
+- Current public pages must adapt to narrow, tablet, and desktop viewports without forcing a desktop-width page.
 - Public HTML and assets are CDN-delivered.
 - Use responsive images, lazy loading below the fold, and minimal JavaScript.
 - Representative mobile pages target LCP ≤ 2.5 seconds and CLS ≤ 0.1.

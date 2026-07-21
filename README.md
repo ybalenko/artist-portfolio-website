@@ -2,7 +2,7 @@
 
 An artwork-first website for artist **Yulia Balenko**, built as a simple static portfolio for an amateur artist. The site presents an artist statement, an image portfolio, a résumé PDF, and visitor contact options; Exhibitions are scaffolded but temporarily disabled.
 
-> **Project status:** Milestones 1, 2, 3, 5, and 6 are complete. Milestone 7, AWS deployment and cloud Portfolio images, is blocked at **31/43 tasks (72%)** until Amplify URL/build-status evidence is recorded. Milestone 8, protected Leave a message form, is in progress at **42/49 tasks (86%)**. Press has been removed from scope, Exhibitions are hidden behind a feature flag, Turnstile/CAPTCHA is deferred for now, and mailing-list signup is hidden/deferred. Track current progress in [Project status](./docs/project/status.md).
+> **Project status:** Milestones 1, 2, 3, 5, and 6 are complete. Milestone 7, AWS deployment and cloud Portfolio images, is blocked at **31/43 tasks (72%)** until Amplify URL/build-status evidence is recorded. Milestone 8, protected Leave a message form, is in progress at **43/50 tasks (86%)**. Press has been removed from scope, Exhibitions are hidden behind a feature flag, Turnstile/CAPTCHA is deferred for now, and mailing-list signup is hidden/deferred. Track current progress in [Project status](./docs/project/status.md).
 
 ## Vision
 
@@ -22,6 +22,7 @@ The portfolio takes inspiration from the restrained, image-led presentation of t
 - S3-hosted résumé PDF configured from `src/data/resume.ts`; `/resume/` remains a fallback link page.
 - AWS Amplify build configuration and deployment/image runbooks.
 - Footer copyright and more visible blue Facebook social link.
+- Responsive layout support for current public pages across narrow, tablet, and desktop viewports.
 - Documentation and milestone tracking under `docs/`.
 
 ## Remaining work
@@ -33,7 +34,7 @@ The portfolio takes inspiration from the restrained, image-led presentation of t
 - Publish real content for empty or draft areas, including the Portfolio `Other` section.
 - Final résumé PDF replacement workflow.
 - Double-opt-in mailing-list signup and unsubscribe using a later AWS backend milestone.
-- Accessible, responsive, and search-friendly public pages.
+- Search-friendly public pages and deeper accessibility verification.
 - Build-time optimized web images.
 
 The initial release will not include sales, payments, visitor accounts, favorites, analytics, video, comments, browser-based content editing, or newsletter campaign tools.

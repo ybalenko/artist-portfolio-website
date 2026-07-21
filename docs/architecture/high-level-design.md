@@ -96,6 +96,8 @@ Repository content models are:
 
 Astro validates these models during build. Git history is the source of truth and rollback mechanism.
 
+The public static pages use responsive CSS breakpoints so Home, Portfolio, Resume, Contacts, and the disabled Exhibitions fallback adapt from narrow mobile screens through desktop layouts without requiring a separate mobile application.
+
 ## 5. Home carousel design
 
 Home carousel images and the Home artist portrait are managed separately from Portfolio artwork records, but they use the same AWS-hosted image strategy as Portfolio assets. Home carousel files live outside GitHub under the `portfolio/home-carousel/` S3 prefix and are referenced from `src/data/homeCarousel.ts` with public `https` URLs. The Home page aligns the compact carousel and artist portrait as supporting visuals above the artist statement without changing the Portfolio gallery.
