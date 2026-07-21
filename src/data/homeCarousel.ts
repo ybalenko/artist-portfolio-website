@@ -13,10 +13,10 @@ const homeCarouselBaseUrl =
 
 export const homeArtistPortrait = {
   id: "yulia-balenko-portrait",
-  src: `${homeCarouselBaseUrl}/Yulia_Balenko.jpg`,
+  src: `${homeCarouselBaseUrl}/Yulia_Balenko-01.jpg`,
   alt: "Portrait of artist Yulia Balenko",
   width: 960,
-  height: 961,
+  height: 960,
 };
 
 export const homeCarouselImages: HomeCarouselImage[] = [
