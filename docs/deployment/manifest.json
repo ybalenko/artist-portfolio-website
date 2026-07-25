@@ -21,8 +21,8 @@
           "published": true
         },
         {
-          "id": "landscapes-2024-02",
-          "file": "landscapes/landscapes-2024-02.jpg",
+          "id": "landscape-2024-02",
+          "file": "landscapes/landscape-2024-02.jpg",
           "alt": "Landscape artwork by Yulia Balenko",
           "name": "Whispers of the Horizon",
           "medium": "oil on canvas board",
@@ -34,8 +34,8 @@
           "published": true
         },
         {
-          "id": "landscapes-2024-03",
-          "file": "landscapes/landscapes-2024-03.jpg",
+          "id": "landscape-2024-03",
+          "file": "landscapes/landscape-2024-03.jpg",
           "alt": "Landscape artwork by Yulia Balenko",
           "name": "Marina in Edmonds",
           "medium": "oil on canvas board",
@@ -99,6 +99,19 @@
           "published": true
         },
         {
+          "id": "landscape-2025-05",
+          "file": "landscapes/landscape-2025-05.jpg",
+          "alt": "Landscape artwork by Yulia Balenko",
+          "name": "Edmonds Waterfront",
+          "medium": "oil on canvas board",
+          "size": "11 X 14",
+          "year": "2025",
+          "availability": "available",
+          "width": 1600,
+          "height": 1249,
+          "published": true
+        },
+        {
           "id": "landscape-2026-01",
           "file": "landscapes/landscape-2026-01.jpg",
           "alt": "Landscape artwork by Yulia Balenko",
@@ -151,8 +164,8 @@
           "published": true
         },
         {
-          "id": "landscapes-2026-05",
-          "file": "landscapes/landscapes-2026-05.jpg",
+          "id": "landscape-2026-05",
+          "file": "landscapes/landscape-2026-05.jpg",
           "alt": "Landscape artwork by Yulia Balenko",
           "name": "Lime Kiln Lighthouse",
           "medium": "oil on canvas board",
@@ -161,6 +174,19 @@
           "availability": "available",
           "width": 1600,
           "height": 1252,
+          "published": true
+        },
+        {
+          "id": "landscape-2026-06",
+          "file": "landscapes/landscape-2026-06.jpg",
+          "alt": "Landscape artwork by Yulia Balenko",
+          "name": "Ladder Creek, Newhalem",
+          "medium": "oil on canvas board",
+          "size": "11 X 14",
+          "year": "2026",
+          "availability": "available",
+          "width": 1600,
+          "height": 1249,
           "published": true
         }
       ]
