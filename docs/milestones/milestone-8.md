@@ -3,7 +3,7 @@
 **Status:** In progress  
 **Created:** July 19, 2026  
 **Milestone goal:** Implement the Contacts page Leave a message workflow with server-side validation, basic abuse controls, and private email delivery while keeping mailing-list signup hidden and deferred.
-**Implementation progress:** 44/57 tasks — 77%
+**Implementation progress:** 45/57 tasks — 79%
 
 ## Confirmed decisions
 
@@ -105,7 +105,7 @@ The browser uses only public configuration. Lambda owns all private delivery det
 ### Step 5 — Documentation and verification
 
 - [x] Document the August 22 contact-form security review and release gates.
-- [ ] Replace the bypassable `User-Agent`-dependent throttle identity and add gateway/concurrency cost controls.
+- [x] Replace the bypassable `User-Agent`-dependent throttle identity and add gateway/concurrency cost controls.
 - [ ] Reject oversized request bodies before decoding or parsing.
 - [ ] Restrict the Lambda SES permission to the approved sender.
 - [ ] Upgrade or otherwise resolve applicable high-severity dependency findings.
@@ -184,6 +184,11 @@ Milestone 8 is complete when:
 
 ### Automated checks
 
+- `npm run contact:test` — passed 6 rate-limit regression tests after removing origin from the fingerprint; confirmed origin/user-agent changes cannot reset identity, IP/hour/salt changes create distinct identities, stored keys do not expose IP/salt, and attempt 6 exceeds a limit of 5.
+- `npm run format:check` — passed after CF-SEC-001 implementation and documentation updates.
+- `npm run check` — passed after CF-SEC-001 implementation with 0 errors, 0 warnings, and 0 hints.
+- `npm run build` — passed after CF-SEC-001 implementation and generated 8 pages.
+- `npm run contact:synth` — passed after CF-SEC-001 remediation and synthesized API default-stage throttling with burst 5/rate 1 plus Lambda reserved concurrency of 2; source inspection confirmed `User-Agent` is absent from the application throttle fingerprint.
 - `npm run format:check` — passed after documenting the security review and updating process/technical documentation.
 - `npm run contact:synth` — passed during security review; confirmed the public route has no authorization and the current synthesized stage/Lambda lack stage throttling and reserved concurrency.
 - `npm run check` — passed during security review with 0 errors, 0 warnings, and 0 hints.

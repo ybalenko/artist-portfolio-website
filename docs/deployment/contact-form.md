@@ -15,6 +15,7 @@ This runbook tracks the planned setup for the Contacts page Leave a message form
 - The private SSM parameters have been created and the SES sender identity has been verified by the owner.
 - CDK deployment is paused; the local deployment attempt stopped before creating AWS resources because the local environment could not resolve an AWS account.
 - The August 22 security review found pre-deployment blockers in abuse/cost controls, early body-size handling, SES permissions, dependencies, automated tests, and Privacy Notice wording. See [Contact Form Security Review](../security/contact-form-review.md).
+- The caller-controlled-header/origin throttle bypass is fixed locally: the DynamoDB key now uses only a salted API Gateway source-IP/hour identity, the API stage is limited to burst 5/rate 1, and Lambda reserved concurrency is 2. Six regression tests pass; deployed negative-path verification remains pending.
 
 ## Security release gate
 
@@ -178,6 +179,12 @@ The API should:
 Without environment variables, the form should render disabled and show the setup-in-progress message.
 
 When a test API value is available, add it to a local `.env` file. Do not commit `.env`.
+
+Run the local rate-limit regression suite with:
+
+```bash
+npm run contact:test
+```
 
 ## Deferred bot protection
 

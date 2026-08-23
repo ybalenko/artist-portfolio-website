@@ -86,6 +86,7 @@ class ContactFormStack extends Stack {
         architecture: lambda.Architecture.ARM_64,
         memorySize: 256,
         timeout: Duration.seconds(10),
+        reservedConcurrentExecutions: 2,
         logGroup: contactHandlerLogGroup,
         bundling: {
           format: nodejs.OutputFormat.ESM,
@@ -138,6 +139,17 @@ class ContactFormStack extends Stack {
         maxAge: Duration.days(1),
       },
     });
+
+    const defaultStage = contactApi.defaultStage?.node.defaultChild;
+
+    if (!(defaultStage instanceof apigatewayv2.CfnStage)) {
+      throw new Error("Unable to configure contact API default-stage limits.");
+    }
+
+    defaultStage.defaultRouteSettings = {
+      throttlingBurstLimit: 5,
+      throttlingRateLimit: 1,
+    };
 
     contactApi.addRoutes({
       path: "/contact",

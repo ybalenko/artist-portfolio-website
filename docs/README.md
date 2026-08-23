@@ -2,7 +2,7 @@
 
 This folder contains the working documentation for the Yulia Balenko artist portfolio website.
 
-Current project state: Milestones 1, 2, 3, 5, and 6 are complete. Press has been removed from the current website scope. Exhibitions are scaffolded but temporarily disabled behind a feature flag. Milestone 7, AWS deployment and cloud Portfolio images, is blocked at **31/43 tasks (72%)** until the Amplify URL/build status is recorded. Milestone 8, protected Leave a message form, is in progress at **44/57 tasks (77%)** with documented security remediation required before API deployment. Turnstile/CAPTCHA is deferred for now, and mailing-list signup is hidden/deferred.
+Current project state: Milestones 1, 2, 3, 5, and 6 are complete. Press has been removed from the current website scope. Exhibitions are scaffolded but temporarily disabled behind a feature flag. Milestone 7, AWS deployment and cloud Portfolio images, is blocked at **31/43 tasks (72%)** until the Amplify URL/build status is recorded. Milestone 8, protected Leave a message form, is in progress at **45/57 tasks (79%)**. Its bypassable throttle finding is fixed locally; remaining security findings must be remediated before API deployment. Turnstile/CAPTCHA is deferred for now, and mailing-list signup is hidden/deferred.
 
 ## Requirements
 

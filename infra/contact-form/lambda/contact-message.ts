@@ -1,7 +1,7 @@
 import { DynamoDBClient, UpdateItemCommand } from "@aws-sdk/client-dynamodb";
 import { SendEmailCommand, SESv2Client } from "@aws-sdk/client-sesv2";
 import { GetParameterCommand, SSMClient } from "@aws-sdk/client-ssm";
-import { createHash } from "node:crypto";
+import { createRateLimitKey, isRateLimitExceeded } from "./rate-limit";
 
 const allowedOrigins = requiredEnv("ALLOWED_ORIGINS")
   .split(",")
@@ -80,7 +80,7 @@ export const handler = async (event: any): Promise<HttpResponse> => {
   }
 
   try {
-    const isRateLimited = await applyRateLimit(event, corsOrigin);
+    const isRateLimited = await applyRateLimit(event);
 
     if (isRateLimited) {
       return jsonResponse(429, { ok: false }, corsOrigin);
@@ -207,14 +207,15 @@ function looksLikeObviousSpam(message: string): boolean {
   return urlMatches.length > 2 || htmlAnchorMatches.length > 0;
 }
 
-async function applyRateLimit(event: any, origin: string): Promise<boolean> {
+async function applyRateLimit(event: any): Promise<boolean> {
   const abuseSalt = await getSecureParameter(abuseSaltParameterName);
   const hourBucket = new Date().toISOString().slice(0, 13);
   const sourceIp = String(event?.requestContext?.http?.sourceIp ?? "unknown");
-  const userAgent = getHeader(event, "user-agent");
-  const fingerprint = createHash("sha256")
-    .update([abuseSalt, origin, sourceIp, userAgent, hourBucket].join("|"))
-    .digest("hex");
+  const throttleKey = createRateLimitKey({
+    abuseSalt,
+    hourBucket,
+    sourceIp,
+  });
   const expiresAt = Math.floor(Date.now() / 1000) + 60 * 60 * 25;
 
   const updateResult = await dynamoDb.send(
@@ -222,7 +223,7 @@ async function applyRateLimit(event: any, origin: string): Promise<boolean> {
       TableName: throttleTableName,
       Key: {
         throttleKey: {
-          S: `contact#${hourBucket}#${fingerprint}`,
+          S: throttleKey,
         },
       },
       UpdateExpression:
@@ -241,7 +242,7 @@ async function applyRateLimit(event: any, origin: string): Promise<boolean> {
 
   const attempts = Number(updateResult.Attributes?.attempts?.N ?? "1");
 
-  return attempts > messageRateLimitPerHour;
+  return isRateLimitExceeded(attempts, messageRateLimitPerHour);
 }
 
 async function getSecureParameter(parameterName: string): Promise<string> {

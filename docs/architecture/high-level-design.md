@@ -168,7 +168,7 @@ Subscription Lambda stores pending and confirmed consent in DynamoDB. SES sends 
 ## 9. Security and privacy
 
 - All dynamic input is validated server-side.
-- The prepared implementation currently has Lambda validation, honeypot handling, CORS/origin checks, and a DynamoDB counter. Security review found that the counter can be bypassed by rotating `User-Agent`, while API-stage throttling, an early body-size rejection, and Lambda reserved concurrency are not yet configured. These are pre-deployment remediation items.
+- The prepared implementation has Lambda validation, honeypot handling, CORS/origin checks, a stable salted source-IP/hour throttle, API-stage throttling, and Lambda reserved concurrency. The original caller-controlled `User-Agent` throttle bypass was removed after security review. Early body-size rejection remains a pre-deployment remediation item.
 - CORS is a browser control, not client authentication. Direct callers can supply an allowed `Origin`, so cost and send-abuse protection must use independent layered controls.
 - SES sender is verified; visitor email is used only as validated Reply-To.
 - Contact messages never enter DynamoDB or application logs; DynamoDB stores only short-lived salted throttling fingerprints.

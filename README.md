@@ -2,7 +2,7 @@
 
 An artwork-first website for artist **Yulia Balenko**, built as a simple static portfolio for an amateur artist. The site presents an artist statement, an image portfolio, a résumé PDF, and visitor contact options; Exhibitions are scaffolded but temporarily disabled.
 
-> **Project status:** Milestones 1, 2, 3, 5, and 6 are complete. Milestone 7, AWS deployment and cloud Portfolio images, is blocked at **31/43 tasks (72%)** until Amplify URL/build-status evidence is recorded. Milestone 8, protected Leave a message form, is in progress at **44/57 tasks (77%)**. Its security review identified pre-deployment remediation for abuse/cost controls, body limits, SES permissions, dependencies, tests, and privacy wording. Press has been removed from scope, Exhibitions are hidden behind a feature flag, Turnstile/CAPTCHA is deferred for now, and mailing-list signup is hidden/deferred. Track current progress in [Project status](./docs/project/status.md).
+> **Project status:** Milestones 1, 2, 3, 5, and 6 are complete. Milestone 7, AWS deployment and cloud Portfolio images, is blocked at **31/43 tasks (72%)** until Amplify URL/build-status evidence is recorded. Milestone 8, protected Leave a message form, is in progress at **45/57 tasks (79%)**. Its bypassable throttle finding is fixed locally with a stable salted network throttle, API-stage throttling, and Lambda concurrency limits; other security remediation remains required before deployment. Press has been removed from scope, Exhibitions are hidden behind a feature flag, Turnstile/CAPTCHA is deferred for now, and mailing-list signup is hidden/deferred. Track current progress in [Project status](./docs/project/status.md).
 
 ## Vision
 
@@ -91,6 +91,7 @@ Astro prints the local URL, normally [http://localhost:4321/](http://localhost:4
 npm run check        # Type and Astro diagnostics
 npm run build        # Production build
 npm run contact:synth # Synthesize the Contact API CDK stack
+npm run contact:test # Run Contact API rate-limit regression tests
 npm run preview      # Preview the production build locally
 npm run format:check # Verify formatting
 ```
