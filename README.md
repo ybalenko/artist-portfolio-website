@@ -2,7 +2,7 @@
 
 An artwork-first website for artist **Yulia Balenko**, built as a simple static portfolio for an amateur artist. The site presents an artist statement, an image portfolio, a résumé PDF, and visitor contact options; Exhibitions are scaffolded but temporarily disabled.
 
-> **Project status:** Milestones 1, 2, 3, 5, and 6 are complete. Milestone 7, AWS deployment and cloud Portfolio images, is blocked at **31/43 tasks (72%)** until Amplify URL/build-status evidence is recorded. Milestone 8, protected Leave a message form, is in progress at **43/50 tasks (86%)**. Press has been removed from scope, Exhibitions are hidden behind a feature flag, Turnstile/CAPTCHA is deferred for now, and mailing-list signup is hidden/deferred. Track current progress in [Project status](./docs/project/status.md).
+> **Project status:** Milestones 1, 2, 3, 5, and 6 are complete. Milestone 7, AWS deployment and cloud Portfolio images, is blocked at **31/43 tasks (72%)** until Amplify URL/build-status evidence is recorded. Milestone 8, protected Leave a message form, is in progress at **44/57 tasks (77%)**. Its security review identified pre-deployment remediation for abuse/cost controls, body limits, SES permissions, dependencies, tests, and privacy wording. Press has been removed from scope, Exhibitions are hidden behind a feature flag, Turnstile/CAPTCHA is deferred for now, and mailing-list signup is hidden/deferred. Track current progress in [Project status](./docs/project/status.md).
 
 ## Vision
 
@@ -29,7 +29,7 @@ The portfolio takes inspiration from the restrained, image-led presentation of t
 
 - Record the Amplify app URL and build status.
 - Verify the deployed public site, especially Portfolio cloud images, Resume PDF navigation, and the disabled Exhibitions fallback.
-- Deploy the contact API stack and configure Amplify with `PUBLIC_CONTACT_API_URL` so Leave a message can send email.
+- Remediate and verify the documented contact-form security findings before deploying the API or configuring Amplify with `PUBLIC_CONTACT_API_URL`.
 - Decide the Exhibitions content update workflow, add real exhibition content, and re-enable the feature flag when ready.
 - Publish real content for empty or draft areas, including the Portfolio `Other` section.
 - Final résumé PDF replacement workflow.
@@ -69,6 +69,7 @@ The architecture is code-managed and static-first: Home, Exhibitions, Portfolio,
 - [AWS Amplify deployment runbook](./docs/deployment/aws-amplify.md) — deployment steps and settings
 - [Portfolio and Home cloud image runbook](./docs/deployment/portfolio-images.md) — cloud image upload and metadata workflow
 - [Leave a message form runbook](./docs/deployment/contact-form.md) — Contacts API, SES, and environment setup notes
+- [Contact form security review](./docs/security/contact-form-review.md) — findings, evidence, remediation, and release gate
 - [Portfolio manifest design](./docs/deployment/portfolio-manifest.md) — local/S3 JSON catalog for Portfolio images and metadata
 - [Milestone 6](./docs/milestones/milestone-6.md) — completed Resume PDF navigation milestone
 - [Milestone 8](./docs/milestones/milestone-8.md) — protected Leave a message form milestone

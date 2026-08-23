@@ -3,7 +3,7 @@
 **Status:** In progress  
 **Created:** July 19, 2026  
 **Milestone goal:** Implement the Contacts page Leave a message workflow with server-side validation, basic abuse controls, and private email delivery while keeping mailing-list signup hidden and deferred.
-**Implementation progress:** 43/50 tasks — 86%
+**Implementation progress:** 44/57 tasks — 77%
 
 ## Confirmed decisions
 
@@ -104,6 +104,14 @@ The browser uses only public configuration. Lambda owns all private delivery det
 
 ### Step 5 — Documentation and verification
 
+- [x] Document the August 22 contact-form security review and release gates.
+- [ ] Replace the bypassable `User-Agent`-dependent throttle identity and add gateway/concurrency cost controls.
+- [ ] Reject oversized request bodies before decoding or parsing.
+- [ ] Restrict the Lambda SES permission to the approved sender.
+- [ ] Upgrade or otherwise resolve applicable high-severity dependency findings.
+- [ ] Add automated tests for contact security boundaries and synthesized controls.
+- [ ] Correct the Privacy Notice's third-party processor wording.
+
 - [x] Add `.env.example` with public contact form variables only.
 - [x] Add Leave a message setup runbook.
 - [x] Update Contacts privacy copy for the prepared delivery workflow.
@@ -148,17 +156,21 @@ Milestone 8 is complete when:
 - Visitors see accessible pending, success, validation-error, and temporary-failure states.
 - Mailing-list signup remains hidden and deferred.
 - Setup steps and required environment variables are documented.
+- All high and medium contact-form security findings are remediated and verified before deployment.
 
 ## 7. Risks and mitigations
 
-| Risk                                      | Mitigation                                                                              |
-| ----------------------------------------- | --------------------------------------------------------------------------------------- |
-| Private email is accidentally committed   | Store recipient in Parameter Store or Secrets Manager, never in Git                     |
-| SES sender cannot be verified immediately | Use a verified single email first, then move to a domain sender later                   |
-| API accepts unwanted origins              | Lock CORS and origin checks to the final deployed site origin                           |
-| Form appears usable before backend exists | Keep submit disabled until API URL is configured                                        |
-| Spam increases without CAPTCHA            | Use honeypot handling, throttling, strict validation, and add Turnstile later if needed |
-| Message content appears in logs           | Log only safe metadata and generic outcomes                                             |
+| Risk                                      | Mitigation                                                                                    |
+| ----------------------------------------- | --------------------------------------------------------------------------------------------- |
+| Private email is accidentally committed   | Store recipient in Parameter Store or Secrets Manager, never in Git                           |
+| SES sender cannot be verified immediately | Use a verified single email first, then move to a domain sender later                         |
+| API accepts unwanted origins              | Lock CORS and origin checks to the final deployed site origin                                 |
+| Form appears usable before backend exists | Keep submit disabled until API URL is configured                                              |
+| Spam increases without CAPTCHA            | Use honeypot handling, throttling, strict validation, and add Turnstile later if needed       |
+| Message content appears in logs           | Log only safe metadata and generic outcomes                                                   |
+| Direct clients bypass browser CORS        | Treat CORS as browser-only and enforce independent rate, size, concurrency, and cost controls |
+| Caller rotates throttle headers           | Use a stable salted network identity that excludes caller-controlled headers                  |
+| Vulnerable dependencies reach production  | Audit, assess applicability, upgrade, and regression-test before deployment                   |
 
 ## 8. Deferred decisions
 
@@ -167,10 +179,15 @@ Milestone 8 is complete when:
 
 ## Verification record
 
-**Date:** July 19, 2026  
+**Date:** August 22, 2026
 **Result:** In progress
 
 ### Automated checks
+
+- `npm run format:check` — passed after documenting the security review and updating process/technical documentation.
+- `npm run contact:synth` — passed during security review; confirmed the public route has no authorization and the current synthesized stage/Lambda lack stage throttling and reserved concurrency.
+- `npm run check` — passed during security review with 0 errors, 0 warnings, and 0 hints.
+- `npm audit --audit-level=moderate` — reported 12 vulnerabilities (8 high, 4 moderate); remediation is required before deployment.
 
 - `npm run format:check` — passed.
 - `npm run check` — passed with 0 errors, 0 warnings, and 0 hints.
@@ -217,6 +234,7 @@ Milestone 8 is complete when:
 
 - Form does not send until the contact API stack is deployed and Amplify is configured with `PUBLIC_CONTACT_API_URL`.
 - Local CDK deployment is paused because the local environment cannot resolve an AWS account; deploy later from AWS CloudShell or another AWS-configured CDK environment.
+- Security review found a bypassable application throttle, missing gateway/concurrency/body-size controls, broad SES permission, vulnerable dependencies, missing security tests, and inaccurate third-party processor wording. See [Contact Form Security Review](../security/contact-form-review.md).
 
 ### Deferred work
 

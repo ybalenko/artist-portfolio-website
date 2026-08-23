@@ -1,7 +1,7 @@
 # Yulia Balenko Artist Portfolio — High-Level Design
 
-**Status:** Draft v0.6  
-**Updated:** July 19, 2026  
+**Status:** Draft v0.7
+**Updated:** August 22, 2026
 **Related documents:** [Business Requirements](../requirements/business.md), [Technical Requirements](../requirements/technical.md)  
 **Style:** Code-managed static website with contact and subscription APIs
 
@@ -17,17 +17,17 @@ The Contacts page currently focuses on Leave a message only. Mailing-list signup
 
 ## 2. Key decisions
 
-| Concern               | Choice                                    |
-| --------------------- | ----------------------------------------- |
-| Framework             | Astro and TypeScript                      |
-| Public content        | Typed files and assets in GitHub          |
-| Hosting               | Static AWS Amplify Hosting                |
-| Interactive portfolio | Small accessible carousel component       |
-| Dynamic API           | API Gateway HTTP API and Lambda           |
-| Runtime data          | DynamoDB for subscriptions only           |
-| Email                 | SES for contact and subscription delivery |
-| Spam controls         | Honeypot and backend throttling           |
-| Infrastructure        | AWS CDK in TypeScript                     |
+| Concern               | Choice                                                |
+| --------------------- | ----------------------------------------------------- |
+| Framework             | Astro and TypeScript                                  |
+| Public content        | Typed files and assets in GitHub                      |
+| Hosting               | Static AWS Amplify Hosting                            |
+| Interactive portfolio | Small accessible carousel component                   |
+| Dynamic API           | API Gateway HTTP API and Lambda                       |
+| Runtime data          | DynamoDB for subscriptions only                       |
+| Email                 | SES for contact and subscription delivery             |
+| Spam controls         | Layered gateway, Lambda, and backend limits; honeypot |
+| Infrastructure        | AWS CDK in TypeScript                                 |
 
 P0 has no CMS, browser administration, Cognito, comments, Bedrock, upload pipeline, RDS, or continuously running server.
 
@@ -158,7 +158,7 @@ Subscription Lambda stores pending and confirmed consent in DynamoDB. SES sends 
 | ------------------- | ------------------------------------------------------------------------------------------------------------------ |
 | Astro               | Static pages, content validation, navigation, section controls, gallery, carousel shell, metadata, Resume PDF link |
 | Amplify             | Git-connected build, atomic deployment, CDN, TLS, custom domain                                                    |
-| API Gateway         | Form routes, CORS, throttling, payload limits                                                                      |
+| API Gateway         | Form routes, browser CORS, stage throttling, and upstream request controls                                         |
 | Contact Lambda      | Validate, throttle, and forward messages to SES without storage                                                    |
 | Subscription Lambda | Double opt-in, unsubscribe, consent, and SES email                                                                 |
 | DynamoDB            | Subscriber, token, consent, and abuse-control state                                                                |
@@ -168,10 +168,11 @@ Subscription Lambda stores pending and confirmed consent in DynamoDB. SES sends 
 ## 9. Security and privacy
 
 - All dynamic input is validated server-side.
-- API throttling, payload limits, honeypot handling, CORS/origin checks, and Lambda concurrency protect the current contact form. Turnstile/CAPTCHA may be added later if spam becomes a problem.
+- The prepared implementation currently has Lambda validation, honeypot handling, CORS/origin checks, and a DynamoDB counter. Security review found that the counter can be bypassed by rotating `User-Agent`, while API-stage throttling, an early body-size rejection, and Lambda reserved concurrency are not yet configured. These are pre-deployment remediation items.
+- CORS is a browser control, not client authentication. Direct callers can supply an allowed `Origin`, so cost and send-abuse protection must use independent layered controls.
 - SES sender is verified; visitor email is used only as validated Reply-To.
 - Contact messages never enter DynamoDB or application logs; DynamoDB stores only short-lived salted throttling fingerprints.
-- Lambda roles are separate and least-privileged.
+- Lambda roles are separate. The contact role's SES permission must be narrowed to the approved sender identity or sender-address condition before deployment.
 - Secrets and the private recipient address live in Parameter Store or Secrets Manager.
 - CORS allows the deployed origin only.
 - Static responses include CSP, HSTS, referrer, framing, and MIME protections.
@@ -202,7 +203,7 @@ sequenceDiagram
 - Git/Amplify deploys the static site.
 - DynamoDB backup protects subscription state; Git protects public content.
 - Lambda retries are bounded, and asynchronous failure handling is configured where needed.
-- API and email quotas plus $1/$5 budgets constrain cost.
+- API throttles, Lambda concurrency, email quotas, and $1/$5 budgets constrain cost after the documented contact-form security remediation is implemented.
 
 ## 11. Tradeoffs
 

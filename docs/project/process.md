@@ -117,6 +117,18 @@ Rules:
 5. Surface blockers promptly and record them.
 6. Keep implementation, tests, and documentation synchronized.
 
+### Security review gate
+
+For public write APIs, authentication/authorization changes, secret handling, personal-data flows, dependency upgrades, and externally reachable infrastructure:
+
+1. Perform a threat-focused code and synthesized-infrastructure review before deployment.
+2. Record findings in `docs/security/` with severity, evidence, required remediation, and release impact.
+3. Treat high and critical findings as deployment blockers unless the owner explicitly accepts the documented residual risk.
+4. Do not count browser CORS, hidden fields, or client-side validation as authentication or sufficient anti-abuse protection.
+5. Verify rate limits against caller-controlled-header rotation, direct clients, concurrency, and oversized payloads.
+6. Run a current dependency audit; investigate applicability and remediate unresolved high/critical production findings.
+7. Add regression tests for each remediated security boundary and record the commands/results in the active milestone.
+
 ### End of work session
 
 1. Run checks proportional to the changes.
@@ -124,7 +136,8 @@ Rules:
 3. Recalculate progress.
 4. Update `docs/project/status.md`, recent progress, blockers, and next action.
 5. Add or update the milestone verification record.
-6. Report what changed, what passed, and what remains.
+6. Confirm that no unresolved security release gate is omitted from blockers or next action.
+7. Report what changed, what passed, and what remains.
 
 ## 7. Verification record
 
@@ -159,6 +172,7 @@ Do not mark a milestone complete based only on files existing; verify its behavi
 
 - Small implementation choices within approved scope do not need a new decision entry.
 - Changes to scope, architecture, user-visible behavior, cost, privacy, or milestone acceptance require a decision entry.
+- Security findings that change release readiness, required controls, privacy wording, or cost exposure must be reflected in the active milestone, status, requirements/design, and a `docs/security/` review record.
 - Material user-requested changes should be recorded in `docs/project/change-requests.md`, including rework of completed milestone items.
 - If the user changes a requirement, update all affected requirement, design, milestone, status, and README documents together.
 - Never silently delete decision history; supersede it.

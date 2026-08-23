@@ -14,6 +14,11 @@ This runbook tracks the planned setup for the Contacts page Leave a message form
 - The private recipient email address is not stored in the repository.
 - The private SSM parameters have been created and the SES sender identity has been verified by the owner.
 - CDK deployment is paused; the local deployment attempt stopped before creating AWS resources because the local environment could not resolve an AWS account.
+- The August 22 security review found pre-deployment blockers in abuse/cost controls, early body-size handling, SES permissions, dependencies, automated tests, and Privacy Notice wording. See [Contact Form Security Review](../security/contact-form-review.md).
+
+## Security release gate
+
+Do not deploy the stack or configure Amplify with `PUBLIC_CONTACT_API_URL` until the high and medium findings in the contact-form security review are remediated and verified. Security regression tests and corrected service-provider privacy wording are also required before accepting visitor messages.
 
 ## Public environment variables
 
@@ -42,9 +47,10 @@ If Turnstile/CAPTCHA is added later, its secret key must also be stored outside 
 2. Keep `https://www.yuliabalenko.com` as an allowed origin while both domains are active.
 3. Verify an SES sender identity.
 4. Store private backend values outside the repository.
-5. Deploy the contact API stack.
-6. Configure Amplify with `PUBLIC_CONTACT_API_URL`.
-7. Verify successful delivery and failure states from the deployed site.
+5. Remediate and verify the contact-form security review findings.
+6. Deploy the contact API stack.
+7. Configure Amplify with `PUBLIC_CONTACT_API_URL`.
+8. Verify successful delivery, abuse controls, size limits, CORS, and failure states from the deployed site.
 
 ## AWS setup values
 

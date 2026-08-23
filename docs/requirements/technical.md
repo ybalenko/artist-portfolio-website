@@ -1,7 +1,7 @@
 # Yulia Balenko Artist Portfolio — Technical Requirements
 
-**Status:** Draft v0.5  
-**Updated:** June 23, 2026  
+**Status:** Draft v0.6
+**Updated:** August 22, 2026
 **Related documents:** [Business Requirements](./business.md), [High-Level Design](../architecture/high-level-design.md)  
 **Selected stack:** Astro, TypeScript, AWS
 
@@ -116,7 +116,8 @@ Primary navigation is Home, Portfolio, Resume, and Contacts while Exhibitions is
 - Provide mailing-list signup with email and optional name.
 - Current implementation focus is Leave a message only; mailing-list signup is hidden and deferred until a later milestone.
 - The Leave a message submit button remains disabled unless the public contact API URL is configured.
-- Turnstile/CAPTCHA bot protection is deferred for now by owner request; current protection relies on server-side validation, CORS/origin checks, payload limits, honeypot handling, abuse throttling, and SES controls.
+- Turnstile/CAPTCHA bot protection is deferred for now by owner request. Before launch, the current protection must include server-side validation, explicit request-size rejection, honeypot handling, a stable salted network throttle that does not depend on caller-controlled headers, API Gateway throttling, Lambda concurrency limits, and SES controls.
+- CORS/origin checks protect browser interactions but are not authentication or a standalone anti-abuse boundary because direct clients can supply an allowed `Origin` header.
 - The current contact API infrastructure is defined under `infra/contact-form/`.
 - The canonical Contacts origin is `https://yuliabalenko.com`; `https://www.yuliabalenko.com` is also allowed while both domains are active.
 
@@ -130,7 +131,7 @@ Operations:
 - Start, confirm, and unsubscribe a mailing-list subscription.
 - Export confirmed subscribers through a protected operational script.
 
-All write operations must validate server-side, enforce payload/rate limits, avoid leaking implementation details, and handle retries idempotently. Turnstile/CAPTCHA verification is deferred for the current Leave a message iteration.
+All write operations must validate server-side, reject oversized bodies before decoding or JSON parsing, enforce layered payload/rate/cost limits, avoid leaking implementation details, and handle retries idempotently. Rate-limit identities must not be reset by changing caller-controlled headers. Turnstile/CAPTCHA verification is deferred for the current Leave a message iteration but must be reconsidered if the remaining spam risk is not acceptable.
 
 ## 6. Contact-message delivery
 
@@ -166,6 +167,7 @@ The current Milestone 8 backend stores only short-lived throttling fingerprints 
 - Validate all dynamic input server-side.
 - Restrict API CORS to the deployed site origin.
 - Use least-privilege Lambda and operational roles.
+- Restrict SES permissions to the approved sender identity or enforce the approved sender with an IAM condition; do not leave unrestricted `ses:SendEmail` permissions in the production role.
 - Store secrets and the private recipient address in Parameter Store or Secrets Manager.
 - Apply CSP, HSTS, MIME-sniffing, referrer, and framing protections.
 - Do not log personal messages, emails, tokens, or unnecessary IP addresses.
@@ -178,6 +180,7 @@ The current Milestone 8 backend stores only short-lived throttling fingerprints 
 - GitHub is the canonical source repository.
 - Pin Node, Astro, and package versions and commit the lockfile.
 - Pull requests run formatting, type checks, content validation, tests, security checks, and `astro build`.
+- Dependency audits must have no unresolved high or critical production finding before deployment. Forced or major upgrades require review and regression testing.
 - Merging to production triggers Amplify deployment.
 - Use Amplify's integration or GitHub OIDC rather than stored AWS keys.
 - Fail builds on invalid navigation, dates, URLs, image references, alt text, or missing résumé PDF URL.
@@ -198,6 +201,7 @@ The current Milestone 8 backend stores only short-lived throttling fingerprints 
 - Back up DynamoDB or enable point-in-time recovery.
 - Use seven-day operational log retention unless justified otherwise.
 - Configure API/email quotas and $1/$5 AWS budget alerts.
+- Configure API Gateway throttling and Lambda reserved concurrency for public write APIs before enabling them.
 - Do not use RDS, NAT Gateway, AWS WAF, Cognito, Bedrock, or fixed-cost compute.
 
 ## 11. Testing and acceptance
@@ -211,6 +215,8 @@ Testing must cover:
 - Carousel URL state, focus, keyboard, controls, touch, and gallery restoration
 - Resume page, PDF link, PDF type, size, caching, and accessibility
 - Contacts Privacy Notice, validation, spam controls, SES delivery, and failure states
+- Direct-client origin spoofing, caller-controlled-header throttle bypass, concurrent rate-limit behavior, and oversized/base64 request bodies
+- Synthesized API throttling, Lambda concurrency, request limits, and least-privilege SES policy
 - No personal message data in DynamoDB or logs
 - Mailing double opt-in, unsubscribe, bounce, complaint, and abuse controls
 - Build validation, rollback, backup, and cost controls

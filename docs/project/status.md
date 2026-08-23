@@ -1,6 +1,6 @@
 # Project Status
 
-**Last updated:** July 21, 2026  
+**Last updated:** August 22, 2026
 **Current phase:** Milestone 8 implementation in progress  
 **Current milestone:** Milestone 8 — Protected Leave a message form (in progress)
 
@@ -14,7 +14,7 @@
 | M5        | Portfolio gallery and carousel                 | Complete    | 22/22 |     100% | [Milestone 5](../milestones/milestone-5.md) |
 | M6        | Resume PDF navigation                          | Complete    |   6/6 |     100% | [Milestone 6](../milestones/milestone-6.md) |
 | M7        | AWS deployment and cloud Portfolio images      | Blocked     | 31/43 |      72% | [Milestone 7](../milestones/milestone-7.md) |
-| M8        | Protected Leave a message form                 | In progress | 43/50 |      86% | [Milestone 8](../milestones/milestone-8.md) |
+| M8        | Protected Leave a message form                 | In progress | 44/57 |      77% | [Milestone 8](../milestones/milestone-8.md) |
 
 Future milestone boundaries are provisional until their plans are approved.
 
@@ -35,9 +35,9 @@ Future milestone boundaries are provisional until their plans are approved.
 - **Status:** In progress
 - **Progress source:** Checked implementation tasks in [Milestone 8](../milestones/milestone-8.md)
 - **Target:** Responsive mobile and desktop browsers
-- **Open blockers:** Contact API deployment is paused; generated API URL and Amplify `PUBLIC_CONTACT_API_URL` configuration are still needed before the form can send messages.
+- **Open blockers:** Security review found two high, two medium, and two low findings. The contact API must not be deployed until the bypassable throttle, missing layered cost/body controls, broad SES permission, and applicable high dependency findings are remediated and verified. AWS deployment and Amplify configuration remain pending afterward.
 - **Deferred:** Visible mailing-list signup, Turnstile/CAPTCHA bot protection, mailing-list backend, subscriber storage, newsletter workflow, and final image optimization pipeline
-- **Next action:** When ready, deploy the contact API stack from AWS CloudShell or another AWS-configured CDK environment, then configure Amplify with the generated `PUBLIC_CONTACT_API_URL`.
+- **Next action:** Remediate and test the contact-form security findings, rerun the dependency audit and CDK review, then deploy from an AWS-configured environment and configure Amplify with the generated `PUBLIC_CONTACT_API_URL`.
 
 ### Milestone 7 — AWS Deployment and Cloud Portfolio Images
 
@@ -67,6 +67,7 @@ See the [Decision log](./decisions.md) for resolved decisions and [Project proce
 
 | Date       | Update                                                        |
 | ---------- | ------------------------------------------------------------- |
+| 2026-08-22 | Documented contact-form security review and release blockers  |
 | 2026-07-21 | Improved responsive layout for current public pages           |
 | 2026-07-19 | Rewrote Contacts Contact messages notice in plain English     |
 | 2026-07-19 | Paused CDK deployment; no AWS resources were created locally  |
