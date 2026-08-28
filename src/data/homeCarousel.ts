@@ -21,13 +21,22 @@ export const homeArtistPortrait = {
 
 export const homeCarouselImages: HomeCarouselImage[] = [
   {
+    id: "home-carousel-08",
+    src: `${homeCarouselBaseUrl}/home-carousel-08.jpg`,
+    alt: "Curated Home carousel image 8 by Yulia Balenko",
+    width: 960,
+    height: 960,
+    published: true,
+    displayOrder: 1,
+  },
+  {
     id: "home-carousel-01",
     src: `${homeCarouselBaseUrl}/home-carousel-01.jpg`,
     alt: "Curated Home carousel image 1 by Yulia Balenko",
     width: 960,
     height: 960,
     published: true,
-    displayOrder: 1,
+    displayOrder: 2,
   },
   {
     id: "home-carousel-02",
@@ -36,7 +45,7 @@ export const homeCarouselImages: HomeCarouselImage[] = [
     width: 960,
     height: 960,
     published: true,
-    displayOrder: 2,
+    displayOrder: 3,
   },
   {
     id: "home-carousel-03",
@@ -45,7 +54,7 @@ export const homeCarouselImages: HomeCarouselImage[] = [
     width: 960,
     height: 960,
     published: true,
-    displayOrder: 3,
+    displayOrder: 4,
   },
   {
     id: "home-carousel-04",
@@ -54,7 +63,7 @@ export const homeCarouselImages: HomeCarouselImage[] = [
     width: 960,
     height: 960,
     published: true,
-    displayOrder: 4,
+    displayOrder: 5,
   },
   {
     id: "home-carousel-05",
@@ -63,7 +72,7 @@ export const homeCarouselImages: HomeCarouselImage[] = [
     width: 960,
     height: 960,
     published: true,
-    displayOrder: 5,
+    displayOrder: 6,
   },
   {
     id: "home-carousel-06",
@@ -72,7 +81,7 @@ export const homeCarouselImages: HomeCarouselImage[] = [
     width: 960,
     height: 960,
     published: true,
-    displayOrder: 6,
+    displayOrder: 7,
   },
   {
     id: "home-carousel-07",
@@ -81,7 +90,7 @@ export const homeCarouselImages: HomeCarouselImage[] = [
     width: 960,
     height: 960,
     published: true,
-    displayOrder: 7,
+    displayOrder: 8,
   },
 ];
 
