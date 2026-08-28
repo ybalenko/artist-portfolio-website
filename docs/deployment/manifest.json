@@ -196,6 +196,19 @@
       "label": "Still life",
       "items": [
         {
+          "id": "yulia-art-2026-01",
+          "file": "stilllifes/yulia-art-2026-01.jpg",
+          "alt": "Still life artwork by Yulia Balenko from 2026",
+          "name": "Still life 2026-01",
+          "medium": "oil on canvas board",
+          "size": "11X14",
+          "year": "2026",
+          "availability": "available",
+          "width": 1600,
+          "height": 1250,
+          "published": true
+        },
+        {
           "id": "yulia-art-2025-01",
           "file": "stilllifes/yulia-art-2025-01.jpg",
           "alt": "Still life artwork by Yulia Balenko from 2025",
