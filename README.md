@@ -2,7 +2,7 @@
 
 An artwork-first website for artist **Yulia Balenko**, built as a simple static portfolio for an amateur artist. The site presents an artist statement, an image portfolio, a résumé PDF, and visitor contact options; Exhibitions are scaffolded but temporarily disabled.
 
-> **Project status:** Milestones 1, 2, 3, 5, and 6 are complete. Milestone 7, AWS deployment and cloud Portfolio images, is blocked at **31/43 tasks (72%)** until Amplify URL/build-status evidence is recorded. Milestone 8, protected Leave a message form, is in progress at **45/57 tasks (79%)**. Its bypassable throttle finding is fixed locally with a stable salted network throttle, API-stage throttling, and Lambda concurrency limits; other security remediation remains required before deployment. Press has been removed from scope, Exhibitions are hidden behind a feature flag, Turnstile/CAPTCHA is deferred for now, and mailing-list signup is hidden/deferred. Milestone 9, automated website testing with Playwright, is in progress at **6/24 tasks (25%)**; all 66 Home executions pass across the initial installed-Chrome matrix, and backend testing remains in M8. Track current progress in [Project status](./docs/project/status.md).
+> **Project status:** Milestones 1, 2, 3, 5, and 6 are complete. Milestone 7, AWS deployment and cloud Portfolio images, is blocked at **31/43 tasks (72%)** until Amplify URL/build-status evidence is recorded. Milestone 8, protected Leave a message form, is in progress at **45/57 tasks (79%)**. Its bypassable throttle finding is fixed locally with a stable salted network throttle, API-stage throttling, and Lambda concurrency limits; other security remediation remains required before deployment. Press has been removed from scope, Exhibitions are hidden behind a feature flag, Turnstile/CAPTCHA is deferred for now, and mailing-list signup is hidden/deferred. Milestone 9, automated website testing with Playwright, is in progress at **7/24 tasks (29%)**; all 66 Home executions pass locally, and GitHub pull-request CI is defined pending its first remote run. Backend testing remains in M8. Track current progress in [Project status](./docs/project/status.md).
 
 ## Vision
 
@@ -112,7 +112,7 @@ npm run test:e2e:home -- --project=chrome-desktop --grep HOME-12 --debug # Step 
 npm run test:e2e:report # Open the latest HTML report
 ```
 
-The suite builds into ignored `.playwright/site/`, starts a preview server at `127.0.0.1:4322`, and forces the contact API URL empty. Image/PDF/social responses are fixtures; ordinary tests make no live contact requests. Reports/traces are ignored. See [Home test cases and setup](./docs/testing/home-test-cases.md) for details. Other page suites and GitHub Actions remain open M9 work. `npm run contact:test` remains backend testing under M8.
+The suite builds into ignored `.playwright/site/`, starts a preview server at `127.0.0.1:4322`, and forces the contact API URL empty. Image/PDF/social responses are fixtures; ordinary tests make no live contact requests. Reports/traces are ignored locally. [Frontend CI](./.github/workflows/frontend-ci.yml) runs the same Home suite for pull requests targeting `main` and retains diagnostics for seven days. Its first GitHub run and required-status setting remain open. See [Home test cases and setup](./docs/testing/home-test-cases.md) for details. Other page suites remain M9 work. `npm run contact:test` remains backend testing under M8.
 
 ## Roadmap
 

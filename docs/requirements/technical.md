@@ -181,7 +181,7 @@ The current Milestone 8 backend stores only short-lived throttling fingerprints 
 - GitHub is the canonical source repository.
 - Pin Node, Astro, and package versions and commit the lockfile.
 - Pull requests run formatting, type checks, content validation, tests, security checks, and `astro build`.
-- Milestone 9 adds Playwright browser regression tests against local production output to pull-request CI. Browser failures must fail the test job and provide bounded-retention diagnostics; the Home suite is implemented locally; the GitHub Actions workflow and CI evidence remain open M9 tasks.
+- Milestone 9 runs Playwright browser regression tests against local production output in GitHub Actions for pull requests targeting `main`. Browser failures fail the `Home Playwright tests` job. The workflow uses read-only repository permissions, no AWS credentials, installed runner Chrome, and seven-day report/trace retention. Its first remote execution and required-status configuration remain open M9 verification tasks.
 - Dependency audits must have no unresolved high or critical production finding before deployment. Forced or major upgrades require review and regression testing.
 - Merging to production triggers Amplify deployment.
 - Use Amplify's integration or GitHub OIDC rather than stored AWS keys.
