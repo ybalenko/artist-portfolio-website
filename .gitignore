@@ -9,3 +9,7 @@ cdk.out/
 npm-debug.log*
 notes
 public/artwork-local/
+
+.playwright/
+playwright-report/
+test-results/

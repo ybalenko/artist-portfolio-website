@@ -2,7 +2,7 @@
 
 An artwork-first website for artist **Yulia Balenko**, built as a simple static portfolio for an amateur artist. The site presents an artist statement, an image portfolio, a résumé PDF, and visitor contact options; Exhibitions are scaffolded but temporarily disabled.
 
-> **Project status:** Milestones 1, 2, 3, 5, and 6 are complete. Milestone 7, AWS deployment and cloud Portfolio images, is blocked at **31/43 tasks (72%)** until Amplify URL/build-status evidence is recorded. Milestone 8, protected Leave a message form, is in progress at **45/57 tasks (79%)**. Its bypassable throttle finding is fixed locally with a stable salted network throttle, API-stage throttling, and Lambda concurrency limits; other security remediation remains required before deployment. Press has been removed from scope, Exhibitions are hidden behind a feature flag, Turnstile/CAPTCHA is deferred for now, and mailing-list signup is hidden/deferred. Track current progress in [Project status](./docs/project/status.md).
+> **Project status:** Milestones 1, 2, 3, 5, and 6 are complete. Milestone 7, AWS deployment and cloud Portfolio images, is blocked at **31/43 tasks (72%)** until Amplify URL/build-status evidence is recorded. Milestone 8, protected Leave a message form, is in progress at **45/57 tasks (79%)**. Its bypassable throttle finding is fixed locally with a stable salted network throttle, API-stage throttling, and Lambda concurrency limits; other security remediation remains required before deployment. Press has been removed from scope, Exhibitions are hidden behind a feature flag, Turnstile/CAPTCHA is deferred for now, and mailing-list signup is hidden/deferred. Milestone 9, automated website testing with Playwright, is in progress at **0/24 tasks (0%)**, starting with Home POM tests in installed Chrome; backend testing remains in M8. Track current progress in [Project status](./docs/project/status.md).
 
 ## Vision
 
@@ -27,6 +27,7 @@ The portfolio takes inspiration from the restrained, image-led presentation of t
 
 ## Remaining work
 
+- Extend the M9 Home POM suite to the remaining pages, mocked Contacts states, and pull-request CI.
 - Record the Amplify app URL and build status.
 - Verify the deployed public site, especially Portfolio cloud images, Resume PDF navigation, and the disabled Exhibitions fallback.
 - Remediate and verify the documented contact-form security findings before deploying the API or configuring Amplify with `PUBLIC_CONTACT_API_URL`.
@@ -41,17 +42,18 @@ The initial release will not include sales, payments, visitor accounts, favorite
 
 ## Planned technology
 
-| Area                   | Technology                           |
-| ---------------------- | ------------------------------------ |
-| Web application        | Astro and TypeScript                 |
-| Public rendering       | Static generation and CDN delivery   |
-| Hosting and deployment | AWS Amplify Hosting                  |
-| API                    | Amazon API Gateway and AWS Lambda    |
-| Dynamic data           | Amazon DynamoDB for subscriptions    |
-| Images                 | AWS cloud storage and Astro metadata |
-| Email                  | Amazon SES                           |
-| Spam controls          | Honeypot and backend throttling      |
-| Infrastructure as code | AWS CDK with TypeScript              |
+| Area                   | Technology                              |
+| ---------------------- | --------------------------------------- |
+| Web application        | Astro and TypeScript                    |
+| Public rendering       | Static generation and CDN delivery      |
+| Hosting and deployment | AWS Amplify Hosting                     |
+| API                    | Amazon API Gateway and AWS Lambda       |
+| Dynamic data           | Amazon DynamoDB for subscriptions       |
+| Images                 | AWS cloud storage and Astro metadata    |
+| Email                  | Amazon SES                              |
+| Spam controls          | Honeypot and backend throttling         |
+| Infrastructure as code | AWS CDK with TypeScript                 |
+| Browser testing        | Playwright, TypeScript, POM (M9) |
 
 The architecture is code-managed and static-first: Home, Exhibitions, Portfolio, Resume, Contacts, navigation, and images deploy from the repository. Contact delivery and subscriptions use serverless APIs. The target operating cost is **$0–$5 USD per month**, excluding the domain.
 
@@ -73,6 +75,8 @@ The architecture is code-managed and static-first: Home, Exhibitions, Portfolio,
 - [Portfolio manifest design](./docs/deployment/portfolio-manifest.md) — local/S3 JSON catalog for Portfolio images and metadata
 - [Milestone 6](./docs/milestones/milestone-6.md) — completed Resume PDF navigation milestone
 - [Milestone 8](./docs/milestones/milestone-8.md) — protected Leave a message form milestone
+- [Milestone 9](./docs/milestones/milestone-9.md) — Playwright browser testing scope, checklist, and verification
+- [Home test cases](./docs/testing/home-test-cases.md) — 22 cases, POM layout, fixtures, and local execution
 - [Agent instructions](./AGENTS.md) — required workflow for future coding agents
 
 ## Local development
@@ -96,6 +100,19 @@ npm run preview      # Preview the production build locally
 npm run format:check # Verify formatting
 ```
 
+The Home browser suite uses Playwright and Page Object Model (POM), with the same TypeScript page/component objects for local and future GitHub Actions execution. Use installed Google Chrome; no browser download is needed for the current setup. Safari can be checked manually; Firefox/WebKit automation is deferred.
+
+```bash
+npm run test:e2e:check # Check test/config TypeScript
+npm run test:e2e:home -- --project=chrome-desktop # Start with desktop Chrome
+npm run test:e2e:home # All 22 Home cases across three Chrome viewport projects
+npm run test:e2e:ui   # Interactive runner
+npm run test:e2e:report # Open the latest HTML report
+```
+
+The suite builds into ignored `.playwright/site/`, starts a preview server at `127.0.0.1:4322`, and forces the contact API URL empty. Image/PDF/social responses are fixtures; ordinary tests make no live contact requests. Reports/traces are ignored. See [Home test cases and setup](./docs/testing/home-test-cases.md) for details. Other page suites and GitHub Actions remain open M9 work. `npm run contact:test` remains backend testing under M8.
+
+
 ## Roadmap
 
 | Milestone | Scope                                          | Status      |
@@ -107,6 +124,7 @@ npm run format:check # Verify formatting
 | M6        | Resume PDF navigation                          | Complete    |
 | M7        | AWS deployment and cloud Portfolio images      | Blocked     |
 | M8        | Protected Leave a message form                 | In progress |
+| M9        | Automated website testing with Playwright      | In progress |
 
 Future milestone boundaries are provisional until their plans are approved.
 

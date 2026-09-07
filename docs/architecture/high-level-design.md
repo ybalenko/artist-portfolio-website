@@ -1,7 +1,7 @@
 # Yulia Balenko Artist Portfolio — High-Level Design
 
-**Status:** Draft v0.7
-**Updated:** August 22, 2026
+**Status:** Draft v0.10
+**Updated:** September 7, 2026
 **Related documents:** [Business Requirements](../requirements/business.md), [Technical Requirements](../requirements/technical.md)  
 **Style:** Code-managed static website with contact and subscription APIs
 
@@ -100,7 +100,7 @@ The public static pages use responsive CSS breakpoints so Home, Portfolio, Resum
 
 ## 5. Home carousel design
 
-Home carousel images and the Home artist portrait are managed separately from Portfolio artwork records, but they use the same AWS-hosted image strategy as Portfolio assets. Home carousel files live outside GitHub under the `portfolio/home-carousel/` S3 prefix and are referenced from `src/data/homeCarousel.ts` with public `https` URLs. The Home page aligns the compact carousel and artist portrait as supporting visuals above the artist statement without changing the Portfolio gallery.
+Home carousel images and the Home artist portrait are managed separately from Portfolio artwork records, but they use the same AWS-hosted image strategy as Portfolio assets. Home carousel files live outside GitHub under the `portfolio/home-carousel/` S3 prefix and are referenced from `src/data/homeCarousel.ts` with public `https` URLs. The Home page aligns the compact carousel and artist portrait as supporting visuals above the artist statement without changing the Portfolio gallery. The carousel rotates every seven seconds and pauses on hover or reduced motion; changing the reduced-motion preference clears any existing rotation timer.
 
 ## 6. Portfolio design
 
@@ -204,6 +204,14 @@ sequenceDiagram
 - DynamoDB backup protects subscription state; Git protects public content.
 - Lambda retries are bounded, and asynchronous failure handling is configured where needed.
 - API throttles, Lambda concurrency, email quotas, and $1/$5 budgets constrain cost after the documented contact-form security remediation is implemented.
+
+### Browser test architecture
+
+[Milestone 9](../milestones/milestone-9.md) adds a Playwright/TypeScript suite against locally served production Astro output, run locally and in pull-request CI. The implemented Home suite uses installed Chrome with three viewport projects and an isolated production build in `.playwright/site/` with the contact API URL forced empty. Separate configured/mock Contacts builds remain planned. Firefox/WebKit automation is deferred; Safari manual checks are separate from Chrome emulation. Deterministic public-asset fixtures and request interception keep routine browser runs independent of live AWS services and prevent real message delivery. Generated reports and traces are CI/local diagnostics, not public website assets.
+
+The test code uses Page Object Model: TypeScript page/component objects encapsulate UI locators and actions, specs hold scenarios and assertions, and test-scoped fixtures provide object instances and mocks. Shared header/footer components use composition; Home and Portfolio carousel components remain distinct. The same objects run locally and in GitHub Actions with configuration selecting browser/viewport and server mode. See [technical requirements §11](../requirements/technical.md#page-object-model-pom).
+
+The browser suite covers current public pages, navigation, Portfolio interactions, PDF-link behavior, responsive layouts, and Contacts UI states. [Milestone 8](../milestones/milestone-8.md) continues to own Lambda/security tests, synthesized infrastructure assertions, deployed API checks, SES delivery, and privacy verification. This adds development tooling without changing the production architecture.
 
 ## 11. Tradeoffs
 

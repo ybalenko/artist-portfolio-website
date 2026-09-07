@@ -2,7 +2,7 @@
 
 This folder contains the working documentation for the Yulia Balenko artist portfolio website.
 
-Current project state: Milestones 1, 2, 3, 5, and 6 are complete. Press has been removed from the current website scope. Exhibitions are scaffolded but temporarily disabled behind a feature flag. Milestone 7, AWS deployment and cloud Portfolio images, is blocked at **31/43 tasks (72%)** until the Amplify URL/build status is recorded. Milestone 8, protected Leave a message form, is in progress at **45/57 tasks (79%)**. Its bypassable throttle finding is fixed locally; remaining security findings must be remediated before API deployment. Turnstile/CAPTCHA is deferred for now, and mailing-list signup is hidden/deferred.
+Current project state: Milestones 1, 2, 3, 5, and 6 are complete. Press has been removed from the current website scope. Exhibitions are scaffolded but temporarily disabled behind a feature flag. Milestone 7, AWS deployment and cloud Portfolio images, is blocked at **31/43 tasks (72%)** until the Amplify URL/build status is recorded. Milestone 8, protected Leave a message form, is in progress at **45/57 tasks (79%)**. Its bypassable throttle finding is fixed locally; remaining security findings must be remediated before API deployment. Turnstile/CAPTCHA is deferred for now, and mailing-list signup is hidden/deferred. Milestone 9, automated website testing with Playwright, is in progress at **0/24 tasks (0%)**, starting with the Home POM suite in installed Chrome; backend testing remains in M8.
 
 ## Requirements
 
@@ -42,6 +42,11 @@ Current project state: Milestones 1, 2, 3, 5, and 6 are complete. Press has been
 - [Milestone 6 — Resume PDF Navigation](./milestones/milestone-6.md)
 - [Milestone 7 — AWS Deployment and Cloud Portfolio Images](./milestones/milestone-7.md)
 - [Milestone 8 — Protected Leave a Message Form](./milestones/milestone-8.md)
+- [Milestone 9 — Automated Website Testing with Playwright](./milestones/milestone-9.md)
+
+## Testing
+
+M9 tracks planned browser setup, coverage, local commands, pull-request CI, and verification. The suite uses Page Object Model (POM) with TypeScript page/component objects, test-scoped fixtures, and assertions in specs; see [technical requirements §11](./requirements/technical.md#page-object-model-pom). It covers current public pages and responsive behavior with mocked Contacts responses. The [Home case catalog](./testing/home-test-cases.md) documents the 22 implemented cases, fixtures, and installed-Chrome desktop/mobile/tablet matrix. See the [root README](../README.md#local-development) for test commands. Other page suites and GitHub Actions remain open; Safari manual checks and later Firefox/WebKit automation are separate. M8 retains backend security, infrastructure, deployed API, real delivery, and privacy tests.
 
 Deferred future work:
 
@@ -63,4 +68,4 @@ Deferred future work:
 - Responsive behavior — current public pages adapt across narrow, tablet, and desktop viewports.
 - Deployment — `amplify.yml`, AWS Amplify setup notes, and cloud image runbooks are present; Amplify URL/build status still needs to be recorded.
 
-AWS deployment and cloud Portfolio images are blocked pending public verification evidence for Milestone 7. Protected Leave a message delivery is in progress for Milestone 8. Mailing-list behavior, final résumé PDF replacement workflow, final content curation, and public deployment verification remain planned future work.
+AWS deployment and cloud Portfolio images are blocked pending public verification evidence for Milestone 7. Protected Leave a message delivery is in progress for Milestone 8. Playwright Home browser automation is in progress in Milestone 9. Mailing-list behavior, final résumé PDF replacement workflow, final content curation, and public deployment verification remain planned future work.

@@ -1,7 +1,7 @@
 # Yulia Balenko Artist Portfolio — Technical Requirements
 
-**Status:** Draft v0.6
-**Updated:** August 22, 2026
+**Status:** Draft v0.9
+**Updated:** September 7, 2026
 **Related documents:** [Business Requirements](./business.md), [High-Level Design](../architecture/high-level-design.md)  
 **Selected stack:** Astro, TypeScript, AWS
 
@@ -63,6 +63,7 @@ Primary navigation is Home, Portfolio, Resume, and Contacts while Exhibitions is
 - Store Home carousel image files outside GitHub in the same AWS-hosted image location used for Portfolio images, under the `portfolio/home-carousel/` prefix, and reference them with public `https` URLs from `src/data/homeCarousel.ts`.
 - Render the Home artist portrait from the same S3-backed Home image data source and align it beside the carousel, above the artist statement.
 - Keep the Home carousel compact so it supports the artist statement rather than becoming a second Portfolio gallery.
+- The current buttonless Home carousel advances every seven seconds, pauses on pointer hover, and respects reduced motion both at initial load and when the preference changes while the page is open.
 - Do not duplicate the Portfolio gallery or Portfolio carousel behavior.
 - Provide unique title, description, canonical URL, and social metadata.
 
@@ -180,6 +181,7 @@ The current Milestone 8 backend stores only short-lived throttling fingerprints 
 - GitHub is the canonical source repository.
 - Pin Node, Astro, and package versions and commit the lockfile.
 - Pull requests run formatting, type checks, content validation, tests, security checks, and `astro build`.
+- Milestone 9 adds Playwright browser regression tests against local production output to pull-request CI. Browser failures must fail the test job and provide bounded-retention diagnostics; the Home suite is implemented locally; the GitHub Actions workflow and CI evidence remain open M9 tasks.
 - Dependency audits must have no unresolved high or critical production finding before deployment. Forced or major upgrades require review and regression testing.
 - Merging to production triggers Amplify deployment.
 - Use Amplify's integration or GitHub OIDC rather than stored AWS keys.
@@ -205,6 +207,32 @@ The current Milestone 8 backend stores only short-lived throttling fingerprints 
 - Do not use RDS, NAT Gateway, AWS WAF, Cognito, Bedrock, or fixed-cost compute.
 
 ## 11. Testing and acceptance
+
+### Browser automation and milestone ownership
+
+Use Playwright with TypeScript for automated website browser regression testing. [Milestone 9](../milestones/milestone-9.md) is the implementation checklist and verification source for setup, current-page journeys, responsive/keyboard coverage, local commands, and pull-request CI. Run the suite before submitting relevant website changes and in pull-request CI once implemented.
+
+The initial suite covers Home, shared navigation, Portfolio selection/metadata/carousel/URL/focus behavior, Resume PDF links and fallback page, the disabled Exhibitions fallback/redirects, and Contacts fields, validation, setup-disabled state, pending/success/failure feedback, and retry. Test Contacts with synthetic data and mocked API responses in both configured and unconfigured builds; prevent live contact requests. Use deterministic external-asset fixtures so routine tests do not depend on live AWS services or require private credentials.
+
+The initial M9 matrix uses installed Google Chrome (`channel: "chrome"`) at desktop 1440 × 1000, mobile 390 × 844, and tablet 768 × 1024 sizes. Firefox/WebKit automation is deferred by owner request; the installed Safari application is for manual checks because Playwright requires its own WebKit build. The broader §10 browser requirements remain in force. See the [Home case catalog and setup](../testing/home-test-cases.md). Document changes to the matrix in M9. Report emulated coverage separately from the actual browser/device coverage required by §10. Browser assertions do not establish full WCAG compliance or the live PDF's type, size, caching, or accessibility.
+
+[Milestone 8](../milestones/milestone-8.md) retains backend security/unit/integration tests, synthesized infrastructure assertions, deployed API/CORS checks, actual SES delivery, and log/storage privacy verification. Mocked browser results cannot satisfy those backend release gates. M7 retains public deployment verification. Enabled Exhibitions and mailing-list tests remain deferred until those features are in scope.
+
+### Page Object Model (POM)
+
+- Organize the M9 Playwright/TypeScript browser suite using Page Object Model (D-058). This is test-code organization and requires no production architecture change or additional POM framework.
+- Page objects own reusable locators, navigation, and visitor actions for Home, Portfolio, Contacts, the Resume fallback, and the disabled Exhibitions page as their tests are added. The external PDF is a link destination, not a website page object.
+- Compose shared navigation/header and footer component objects into page objects as needed. Keep the Home automatic carousel and Portfolio lightbox as separate components because their interactions differ.
+- Keep scenario setup, expected results, and Playwright assertions in spec files; expose typed locators from page/component objects for retrying assertions. Do not make a page object decide what a scenario should expect.
+- Use semantic role/label locators where available. Add stable test IDs only where semantic locators cannot reliably identify an element. Avoid fixed sleeps, cached element handles, and generic wrappers around every Playwright operation.
+- Create page/component objects through test-scoped Playwright fixtures using that test's Page and browser context. Keep mock responses, asset fixtures, and controlled-time setup in fixtures/helpers, separate from UI objects; no mutable page-object instances shared across tests.
+- Prefer composition and small purpose-specific methods over a large BasePage inheritance hierarchy. Add methods when a real test needs them.
+- Use the same objects/specs locally and in GitHub Actions; browser, viewport, server URL, and Contacts build mode belong in configuration/fixtures rather than duplicated page classes.
+- Test locations: `tests/e2e/pages/`, `tests/e2e/components/`, `tests/e2e/fixtures/`, and `tests/e2e/specs/`. These remain test-only files and are not part of the public site bundle. Backend tests remain in M8.
+
+Reference: [Playwright Page Object Models](https://playwright.dev/docs/pom) and [Playwright fixtures](https://playwright.dev/docs/test-fixtures). The separation of scenario assertions and UI objects above is this project's convention.
+
+### Overall acceptance coverage
 
 Testing must cover:
 

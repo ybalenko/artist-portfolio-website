@@ -32,6 +32,10 @@ Milestone 8 includes:
 8. Send validated messages through SES to a private recipient address stored outside the repository.
 9. Update Contacts privacy copy and setup documentation.
 
+### Testing ownership
+
+[Milestone 9](./milestone-9.md) owns the shared Playwright browser suite, including Contacts validation and UI states with mocked API responses. M8 retains backend unit/integration/security tests, synthesized infrastructure assertions, deployed CORS and negative-path checks, real SES delivery/Reply-To verification, and log/storage privacy checks. M9 results may support the browser-state checklist items below, but do not verify live delivery or close backend release gates. Existing M8 tasks and acceptance criteria remain in force (D-057).
+
 ## 2. Out of scope
 
 - Mailing-list signup
@@ -220,6 +224,7 @@ Milestone 8 is complete when:
 
 ### Manual checks
 
+- 2026-09-07 documentation review: linked the planned M9 browser suite and confirmed backend test, deployment, delivery, and privacy verification remain in M8; no checklist items or acceptance results changed.
 - Static output check: `dist/contacts/index.html` contains `Send message — setup in progress`, the setup-in-progress status copy, and a disabled submit button when contact environment variables are not configured.
 - Source CSS check: current public pages now have responsive rules for the header/navigation, Home visuals, Contacts grid, Resume panel, Portfolio thumbnails/metadata/carousel, footer, shared panels, and disabled Exhibitions fallback.
 - Static output check: `dist/contacts/index.html` contains the updated Privacy Notice wording, "basic abuse controls", and no Turnstile widget markup.

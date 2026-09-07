@@ -1,4 +1,11 @@
 {
   "extends": "astro/tsconfigs/strict",
-  "exclude": ["cdk.out", "dist", "node_modules"]
+  "exclude": [
+    "cdk.out",
+    "dist",
+    "node_modules",
+    ".playwright",
+    "playwright-report",
+    "test-results"
+  ]
 }

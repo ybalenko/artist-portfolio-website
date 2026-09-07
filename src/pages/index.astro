@@ -125,9 +125,9 @@ const homeCarouselJson = JSON.stringify(publishedHomeCarouselImages);
       };
 
       const startRotation = () => {
+        stopRotation();
         if (prefersReducedMotion.matches) return;
 
-        stopRotation();
         rotationTimer = window.setInterval(() => {
           setActiveImage(activeIndex + 1);
         }, 7000);

@@ -1,8 +1,8 @@
 # Project Status
 
-**Last updated:** August 22, 2026
-**Current phase:** Milestone 8 implementation in progress  
-**Current milestone:** Milestone 8 — Protected Leave a message form (in progress)
+**Last updated:** September 7, 2026
+**Current phase:** Milestone 9 Home browser testing in progress  
+**Current milestone:** Milestone 9 — Automated website testing with Playwright (in progress)
 
 ## Milestone overview
 
@@ -15,6 +15,7 @@
 | M6        | Resume PDF navigation                          | Complete    |   6/6 |     100% | [Milestone 6](../milestones/milestone-6.md) |
 | M7        | AWS deployment and cloud Portfolio images      | Blocked     | 31/43 |      72% | [Milestone 7](../milestones/milestone-7.md) |
 | M8        | Protected Leave a message form                 | In progress | 45/57 |      79% | [Milestone 8](../milestones/milestone-8.md) |
+| M9        | Automated website testing with Playwright      | In progress |  0/24 |       0% | [Milestone 9](../milestones/milestone-9.md) |
 
 Future milestone boundaries are provisional until their plans are approved.
 
@@ -48,6 +49,15 @@ Future milestone boundaries are provisional until their plans are approved.
 - **Deferred:** Final image optimization pipeline
 - **Next action:** Record the Amplify URL/build status and verify the deployed Portfolio page, Resume PDF navigation, and disabled Exhibitions fallback.
 
+### Milestone 9 — Automated Website Testing with Playwright
+
+- **Status:** In progress; owner approved starting with Home page tests using POM. M8 retains unfinished backend work.
+- **Progress source:** Checked implementation tasks in [Milestone 9](../milestones/milestone-9.md), currently 0/24 (0%).
+- **Target:** Browser regression tests for current public pages and responsive layouts, with mocked Contacts API responses and local/pull-request CI execution.
+- **Open blockers:** None for the installed-Chrome Home suite. Existing M7 deployment and M8 backend blockers remain in their milestones; CI and other page coverage are unfinished M9 tasks.
+- **Boundary:** Backend security tests, infrastructure assertions, deployed API checks, and real SES delivery verification stay in M8.
+- **Next action:** Implement and verify the Home POM suite, then record coverage and remaining M9 work.
+
 ## Project-level open decisions
 
 - Amplify custom-domain public verification evidence
@@ -67,6 +77,9 @@ See the [Decision log](./decisions.md) for resolved decisions and [Project proce
 
 | Date       | Update                                                            |
 | ---------- | ----------------------------------------------------------------- |
+| 2026-09-07 | Started M9 Home POM tests using installed Chrome |
+| 2026-09-07 | Adopted POM for M9 browser tests; refined requirements and plan   |
+| 2026-09-07 | Planned M9 Playwright browser testing; kept backend testing in M8 |
 | 2026-08-22 | Removed origin from contact throttle and added regression tests   |
 | 2026-08-22 | Fixed bypassable contact throttle and added infrastructure limits |
 | 2026-08-22 | Documented contact-form security review and release blockers      |
