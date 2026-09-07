@@ -2,7 +2,7 @@
 
 This folder contains the working documentation for the Yulia Balenko artist portfolio website.
 
-Current project state: Milestones 1, 2, 3, 5, and 6 are complete. Press has been removed from the current website scope. Exhibitions are scaffolded but temporarily disabled behind a feature flag. Milestone 7, AWS deployment and cloud Portfolio images, is blocked at **31/43 tasks (72%)** until the Amplify URL/build status is recorded. Milestone 8, protected Leave a message form, is in progress at **45/57 tasks (79%)**. Its bypassable throttle finding is fixed locally; remaining security findings must be remediated before API deployment. Turnstile/CAPTCHA is deferred for now, and mailing-list signup is hidden/deferred. Milestone 9, automated website testing with Playwright, is in progress at **0/24 tasks (0%)**, starting with the Home POM suite in installed Chrome; backend testing remains in M8.
+Current project state: Milestones 1, 2, 3, 5, and 6 are complete. Press has been removed from the current website scope. Exhibitions are scaffolded but temporarily disabled behind a feature flag. Milestone 7, AWS deployment and cloud Portfolio images, is blocked at **31/43 tasks (72%)** until the Amplify URL/build status is recorded. Milestone 8, protected Leave a message form, is in progress at **45/57 tasks (79%)**. Its bypassable throttle finding is fixed locally; remaining security findings must be remediated before API deployment. Turnstile/CAPTCHA is deferred for now, and mailing-list signup is hidden/deferred. Milestone 9, automated website testing with Playwright, is in progress at **6/24 tasks (25%)**; all 66 Home executions pass across the initial installed-Chrome matrix, and backend testing remains in M8.
 
 ## Requirements
 
@@ -46,7 +46,7 @@ Current project state: Milestones 1, 2, 3, 5, and 6 are complete. Press has been
 
 ## Testing
 
-M9 tracks planned browser setup, coverage, local commands, pull-request CI, and verification. The suite uses Page Object Model (POM) with TypeScript page/component objects, test-scoped fixtures, and assertions in specs; see [technical requirements §11](./requirements/technical.md#page-object-model-pom). It covers current public pages and responsive behavior with mocked Contacts responses. The [Home case catalog](./testing/home-test-cases.md) documents the 22 implemented cases, fixtures, and installed-Chrome desktop/mobile/tablet matrix. See the [root README](../README.md#local-development) for test commands. Other page suites and GitHub Actions remain open; Safari manual checks and later Firefox/WebKit automation are separate. M8 retains backend security, infrastructure, deployed API, real delivery, and privacy tests.
+M9 tracks browser setup, coverage, local commands, pull-request CI, and verification. The suite uses Page Object Model (POM) with TypeScript page/component objects, test-scoped fixtures, and assertions in specs; see [technical requirements §11](./requirements/technical.md#page-object-model-pom). It covers current public pages and responsive behavior with mocked Contacts responses. The [Home case catalog](./testing/home-test-cases.md) documents the 22 implemented cases, fixtures, installed-Chrome desktop/mobile/tablet matrix, and headed/UI/debug commands. See the [root README](../README.md#local-development) for commands. Other page suites and GitHub Actions remain open; Safari manual checks and later Firefox/WebKit automation are separate. M8 retains backend security, infrastructure, deployed API, real delivery, and privacy tests.
 
 Deferred future work:
 

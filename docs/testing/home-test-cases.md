@@ -51,9 +51,13 @@ npm ci
 npm run test:e2e:check
 npm run test:e2e:home -- --project=chrome-desktop
 npm run test:e2e:home
+npm run test:e2e:home -- --project=chrome-desktop --headed --workers=1
 npm run test:e2e:ui
+npm run test:e2e:home -- --project=chrome-desktop --grep HOME-12 --debug
 npm run test:e2e:report
 ```
+
+`--headed` displays the Chrome window while tests run; `--workers=1` makes them run sequentially so their actions are easier to follow. UI Mode provides an interactive test list and action timeline. Debug mode opens Playwright Inspector for stepping through the selected case.
 
 Playwright builds into ignored `.playwright/site/` and starts a local preview server on `127.0.0.1:4322`. The contact API URL is forced empty for this Home build. An existing server is not reused, so the suite cannot accidentally test stale output. Keep the port free before running.
 
@@ -61,7 +65,7 @@ Failure screenshots/traces and HTML reports live in ignored `test-results/` and 
 
 ## Verification and limitations
 
-Record executed results in [M9's verification record](../milestones/milestone-9.md#verification-record). The case list alone is not pass evidence.
+The September 7, 2026 run passed all 66 executions: 22 cases in each of the desktop, mobile-emulated, and tablet-size installed-Chrome projects. Detailed command evidence is recorded in [M9's verification record](../milestones/milestone-9.md#verification-record). The generated local HTML report can be reopened with `npm run test:e2e:report` until a later test run replaces it.
 
 - The initial Home suite does not cover zero/one-image build fixtures; these are additional scenarios for later coverage.
 - Shared navigation is exercised from Home and its linked routes. Full Portfolio/Contacts/Resume/Exhibitions test suites remain open in M9.

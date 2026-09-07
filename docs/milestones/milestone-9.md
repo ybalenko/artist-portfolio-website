@@ -3,7 +3,7 @@
 **Status:** In progress  
 **Created:** September 7, 2026  
 **Milestone goal:** Add repeatable browser regression tests for the current public website, runnable locally and in pull-request CI, using Playwright and TypeScript.  
-**Implementation progress:** 0/24 tasks — 0%
+**Implementation progress:** 6/24 tasks — 25%
 
 The owner approved starting M9 implementation with Home page tests using POM on September 7, 2026. M8 retains unfinished backend work and its release gates.
 
@@ -72,16 +72,16 @@ Only the checkboxes in this section contribute to progress. Planning/documentati
 
 ### Step 1 — Test foundation
 
-- [ ] Install and lock the Playwright test dependency; add TypeScript configuration, POM page/component/spec directories, and test-scoped object fixtures; verify the structure with the first Home scenario.
+- [x] Install and lock the Playwright test dependency; add TypeScript configuration, POM page/component/spec directories, and test-scoped object fixtures; verify the structure with the first Home scenario.
 - [ ] Add production-build/server orchestration for both unconfigured and mocked-configured Contacts modes.
-- [ ] Add deterministic external-asset fixtures and contact request interception that prevents live submissions.
-- [ ] Configure and document the browser/viewport matrix, isolation, timeouts, and failure diagnostics.
-- [ ] Add local test/UI scripts and ignore generated test artifacts.
+- [x] Add deterministic external-asset fixtures and contact request interception that prevents live submissions.
+- [x] Configure and document the browser/viewport matrix, isolation, timeouts, and failure diagnostics.
+- [x] Add local test/UI scripts and ignore generated test artifacts.
 
 ### Step 2 — Public page journeys
 
-- [ ] Test Home as the default route, artist statement, portrait, and current Home carousel behavior.
-- [ ] Test exact primary navigation, active-page indication, internal destinations, and configured public social links.
+- [x] Test Home as the default route, artist statement, portrait, and current Home carousel behavior.
+- [x] Test exact primary navigation, active-page indication, internal destinations, and configured public social links.
 - [ ] Test Portfolio sections, initial selection, thumbnail selection, metadata, and configured empty states.
 - [ ] Test Portfolio carousel opening, previous/next controls, and closing.
 - [ ] Test carousel URL selection, refresh/share behavior, and gallery context restoration.
@@ -150,13 +150,19 @@ M9 is complete when:
 ## Verification record
 
 **Date:** 2026-09-07  
-**Result:** In progress — Home suite implemented; local browser verification underway.
+**Result:** In progress — Home suite implemented and passed locally in the initial Chrome matrix.
 
 ### Automated checks
 
 - `npm run format:check` — passed after formatting the documentation updates.
 - `git diff --check` — passed.
-- Python documentation check — all relative Markdown links in the nine changed documents resolve; checklist counts are M9 0/24 and M8 45/57.
+- Python documentation check during planning — all relative Markdown links in the nine planning documents resolved; checklist counts at that point were M9 0/24 and M8 45/57.
+- `npm run test:e2e:check` — passed; Playwright configuration, fixtures, POM objects, and specs have no TypeScript errors.
+- `npm run build:e2e` — passed; generated eight static pages in the isolated `.playwright/site/` directory with contact API configuration forced empty.
+- First `npm run test:e2e:home -- --project=chrome-desktop` run — 20/22 passed and exposed an incorrect Portfolio-heading test assumption plus a real Home carousel reduced-motion timer defect.
+- `npm run test:e2e:home` after correcting the assertion and timer behavior — passed all 66 executions: 22 cases in installed Chrome desktop, mobile-emulated, and tablet-size projects in 3.6 minutes.
+- `npm run check` — passed with 0 errors, 0 warnings, and 0 hints after the Home carousel fix and test implementation.
+- `npm run test:e2e:ui -- --help` — passed, confirming the Playwright UI command is available. Headed and debug commands use the same installed-Chrome projects and are documented in the Home testing guide.
 
 ### Manual checks
 
@@ -164,6 +170,8 @@ M9 is complete when:
 - Reviewed business requirements; this milestone adds quality tooling without changing visitor-facing product scope.
 - At planning completion, M8 was active at 45/57 tasks and M9 had 24 unchecked tasks. M9 Home implementation is now active; M8 retains its 45/57 backend progress and release gates.
 - 2026-09-07 POM clarification: reviewed official Playwright POM/fixture guidance and documented page/component/spec responsibilities, test-scoped objects, and identical local/CI usage. Expanded the existing foundation task; no implementation checkbox was completed. Business scope and M8 testing ownership are unchanged.
+- Home verification covered direct load/refresh, metadata and approved copy, exact navigation and active state, internal/external destinations, deterministic image layout, carousel order/timing/hover/reduced-motion behavior, desktop/mobile/tablet layout, keyboard/skip-link behavior, no-JavaScript fallback, and uncaught runtime errors.
+- The first browser run demonstrated failure diagnostics through an HTML report, screenshots, traces, and error context. After fixes, the complete initial matrix passed with 66/66 passing executions.
 
 ### Known limitations
 
@@ -176,4 +184,4 @@ M9 is complete when:
 - Backend testing remains in M8; public deployment verification remains in M7.
 - Mailing-list/enabled Exhibitions coverage, visual baselines, full accessibility audits, and live-site/device testing remain outside the initial suite.
 
-**Next action:** Finish Home verification, then implement the next page suite and remaining foundation/CI tasks; backend remediation stays in M8.
+**Next action:** Implement the Portfolio POM suite, then complete configured Contacts orchestration and GitHub Actions; backend remediation stays in M8.
