@@ -3,7 +3,7 @@
 **Status:** In progress  
 **Created:** September 7, 2026  
 **Milestone goal:** Add repeatable browser regression tests for the current public website, runnable locally and in pull-request CI, using Playwright and TypeScript.  
-**Implementation progress:** 6/24 tasks — 25%
+**Implementation progress:** 7/24 tasks — 29%
 
 The owner approved starting M9 implementation with Home page tests using POM on September 7, 2026. M8 retains unfinished backend work and its release gates.
 
@@ -101,7 +101,7 @@ Only the checkboxes in this section contribute to progress. Planning/documentati
 
 - [ ] Verify current public pages at the selected mobile, tablet, and desktop widths, including usable navigation and no unintended horizontal page overflow.
 - [ ] Verify keyboard access and visible focus for navigation, Portfolio section controls, Resume links, and Contacts fields/actions across the selected projects.
-- [ ] Add a pull-request CI workflow that installs dependencies/browsers, builds, runs the agreed suite, and reports failure through its exit status.
+- [x] Add a pull-request CI workflow that installs dependencies/browsers, builds, runs the agreed suite, and reports failure through its exit status.
 - [ ] Verify CI failure diagnostics and bounded report/artifact retention without credentials or real visitor data.
 
 ### Step 5 — Handoff and acceptance
@@ -163,6 +163,7 @@ M9 is complete when:
 - `npm run test:e2e:home` after correcting the assertion and timer behavior — passed all 66 executions: 22 cases in installed Chrome desktop, mobile-emulated, and tablet-size projects in 3.6 minutes.
 - `npm run check` — passed with 0 errors, 0 warnings, and 0 hints after the Home carousel fix and test implementation.
 - `npm run test:e2e:ui -- --help` — passed, confirming the Playwright UI command is available. Headed and debug commands use the same installed-Chrome projects and are documented in the Home testing guide.
+- GitHub Actions workflow validation — `.github/workflows/frontend-ci.yml` parses as YAML and defines a read-only pull-request/manual workflow for `main`. It installs with `npm ci`, confirms runner Chrome, runs formatting, Astro, and test TypeScript checks plus all Home projects, and retains reports/traces for seven days. The job has not yet run on GitHub, so remote execution and artifact retrieval remain unverified.
 
 ### Manual checks
 
@@ -176,6 +177,7 @@ M9 is complete when:
 ### Known limitations
 
 - Home tests and local scripts exist. Other page suites, configured Contacts test builds, and GitHub Actions workflow/execution evidence remain open.
+- The GitHub Actions workflow exists, but its first remote run and branch-protection requirement have not been verified or configured. Until the check is required in GitHub, a repository administrator can still merge a pull request whose test job fails.
 - Browser downloads were declined; the initial suite uses installed Chrome. Safari, Firefox, and WebKit have not been verified.
 - Current M7 public verification and M8 backend blockers remain tracked in their existing milestones.
 
@@ -184,4 +186,4 @@ M9 is complete when:
 - Backend testing remains in M8; public deployment verification remains in M7.
 - Mailing-list/enabled Exhibitions coverage, visual baselines, full accessibility audits, and live-site/device testing remain outside the initial suite.
 
-**Next action:** Implement the Portfolio POM suite, then complete configured Contacts orchestration and GitHub Actions; backend remediation stays in M8.
+**Next action:** Run the workflow on a GitHub pull request, inspect the report artifact, and make `Home Playwright tests` a required `main` status check; then implement the Portfolio POM suite. Backend remediation stays in M8.

@@ -61,7 +61,15 @@ npm run test:e2e:report
 
 Playwright builds into ignored `.playwright/site/` and starts a local preview server on `127.0.0.1:4322`. The contact API URL is forced empty for this Home build. An existing server is not reused, so the suite cannot accidentally test stale output. Keep the port free before running.
 
-Failure screenshots/traces and HTML reports live in ignored `test-results/` and `playwright-report/`. Open the report to inspect failures; rerun a case with `npm run test:e2e:home -- --project=chrome-desktop --grep HOME-17`. GitHub Actions setup and CI retention verification remain future M9 tasks.
+Failure screenshots/traces and HTML reports live in ignored `test-results/` and `playwright-report/`. Open the report to inspect failures; rerun a case with `npm run test:e2e:home -- --project=chrome-desktop --grep HOME-17`.
+
+## GitHub pull-request CI
+
+[Frontend CI](../../.github/workflows/frontend-ci.yml) runs for every pull request targeting `main` and can also be started manually from GitHub's Actions tab. The `Home Playwright tests` job uses Chrome already installed on GitHub's Ubuntu runner and executes `npm ci`, formatting, Astro/TypeScript validation, Playwright TypeScript validation, and the full Home matrix. It uses read-only repository permissions and no application secrets or AWS credentials.
+
+The job uploads `playwright-report/` and `test-results/` as `home-playwright-report-<attempt>` for seven days, including successful runs. Open the workflow run in GitHub and download the artifact from its **Artifacts** section. A failed command makes the job fail. The first remote run must be verified before this is counted as proven CI behavior.
+
+To prevent a merge when this job fails, configure a `main` branch ruleset after the first run and require the **Home Playwright tests** status check. The workflow creates the check; the repository rule enforces it. Branch-protection configuration is an external GitHub change and has not been made by this repository update.
 
 ## Verification and limitations
 
