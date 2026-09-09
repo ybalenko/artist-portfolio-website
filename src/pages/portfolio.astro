@@ -247,6 +247,7 @@ const portfolioJson = JSON.stringify(portfolioSections);
       portfolioSections[0].id;
     let selectedIndex = 0;
     let lastCarouselTrigger = openButtons[0];
+    const backgroundState = new Map();
 
     const getActiveSection = () =>
       portfolioSections.find((section) => section.id === activeSectionId) ??
@@ -382,20 +383,40 @@ const portfolioJson = JSON.stringify(portfolioSections);
 
     const openCarousel = (trigger) => {
       if (!carousel || !closeButton || !portfolioContent) return;
+      if (!carousel.hidden) return;
 
       lastCarouselTrigger = trigger;
       carousel.hidden = false;
-      portfolioContent.setAttribute("aria-hidden", "true");
-      portfolioContent.inert = true;
       closeButton.focus();
+
+      // Isolate every branch outside the modal, including the site layout.
+      // Preserve each element's state so closing never enables hidden content.
+      let branch = carousel;
+      while (branch.parentElement) {
+        for (const sibling of branch.parentElement.children) {
+          if (sibling === branch || !(sibling instanceof HTMLElement)) continue;
+          backgroundState.set(sibling, {
+            inert: sibling.inert,
+            ariaHidden: sibling.getAttribute("aria-hidden"),
+          });
+          sibling.inert = true;
+          sibling.setAttribute("aria-hidden", "true");
+        }
+        branch = branch.parentElement;
+        if (branch === document.body) break;
+      }
     };
 
     const closeCarousel = () => {
       if (!carousel || !portfolioContent) return;
 
       carousel.hidden = true;
-      portfolioContent.removeAttribute("aria-hidden");
-      portfolioContent.inert = false;
+      for (const [element, state] of backgroundState) {
+        element.inert = state.inert;
+        if (state.ariaHidden === null) element.removeAttribute("aria-hidden");
+        else element.setAttribute("aria-hidden", state.ariaHidden);
+      }
+      backgroundState.clear();
       lastCarouselTrigger?.focus();
     };
 
@@ -432,6 +453,21 @@ const portfolioJson = JSON.stringify(portfolioSections);
 
     document.addEventListener("keydown", (event) => {
       if (!carousel || carousel.hidden) return;
+
+      if (event.key === "Tab") {
+        const controls = [closeButton, previousButton, nextButton].filter(
+          Boolean,
+        );
+        const first = controls[0];
+        const last = controls[controls.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last?.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first?.focus();
+        }
+      }
 
       if (event.key === "Escape") {
         event.preventDefault();

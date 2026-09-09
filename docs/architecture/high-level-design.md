@@ -1,7 +1,7 @@
 # Yulia Balenko Artist Portfolio — High-Level Design
 
 **Status:** Draft v0.10
-**Updated:** September 7, 2026
+**Updated:** September 9, 2026
 **Related documents:** [Business Requirements](../requirements/business.md), [Technical Requirements](../requirements/technical.md)  
 **Style:** Code-managed static website with contact and subscription APIs
 
@@ -207,9 +207,11 @@ sequenceDiagram
 
 ### Browser test architecture
 
+Frontend CI keeps one retry for diagnostics and invokes Playwright with `--fail-on-flaky-tests`, so both persistent failures and tests that pass only on retry fail the job (D-061). Local test defaults remain unchanged.
+
 [Milestone 9](../milestones/milestone-9.md) adds a Playwright/TypeScript suite against locally served production Astro output, run locally and in pull-request CI. The implemented Home and Portfolio suites use installed Chrome with three viewport projects and an isolated production build in `.playwright/site/` with the contact API URL forced empty. Separate configured/mock Contacts builds remain planned. Firefox/WebKit automation is deferred; Safari manual checks are separate from Chrome emulation. Deterministic public-asset fixtures and request interception keep routine browser runs independent of live AWS services and prevent real message delivery. Generated reports and traces are CI/local diagnostics, not public website assets.
 
-The test code uses Page Object Model: TypeScript page/component objects encapsulate UI locators and actions, specs hold scenarios and assertions, and test-scoped fixtures provide object instances and mocks. Shared header/footer components use composition; Home and Portfolio carousel components remain distinct. The same objects run locally and in GitHub Actions with configuration selecting browser/viewport and server mode. See [technical requirements §11](../requirements/technical.md#page-object-model-pom).
+The test code uses Page Object Model: TypeScript page/component objects encapsulate UI locators and actions, specs hold scenarios and assertions, and test-scoped fixtures provide object instances and mocks. HomePage and PortfolioPage compose SiteLayout, which owns shared header/footer objects, main, and the skip link. A parameterized shared layout spec runs the same expectations independently on Home and Portfolio; page tags include these checks in page-specific commands. Page-specific carousel components and modal integration tests remain separate (D-062). The same objects run locally and in GitHub Actions with configuration selecting browser/viewport and server mode. See [technical requirements §11](../requirements/technical.md#page-object-model-pom).
 
 The browser suite covers current public pages, navigation, Portfolio interactions, PDF-link behavior, responsive layouts, and Contacts UI states. The implemented [Portfolio scenario catalog](../testing/portfolio-test-cases.md) maps gallery and carousel behavior to `PortfolioPage` and `PortfolioCarousel`. [Milestone 8](../milestones/milestone-8.md) continues to own Lambda/security tests, synthesized infrastructure assertions, deployed API checks, SES delivery, and privacy verification. This adds development tooling without changing the production architecture.
 

@@ -16,6 +16,7 @@ The owner approved starting M9 implementation with Home page tests using POM on 
 - Keep backend tests, security remediation, infrastructure assertions, deployed API checks, and actual SES delivery verification in [Milestone 8](./milestone-8.md).
 - Keep Exhibitions disabled and mailing-list signup hidden and deferred.
 - Record the testing boundary in D-057 and the documentation request in CR-068.
+- Keep one CI retry for diagnosis, but fail CI if any test passes only on retry using `--fail-on-flaky-tests` (D-061, CR-076).
 
 ## 1. Scope
 
@@ -39,27 +40,29 @@ The owner approved starting M9 implementation with Home page tests using POM on 
 ## 3. Technical baseline
 
 - Run browser tests against a locally served production Astro build, using the repository's supported Node/npm environment.
-- `playwright.config.ts`, the Home suite, and the Portfolio suite under `tests/e2e/` are implemented. The GitHub workflow runs both suites pending its first remote run. The [Home case catalog](../testing/home-test-cases.md) maps 22 cases and the [Portfolio case catalog](../testing/portfolio-test-cases.md) maps 29 cases.
+- `playwright.config.ts`, the Home, Portfolio, and shared layout suites under `tests/e2e/` are implemented. Earlier GitHub runs succeeded; the updated flaky-test policy awaits remote verification. The [Home catalog](../testing/home-test-cases.md) maps 16 page-specific cases, the [Portfolio catalog](../testing/portfolio-test-cases.md) maps 31, and the [shared layout catalog](../testing/shared-layout-test-cases.md) maps 11 scenarios on each page: 207 executions across three projects.
 - Provide separate builds/server configurations for the unconfigured Contacts form and the form configured with a test-only API URL. Do not inherit a production API URL from the developer environment.
 - Intercept contact requests with deterministic responses and use synthetic visitor data. An unexpected contact request must fail the test instead of reaching a live API.
 - Make ordinary regression runs independent of live S3 images, PDFs, social sites, and AWS credentials by using fixtures and request interception where needed. Keep real asset availability checks separate.
 - Initial matrix: installed Chrome via `channel: "chrome"`, using `chrome-desktop` (1440 × 1000), `chrome-mobile` (390 × 844 mobile/touch emulation), and `chrome-tablet` (768 × 1024 with touch). Owner requested using existing browsers; Firefox/WebKit automation is deferred. Playwright cannot drive installed Safari directly. Emulation does not close the broader technical requirements §10 browser/device checks.
 - Prefer accessible locators and assertions of visitor-visible outcomes. Avoid fixed sleeps and assertions tied to incidental markup or exact artwork counts.
 - Keep generated reports, traces, and screenshots out of Git. Bound CI artifact retention and use only synthetic contact data in diagnostics.
-- Local commands: `npm run test:e2e:check`, `npm run test:e2e:home`, `npm run test:e2e`, `npm run test:e2e:ui`, and `npm run test:e2e:report`. The suite uses two workers, 30-second tests, 5-second assertions, no local retries, one retry in CI, HTML reports, and failure screenshots/traces. CI is configured to retain diagnostics for seven days; remote upload and retrieval remain unverified.
+- Local commands: `npm run test:e2e:check`, `npm run test:e2e:home`, `npm run test:e2e:portfolio`, `npm run test:e2e:layout`, `npm run test:e2e`, `npm run test:e2e:ui`, and `npm run test:e2e:report`. The suite uses two workers, 30-second tests (60 seconds for the six-journey SHARED-08 keyboard case), 5-second assertions, no local retries, one retry in CI, HTML reports, and failure screenshots/traces. CI is configured to retain diagnostics for seven days; remote upload and retrieval remain unverified.
 - The current test server builds to ignored `.playwright/site/` and serves `127.0.0.1:4322` with `PUBLIC_CONTACT_API_URL` forced empty; an existing server is not reused. Configured/mock Contacts builds are still open.
 
 ### Page Object Model structure
 
 Follow [technical requirements §11](../requirements/technical.md#page-object-model-pom). Page/component objects contain locators and visitor actions; specs contain scenarios and expected outcomes. Fixtures create objects per test and own deterministic network/time setup. Use composition for shared UI and keep Home carousel and Portfolio carousel behavior separate.
 
-Structure (HomePage, SiteHeader, SiteFooter, HomeCarousel, fixtures, and Home specs now exist; other objects will be added as needed):
+HomePage and PortfolioPage compose SiteLayout, which owns SiteHeader, SiteFooter, main, and skip-link locators. Shared specs are parameterized through a test-scoped page fixture. `@home` and `@portfolio` tags select page-specific and shared coverage together; existing case IDs are retained and migrated cases are mapped in the shared catalog (D-062, CR-078).
+
+Structure (Home/Portfolio/shared layout objects and specs exist; remaining page objects will be added as needed):
 
 ```text
 tests/e2e/
   pages/          HomePage, PortfolioPage, ContactsPage,
                   ResumePage (fallback), ExhibitionsPage (disabled)
-  components/     SiteHeader, SiteFooter, HomeCarousel, PortfolioCarousel
+  components/     SiteLayout, SiteHeader, SiteFooter, HomeCarousel, PortfolioCarousel
   fixtures/       Test-scoped objects, API mocks, public-asset fixtures
   specs/          Page journeys, shared navigation, responsive checks
 ```
@@ -125,7 +128,7 @@ M9 is complete when:
 - All in-scope journeys pass across the documented browser/viewport matrix; coverage is mapped to the implementation checklist.
 - Both Contacts configuration modes are exercised, and all contact responses are mocked without live API calls or email delivery.
 - Tests run without AWS credentials and ordinary regression results do not depend on live external assets.
-- Pull-request CI executes the suite, exposes failures, and retains useful diagnostics for a documented bounded period.
+- Pull-request CI executes the suite, fails for persistent failures and tests that pass only on retry, and retains useful diagnostics for a documented bounded period.
 - Keyboard, focus, carousel URL/restoration, responsive layout, and configured PDF-link behavior have recorded results.
 - Backend test obligations and M8 release gates remain intact; mocked browser success is not counted as actual delivery/security verification.
 - Every implementation task is verified, evidence and limitations are recorded, and status/README documentation is consistent. Unverified CI execution remains open until evidence is available.
@@ -149,11 +152,19 @@ M9 is complete when:
 
 ## Verification record
 
-**Date:** 2026-09-08
-**Result:** In progress — Home and Portfolio suites implemented and passed locally in the initial Chrome matrix.
+**Date:** 2026-09-09
+**Result:** In progress — shared layout migration implemented; initial desktop checks exposed a carousel focus-containment defect, now fixed pending the full matrix.
 
 ### Automated checks
 
+- Shared layout discovery checks: `npm run test:e2e:home -- --list` selects 81 executions, `npm run test:e2e:portfolio -- --list` selects 126, and `npm run test:e2e:layout -- --list` selects 66. Python set comparisons verified the page commands are disjoint and their union equals all 207 tests. Catalog checks matched all 16 Home, 31 Portfolio, and 11 shared IDs; 106 relative documentation links resolved.
+- Shared layout initial desktop run: `npm run test:e2e -- --project=chrome-desktop --grep 'SHARED|PORTFOLIO-3[012]'` — 24/25 passed in 2.4 minutes; PORTFOLIO-31 demonstrated that Tab escaped the carousel. Local failure diagnostics are retained under ignored `.playwright/shared-layout-initial-desktop/`. The first sandboxed attempt could not bind port 4322; the approved browser run produced the result above.
+- Shared layout type/build checks: `npm run test:e2e:check` — passed; `npm run check` — 0 errors, warnings, or hints. `npm run test:e2e -- --list` discovers 207 executions in three files.
+- 2026-09-09 CI documentation move: `npm run format:check` and `git diff --check` — passed. Python checks resolved all 76 relative links across the seven affected documents, confirmed the Home CI section was removed and all 22 Home cases remained, and verified M9 still has 11/24 completed tasks.
+- 2026-09-09 final checks: `npm run format:check`, `npm run test:e2e:check`, and `git diff --check` — passed after the CI policy and documentation updates.
+- `node /private/tmp/artist-portfolio-verify-flaky-ci.cjs` — passed four local exit-status checks using the installed Playwright runner and `CI=true`. Two temporary tests asserted `expect(testInfo.retry).toBe(1)`: each failed attempt 0 and passed attempt 1. The old `npm run test:e2e` command exited 0; the updated workflow command `npm run test:e2e -- --fail-on-flaky-tests` exited 1. A clean passing control exited 0, and a persistent failure failed both attempts and exited 1. JSON reports verified test counts, classifications, retry numbers, and attempt statuses; no runner errors occurred.
+- The emulation parsed the actual workflow command and inherited the repository's CI retry configuration. An isolated temporary config selected only synthetic tests and disabled the Astro server/browser use because this check targets runner exit behavior. The initial harness filter matched no tests; removing its incorrect start anchor corrected the harness before the four checks passed. Temporary spec/config files were removed. Logs and JSON evidence remain locally in ignored `.playwright/ci-flake-verification-wVa8oU/`; the harness is local-only under `/private/tmp/`.
+- Workflow YAML parse and policy assertions — passed; no step/job `continue-on-error`, and diagnostics still run under `${{ !cancelled() }}`. This is local verification, not a GitHub execution of the updated workflow.
 - `npm run format:check` — passed after formatting the documentation updates.
 - `git diff --check` — passed.
 - Python documentation check during planning — all relative Markdown links in the nine planning documents resolved; checklist counts at that point were M9 0/24 and M8 45/57.
@@ -174,6 +185,10 @@ M9 is complete when:
 
 ### Manual checks
 
+- Shared layout rework (CR-078/D-062): migrated HOME-05–09/20 and PORTFOLIO-03 to shared cases with IDs preserved in the catalogs; retained Home content/carousel/layout/no-JavaScript checks and Portfolio gallery checks. Reused PortfolioPage for the second-page URL restoration test. Fixed the exposed carousel defect by isolating all sibling branches outside the modal, preserving prior inert/aria-hidden states, and wrapping Tab/Shift+Tab within its controls. M9 remains 11/24 because other public-page and remote-CI acceptance tasks are still open.
+- 2026-09-09 documentation reorganization (CR-077): moved all three CI guidance paragraphs from Home test cases into the shared [Frontend CI guide](../testing/frontend-ci.md); Home now links to it, as do both READMEs. Workflow behavior, M9 progress (11/24), blockers, and next action are unchanged.
+- Read-only GitHub API inspection confirmed successful earlier pull-request runs [#2](https://github.com/ybalenko/artist-portfolio-website/actions/runs/34309615557) and [#3](https://github.com/ybalenko/artist-portfolio-website/actions/runs/34312999144), both on September 8 Pacific time. Detailed log access returned HTTP 403, so the reported two original failures and artifact contents remain unverified. Historical first-run limitations below describe the earlier implementation sessions.
+- Reviewed both READMEs, technical requirements, architecture, and the Home CI guide; synchronized the stricter CI policy and remaining remote checks. M9 remains 11/24 tasks (46%); no additional acceptance task is complete from local exit-status emulation alone.
 - Reviewed technical requirements §§9–11 and M8 test/release obligations; M9 covers browser regression testing and keeps backend verification in M8.
 - Reviewed business requirements; this milestone adds quality tooling without changing visitor-facing product scope.
 - At planning completion, M8 was active at 45/57 tasks and M9 had 24 unchecked tasks. M9 Home implementation is now active; M8 retains its 45/57 backend progress and release gates.
@@ -185,8 +200,8 @@ M9 is complete when:
 
 ### Known limitations
 
-- Home and Portfolio tests and local scripts exist. Resume, disabled Exhibitions, Contacts, and GitHub Actions execution evidence remain open.
-- The GitHub Actions workflow exists, but its first remote run and branch-protection requirement have not been verified or configured. Until the check is required in GitHub, a repository administrator can still merge a pull request whose test job fails.
+- Home and Portfolio tests and local scripts exist. Resume, disabled Exhibitions, Contacts, remote verification of the updated flaky-test policy, and artifact inspection remain open. The reorganized full browser suite is undergoing local verification with the strict CI policy.
+- Earlier GitHub runs succeeded, but the updated workflow has not been pushed or run remotely and branch protection remains unverified. Until the check is required in GitHub, merging a pull request whose test job fails may still be possible.
 - Browser downloads were declined; the initial suite uses installed Chrome. Safari, Firefox, and WebKit have not been verified.
 - Current M7 public verification and M8 backend blockers remain tracked in their existing milestones.
 

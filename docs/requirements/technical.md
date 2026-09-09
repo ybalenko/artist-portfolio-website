@@ -1,7 +1,7 @@
 # Yulia Balenko Artist Portfolio — Technical Requirements
 
 **Status:** Draft v0.9
-**Updated:** September 7, 2026
+**Updated:** September 9, 2026
 **Related documents:** [Business Requirements](./business.md), [High-Level Design](../architecture/high-level-design.md)  
 **Selected stack:** Astro, TypeScript, AWS
 
@@ -91,7 +91,7 @@ Primary navigation is Home, Portfolio, Resume, and Contacts while Exhibitions is
 - Carousel URL state must identify the selected image and support refresh/share.
 - Provide visible previous, next, and close controls.
 - Move focus into the carousel when opened and restore it to the originating thumbnail when closed.
-- Make background content inert while open.
+- Make all background content inert while the carousel is open, including shared header/footer, skip link, and section controls. Keep Tab/Shift+Tab focus inside the modal and restore previous background states when it closes.
 - Support keyboard control and optional touch swipe without requiring gestures.
 - Provide meaningful alternative text for every image.
 - Generate responsive variants with explicit dimensions to prevent layout shift.
@@ -181,7 +181,7 @@ The current Milestone 8 backend stores only short-lived throttling fingerprints 
 - GitHub is the canonical source repository.
 - Pin Node, Astro, and package versions and commit the lockfile.
 - Pull requests run formatting, type checks, content validation, tests, security checks, and `astro build`.
-- Milestone 9 runs Playwright browser regression tests against local production output in GitHub Actions for pull requests targeting `main`. Browser failures fail the `Playwright browser tests` job. The workflow uses read-only repository permissions, no AWS credentials, installed runner Chrome, and seven-day report/trace retention. Its first remote execution and required-status configuration remain open M9 verification tasks.
+- Milestone 9 runs Playwright browser regression tests against local production output in GitHub Actions for pull requests targeting `main`. Persistent failures and tests that pass only on retry fail the `Playwright browser tests` job: keep one CI retry and run `npm run test:e2e -- --fail-on-flaky-tests` (D-061). The workflow uses read-only repository permissions, no AWS credentials, installed runner Chrome, and seven-day report/trace retention. Earlier remote runs succeeded; remote verification of the updated policy, artifact inspection, and required-status configuration remain open M9 tasks.
 - Dependency audits must have no unresolved high or critical production finding before deployment. Forced or major upgrades require review and regression testing.
 - Merging to production triggers Amplify deployment.
 - Use Amplify's integration or GitHub OIDC rather than stored AWS keys.
@@ -222,7 +222,7 @@ The initial M9 matrix uses installed Google Chrome (`channel: "chrome"`) at desk
 
 - Organize the M9 Playwright/TypeScript browser suite using Page Object Model (D-058). This is test-code organization and requires no production architecture change or additional POM framework.
 - Page objects own reusable locators, navigation, and visitor actions for Home, Portfolio, Contacts, the Resume fallback, and the disabled Exhibitions page as their tests are added. The external PDF is a link destination, not a website page object.
-- Compose shared navigation/header and footer component objects into page objects as needed. Keep the Home automatic carousel and Portfolio lightbox as separate components because their interactions differ.
+- Compose shared navigation/header and footer component objects through `SiteLayout` in Home and Portfolio page objects. Run common layout assertions through a parameterized suite on each page; keep page-specific integration scenarios in the page specs and include matching shared cases in page-specific commands (D-062). Keep the Home automatic carousel and Portfolio lightbox as separate components because their interactions differ.
 - Keep scenario setup, expected results, and Playwright assertions in spec files; expose typed locators from page/component objects for retrying assertions. Do not make a page object decide what a scenario should expect.
 - Use semantic role/label locators where available. Add stable test IDs only where semantic locators cannot reliably identify an element. Avoid fixed sleeps, cached element handles, and generic wrappers around every Playwright operation.
 - Create page/component objects through test-scoped Playwright fixtures using that test's Page and browser context. Keep mock responses, asset fixtures, and controlled-time setup in fixtures/helpers, separate from UI objects; no mutable page-object instances shared across tests.

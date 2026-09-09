@@ -1,21 +1,24 @@
 import type { Page } from "@playwright/test";
 import { HomeCarousel } from "../components/HomeCarousel";
-import { SiteHeader } from "../components/SiteHeader";
-import { SiteFooter } from "../components/SiteFooter";
+import { SiteLayout } from "../components/SiteLayout";
 
 export class HomePage {
-  readonly header: SiteHeader;
-  readonly footer: SiteFooter;
+  readonly layout: SiteLayout;
   readonly carousel: HomeCarousel;
 
   constructor(readonly page: Page) {
-    this.header = new SiteHeader(page);
-    this.footer = new SiteFooter(page);
+    this.layout = new SiteLayout(page);
     this.carousel = new HomeCarousel(page);
   }
 
   get main() {
-    return this.page.getByRole("main");
+    return this.layout.main;
+  }
+  get header() {
+    return this.layout.header;
+  }
+  get footer() {
+    return this.layout.footer;
   }
   get heading() {
     return this.main.getByRole("heading", {
@@ -38,10 +41,6 @@ export class HomePage {
       .getByRole("complementary", { name: "Artist portrait" })
       .getByRole("img");
   }
-  get skipLink() {
-    return this.page.getByRole("link", { name: "Skip to main content" });
-  }
-
   async goto() {
     return this.page.goto("/");
   }

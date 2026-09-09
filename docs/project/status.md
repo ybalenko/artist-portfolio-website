@@ -1,7 +1,7 @@
 # Project Status
 
-**Last updated:** September 8, 2026
-**Current phase:** Milestone 9 public-page browser test implementation
+**Last updated:** September 9, 2026
+**Current phase:** Milestone 9 shared layout browser test implementation
 **Current milestone:** Milestone 9 — Automated website testing with Playwright (in progress)
 
 ## Milestone overview
@@ -54,9 +54,9 @@ Future milestone boundaries are provisional until their plans are approved.
 - **Status:** In progress; owner approved starting with Home page tests using POM. M8 retains unfinished backend work.
 - **Progress source:** Checked implementation tasks in [Milestone 9](../milestones/milestone-9.md), currently 11/24 (46%).
 - **Target:** Browser regression tests for current public pages and responsive layouts, with mocked Contacts API responses and local/pull-request CI execution.
-- **Open blockers:** The GitHub workflow needs its first pull-request run before CI execution and artifact retrieval can be verified. Making it a required merge check needs a GitHub repository setting. Existing M7 deployment and M8 backend blockers remain in their milestones; other page coverage is unfinished M9 work.
+- **Open blockers:** Earlier GitHub pull-request runs succeeded; the updated flaky-test failure policy is verified locally and awaits a remote run and artifact inspection. Making the job a required merge check needs a GitHub repository setting. Existing M7 deployment and M8 backend blockers remain in their milestones; other page coverage is unfinished M9 work.
 - **Boundary:** Backend security tests, infrastructure assertions, deployed API checks, and real SES delivery verification stay in M8.
-- **Next action:** Implement Resume and disabled Exhibitions browser journeys, followed by configured/unconfigured Contacts testing. The workflow's first pull-request run, artifact inspection, and required `main` status check remain open.
+- **Next action:** Verify the updated workflow on GitHub and inspect its artifacts after an approved push; configure the required `main` status check separately. Continue Resume and disabled Exhibitions journeys, followed by configured/unconfigured Contacts testing.
 
 ## Project-level open decisions
 
@@ -77,6 +77,8 @@ See the [Decision log](./decisions.md) for resolved decisions and [Project proce
 
 | Date       | Update                                                            |
 | ---------- | ----------------------------------------------------------------- |
+| 2026-09-09 | Moved shared CI guidance to a separate testing document           |
+| 2026-09-09 | Verified CI rejects flaky tests with temporary retry emulation    |
 | 2026-09-08 | Stabilized HOME-17 reduced-motion event synchronization           |
 | 2026-09-08 | Passed 87 Portfolio tests and fixed mobile carousel controls      |
 | 2026-09-08 | Defined 29 Portfolio page Playwright scenarios using POM          |
