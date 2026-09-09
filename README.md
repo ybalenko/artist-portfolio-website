@@ -2,7 +2,7 @@
 
 An artwork-first website for artist **Yulia Balenko**, built as a simple static portfolio for an amateur artist. The site presents an artist statement, an image portfolio, a résumé PDF, and visitor contact options; Exhibitions are scaffolded but temporarily disabled.
 
-> **Project status:** Milestones 1, 2, 3, 5, and 6 are complete. Milestone 7, AWS deployment and cloud Portfolio images, is blocked at **31/43 tasks (72%)** until Amplify URL/build-status evidence is recorded. Milestone 8, protected Leave a message form, is in progress at **45/57 tasks (79%)**. Its bypassable throttle finding is fixed locally with a stable salted network throttle, API-stage throttling, and Lambda concurrency limits; other security remediation remains required before deployment. Press has been removed from scope, Exhibitions are hidden behind a feature flag, Turnstile/CAPTCHA is deferred for now, and mailing-list signup is hidden/deferred. Milestone 9, automated website testing with Playwright, is in progress at **7/24 tasks (29%)**; all 66 Home executions pass locally, and GitHub pull-request CI is defined pending its first remote run. Backend testing remains in M8. Track current progress in [Project status](./docs/project/status.md).
+> **Project status:** Milestones 1, 2, 3, 5, and 6 are complete. Milestone 7, AWS deployment and cloud Portfolio images, is blocked at **31/43 tasks (72%)** until Amplify URL/build-status evidence is recorded. Milestone 8, protected Leave a message form, is in progress at **45/57 tasks (79%)**. Its bypassable throttle finding is fixed locally with a stable salted network throttle, API-stage throttling, and Lambda concurrency limits; other security remediation remains required before deployment. Press has been removed from scope, Exhibitions are hidden behind a feature flag, Turnstile/CAPTCHA is deferred for now, and mailing-list signup is hidden/deferred. Milestone 9, automated website testing with Playwright, is in progress at **11/24 tasks (46%)**; all 66 Home and 87 Portfolio executions pass locally, and GitHub pull-request CI is defined pending its first remote run. Backend testing remains in M8. Track current progress in [Project status](./docs/project/status.md).
 
 ## Vision
 
@@ -27,7 +27,7 @@ The portfolio takes inspiration from the restrained, image-led presentation of t
 
 ## Remaining work
 
-- Extend the M9 Home POM suite to the remaining pages, mocked Contacts states, and pull-request CI.
+- Extend the M9 Home and Portfolio POM suites to Resume, disabled Exhibitions, and mocked Contacts states; verify pull-request CI.
 - Record the Amplify app URL and build status.
 - Verify the deployed public site, especially Portfolio cloud images, Resume PDF navigation, and the disabled Exhibitions fallback.
 - Remediate and verify the documented contact-form security findings before deploying the API or configuring Amplify with `PUBLIC_CONTACT_API_URL`.
@@ -68,15 +68,11 @@ The architecture is code-managed and static-first: Home, Exhibitions, Portfolio,
 - [Project backlog](./docs/project/backlog.md) — future work that has not been moved into an active milestone
 - [Change request log](./docs/project/change-requests.md) — user-requested scope, design, process, and rework changes
 - [Decision log](./docs/project/decisions.md) — approved project and milestone decisions
-- [AWS Amplify deployment runbook](./docs/deployment/aws-amplify.md) — deployment steps and settings
-- [Portfolio and Home cloud image runbook](./docs/deployment/portfolio-images.md) — cloud image upload and metadata workflow
-- [Leave a message form runbook](./docs/deployment/contact-form.md) — Contacts API, SES, and environment setup notes
+- [Deployment runbooks](./docs/deployment/) — hosting, cloud images, contact infrastructure, and content deployment guidance
 - [Contact form security review](./docs/security/contact-form-review.md) — findings, evidence, remediation, and release gate
 - [Portfolio manifest design](./docs/deployment/portfolio-manifest.md) — local/S3 JSON catalog for Portfolio images and metadata
-- [Milestone 6](./docs/milestones/milestone-6.md) — completed Resume PDF navigation milestone
-- [Milestone 8](./docs/milestones/milestone-8.md) — protected Leave a message form milestone
-- [Milestone 9](./docs/milestones/milestone-9.md) — Playwright browser testing scope, checklist, and verification
-- [Home test cases](./docs/testing/home-test-cases.md) — 22 cases, POM layout, fixtures, and local execution
+- [Milestone plans](./docs/milestones/) — scope, checklists, acceptance criteria, and verification records
+- [Playwright test cases](./docs/testing/) — page scenario catalogs, POM mappings, fixtures, and execution guidance
 - [Agent instructions](./AGENTS.md) — required workflow for future coding agents
 
 ## Local development
@@ -106,13 +102,15 @@ The Home browser suite uses Playwright and Page Object Model (POM), with the sam
 npm run test:e2e:check # Check test/config TypeScript
 npm run test:e2e:home -- --project=chrome-desktop # Start with desktop Chrome
 npm run test:e2e:home # All 22 Home cases across three Chrome viewport projects
+npm run test:e2e:portfolio # All 29 Portfolio cases across three Chrome viewport projects
+npm run test:e2e       # All implemented browser suites
 npm run test:e2e:home -- --project=chrome-desktop --headed --workers=1 # Watch tests run
 npm run test:e2e:ui   # Interactive runner
 npm run test:e2e:home -- --project=chrome-desktop --grep HOME-12 --debug # Step through one case
 npm run test:e2e:report # Open the latest HTML report
 ```
 
-The suite builds into ignored `.playwright/site/`, starts a preview server at `127.0.0.1:4322`, and forces the contact API URL empty. Image/PDF/social responses are fixtures; ordinary tests make no live contact requests. Reports/traces are ignored locally. [Frontend CI](./.github/workflows/frontend-ci.yml) runs the same Home suite for pull requests targeting `main` and retains diagnostics for seven days. Its first GitHub run and required-status setting remain open. See [Home test cases and setup](./docs/testing/home-test-cases.md) for details. Other page suites remain M9 work. `npm run contact:test` remains backend testing under M8.
+The suite builds into ignored `.playwright/site/`, starts a preview server at `127.0.0.1:4322`, and forces the contact API URL empty. Image/PDF/social responses are fixtures; ordinary tests make no live contact requests. Reports/traces are ignored locally. [Frontend CI](./.github/workflows/frontend-ci.yml) runs the Home and Portfolio suites for pull requests targeting `main` and retains diagnostics for seven days. Its first GitHub run and required-status setting remain open. See the [Playwright test cases](./docs/testing/) for page coverage. Resume, disabled Exhibitions, and Contacts suites remain M9 work. `npm run contact:test` remains backend testing under M8.
 
 ## Roadmap
 

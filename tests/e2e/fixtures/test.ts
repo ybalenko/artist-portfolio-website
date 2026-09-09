@@ -5,6 +5,7 @@ import {
 } from "../../../src/data/homeCarousel";
 import { resume } from "../../../src/data/resume";
 import { HomePage } from "../pages/HomePage";
+import { PortfolioPage } from "../pages/PortfolioPage";
 
 const imageUrls = new Set([
   homeArtistPortrait.src,
@@ -15,6 +16,7 @@ const imageFixture =
 
 export const test = base.extend<{
   home: HomePage;
+  portfolio: PortfolioPage;
   networkGuard: void;
   runtimeErrors: void;
   carouselClock: void;
@@ -80,6 +82,9 @@ export const test = base.extend<{
   ],
   home: async ({ page }, use) => {
     await use(new HomePage(page));
+  },
+  portfolio: async ({ page }, use) => {
+    await use(new PortfolioPage(page));
   },
   carouselClock: async ({ page }, use) => {
     await page.emulateMedia({ reducedMotion: "no-preference" });

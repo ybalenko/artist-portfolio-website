@@ -3,7 +3,7 @@
 **Status:** In progress  
 **Created:** September 7, 2026  
 **Milestone goal:** Add repeatable browser regression tests for the current public website, runnable locally and in pull-request CI, using Playwright and TypeScript.  
-**Implementation progress:** 7/24 tasks — 29%
+**Implementation progress:** 11/24 tasks — 46%
 
 The owner approved starting M9 implementation with Home page tests using POM on September 7, 2026. M8 retains unfinished backend work and its release gates.
 
@@ -39,14 +39,14 @@ The owner approved starting M9 implementation with Home page tests using POM on 
 ## 3. Technical baseline
 
 - Run browser tests against a locally served production Astro build, using the repository's supported Node/npm environment.
-- `playwright.config.ts` and the Home suite under `tests/e2e/` are implemented. A GitHub workflow under `.github/workflows/` remains planned. The [Home case catalog](../testing/home-test-cases.md) maps all 22 cases and documents local execution.
+- `playwright.config.ts`, the Home suite, and the Portfolio suite under `tests/e2e/` are implemented. The GitHub workflow runs both suites pending its first remote run. The [Home case catalog](../testing/home-test-cases.md) maps 22 cases and the [Portfolio case catalog](../testing/portfolio-test-cases.md) maps 29 cases.
 - Provide separate builds/server configurations for the unconfigured Contacts form and the form configured with a test-only API URL. Do not inherit a production API URL from the developer environment.
 - Intercept contact requests with deterministic responses and use synthetic visitor data. An unexpected contact request must fail the test instead of reaching a live API.
 - Make ordinary regression runs independent of live S3 images, PDFs, social sites, and AWS credentials by using fixtures and request interception where needed. Keep real asset availability checks separate.
 - Initial matrix: installed Chrome via `channel: "chrome"`, using `chrome-desktop` (1440 × 1000), `chrome-mobile` (390 × 844 mobile/touch emulation), and `chrome-tablet` (768 × 1024 with touch). Owner requested using existing browsers; Firefox/WebKit automation is deferred. Playwright cannot drive installed Safari directly. Emulation does not close the broader technical requirements §10 browser/device checks.
 - Prefer accessible locators and assertions of visitor-visible outcomes. Avoid fixed sleeps and assertions tied to incidental markup or exact artwork counts.
 - Keep generated reports, traces, and screenshots out of Git. Bound CI artifact retention and use only synthetic contact data in diagnostics.
-- Local commands: `npm run test:e2e:check`, `npm run test:e2e:home`, `npm run test:e2e`, `npm run test:e2e:ui`, and `npm run test:e2e:report`. The suite uses two workers, 30-second tests, 5-second assertions, no local retries, one retry in CI, HTML reports, and failure screenshots/traces. CI upload/retention is not implemented.
+- Local commands: `npm run test:e2e:check`, `npm run test:e2e:home`, `npm run test:e2e`, `npm run test:e2e:ui`, and `npm run test:e2e:report`. The suite uses two workers, 30-second tests, 5-second assertions, no local retries, one retry in CI, HTML reports, and failure screenshots/traces. CI is configured to retain diagnostics for seven days; remote upload and retrieval remain unverified.
 - The current test server builds to ignored `.playwright/site/` and serves `127.0.0.1:4322` with `PUBLIC_CONTACT_API_URL` forced empty; an existing server is not reused. Configured/mock Contacts builds are still open.
 
 ### Page Object Model structure
@@ -82,10 +82,10 @@ Only the checkboxes in this section contribute to progress. Planning/documentati
 
 - [x] Test Home as the default route, artist statement, portrait, and current Home carousel behavior.
 - [x] Test exact primary navigation, active-page indication, internal destinations, and configured public social links.
-- [ ] Test Portfolio sections, initial selection, thumbnail selection, metadata, and configured empty states.
-- [ ] Test Portfolio carousel opening, previous/next controls, and closing.
-- [ ] Test carousel URL selection, refresh/share behavior, and gallery context restoration.
-- [ ] Test carousel keyboard controls, focus entry/restoration, and inert background behavior.
+- [x] Test Portfolio sections, initial selection, thumbnail selection, metadata, and configured empty states.
+- [x] Test Portfolio carousel opening, previous/next controls, and closing.
+- [x] Test carousel URL selection, refresh/share behavior, and gallery context restoration.
+- [x] Test carousel keyboard controls, focus entry/restoration, and inert background behavior.
 - [ ] Test Resume PDF labeling, configured destination, new-tab behavior, and fallback page link.
 - [ ] Test disabled Exhibitions fallback, absent navigation entry, and legacy route redirects.
 
@@ -150,7 +150,7 @@ M9 is complete when:
 ## Verification record
 
 **Date:** 2026-09-07  
-**Result:** In progress — Home suite implemented and passed locally in the initial Chrome matrix.
+**Result:** In progress — Home and Portfolio suites implemented and passed locally in the initial Chrome matrix.
 
 ### Automated checks
 
@@ -163,7 +163,13 @@ M9 is complete when:
 - `npm run test:e2e:home` after correcting the assertion and timer behavior — passed all 66 executions: 22 cases in installed Chrome desktop, mobile-emulated, and tablet-size projects in 3.6 minutes.
 - `npm run check` — passed with 0 errors, 0 warnings, and 0 hints after the Home carousel fix and test implementation.
 - `npm run test:e2e:ui -- --help` — passed, confirming the Playwright UI command is available. Headed and debug commands use the same installed-Chrome projects and are documented in the Home testing guide.
-- GitHub Actions workflow validation — `.github/workflows/frontend-ci.yml` parses as YAML and defines a read-only pull-request/manual workflow for `main`. It installs with `npm ci`, confirms runner Chrome, runs formatting, Astro, and test TypeScript checks plus all Home projects, and retains reports/traces for seven days. The job has not yet run on GitHub, so remote execution and artifact retrieval remain unverified.
+- GitHub Actions workflow validation — `.github/workflows/frontend-ci.yml` parses as YAML and defines a read-only pull-request/manual workflow for `main`. It installs with `npm ci`, confirms runner Chrome, runs formatting, Astro, and test TypeScript checks plus all implemented browser suites, and retains reports/traces for seven days. The job has not yet run on GitHub, so remote execution and artifact retrieval remain unverified.
+- First Portfolio desktop run — 26/29 passed; three test implementation issues were corrected without production changes.
+- Corrected Portfolio desktop run — passed all 29 cases.
+- Initial Portfolio matrix — 83/87 passed and exposed a real narrow-mobile defect where intrinsic modal content pushed Previous/Next below the fixed viewport.
+- Targeted mobile regression after constraining the carousel grid to viewport height — passed `PORTFOLIO-16`, `PORTFOLIO-17`, `PORTFOLIO-27`, and `PORTFOLIO-29`.
+- Final `npm run test:e2e:portfolio` — passed all 87 executions: 29 cases in installed Chrome desktop, mobile-emulated, and tablet-size projects in 5.8 minutes.
+- Final `npm run test:e2e` using the exact GitHub Actions command — passed all 153 implemented Home and Portfolio executions across the three Chrome projects in 9.0 minutes.
 
 ### Manual checks
 
@@ -171,12 +177,14 @@ M9 is complete when:
 - Reviewed business requirements; this milestone adds quality tooling without changing visitor-facing product scope.
 - At planning completion, M8 was active at 45/57 tasks and M9 had 24 unchecked tasks. M9 Home implementation is now active; M8 retains its 45/57 backend progress and release gates.
 - 2026-09-07 POM clarification: reviewed official Playwright POM/fixture guidance and documented page/component/spec responsibilities, test-scoped objects, and identical local/CI usage. Expanded the existing foundation task; no implementation checkbox was completed. Business scope and M8 testing ownership are unchanged.
+- 2026-09-08 Portfolio scenario design: reviewed the implemented gallery, manifest model, browser requirements, and POM boundary; documented 29 cases covering sections, empty state, representative artwork and metadata, thumbnails, modal controls, wraparound, URL restoration, keyboard/focus behavior, inert background, responsive layout, JavaScript fallback, and runtime errors. Test implementation remains open, so the checklist count is unchanged.
 - Home verification covered direct load/refresh, metadata and approved copy, exact navigation and active state, internal/external destinations, deterministic image layout, carousel order/timing/hover/reduced-motion behavior, desktop/mobile/tablet layout, keyboard/skip-link behavior, no-JavaScript fallback, and uncaught runtime errors.
 - The first browser run demonstrated failure diagnostics through an HTML report, screenshots, traces, and error context. After fixes, the complete initial matrix passed with 66/66 passing executions.
+- Portfolio verification covers three sections and the configured empty state, representative artwork/metadata, thumbnails, modal controls and wraparound, deep-link/refresh/share state, keyboard and focus restoration, inert background, responsive layout, JavaScript fallback, and runtime errors. The responsive suite found and verified a fix for mobile modal controls falling outside the viewport.
 
 ### Known limitations
 
-- Home tests and local scripts exist. Other page suites, configured Contacts test builds, and GitHub Actions workflow/execution evidence remain open.
+- Home and Portfolio tests and local scripts exist. Resume, disabled Exhibitions, Contacts, and GitHub Actions execution evidence remain open.
 - The GitHub Actions workflow exists, but its first remote run and branch-protection requirement have not been verified or configured. Until the check is required in GitHub, a repository administrator can still merge a pull request whose test job fails.
 - Browser downloads were declined; the initial suite uses installed Chrome. Safari, Firefox, and WebKit have not been verified.
 - Current M7 public verification and M8 backend blockers remain tracked in their existing milestones.
@@ -186,4 +194,4 @@ M9 is complete when:
 - Backend testing remains in M8; public deployment verification remains in M7.
 - Mailing-list/enabled Exhibitions coverage, visual baselines, full accessibility audits, and live-site/device testing remain outside the initial suite.
 
-**Next action:** Run the workflow on a GitHub pull request, inspect the report artifact, and make `Home Playwright tests` a required `main` status check; then implement the Portfolio POM suite. Backend remediation stays in M8.
+**Next action:** Implement the Resume and disabled Exhibitions browser journeys, then add configured/unconfigured Contacts test builds and mocked form scenarios. GitHub workflow verification and backend remediation remain open in M9 and M8 respectively.

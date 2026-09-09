@@ -14,10 +14,10 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  home-playwright:
-    name: Home Playwright tests
+  browser-playwright:
+    name: Playwright browser tests
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 25
 
     steps:
       - name: Check out repository
@@ -44,14 +44,14 @@ jobs:
       - name: Check Playwright TypeScript
         run: npm run test:e2e:check
 
-      - name: Run Home Playwright suite
-        run: npm run test:e2e:home
+      - name: Run Playwright browser suites
+        run: npm run test:e2e
 
       - name: Upload Playwright diagnostics
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v7
         with:
-          name: home-playwright-report-${{ github.run_attempt }}
+          name: playwright-report-${{ github.run_attempt }}
           path: |
             playwright-report/
             test-results/
