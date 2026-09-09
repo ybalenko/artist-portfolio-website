@@ -73,7 +73,6 @@ The architecture is code-managed and static-first: Home, Exhibitions, Portfolio,
 - [Portfolio manifest design](./docs/deployment/portfolio-manifest.md) — local/S3 JSON catalog for Portfolio images and metadata
 - [Milestone plans](./docs/milestones/) — scope, checklists, acceptance criteria, and verification records
 - [Playwright test cases](./docs/testing/) — page scenario catalogs, POM mappings, fixtures, and execution guidance
-- [Shared layout test cases](./docs/testing/shared-layout-test-cases.md) — common header, footer, navigation, and accessibility scenarios on Home and Portfolio
 - [Frontend CI guide](./docs/testing/frontend-ci.md) — shared workflow, flaky-test policy, artifacts, and required merge check
 - [Agent instructions](./AGENTS.md) — required workflow for future coding agents
 
