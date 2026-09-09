@@ -2,11 +2,14 @@
 
 **Milestone:** [M9 — Playwright testing](../milestones/milestone-9.md)  
 **Created:** September 8, 2026  
+**Updated:** September 9, 2026
 **Implementation:** [Portfolio specs](../../tests/e2e/specs/portfolio.spec.ts), [PortfolioPage](../../tests/e2e/pages/PortfolioPage.ts), and [PortfolioCarousel](../../tests/e2e/components/PortfolioCarousel.ts)
 
 These scenarios define the implemented Portfolio browser coverage. They follow the project's [Page Object Model requirements](../requirements/technical.md#page-object-model-pom): page and component objects own locators and visitor actions, specs own expectations, and fixtures provide deterministic external artwork responses. The same cases run in installed Chrome through the existing `chrome-desktop`, `chrome-mobile`, and `chrome-tablet` projects unless a case states otherwise.
 
 The tests should select representative published artwork from fixture data instead of depending on a fixed item count. This allows the manifest to change without weakening checks for section behavior, metadata, navigation, or accessibility. Routine tests must not depend on live S3 availability.
+
+Common header, footer, navigation, keyboard, and responsive checks run on Portfolio through the [Shared layout catalog](./shared-layout-test-cases.md). PORTFOLIO-03 has moved to SHARED-02/03; remaining IDs are retained.
 
 ## Test cases
 
@@ -14,7 +17,6 @@ The tests should select representative published artwork from fixture data inste
 | ------------ | ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
 | PORTFOLIO-01 | Open `/portfolio/` and refresh              | Both responses succeed; the Portfolio page remains visible with its selected section and artwork state restored from the URL.                     |
 | PORTFOLIO-02 | Inspect metadata and page headings          | Approved title, description, English document language, Portfolio eyebrow, and one `Selected works` H1 are present.                               |
-| PORTFOLIO-03 | Inspect primary navigation                  | Portfolio is the only active primary destination and has `aria-current="page"`; the shared navigation remains usable.                             |
 | PORTFOLIO-04 | Inspect Portfolio section controls          | Landscapes, Still life, and Other controls appear in order inside a navigation region labeled `Portfolio sections`.                               |
 | PORTFOLIO-05 | Inspect initial section                     | The first populated section is active, has `aria-current="true"`, and is the only visible gallery section.                                        |
 | PORTFOLIO-06 | Change populated section                    | Selecting another populated section makes only that control/current gallery active and selects its first published artwork.                       |
@@ -41,10 +43,13 @@ The tests should select representative published artwork from fixture data inste
 | PORTFOLIO-27 | Check responsive layout and overflow        | At each configured project size, controls, feature artwork, metadata, thumbnails, and modal remain usable with no unintended page-level overflow. |
 | PORTFOLIO-28 | Load without JavaScript                     | The initial populated gallery, selected image, metadata, and thumbnails remain visible; scripted section switching and carousel are unavailable.  |
 | PORTFOLIO-29 | Capture uncaught browser errors             | Normal section, thumbnail, carousel, hash, and close interactions produce no uncaught page errors.                                                |
+| PORTFOLIO-30 | Use layout after section changes            | Header navigation and footer Facebook remain usable in empty and populated sections; popup opening preserves the section URL.                     |
+| PORTFOLIO-31 | Isolate shared layout during carousel       | Tab and Shift+Tab wrap inside the modal; header, footer, and skip link are inert.                                                                 |
+| PORTFOLIO-32 | Restore layout after closing carousel       | Close/Escape restore background interaction and focus; Facebook preserves section/artwork/metadata; header navigation works.                      |
 
 ## POM implementation
 
-`PortfolioPage` composes the existing `SiteHeader` and `SiteFooter` objects and exposes Portfolio page, section, selected-artwork, metadata, thumbnail, and URL-state locators/actions. `PortfolioCarousel` owns the dialog, image, metadata, controls, and open/close actions. It remains separate from `HomeCarousel` because the two controls and behaviors differ.
+`PortfolioPage` composes `SiteLayout`, which owns the shared `SiteHeader` and `SiteFooter` objects, and exposes Portfolio page, section, selected-artwork, metadata, thumbnail, and URL-state locators/actions. `PortfolioCarousel` owns the dialog, image, metadata, controls, and open/close actions. It remains separate from `HomeCarousel` because the two controls and behaviors differ.
 
 `portfolio.spec.ts` contains the scenario expectations, including active/current states, metadata values, focus, inert background, URL restoration, and responsive layout. Test-scoped fixtures construct the objects and fulfill artwork requests with deterministic local responses. The fixture data exposes representative first, middle, and last published artwork for populated sections plus the configured empty section, without encoding fixed gallery totals in assertions.
 
@@ -66,4 +71,4 @@ npm run test:e2e:ui
 npm run test:e2e:report
 ```
 
-The complete Portfolio suite runs 29 cases in each of the three installed-Chrome projects, for 87 executions.
+The Portfolio spec contains 31 cases (93 executions). `npm run test:e2e:portfolio` selects these plus the 11 shared layout cases on Portfolio using `@portfolio`, for 42 cases per project and 126 executions across the three installed-Chrome projects.

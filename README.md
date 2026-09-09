@@ -2,7 +2,7 @@
 
 An artwork-first website for artist **Yulia Balenko**, built as a simple static portfolio for an amateur artist. The site presents an artist statement, an image portfolio, a résumé PDF, and visitor contact options; Exhibitions are scaffolded but temporarily disabled.
 
-> **Project status:** Milestones 1, 2, 3, 5, and 6 are complete. Milestone 7, AWS deployment and cloud Portfolio images, is blocked at **31/43 tasks (72%)** until Amplify URL/build-status evidence is recorded. Milestone 8, protected Leave a message form, is in progress at **45/57 tasks (79%)**. Its bypassable throttle finding is fixed locally with a stable salted network throttle, API-stage throttling, and Lambda concurrency limits; other security remediation remains required before deployment. Press has been removed from scope, Exhibitions are hidden behind a feature flag, Turnstile/CAPTCHA is deferred for now, and mailing-list signup is hidden/deferred. Milestone 9, automated website testing with Playwright, is in progress at **11/24 tasks (46%)**; all 66 Home and 87 Portfolio executions pass locally, and GitHub pull-request CI is defined pending its first remote run. Backend testing remains in M8. Track current progress in [Project status](./docs/project/status.md).
+> **Project status:** Milestones 1, 2, 3, 5, and 6 are complete. Milestone 7, AWS deployment and cloud Portfolio images, is blocked at **31/43 tasks (72%)** until Amplify URL/build-status evidence is recorded. Milestone 8, protected Leave a message form, is in progress at **45/57 tasks (79%)**. Its bypassable throttle finding is fixed locally with a stable salted network throttle, API-stage throttling, and Lambda concurrency limits; other security remediation remains required before deployment. Press has been removed from scope, Exhibitions are hidden behind a feature flag, Turnstile/CAPTCHA is deferred for now, and mailing-list signup is hidden/deferred. Milestone 9, automated website testing with Playwright, is in progress at **11/24 tasks (46%)**; Home and Portfolio share layout coverage through POM, with 207 executions across three Chrome projects; final local verification is in progress. Earlier GitHub pull-request runs succeeded. The updated policy fails CI for flaky tests and is verified locally; remote verification and artifact inspection remain open. Backend testing remains in M8. Track current progress in [Project status](./docs/project/status.md).
 
 ## Vision
 
@@ -73,6 +73,8 @@ The architecture is code-managed and static-first: Home, Exhibitions, Portfolio,
 - [Portfolio manifest design](./docs/deployment/portfolio-manifest.md) — local/S3 JSON catalog for Portfolio images and metadata
 - [Milestone plans](./docs/milestones/) — scope, checklists, acceptance criteria, and verification records
 - [Playwright test cases](./docs/testing/) — page scenario catalogs, POM mappings, fixtures, and execution guidance
+- [Shared layout test cases](./docs/testing/shared-layout-test-cases.md) — common header, footer, navigation, and accessibility scenarios on Home and Portfolio
+- [Frontend CI guide](./docs/testing/frontend-ci.md) — shared workflow, flaky-test policy, artifacts, and required merge check
 - [Agent instructions](./AGENTS.md) — required workflow for future coding agents
 
 ## Local development
@@ -96,13 +98,14 @@ npm run preview      # Preview the production build locally
 npm run format:check # Verify formatting
 ```
 
-The Home browser suite uses Playwright and Page Object Model (POM), with the same TypeScript page/component objects for local and future GitHub Actions execution. Use installed Google Chrome; no browser download is needed for the current setup. Safari can be checked manually; Firefox/WebKit automation is deferred.
+The browser suites use Playwright and Page Object Model (POM), with the same TypeScript page/component objects for local and GitHub Actions execution. Use installed Google Chrome; no browser download is needed for the current setup. Safari can be checked manually; Firefox/WebKit automation is deferred.
 
 ```bash
 npm run test:e2e:check # Check test/config TypeScript
 npm run test:e2e:home -- --project=chrome-desktop # Start with desktop Chrome
-npm run test:e2e:home # All 22 Home cases across three Chrome viewport projects
-npm run test:e2e:portfolio # All 29 Portfolio cases across three Chrome viewport projects
+npm run test:e2e:home # Home-specific and Home shared cases: 81 executions
+npm run test:e2e:portfolio # Portfolio-specific and Portfolio shared cases: 126 executions
+npm run test:e2e:layout # Shared layout on both pages: 66 executions
 npm run test:e2e       # All implemented browser suites
 npm run test:e2e:home -- --project=chrome-desktop --headed --workers=1 # Watch tests run
 npm run test:e2e:ui   # Interactive runner
@@ -110,7 +113,7 @@ npm run test:e2e:home -- --project=chrome-desktop --grep HOME-12 --debug # Step 
 npm run test:e2e:report # Open the latest HTML report
 ```
 
-The suite builds into ignored `.playwright/site/`, starts a preview server at `127.0.0.1:4322`, and forces the contact API URL empty. Image/PDF/social responses are fixtures; ordinary tests make no live contact requests. Reports/traces are ignored locally. [Frontend CI](./.github/workflows/frontend-ci.yml) runs the Home and Portfolio suites for pull requests targeting `main` and retains diagnostics for seven days. Its first GitHub run and required-status setting remain open. See the [Playwright test cases](./docs/testing/) for page coverage. Resume, disabled Exhibitions, and Contacts suites remain M9 work. `npm run contact:test` remains backend testing under M8.
+The suite builds into ignored `.playwright/site/`, starts a preview server at `127.0.0.1:4322`, and forces the contact API URL empty. Image/PDF/social responses are fixtures; ordinary tests make no live contact requests. Reports/traces are ignored locally. [Frontend CI](./.github/workflows/frontend-ci.yml) runs the Home, Portfolio, and shared layout suites for pull requests targeting `main` and retains diagnostics for seven days. CI keeps one retry but fails even when a test passes on retry using `npm run test:e2e -- --fail-on-flaky-tests`. Reproduce CI locally with `CI=true npm run test:e2e -- --fail-on-flaky-tests`. The updated policy still needs remote verification, artifact inspection, and the required-status setting. Page commands select `@home` or `@portfolio`, including the matching shared cases. The full command runs every case once. See the [Playwright test cases](./docs/testing/) for page coverage. Resume, disabled Exhibitions, and Contacts suites remain M9 work. `npm run contact:test` remains backend testing under M8.
 
 ## Roadmap
 

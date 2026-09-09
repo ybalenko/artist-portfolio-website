@@ -1,21 +1,24 @@
 import type { Page } from "@playwright/test";
 import { PortfolioCarousel } from "../components/PortfolioCarousel";
-import { SiteFooter } from "../components/SiteFooter";
-import { SiteHeader } from "../components/SiteHeader";
+import { SiteLayout } from "../components/SiteLayout";
 
 export class PortfolioPage {
-  readonly header: SiteHeader;
-  readonly footer: SiteFooter;
+  readonly layout: SiteLayout;
   readonly carousel: PortfolioCarousel;
 
   constructor(readonly page: Page) {
-    this.header = new SiteHeader(page);
-    this.footer = new SiteFooter(page);
+    this.layout = new SiteLayout(page);
     this.carousel = new PortfolioCarousel(page);
   }
 
   get main() {
-    return this.page.getByRole("main");
+    return this.layout.main;
+  }
+  get header() {
+    return this.layout.header;
+  }
+  get footer() {
+    return this.layout.footer;
   }
   get heading() {
     return this.main.getByRole("heading", {
