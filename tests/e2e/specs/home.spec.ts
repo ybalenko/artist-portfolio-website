@@ -217,12 +217,19 @@ test.describe("carousel timing", () => {
     await page.clock.runFor(7000);
     await expect(home.carousel.image).toHaveAttribute("src", images[1].src);
     await page.emulateMedia({ reducedMotion: "reduce" });
-    // Give the browser a rendering turn to dispatch the media-query change.
-    await page.clock.runFor(100);
+    await expect
+      .poll(() =>
+        page.evaluate(() => Reflect.get(window, "__reducedMotionChangeCount")),
+      )
+      .toBe(1);
     await page.clock.runFor(21000);
     await expect(home.carousel.image).toHaveAttribute("src", images[1].src);
     await page.emulateMedia({ reducedMotion: "no-preference" });
-    await page.clock.runFor(100);
+    await expect
+      .poll(() =>
+        page.evaluate(() => Reflect.get(window, "__reducedMotionChangeCount")),
+      )
+      .toBe(2);
     await page.clock.runFor(7000);
     await expect(home.carousel.image).toHaveAttribute("src", images[2].src);
   });

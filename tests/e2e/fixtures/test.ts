@@ -88,6 +88,19 @@ export const test = base.extend<{
   },
   carouselClock: async ({ page }, use) => {
     await page.emulateMedia({ reducedMotion: "no-preference" });
+    await page.addInitScript(() => {
+      const reducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      );
+      Reflect.set(window, "__reducedMotionChangeCount", 0);
+      reducedMotion.addEventListener("change", () => {
+        const changeCount = Reflect.get(
+          window,
+          "__reducedMotionChangeCount",
+        ) as number;
+        Reflect.set(window, "__reducedMotionChangeCount", changeCount + 1);
+      });
+    });
     const start = new Date("2026-09-07T12:00:00Z");
     await page.clock.install({ time: start });
     await page.clock.pauseAt(start);

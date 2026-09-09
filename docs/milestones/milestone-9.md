@@ -149,7 +149,7 @@ M9 is complete when:
 
 ## Verification record
 
-**Date:** 2026-09-07  
+**Date:** 2026-09-08
 **Result:** In progress — Home and Portfolio suites implemented and passed locally in the initial Chrome matrix.
 
 ### Automated checks
@@ -170,6 +170,7 @@ M9 is complete when:
 - Targeted mobile regression after constraining the carousel grid to viewport height — passed `PORTFOLIO-16`, `PORTFOLIO-17`, `PORTFOLIO-27`, and `PORTFOLIO-29`.
 - Final `npm run test:e2e:portfolio` — passed all 87 executions: 29 cases in installed Chrome desktop, mobile-emulated, and tablet-size projects in 5.8 minutes.
 - Final `npm run test:e2e` using the exact GitHub Actions command — passed all 153 implemented Home and Portfolio executions across the three Chrome projects in 9.0 minutes.
+- HOME-17 flake regression — after replacing the fixed 100 ms assumption with synchronization on an observed reduced-motion media-query event, `HOME-17` passed 10/10 consecutive desktop repetitions and the full `npm run test:e2e:home` passed all 66 executions across the three Chrome projects in 4.0 minutes.
 
 ### Manual checks
 

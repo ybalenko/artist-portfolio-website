@@ -77,6 +77,7 @@ See the [Decision log](./decisions.md) for resolved decisions and [Project proce
 
 | Date       | Update                                                            |
 | ---------- | ----------------------------------------------------------------- |
+| 2026-09-08 | Stabilized HOME-17 reduced-motion event synchronization           |
 | 2026-09-08 | Passed 87 Portfolio tests and fixed mobile carousel controls      |
 | 2026-09-08 | Defined 29 Portfolio page Playwright scenarios using POM          |
 | 2026-09-07 | Added GitHub pull-request CI for the Home Playwright suite        |
