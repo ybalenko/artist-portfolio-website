@@ -5,6 +5,7 @@ import {
 } from "../../../src/data/homeCarousel";
 import { resume } from "../../../src/data/resume";
 import { HomePage } from "../pages/HomePage";
+import { PortfolioPage } from "../pages/PortfolioPage";
 
 const imageUrls = new Set([
   homeArtistPortrait.src,
@@ -15,6 +16,7 @@ const imageFixture =
 
 export const test = base.extend<{
   home: HomePage;
+  portfolio: PortfolioPage;
   networkGuard: void;
   runtimeErrors: void;
   carouselClock: void;
@@ -81,8 +83,24 @@ export const test = base.extend<{
   home: async ({ page }, use) => {
     await use(new HomePage(page));
   },
+  portfolio: async ({ page }, use) => {
+    await use(new PortfolioPage(page));
+  },
   carouselClock: async ({ page }, use) => {
     await page.emulateMedia({ reducedMotion: "no-preference" });
+    await page.addInitScript(() => {
+      const reducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      );
+      Reflect.set(window, "__reducedMotionChangeCount", 0);
+      reducedMotion.addEventListener("change", () => {
+        const changeCount = Reflect.get(
+          window,
+          "__reducedMotionChangeCount",
+        ) as number;
+        Reflect.set(window, "__reducedMotionChangeCount", changeCount + 1);
+      });
+    });
     const start = new Date("2026-09-07T12:00:00Z");
     await page.clock.install({ time: start });
     await page.clock.pauseAt(start);

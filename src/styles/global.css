@@ -974,15 +974,20 @@ a:hover {
   }
 
   .portfolio-carousel {
+    height: 100dvh;
     padding: 72px 28px 32px;
     grid-template-columns: 1fr 1fr;
+    grid-template-rows: minmax(0, 1fr) auto;
     gap: 18px;
-    align-content: center;
+    overflow: hidden;
   }
 
   .carousel-artwork {
+    display: grid;
+    min-height: 0;
     grid-column: 1 / -1;
     grid-row: 1;
+    grid-template-rows: minmax(0, 1fr) auto;
   }
 
   .carousel-control-previous {
@@ -996,7 +1001,8 @@ a:hover {
   }
 
   .carousel-artwork img {
-    max-height: calc(100vh - 230px);
+    height: 100%;
+    min-height: 0;
   }
 }
 

@@ -16,6 +16,7 @@
     "preview:e2e": "ASTRO_TELEMETRY_DISABLED=1 PUBLIC_CONTACT_API_URL= astro preview --outDir .playwright/site --host 127.0.0.1 --port 4322",
     "test:e2e": "playwright test",
     "test:e2e:home": "playwright test home.spec.ts",
+    "test:e2e:portfolio": "playwright test portfolio.spec.ts",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:report": "playwright show-report",
     "test:e2e:check": "tsc --project tests/e2e/tsconfig.json"

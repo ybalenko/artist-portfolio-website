@@ -1,7 +1,7 @@
 # Project Status
 
-**Last updated:** September 7, 2026
-**Current phase:** Milestone 9 Home browser testing in progress  
+**Last updated:** September 8, 2026
+**Current phase:** Milestone 9 public-page browser test implementation
 **Current milestone:** Milestone 9 — Automated website testing with Playwright (in progress)
 
 ## Milestone overview
@@ -15,7 +15,7 @@
 | M6        | Resume PDF navigation                          | Complete    |   6/6 |     100% | [Milestone 6](../milestones/milestone-6.md) |
 | M7        | AWS deployment and cloud Portfolio images      | Blocked     | 31/43 |      72% | [Milestone 7](../milestones/milestone-7.md) |
 | M8        | Protected Leave a message form                 | In progress | 45/57 |      79% | [Milestone 8](../milestones/milestone-8.md) |
-| M9        | Automated website testing with Playwright      | In progress |  7/24 |      29% | [Milestone 9](../milestones/milestone-9.md) |
+| M9        | Automated website testing with Playwright      | In progress | 11/24 |      46% | [Milestone 9](../milestones/milestone-9.md) |
 
 Future milestone boundaries are provisional until their plans are approved.
 
@@ -52,11 +52,11 @@ Future milestone boundaries are provisional until their plans are approved.
 ### Milestone 9 — Automated Website Testing with Playwright
 
 - **Status:** In progress; owner approved starting with Home page tests using POM. M8 retains unfinished backend work.
-- **Progress source:** Checked implementation tasks in [Milestone 9](../milestones/milestone-9.md), currently 7/24 (29%).
+- **Progress source:** Checked implementation tasks in [Milestone 9](../milestones/milestone-9.md), currently 11/24 (46%).
 - **Target:** Browser regression tests for current public pages and responsive layouts, with mocked Contacts API responses and local/pull-request CI execution.
 - **Open blockers:** The GitHub workflow needs its first pull-request run before CI execution and artifact retrieval can be verified. Making it a required merge check needs a GitHub repository setting. Existing M7 deployment and M8 backend blockers remain in their milestones; other page coverage is unfinished M9 work.
 - **Boundary:** Backend security tests, infrastructure assertions, deployed API checks, and real SES delivery verification stay in M8.
-- **Next action:** Run the Home workflow on a pull request, inspect its report artifact, and make `Home Playwright tests` a required `main` status check; then implement the Portfolio POM suite.
+- **Next action:** Implement Resume and disabled Exhibitions browser journeys, followed by configured/unconfigured Contacts testing. The workflow's first pull-request run, artifact inspection, and required `main` status check remain open.
 
 ## Project-level open decisions
 
@@ -77,6 +77,9 @@ See the [Decision log](./decisions.md) for resolved decisions and [Project proce
 
 | Date       | Update                                                            |
 | ---------- | ----------------------------------------------------------------- |
+| 2026-09-08 | Stabilized HOME-17 reduced-motion event synchronization           |
+| 2026-09-08 | Passed 87 Portfolio tests and fixed mobile carousel controls      |
+| 2026-09-08 | Defined 29 Portfolio page Playwright scenarios using POM          |
 | 2026-09-07 | Added GitHub pull-request CI for the Home Playwright suite        |
 | 2026-09-07 | Passed 66 Home tests across three installed-Chrome configurations |
 | 2026-09-07 | Fixed Home carousel response to a changed reduced-motion setting  |
