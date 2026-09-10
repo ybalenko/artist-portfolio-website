@@ -153,9 +153,11 @@ M9 is complete when:
 ## Verification record
 
 **Date:** 2026-09-09
-**Result:** In progress — shared layout migration implemented; initial desktop checks exposed a carousel focus-containment defect, now fixed pending the full matrix.
+**Result:** In progress — shared layout migration implemented; the full 207-execution local matrix passed with the strict CI policy, verifying the carousel focus fix (DEF-001 closed). Remaining page coverage and remote CI verification stay open.
 
 ### Automated checks
+
+- 2026-09-09 regression skill run: `CI=true npm run test:e2e -- --fail-on-flaky-tests` — exit 0; 207/207 passed in 827.1 seconds (13.8 minutes): 48 Home, 93 Portfolio, and 66 shared-layout executions, with 69 per Chrome desktop/mobile-emulated/tablet project. Parsed the generated HTML report data: zero unexpected failures, flaky tests, skipped tests, or runner errors. Report: `playwright-report/index.html` (ignored local artifact). PORTFOLIO-13/19/20/21/31/32 passed in all three projects, closing DEF-001. No new defects found. The first sandboxed attempt exited 1 before tests because port 4322 binding was denied (EPERM); the approved retry ran the full suite. No application/test code changed. Documentation formatting and `git diff --check` passed after recording results.
 
 - Shared layout discovery checks: `npm run test:e2e:home -- --list` selects 81 executions, `npm run test:e2e:portfolio -- --list` selects 126, and `npm run test:e2e:layout -- --list` selects 66. Python set comparisons verified the page commands are disjoint and their union equals all 207 tests. Catalog checks matched all 16 Home, 31 Portfolio, and 11 shared IDs; 106 relative documentation links resolved.
 - Shared layout initial desktop run: `npm run test:e2e -- --project=chrome-desktop --grep 'SHARED|PORTFOLIO-3[012]'` — 24/25 passed in 2.4 minutes; PORTFOLIO-31 demonstrated that Tab escaped the carousel. Local failure diagnostics are retained under ignored `.playwright/shared-layout-initial-desktop/`. The first sandboxed attempt could not bind port 4322; the approved browser run produced the result above.
@@ -185,6 +187,10 @@ M9 is complete when:
 
 ### Manual checks
 
+- 2026-09-09 project skill scope (CR-080): moved `regression-testing` into `.agents/skills/regression-testing/` and verified the personal installation is absent. Skill YAML, README links, formatting, and `git diff --check` passed. No test suite was run for this relocation; progress remains 11/24, with existing blockers and next actions unchanged.
+
+- 2026-09-09 defect tracking (CR-079): created the [central defect log](../project/defects.md), compared imported statuses against M9 verification and the M8 security review, and reviewed both README indexes. Pending focus/deployed security verification remains pending; M9 stays 11/24. Documentation formatting, relative-link existence checks, and `git diff --check` passed. No application code changed or browser tests rerun for this documentation task.
+
 - Shared layout rework (CR-078/D-062): migrated HOME-05–09/20 and PORTFOLIO-03 to shared cases with IDs preserved in the catalogs; retained Home content/carousel/layout/no-JavaScript checks and Portfolio gallery checks. Reused PortfolioPage for the second-page URL restoration test. Fixed the exposed carousel defect by isolating all sibling branches outside the modal, preserving prior inert/aria-hidden states, and wrapping Tab/Shift+Tab within its controls. M9 remains 11/24 because other public-page and remote-CI acceptance tasks are still open.
 - 2026-09-09 documentation reorganization (CR-077): moved all three CI guidance paragraphs from Home test cases into the shared [Frontend CI guide](../testing/frontend-ci.md); Home now links to it, as do both READMEs. Workflow behavior, M9 progress (11/24), blockers, and next action are unchanged.
 - Read-only GitHub API inspection confirmed successful earlier pull-request runs [#2](https://github.com/ybalenko/artist-portfolio-website/actions/runs/34309615557) and [#3](https://github.com/ybalenko/artist-portfolio-website/actions/runs/34312999144), both on September 8 Pacific time. Detailed log access returned HTTP 403, so the reported two original failures and artifact contents remain unverified. Historical first-run limitations below describe the earlier implementation sessions.
@@ -200,7 +206,7 @@ M9 is complete when:
 
 ### Known limitations
 
-- Home and Portfolio tests and local scripts exist. Resume, disabled Exhibitions, Contacts, remote verification of the updated flaky-test policy, and artifact inspection remain open. The reorganized full browser suite is undergoing local verification with the strict CI policy.
+- Home and Portfolio tests and local scripts exist. Resume, disabled Exhibitions, Contacts, remote verification of the updated flaky-test policy, and artifact inspection remain open. The reorganized full browser suite passed local verification with the strict CI policy on September 9 (207/207).
 - Earlier GitHub runs succeeded, but the updated workflow has not been pushed or run remotely and branch protection remains unverified. Until the check is required in GitHub, merging a pull request whose test job fails may still be possible.
 - Browser downloads were declined; the initial suite uses installed Chrome. Safari, Firefox, and WebKit have not been verified.
 - Current M7 public verification and M8 backend blockers remain tracked in their existing milestones.
