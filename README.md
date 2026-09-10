@@ -65,6 +65,8 @@ The architecture is code-managed and static-first: Home, Exhibitions, Portfolio,
 - [Technical requirements](./docs/requirements/technical.md) — implementation, security, accessibility, testing, and deployment requirements
 - [Project status](./docs/project/status.md) — current milestone, progress, blockers, and roadmap
 - [Project process](./docs/project/process.md) — milestone lifecycle, tracking, verification, and handoff workflow
+- [Regression testing skill](./.agents/skills/regression-testing/SKILL.md) — project-only `$regression-testing` workflow for Playwright reports and defect filing
+- [Defect log](./docs/project/defects.md) — known defects, severity, status, and verification evidence
 - [Project backlog](./docs/project/backlog.md) — future work that has not been moved into an active milestone
 - [Change request log](./docs/project/change-requests.md) — user-requested scope, design, process, and rework changes
 - [Decision log](./docs/project/decisions.md) — approved project and milestone decisions

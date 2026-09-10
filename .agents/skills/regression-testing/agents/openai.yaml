@@ -1,0 +1,4 @@
+interface:
+  display_name: "Regression testing"
+  short_description: "Run Playwright, summarize results, and track bugs"
+  default_prompt: "Use $regression-testing to run the Playwright suite, summarize the report, and file confirmed bugs in the defect tracker."

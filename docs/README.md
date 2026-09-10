@@ -21,6 +21,7 @@ Current project state: Milestones 1, 2, 3, 5, and 6 are complete. Press has been
 
 - [Project status](./project/status.md)
 - [Project process](./project/process.md)
+- [Defect log](./project/defects.md)
 - [Project backlog](./project/backlog.md)
 - [Change request log](./project/change-requests.md)
 - [Decision log](./project/decisions.md)
@@ -45,6 +46,8 @@ Current project state: Milestones 1, 2, 3, 5, and 6 are complete. Press has been
 - [Milestone 9 — Automated Website Testing with Playwright](./milestones/milestone-9.md)
 
 ## Testing
+
+- [Regression testing skill](../.agents/skills/regression-testing/SKILL.md) — invoke `$regression-testing` in this project to run Playwright, summarize results, and track confirmed bugs
 
 - [Shared layout test cases](./testing/shared-layout-test-cases.md) — common header, footer, navigation, and keyboard checks on Home and Portfolio
 - [Frontend CI guide](./testing/frontend-ci.md) — shared workflow, flaky-test policy, artifacts, and required merge check

@@ -112,6 +112,10 @@ Also update related requirements, design, milestone plans, status, decisions, RE
 | CR-077 | 2026-09-09 | Separate shared CI documentation           | Docs          | Done        | M9                        | Moved the CI section from the Home case catalog to `docs/testing/frontend-ci.md`, preserved workflow/artifact/flaky-test/merge-check guidance, and linked the guide from Home and both READMEs.                                                                                                                                               |
 | CR-078 | 2026-09-09 | Share Home and Portfolio layout tests      | Test/Docs     | In progress | M9                        | Add a parameterized shared layout suite using composed POM objects, migrate overlapping Home/Portfolio checks with stable IDs, and include shared cases in page commands. New modal coverage exposed escaped focus; fix background isolation and Tab wrapping, then verify the full matrix.                                                   |
 
+| CR-079 | 2026-09-09 | Create central defect tracker | Docs/Process | Done | M9 documentation | Added defects.md with IDs, severity, reproduction/evidence, status, and closure rules; imported M9 regressions and M8 security findings, and linked process/status/README documents. Existing verification and release gates remain unchanged. |
+
+| CR-080 | 2026-09-09 | Keep regression testing skill in this project only | Docs/Tooling | Done | M9 documentation | Moved the regression-testing skill from the personal skills folder to `.agents/skills/regression-testing/`, removed the personal installation through the move, and linked both READMEs. Test behavior and milestone scope are unchanged. |
+
 ## New request template
 
 When adding a new row, use the next sequential ID.

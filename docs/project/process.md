@@ -168,6 +168,10 @@ Each milestone plan gains a `Verification record` section containing:
 
 Do not mark a milestone complete based only on files existing; verify its behavior and acceptance criteria.
 
+## Defect tracking
+
+Record known product, test, and security defects in the [defect log](./defects.md), following its ID, severity, status, and evidence rules. Link milestone verification and related change requests. Keep security findings synchronized with their security review and preserve release gates. Close defects only after required verification passes.
+
 ## 8. Change control
 
 - Small implementation choices within approved scope do not need a new decision entry.
