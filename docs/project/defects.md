@@ -16,18 +16,18 @@ Central index for known product, test, and security defects. Milestone plans rem
 
 Initial import on September 9, 2026 covers recorded M9 regressions and all six contact security findings. It is not an exhaustive historical inventory or a new audit. Dates and results below come from the linked records.
 
-| ID         | Defect                                                                | Severity | Milestone | Status                       | Evidence / next action                                                                          |
-| ---------- | --------------------------------------------------------------------- | -------- | --------- | ---------------------------- | ----------------------------------------------------------------------------------------------- |
-| DEF-001    | Portfolio carousel allows keyboard focus to escape                    | High     | M9        | Fixed — verification pending | PORTFOLIO-31 failed in the initial desktop run; full matrix remains pending. See details below. |
-| DEF-002    | Mobile Portfolio carousel controls fall outside viewport              | Medium   | M9        | Closed                       | Targeted regressions and all 87 Portfolio executions passed September 8; CR-074.                |
-| DEF-003    | Home carousel mishandles changed reduced-motion preference            | Medium   | M9        | Closed                       | Timer fix verified by all 66 Home executions September 7; CR-070.                               |
-| DEF-004    | HOME-17 uses a timing assumption that causes flakiness                | Medium   | M9        | Closed                       | Event synchronization passed 10 desktop repetitions and 66 Home executions September 8; CR-075. |
-| CF-SEC-001 | Caller-controlled throttle identity and missing infrastructure limits | High     | M8        | Fixed — verification pending | Local tests/synthesis passed; deployed direct-client and concurrency checks remain.             |
-| CF-SEC-002 | Dependency audit reports high/moderate vulnerabilities                | High     | M8        | Open                         | August 22 audit evidence; remediate and rerun audit to establish current status.                |
-| CF-SEC-003 | Request body parsed before size rejection                             | Medium   | M8        | Open                         | Reject oversized bodies before decoding/parsing; verify negative paths.                         |
-| CF-SEC-004 | SES send permission uses wildcard resource                            | Medium   | M8        | Open                         | Restrict sender identity/condition and verify synthesized permissions.                          |
-| CF-SEC-005 | Security boundary regression coverage is incomplete                   | Low      | M8        | Open                         | Six throttle tests exist; remaining handler, infrastructure, and deployed checks are required.  |
-| CF-SEC-006 | Privacy Notice inaccurately describes third-party processing          | Low      | M8        | Open                         | Correct provider wording before accepting messages; verify rendered notice.                     |
+| ID         | Defect                                                                | Severity | Milestone | Status                       | Evidence / next action                                                                                                |
+| ---------- | --------------------------------------------------------------------- | -------- | --------- | ---------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| DEF-001    | Portfolio carousel allows keyboard focus to escape                    | High     | M9        | Closed                       | September 9: all 207 executions passed across three Chrome projects, including PORTFOLIO-31/32 and focus restoration. |
+| DEF-002    | Mobile Portfolio carousel controls fall outside viewport              | Medium   | M9        | Closed                       | Targeted regressions and all 87 Portfolio executions passed September 8; CR-074.                                      |
+| DEF-003    | Home carousel mishandles changed reduced-motion preference            | Medium   | M9        | Closed                       | Timer fix verified by all 66 Home executions September 7; CR-070.                                                     |
+| DEF-004    | HOME-17 uses a timing assumption that causes flakiness                | Medium   | M9        | Closed                       | Event synchronization passed 10 desktop repetitions and 66 Home executions September 8; CR-075.                       |
+| CF-SEC-001 | Caller-controlled throttle identity and missing infrastructure limits | High     | M8        | Fixed — verification pending | Local tests/synthesis passed; deployed direct-client and concurrency checks remain.                                   |
+| CF-SEC-002 | Dependency audit reports high/moderate vulnerabilities                | High     | M8        | Open                         | August 22 audit evidence; remediate and rerun audit to establish current status.                                      |
+| CF-SEC-003 | Request body parsed before size rejection                             | Medium   | M8        | Open                         | Reject oversized bodies before decoding/parsing; verify negative paths.                                               |
+| CF-SEC-004 | SES send permission uses wildcard resource                            | Medium   | M8        | Open                         | Restrict sender identity/condition and verify synthesized permissions.                                                |
+| CF-SEC-005 | Security boundary regression coverage is incomplete                   | Low      | M8        | Open                         | Six throttle tests exist; remaining handler, infrastructure, and deployed checks are required.                        |
+| CF-SEC-006 | Privacy Notice inaccurately describes third-party processing          | Low      | M8        | Open                         | Correct provider wording before accepting messages; verify rendered notice.                                           |
 
 ## Browser and test defect details
 
@@ -36,7 +36,7 @@ Initial import on September 9, 2026 covers recorded M9 regressions and all six c
 - **Discovered:** September 9, 2026.
 - **Reproduce:** Open a Portfolio carousel and use Tab/Shift+Tab through its controls (PORTFOLIO-31).
 - **Expected / actual:** Focus remains inside the modal and all background branches are inert; the initial test observed focus escaping.
-- **Fix / next action:** Background isolation and Tab wrapping were implemented. Run the full three-project matrix and verify focus entry, containment, and restoration before closing.
+- **Fix / next action:** Background isolation and Tab wrapping were implemented. Closed September 9, 2026 after `CI=true npm run test:e2e -- --fail-on-flaky-tests` passed all 207 executions (13.8 minutes), including focus entry, Tab/Shift+Tab containment, background isolation, and restoration in desktop/mobile/tablet Chrome. Report: `playwright-report/index.html` (local, ignored); durable evidence in M9.
 - **Evidence:** [M9 verification record](../milestones/milestone-9.md#verification-record), [Portfolio cases](../testing/portfolio-test-cases.md), CR-078 in the [change request log](./change-requests.md).
 
 ### DEF-002 — Mobile carousel controls outside viewport

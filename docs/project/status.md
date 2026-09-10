@@ -1,7 +1,7 @@
 # Project Status
 
 **Last updated:** September 9, 2026
-**Current phase:** Milestone 9 shared layout browser test implementation
+**Current phase:** Milestone 9 remaining public-page browser coverage
 **Current milestone:** Milestone 9 — Automated website testing with Playwright (in progress)
 
 ## Milestone overview
@@ -79,6 +79,7 @@ See the [Decision log](./decisions.md) for resolved decisions and [Project proce
 
 | Date       | Update                                                                  |
 | ---------- | ----------------------------------------------------------------------- |
+| 2026-09-09 | Passed all 207 Playwright regressions; closed DEF-001                   |
 | 2026-09-09 | Moved regression testing skill into the project only                    |
 | 2026-09-09 | Created central defect log with M9 regressions and M8 security findings |
 | 2026-09-09 | Moved shared CI guidance to a separate testing document                 |
