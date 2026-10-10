@@ -242,6 +242,7 @@ const contactFormClientConfig = {
           submitButton.disabled = true;
           submitButton.textContent = "Sending…";
         }
+        setStatus("Sending your message…");
 
         try {
           const response = await fetch(contactFormClientConfig.apiUrl, {
@@ -251,6 +252,11 @@ const contactFormClientConfig = {
             },
             body: JSON.stringify(payload),
           });
+
+          if (response.status === 400 || response.status === 413) {
+            setStatus("Please check the form fields and try again.", "error");
+            return;
+          }
 
           if (!response.ok) {
             throw new Error("Contact API request failed.");

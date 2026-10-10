@@ -2,7 +2,7 @@
 
 An artwork-first website for artist **Yulia Balenko**, built as a simple static portfolio for an amateur artist. The site presents an artist statement, an image portfolio, a résumé PDF, and visitor contact options; Exhibitions are scaffolded but temporarily disabled.
 
-> **Project status:** Milestones 1, 2, 3, 5, and 6 are complete. Milestone 7, AWS deployment and cloud Portfolio images, is blocked at **31/43 tasks (72%)** until Amplify URL/build-status evidence is recorded. Milestone 8, protected Leave a message form, is in progress at **50/57 tasks (88%)**. Dependency remediation is verified with zero audit vulnerabilities on October 9; M8 is the current focus. Oversized-body rejection and restricted SES sender permission are fixed locally with 28 backend/infrastructure tests passing; deployed verification remains pending. Its bypassable throttle finding is fixed locally with a stable salted network throttle, API-stage throttling, and Lambda concurrency limits; deployed security and delivery verification remain required before deployment. Press has been removed from scope, Exhibitions are hidden behind a feature flag, Turnstile/CAPTCHA is deferred for now, and mailing-list signup is hidden/deferred. Milestone 9, automated website testing with Playwright, is in progress at **11/24 tasks (46%)**; Home and Portfolio share layout coverage through POM, with 207 executions across three Chrome projects; all 207 passed local verification on October 9 with zero flaky tests or skips. Earlier GitHub pull-request runs succeeded. The updated policy fails CI for flaky tests and is verified locally; remote verification and artifact inspection remain open. Backend testing remains in M8. Track current progress in [Project status](./docs/project/status.md).
+> **Project status:** Milestones 1, 2, 3, 5, and 6 are complete. Milestone 7 is blocked at **31/43 tasks (72%)** pending Amplify evidence. Milestone 8, protected Leave a message, is in progress at **52/57 tasks (91%)**: 28 backend/infrastructure tests and 21 configured-form browser checks pass, while deployed security, SES delivery, and privacy checks remain. Milestone 9 browser testing is in progress at **14/24 tasks (58%)**: the original 207 Home/Portfolio/shared-layout checks and the separate 21-case configured Contacts suite passed locally across three Chrome projects. CI changes await a remote run. Exhibitions, Turnstile/CAPTCHA, and mailing-list signup remain deferred. See [Project status](./docs/project/status.md).
 
 ## Vision
 
@@ -27,10 +27,10 @@ The portfolio takes inspiration from the restrained, image-led presentation of t
 
 ## Remaining work
 
-- Extend the M9 Home and Portfolio POM suites to Resume, disabled Exhibitions, and mocked Contacts states; verify pull-request CI.
+- Extend the M9 browser suites to Resume, disabled Exhibitions, and remaining Contacts states; verify pull-request CI.
 - Record the Amplify app URL and build status.
 - Verify the deployed public site, especially Portfolio cloud images, Resume PDF navigation, and the disabled Exhibitions fallback.
-- Remediate and verify the documented contact-form security findings before deploying the API or configuring Amplify with `PUBLIC_CONTACT_API_URL`.
+- Verify the locally remediated contact-form security findings through the deployed API, then configure Amplify with `PUBLIC_CONTACT_API_URL` and verify delivery.
 - Decide the Exhibitions content update workflow, add real exhibition content, and re-enable the feature flag when ready.
 - Publish real content for empty or draft areas, including the Portfolio `Other` section.
 - Final résumé PDF replacement workflow.
@@ -107,14 +107,15 @@ npm run test:e2e:home -- --project=chrome-desktop # Start with desktop Chrome
 npm run test:e2e:home # Home-specific and Home shared cases: 81 executions
 npm run test:e2e:portfolio # Portfolio-specific and Portfolio shared cases: 126 executions
 npm run test:e2e:layout # Shared layout on both pages: 66 executions
-npm run test:e2e       # All implemented browser suites
+npm run test:e2e       # Unconfigured Home/Portfolio/shared suites: 207 executions
+npm run test:e2e:contacts # Configured Contacts with a mocked API: 21 executions
 npm run test:e2e:home -- --project=chrome-desktop --headed --workers=1 # Watch tests run
 npm run test:e2e:ui   # Interactive runner
 npm run test:e2e:home -- --project=chrome-desktop --grep HOME-12 --debug # Step through one case
 npm run test:e2e:report # Open the latest HTML report
 ```
 
-The test preview command uses `--ignore-lock` to remain in the foreground under agent tooling so Playwright owns server startup and shutdown. The suite builds into ignored `.playwright/site/`, starts a preview server at `127.0.0.1:4322`, and forces the contact API URL empty. Image/PDF/social responses are fixtures; ordinary tests make no live contact requests. Reports/traces are ignored locally. [Frontend CI](./.github/workflows/frontend-ci.yml) runs the Home, Portfolio, and shared layout suites for pull requests targeting `main` and retains diagnostics for seven days. CI keeps one retry but fails even when a test passes on retry using `npm run test:e2e -- --fail-on-flaky-tests`. Reproduce CI locally with `CI=true npm run test:e2e -- --fail-on-flaky-tests`. The updated policy still needs remote verification, artifact inspection, and the required-status setting. Page commands select `@home` or `@portfolio`, including the matching shared cases. The full command runs every case once. See the [Playwright test cases](./docs/testing/) for page coverage. Resume, disabled Exhibitions, and Contacts suites remain M9 work. `npm run contact:test` remains backend testing under M8.
+The test previews use `--ignore-lock` so Playwright owns startup and shutdown. The default suite builds into ignored `.playwright/site/` on port 4322 with the contact API URL empty. The configured Contacts suite builds separately on port 4323 with a reserved `.invalid` API URL; Playwright intercepts every submission, so no email is sent. Reports and traces are ignored locally. [Frontend CI](./.github/workflows/frontend-ci.yml) runs both suites for pull requests to `main`, with one diagnostic retry and `--fail-on-flaky-tests`; the new configured step awaits remote verification and artifact inspection. See the [Playwright test cases](./docs/testing/) for coverage. Resume, disabled Exhibitions, and remaining Contacts states are still open in M9. `npm run contact:test` remains backend testing under M8.
 
 ## Roadmap
 

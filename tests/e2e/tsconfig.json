@@ -9,5 +9,9 @@
     "lib": ["ES2022", "DOM"],
     "skipLibCheck": true
   },
-  "include": ["./**/*.ts", "../../../playwright.config.ts"]
+  "include": [
+    "./**/*.ts",
+    "../../../playwright.config.ts",
+    "../../../playwright.contacts.config.ts"
+  ]
 }

@@ -22,6 +22,7 @@ Initial import on September 9, 2026 covers recorded M9 regressions and all six c
 | DEF-002    | Mobile Portfolio carousel controls fall outside viewport              | Medium                        | M9        | Closed                       | Targeted regressions and all 87 Portfolio executions passed September 8; CR-074.                                                                                                   |
 | DEF-003    | Home carousel mishandles changed reduced-motion preference            | Medium                        | M9        | Closed                       | Timer fix verified by all 66 Home executions September 7; CR-070.                                                                                                                  |
 | DEF-004    | HOME-17 uses a timing assumption that causes flakiness                | Medium                        | M9        | Closed                       | Event synchronization passed 10 desktop repetitions and 66 Home executions September 8; CR-075.                                                                                    |
+| DEF-005    | Contact API validation rejection shows temporary-failure copy         | Low                           | M8/M9     | Closed                       | October 9: configured test API returned HTTP 400; the form now shows correction feedback, with 15/15 browser checks passing across three Chrome projects.                          |
 | CF-SEC-001 | Caller-controlled throttle identity and missing infrastructure limits | High                          | M8        | Fixed — verification pending | Local tests/synthesis passed; deployed direct-client and concurrency checks remain.                                                                                                |
 | CF-SEC-002 | Dependency audit vulnerabilities                                      | Critical (October 9 re-audit) | M8        | Closed                       | October 9: Astro/CDK/transitive updates; clean install and audit with zero vulnerabilities; build, diagnostics, synthesis, six backend tests and all 207 browser checks passed.    |
 | CF-SEC-003 | Request body parsed before size rejection                             | Medium                        | M8        | Fixed — verification pending | October 9: 32 KiB plain/base64 pre-parse rejection; all 20 backend tests, checks/build/synthesis passed. Deployed gateway checks pending; see security review.                     |
@@ -30,6 +31,13 @@ Initial import on September 9, 2026 covers recorded M9 regressions and all six c
 | CF-SEC-006 | Privacy Notice inaccurately describes third-party processing          | Low                           | M8        | Closed                       | October 9: built Contacts page names AWS/SES and mailbox processing, no false non-sharing claim; Astro check/build pass.                                                           |
 
 ## Browser and test defect details
+
+### DEF-005 — Contact validation rejection feedback
+
+- **Discovered / closed:** October 9, 2026.
+- **Reproduce:** Build Contacts with a test-only API URL, submit valid-looking fields, and return HTTP 400 from the API. The original browser test showed temporary-delivery-failure copy instead of asking the visitor to correct the fields.
+- **Expected / fix:** Keep entered values and show accessible field-correction feedback for HTTP 400/413; reserve temporary-failure feedback for server or network errors. The form also announces pending submission through its live status.
+- **Verification:** The first configured run passed 12/15, with this case failing in all three Chrome projects. After the fix, 15/15 passed; backend tests, Astro diagnostics, and build also passed. No live API or email was used. See [M8](../milestones/milestone-8.md#verification-record) and [M9](../milestones/milestone-9.md#verification-record).
 
 ### DEF-001 — Portfolio carousel focus escapes
 

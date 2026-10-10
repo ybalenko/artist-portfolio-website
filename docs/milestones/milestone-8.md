@@ -3,7 +3,7 @@
 **Status:** In progress  
 **Created:** July 19, 2026  
 **Milestone goal:** Implement the Contacts page Leave a message workflow with server-side validation, basic abuse controls, and private email delivery while keeping mailing-list signup hidden and deferred.
-**Implementation progress:** 50/57 tasks — 88%
+**Implementation progress:** 52/57 tasks — 91%
 
 ## Confirmed decisions
 
@@ -130,8 +130,8 @@ The browser uses only public configuration. Lambda owns all private delivery det
 - [x] Update project status, backlog, decision log, change request log, and README summaries.
 - [x] Run local format and Astro checks after frontend changes.
 - [x] Verify the unconfigured local form is disabled and does not submit.
-- [ ] Verify a configured test API happy path.
-- [ ] Verify validation-error, API-failure, and retry states.
+- [x] Verify a configured test API happy path.
+- [x] Verify validation-error, API-failure, and retry states.
 - [ ] Verify deployed CORS behavior from the approved domain.
 - [ ] Verify SES delivery with the visitor email as `Reply-To`.
 - [ ] Verify no message content is stored or logged by the application.
@@ -188,6 +188,9 @@ Milestone 8 is complete when:
 
 ### Automated checks
 
+- 2026-10-09 security audit of configured-form tests: `CI=true npm run test:e2e:contacts -- --fail-on-flaky-tests` — 21/21 passed across three Chrome projects with no retries. A browser-context guard now blocks unregistered external/write requests, and contact mocks require POST, JSON content type, and the preview origin. Added 413 and 429 response checks. `npm run contact:test` — 28/28 passed; `npm run test:e2e:check` — passed. This verifies browser handling and isolation only; deployed API, CORS, SES, and log/storage checks remain open. See [security review](../security/contact-form-review.md#october-9-configured-form-test-security-audit).
+- 2026-10-09 configured browser API test: `npm run test:e2e:contacts` — 15/15 passed across desktop, mobile-emulated, and tablet Chrome against an isolated production build with a reserved `.invalid` endpoint intercepted by deterministic responses. Confirmed trimmed JSON payload, disabled button and live pending status, accessible success, native invalid-email blocking, HTTP 400 correction feedback, HTTP 502/network failure, preserved fields, and successful retry. The first run found that HTTP 400 showed the generic delivery error (12/15 passed); the response handling was corrected and the full rerun passed. No live API call or email was sent.
+- `npm run test:e2e:check` — passed; `npm run check` — 0 errors/warnings/hints; `npm run build` — eight pages; `npm run contact:test` — 28/28 passed. Test discovery kept the original unconfigured suite at 207 cases and the separate configured suite at 15 cases.
 - 2026-10-09 CF-SEC-005/006 (CR-084/D-066): `npm run contact:test` — 28/28 passed (exit 0). Six new mocked handler cases cover rejected origins, required/length/email/injection/spam validation, honeypot no-op, normalized Reply-To and plain-text SES construction, DynamoDB fingerprint/privacy/expiry, header rotation with five allowed sends and three parallel 429 responses, and generic/PII-safe logging on SES failure. A new synthesized-template case checks CORS origins/methods, POST route, gateway burst/rate, Lambda concurrency/timeout, DynamoDB TTL, seven-day logs, and three scoped SSM resources; the existing SES IAM assertion still passes. The parallel test models atomic DynamoDB counts and does not verify live concurrency.
 - `npm run check` — 0 errors/warnings/hints; `npm run build` — eight static pages. Built `dist/contacts/index.html` contains AWS/SES and mailbox-provider processing, no absolute third-party non-sharing claim, and the unconfigured disabled-submit state. No live submission or external service mutation.
 
@@ -270,4 +273,4 @@ Milestone 8 is complete when:
 - Mailing-list signup remains hidden and deferred.
 - Turnstile/CAPTCHA bot protection is deferred for now.
 
-**Next action:** Complete configured form and failure-state checks with a test API, then verify the restricted SES policy, sender alignment, request-size rejection, direct-client throttling, delivery, and log/storage privacy through the deployed gateway after separate deployment approval. Dependency remediation is verified; M9 page coverage and remote CI checks remain separate unfinished work.
+**Next action:** Configure Amplify with the deployed contact API URL after separate deployment approval, then verify the restricted SES policy, sender alignment, request-size rejection, direct-client throttling, CORS, delivery, and log/storage privacy through the deployed gateway. Confirm whether SES sandbox exit is required for the selected sender/recipient flow. M9 page coverage and remote CI checks remain separate unfinished work.

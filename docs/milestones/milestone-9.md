@@ -3,7 +3,7 @@
 **Status:** In progress  
 **Created:** September 7, 2026  
 **Milestone goal:** Add repeatable browser regression tests for the current public website, runnable locally and in pull-request CI, using Playwright and TypeScript.  
-**Implementation progress:** 11/24 tasks — 46%
+**Implementation progress:** 14/24 tasks — 58%
 
 The owner approved starting M9 implementation with Home page tests using POM on September 7, 2026. M8 retains unfinished backend work and its release gates.
 
@@ -48,7 +48,7 @@ The owner approved starting M9 implementation with Home page tests using POM on 
 - Prefer accessible locators and assertions of visitor-visible outcomes. Avoid fixed sleeps and assertions tied to incidental markup or exact artwork counts.
 - Keep generated reports, traces, and screenshots out of Git. Bound CI artifact retention and use only synthetic contact data in diagnostics.
 - Local commands: `npm run test:e2e:check`, `npm run test:e2e:home`, `npm run test:e2e:portfolio`, `npm run test:e2e:layout`, `npm run test:e2e`, `npm run test:e2e:ui`, and `npm run test:e2e:report`. The suite uses two workers, 30-second tests (60 seconds for the six-journey SHARED-08 keyboard case), 5-second assertions, no local retries, one retry in CI, HTML reports, and failure screenshots/traces. CI is configured to retain diagnostics for seven days; remote upload and retrieval remain unverified.
-- The current test server builds to ignored `.playwright/site/` and serves `127.0.0.1:4322` with `PUBLIC_CONTACT_API_URL` forced empty; an existing server is not reused. Configured/mock Contacts builds are still open.
+- The default test server builds to ignored `.playwright/site/` and serves `127.0.0.1:4322` with `PUBLIC_CONTACT_API_URL` forced empty. A separate configured Contacts suite builds to `.playwright/contact-site/` and serves port 4323 with a reserved `.invalid` API URL. Neither server is reused. The configured API is intercepted by Playwright; unconfigured Contacts behavior and other page coverage remain open.
 
 ### Page Object Model structure
 
@@ -76,7 +76,7 @@ Only the checkboxes in this section contribute to progress. Planning/documentati
 ### Step 1 — Test foundation
 
 - [x] Install and lock the Playwright test dependency; add TypeScript configuration, POM page/component/spec directories, and test-scoped object fixtures; verify the structure with the first Home scenario.
-- [ ] Add production-build/server orchestration for both unconfigured and mocked-configured Contacts modes.
+- [x] Add production-build/server orchestration for both unconfigured and mocked-configured Contacts modes.
 - [x] Add deterministic external-asset fixtures and contact request interception that prevents live submissions.
 - [x] Configure and document the browser/viewport matrix, isolation, timeouts, and failure diagnostics.
 - [x] Add local test/UI scripts and ignore generated test artifacts.
@@ -97,8 +97,8 @@ Only the checkboxes in this section contribute to progress. Planning/documentati
 - [ ] Test Privacy Notice/public links, visibly required fields, and hidden mailing-list signup.
 - [ ] Test the unconfigured form's disabled state and absence of submissions.
 - [ ] Test browser required-field, email, and length validation before submission.
-- [ ] Test configured submission payload, pending state, and accessible success feedback using a mocked API.
-- [ ] Test mocked validation rejection, server/network failure, and successful retry with accessible feedback.
+- [x] Test configured submission payload, pending state, and accessible success feedback using a mocked API.
+- [x] Test mocked validation rejection, server/network failure, and successful retry with accessible feedback.
 
 ### Step 4 — Responsive coverage and CI
 
@@ -152,11 +152,13 @@ M9 is complete when:
 
 ## Verification record
 
-**Date:** 2026-09-09
-**Result:** In progress — shared layout migration implemented; the full 207-execution local matrix passed with the strict CI policy, verifying the carousel focus fix (DEF-001 closed). Remaining page coverage and remote CI verification stay open.
+**Date:** 2026-10-09
+**Result:** In progress — configured Contacts browser tests passed 21/21 locally after security review; the existing 207-case unconfigured suite remains separate. Remaining page coverage and remote CI verification stay open.
 
 ### Automated checks
 
+- 2026-10-09 configured-suite security audit: `CI=true npm run test:e2e:contacts -- --fail-on-flaky-tests` — 21/21 passed across three Chrome projects with no retries. Moved the deny-by-default guard to browser-context scope, required POST/JSON/local Origin for mocked contact requests, and added API 413/429 cases. Browser HTTP traffic stays isolated to the reserved `.invalid` endpoint and local preview; backend and deployed security remain M8. `npm run test:e2e:check` and `npm run contact:test` (28/28) passed. The 21-case CI step remains unverified remotely.
+- 2026-10-09: `npm run test:e2e:contacts` — 15/15 passed in 1.8 minutes across desktop, mobile-emulated, and tablet Chrome. A dedicated production build on port 4323 embeds only `https://contact-api.test.invalid/messages`, and all API requests are intercepted. Test cases cover payload trimming, pending/success, invalid email, HTTP 400 correction feedback, HTTP 502 and network failures, field preservation, and successful retry. The first run passed 12/15 and exposed HTTP 400 misclassification; the product fix passed on rerun. No live API or email contact. `npm run test:e2e:check` passed; test discovery remained 207 default plus 15 configured cases. CI now invokes the configured suite separately and retains its report, but that workflow change has not run remotely.
 - 2026-09-09 regression skill run: `CI=true npm run test:e2e -- --fail-on-flaky-tests` — exit 0; 207/207 passed in 827.1 seconds (13.8 minutes): 48 Home, 93 Portfolio, and 66 shared-layout executions, with 69 per Chrome desktop/mobile-emulated/tablet project. Parsed the generated HTML report data: zero unexpected failures, flaky tests, skipped tests, or runner errors. Report: `playwright-report/index.html` (ignored local artifact). PORTFOLIO-13/19/20/21/31/32 passed in all three projects, closing DEF-001. No new defects found. The first sandboxed attempt exited 1 before tests because port 4322 binding was denied (EPERM); the approved retry ran the full suite. No application/test code changed. Documentation formatting and `git diff --check` passed after recording results.
 
 - Shared layout discovery checks: `npm run test:e2e:home -- --list` selects 81 executions, `npm run test:e2e:portfolio -- --list` selects 126, and `npm run test:e2e:layout -- --list` selects 66. Python set comparisons verified the page commands are disjoint and their union equals all 207 tests. Catalog checks matched all 16 Home, 31 Portfolio, and 11 shared IDs; 106 relative documentation links resolved.
@@ -206,7 +208,7 @@ M9 is complete when:
 
 ### Known limitations
 
-- Home and Portfolio tests and local scripts exist. Resume, disabled Exhibitions, Contacts, remote verification of the updated flaky-test policy, and artifact inspection remain open. The reorganized full browser suite passed local verification with the strict CI policy on September 9 (207/207).
+- Home, Portfolio, and configured Contacts tests exist. Resume, disabled Exhibitions, remaining Contacts coverage, remote verification of the updated flaky-test policy, and artifact inspection remain open. The original 207-case browser suite passed local verification with the strict CI policy on October 9; the separate configured Contacts suite passed 21/21 after security review.
 - Earlier GitHub runs succeeded, but the updated workflow has not been pushed or run remotely and branch protection remains unverified. Until the check is required in GitHub, merging a pull request whose test job fails may still be possible.
 - Browser downloads were declined; the initial suite uses installed Chrome. Safari, Firefox, and WebKit have not been verified.
 - Current M7 public verification and M8 backend blockers remain tracked in their existing milestones.
@@ -216,4 +218,4 @@ M9 is complete when:
 - Backend testing remains in M8; public deployment verification remains in M7.
 - Mailing-list/enabled Exhibitions coverage, visual baselines, full accessibility audits, and live-site/device testing remain outside the initial suite.
 
-**Next action:** Implement the Resume and disabled Exhibitions browser journeys, then add configured/unconfigured Contacts test builds and mocked form scenarios. GitHub workflow verification and backend remediation remain open in M9 and M8 respectively.
+**Next action:** Implement Resume and disabled Exhibitions browser journeys, then complete Contacts unconfigured/privacy/required-field/length and keyboard coverage. Run the updated CI workflow remotely after an approved push and inspect artifacts; M8 deployed API and delivery verification remain separate.
