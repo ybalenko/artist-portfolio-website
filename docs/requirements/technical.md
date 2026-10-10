@@ -179,7 +179,7 @@ The current Milestone 8 backend stores only short-lived throttling fingerprints 
 ## 9. Build and deployment
 
 - GitHub is the canonical source repository.
-- Pin Node, Astro, and package versions and commit the lockfile.
+- Pin Node, Astro, and package versions and commit the lockfile. Use Node 22.13.0 or newer in the Node 22 line for local/CI work; package engines also permit Node 24.x (D-063).
 - Pull requests run formatting, type checks, content validation, tests, security checks, and `astro build`.
 - Milestone 9 runs Playwright browser regression tests against local production output in GitHub Actions for pull requests targeting `main`. Persistent failures and tests that pass only on retry fail the `Playwright browser tests` job: keep one CI retry and run `npm run test:e2e -- --fail-on-flaky-tests` (D-061). The workflow uses read-only repository permissions, no AWS credentials, installed runner Chrome, and seven-day report/trace retention. Earlier remote runs succeeded; remote verification of the updated policy, artifact inspection, and required-status configuration remain open M9 tasks.
 - Dependency audits must have no unresolved high or critical production finding before deployment. Forced or major upgrades require review and regression testing.

@@ -67,6 +67,8 @@ This file records approved decisions that affect implementation or more than one
 | D-061 | 2026-09-09 | Fail browser CI when a test passes only on retry                                      | Owner requested verification of stricter flaky-test handling. Keep one CI retry for diagnosis and use `--fail-on-flaky-tests` in Frontend CI so flaky outcomes return a failing exit status. Local defaults remain unchanged.                                         | Active        |
 | D-062 | 2026-09-09 | Share layout coverage through composed POM objects                                    | Owner approved a parameterized Home/Portfolio shared layout suite. SiteLayout composes SiteHeader/SiteFooter; page objects retain page-specific behavior. Specs own assertions and each page has separate report entries.                                             | Active        |
 
+| D-063 | 2026-10-09 | Resume M8 for dependency remediation and require Node 22.13+ or 24.x | Owner requested CF-SEC-002 remediation. Astro 7.3.8 and CDK 2.273.0 stay within existing majors; updated Astro language tooling requires a newer Node minimum. Use Node 22 locally/CI; M9 coverage remains unfinished. | Active |
+
 ## Adding a decision
 
 Add a new row with:

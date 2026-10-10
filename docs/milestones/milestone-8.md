@@ -3,7 +3,7 @@
 **Status:** In progress  
 **Created:** July 19, 2026  
 **Milestone goal:** Implement the Contacts page Leave a message workflow with server-side validation, basic abuse controls, and private email delivery while keeping mailing-list signup hidden and deferred.
-**Implementation progress:** 45/57 tasks — 79%
+**Implementation progress:** 46/57 tasks — 81%
 
 ## Confirmed decisions
 
@@ -112,7 +112,7 @@ The browser uses only public configuration. Lambda owns all private delivery det
 - [x] Replace the bypassable `User-Agent`-dependent throttle identity and add gateway/concurrency cost controls.
 - [ ] Reject oversized request bodies before decoding or parsing.
 - [ ] Restrict the Lambda SES permission to the approved sender.
-- [ ] Upgrade or otherwise resolve applicable high-severity dependency findings.
+- [x] Upgrade or otherwise resolve applicable high-severity dependency findings.
 - [ ] Add automated tests for contact security boundaries and synthesized controls.
 - [ ] Correct the Privacy Notice's third-party processor wording.
 
@@ -183,10 +183,18 @@ Milestone 8 is complete when:
 
 ## Verification record
 
-**Date:** August 22, 2026
+**Date:** October 9, 2026
 **Result:** In progress
 
 ### Automated checks
+
+- 2026-10-09: `CI=true npm run test:e2e -- --fail-on-flaky-tests` under Node 22.23.3 — exit 0; 207/207 passed across Chrome desktop/mobile-emulated/tablet in 1151.3 seconds (19.2 minutes). Parsed `playwright-report/index.html`: 207 expected, zero unexpected/flaky/skipped tests, no runner errors. `npm run format:check` and `git diff --check` passed. Static output inspection confirmed eight pages, Contacts setup-disabled messaging, and hidden mailing list. CF-SEC-002 closed; other release gates remain open.
+
+- 2026-10-09 dependency remediation (CR-081/D-063): fresh registry audit initially reported 16 findings (1 critical, 11 high, 4 moderate). Updated Astro 7.0.2 → 7.3.8 and CDK library 2.261.0 → 2.273.0; applied compatible transitive fixes without `--force` or overrides. Clean `npm ci` under Node 22.23.3/npm 10.9.0 passed with zero findings; final `npm audit --json` exited 0 with zero vulnerabilities at every severity.
+- Node 23.3.0 on the host does not meet the updated language tooling engine range; verification uses temporary Node 22.23.3. Package engines now require `^22.13.0 || >=24.0.0 <25`; `.nvmrc` and CI continue selecting Node 22.
+- `npm run check` — exit 0, no errors/warnings/hints; `npm run test:e2e:check` — exit 0; `npm run contact:test` — 6/6 passed; `npm run build` — exit 0, eight static pages; `npm run contact:synth` — exit 0, Lambda bundled successfully.
+- Synthesized infrastructure review retained source-IP throttle configuration, API burst 5/rate 1, Lambda concurrency 2, seven-day logs, DynamoDB TTL, and scoped SSM access. Existing wildcard SES permission remains CF-SEC-004; early request-size rejection remains CF-SEC-003. No AWS deployment or real message submission occurred.
+- Browser startup initially failed in the sandbox and then exited early outside it: Astro 7.3.8 auto-backgrounds agent-invoked preview. Added documented `--ignore-lock` to the isolated preview script to keep the process in the foreground; stopped only the server created by this attempt. The corrected full run passed; see the result below.
 
 - `npm run contact:test` — passed 6 rate-limit regression tests after removing origin from the fingerprint; confirmed origin/user-agent changes cannot reset identity, IP/hour/salt changes create distinct identities, stored keys do not expose IP/salt, and attempt 6 exceeds a limit of 5.
 - `npm run format:check` — passed after CF-SEC-001 implementation and documentation updates.
@@ -244,9 +252,11 @@ Milestone 8 is complete when:
 
 - Form does not send until the contact API stack is deployed and Amplify is configured with `PUBLIC_CONTACT_API_URL`.
 - Local CDK deployment is paused because the local environment cannot resolve an AWS account; deploy later from AWS CloudShell or another AWS-configured CDK environment.
-- Security review found a bypassable application throttle, missing gateway/concurrency/body-size controls, broad SES permission, vulnerable dependencies, missing security tests, and inaccurate third-party processor wording. See [Contact Form Security Review](../security/contact-form-review.md).
+- Security review found a bypassable application throttle, missing gateway/concurrency/body-size controls, broad SES permission, missing security tests, and inaccurate third-party processor wording. See [Contact Form Security Review](../security/contact-form-review.md).
 
 ### Deferred work
 
 - Mailing-list signup remains hidden and deferred.
 - Turnstile/CAPTCHA bot protection is deferred for now.
+
+**Next action:** Reject oversized request bodies before parsing, narrow SES permissions, and finish security coverage/privacy wording before deployment. Dependency remediation is verified; M9 page coverage and remote CI checks remain separate unfinished work.
