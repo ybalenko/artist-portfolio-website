@@ -118,6 +118,8 @@ Also update related requirements, design, milestone plans, status, decisions, RE
 
 | CR-081 | 2026-10-09 | Remediate contact dependency findings | Security/Dependencies | Done | M8 | Owner requested dependency fixes. Updated Astro and CDK plus compatible transitive packages; verified clean install/audit, build, infrastructure synthesis, six backend tests, and all 207 browser tests. Added foreground test preview compatibility and documented Node 22.13+ requirement. Other contact findings remain separate release blockers. |
 
+| CR-082 | 2026-10-09 | Reject oversized contact requests before parsing | Security/Backend/Test | Done | M8 | Added 32 KiB plain/base64 JSON parsing limit and generic 413. All 20 backend tests and checks/build/synthesis passed; documented upstream limitation and pending live verification. |
+
 ## New request template
 
 When adding a new row, use the next sequential ID.

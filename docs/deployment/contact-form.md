@@ -166,6 +166,14 @@ The API should:
 - Return a generic success/failure response without exposing internals.
 - Avoid logging names, email addresses, and message bodies.
 
+## Request-size boundary
+
+The handler accepts at most **32,768 UTF-8 bytes (32 KiB)** of JSON. This accommodates the current 100-character name, 254-character email, and 5,000-character message even when JSON-escaped. Extra fields and whitespace also count. Plain bodies are measured before parsing; base64 bodies are limited to 43,692 encoded bytes, validated as standard padded base64, and checked for decoded length before allocation. `Content-Length` is not trusted. Oversized allowed-origin POSTs return `413` with `{ "ok": false }`, CORS, and `Cache-Control: no-store`, before the honeypot, AWS calls, or logging. Malformed JSON/base64 and non-object bodies return `400`.
+
+API Gateway HTTP API has a [10 MB service payload quota](https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-quotas.html) and [does not support request validation or direct WAF integration](https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-vs-rest.html). No per-route 32 KiB upstream setting is available in this stack. The application check runs after delivery of the event to Lambda; it bounds further decoding/parsing, not ingress buffering or invocation cost. Existing API throttling and Lambda concurrency limits remain in place.
+
+After deployment is separately approved, verify a synthetic 32,769-byte JSON POST (including missing/normal headers) gets generic 413, CORS/no-store, and produces no email, throttle record, or payload logging. Test a valid in-limit synthetic message separately, and inspect handling of requests exceeding AWS integration limits (the service may reject them before Lambda). Base64 event handling is covered locally; verify the actual gateway encoding path without sending real visitor data.
+
 ## Operational retention
 
 - Contact messages are not stored by the application.
@@ -180,7 +188,7 @@ Without environment variables, the form should render disabled and show the setu
 
 When a test API value is available, add it to a local `.env` file. Do not commit `.env`.
 
-Run the local rate-limit regression suite with:
+Run the local handler, request-size, and rate-limit regression suite with:
 
 ```bash
 npm run contact:test

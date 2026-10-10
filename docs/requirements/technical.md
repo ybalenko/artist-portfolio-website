@@ -132,6 +132,8 @@ Operations:
 - Start, confirm, and unsubscribe a mailing-list subscription.
 - Export confirmed subscribers through a protected operational script.
 
+The contact handler caps raw JSON at 32 KiB and base64 representation at 43,692 bytes, checks decoded length before allocation, and returns generic 413 for oversized bodies (D-064). The HTTP API service ceiling does not replace this application limit; upstream buffering and live verification remain separate.
+
 All write operations must validate server-side, reject oversized bodies before decoding or JSON parsing, enforce layered payload/rate/cost limits, avoid leaking implementation details, and handle retries idempotently. Rate-limit identities must not be reset by changing caller-controlled headers. Turnstile/CAPTCHA verification is deferred for the current Leave a message iteration but must be reconsidered if the remaining spam risk is not acceptable.
 
 ## 6. Contact-message delivery

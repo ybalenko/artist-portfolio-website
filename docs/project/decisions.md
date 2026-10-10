@@ -69,6 +69,8 @@ This file records approved decisions that affect implementation or more than one
 
 | D-063 | 2026-10-09 | Resume M8 for dependency remediation and require Node 22.13+ or 24.x | Owner requested CF-SEC-002 remediation. Astro 7.3.8 and CDK 2.273.0 stay within existing majors; updated Astro language tooling requires a newer Node minimum. Use Node 22 locally/CI; M9 coverage remains unfinished. | Active |
 
+| D-064 | 2026-10-09 | Cap contact JSON bodies at 32 KiB before decoding/parsing | CF-SEC-003: count UTF-8 bytes, cap base64 representation at 43,692 bytes and decoded size at 32,768 before allocation; return generic 413. This accommodates current maximum fields even when JSON-escaped. HTTP API has no custom body-validation/WAF control; retain its service ceiling and existing throttle/concurrency limits, with live verification pending. | Active |
+
 ## Adding a decision
 
 Add a new row with:

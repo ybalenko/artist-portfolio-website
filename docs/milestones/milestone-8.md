@@ -3,7 +3,7 @@
 **Status:** In progress  
 **Created:** July 19, 2026  
 **Milestone goal:** Implement the Contacts page Leave a message workflow with server-side validation, basic abuse controls, and private email delivery while keeping mailing-list signup hidden and deferred.
-**Implementation progress:** 46/57 tasks — 81%
+**Implementation progress:** 47/57 tasks — 82%
 
 ## Confirmed decisions
 
@@ -110,7 +110,7 @@ The browser uses only public configuration. Lambda owns all private delivery det
 
 - [x] Document the August 22 contact-form security review and release gates.
 - [x] Replace the bypassable `User-Agent`-dependent throttle identity and add gateway/concurrency cost controls.
-- [ ] Reject oversized request bodies before decoding or parsing.
+- [x] Reject oversized request bodies before decoding or parsing.
 - [ ] Restrict the Lambda SES permission to the approved sender.
 - [x] Upgrade or otherwise resolve applicable high-severity dependency findings.
 - [ ] Add automated tests for contact security boundaries and synthesized controls.
@@ -188,6 +188,13 @@ Milestone 8 is complete when:
 
 ### Automated checks
 
+- 2026-10-09 follow-up security review: `npm run contact:test` — 20/20 passed; `node --experimental-strip-types /tmp/artist-request-size-review.mjs` — 266/266 independent byte-boundary/encoding/5 MiB rejection cases passed; `npm run contact:synth` — passed. No size-cap bypass found. Recorded permissive UTF-8 replacement and noncanonical base64 pad-bit acceptance as informational hardening in the security review. No implementation changes; live CF-SEC-003 verification and M8 47/57 remain unchanged.
+
+- 2026-10-09 CF-SEC-003 (CR-082/D-064): `npm run contact:test` — 20/20 passed under Node 22.23.3 (six rate-limit, eight parser, six handler cases). Tests verify exact/over-limit plain and base64 bodies, decoded overflow within the encoded ceiling, UTF-8 byte counting, JSON-escaped maximum fields, malformed/non-object bodies, misleading Content-Length, generic 413 with CORS/no-store, and no parsing/decoding/AWS/logging on size rejection. Maximum-length Unicode submissions succeed with mocked AWS clients in both encodings.
+- `npm run check` — exit 0, no errors/warnings/hints; `npm run build` — exit 0, eight pages; `npm run contact:synth` — exit 0, handler bundled successfully. Source and synthesized-template review confirm the 32 KiB parser is bundled and HTTP API throttle/concurrency settings remain unchanged. No external AWS changes or real emails.
+- Threat review: the cap applies before additional body decoding/JSON parsing and before honeypot/SSM/DynamoDB/SES work. HTTP API offers no custom upstream body validation or direct WAF integration; its 10 MB service payload quota is not the application limit. Ingress buffering/invocation costs remain bounded by existing service/throttle/concurrency controls. Live gateway checks remain pending; CF-SEC-003 is fixed locally, verification pending.
+- Browser tests were not rerun for this backend-only change; the previous 207/207 result remains historical. `npm run format:check`, `git diff --check`, relative documentation links, and the 47/57 task count passed at session completion.
+
 - 2026-10-09: `CI=true npm run test:e2e -- --fail-on-flaky-tests` under Node 22.23.3 — exit 0; 207/207 passed across Chrome desktop/mobile-emulated/tablet in 1151.3 seconds (19.2 minutes). Parsed `playwright-report/index.html`: 207 expected, zero unexpected/flaky/skipped tests, no runner errors. `npm run format:check` and `git diff --check` passed. Static output inspection confirmed eight pages, Contacts setup-disabled messaging, and hidden mailing list. CF-SEC-002 closed; other release gates remain open.
 
 - 2026-10-09 dependency remediation (CR-081/D-063): fresh registry audit initially reported 16 findings (1 critical, 11 high, 4 moderate). Updated Astro 7.0.2 → 7.3.8 and CDK library 2.261.0 → 2.273.0; applied compatible transitive fixes without `--force` or overrides. Clean `npm ci` under Node 22.23.3/npm 10.9.0 passed with zero findings; final `npm audit --json` exited 0 with zero vulnerabilities at every severity.
@@ -259,4 +266,4 @@ Milestone 8 is complete when:
 - Mailing-list signup remains hidden and deferred.
 - Turnstile/CAPTCHA bot protection is deferred for now.
 
-**Next action:** Reject oversized request bodies before parsing, narrow SES permissions, and finish security coverage/privacy wording before deployment. Dependency remediation is verified; M9 page coverage and remote CI checks remain separate unfinished work.
+**Next action:** Narrow SES permissions and finish security coverage/privacy wording before deployment; verify request-size rejection through the deployed gateway after separate deployment approval. Dependency remediation is verified; M9 page coverage and remote CI checks remain separate unfinished work.

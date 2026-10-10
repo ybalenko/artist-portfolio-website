@@ -2,7 +2,7 @@
 
 An artwork-first website for artist **Yulia Balenko**, built as a simple static portfolio for an amateur artist. The site presents an artist statement, an image portfolio, a résumé PDF, and visitor contact options; Exhibitions are scaffolded but temporarily disabled.
 
-> **Project status:** Milestones 1, 2, 3, 5, and 6 are complete. Milestone 7, AWS deployment and cloud Portfolio images, is blocked at **31/43 tasks (72%)** until Amplify URL/build-status evidence is recorded. Milestone 8, protected Leave a message form, is in progress at **46/57 tasks (81%)**. Dependency remediation is verified with zero audit vulnerabilities on October 9; M8 is the current focus. Its bypassable throttle finding is fixed locally with a stable salted network throttle, API-stage throttling, and Lambda concurrency limits; other security remediation remains required before deployment. Press has been removed from scope, Exhibitions are hidden behind a feature flag, Turnstile/CAPTCHA is deferred for now, and mailing-list signup is hidden/deferred. Milestone 9, automated website testing with Playwright, is in progress at **11/24 tasks (46%)**; Home and Portfolio share layout coverage through POM, with 207 executions across three Chrome projects; all 207 passed local verification on October 9 with zero flaky tests or skips. Earlier GitHub pull-request runs succeeded. The updated policy fails CI for flaky tests and is verified locally; remote verification and artifact inspection remain open. Backend testing remains in M8. Track current progress in [Project status](./docs/project/status.md).
+> **Project status:** Milestones 1, 2, 3, 5, and 6 are complete. Milestone 7, AWS deployment and cloud Portfolio images, is blocked at **31/43 tasks (72%)** until Amplify URL/build-status evidence is recorded. Milestone 8, protected Leave a message form, is in progress at **47/57 tasks (82%)**. Dependency remediation is verified with zero audit vulnerabilities on October 9; M8 is the current focus. Oversized-body rejection is fixed locally with 20 backend tests passing; deployed gateway verification remains pending. Its bypassable throttle finding is fixed locally with a stable salted network throttle, API-stage throttling, and Lambda concurrency limits; other security remediation remains required before deployment. Press has been removed from scope, Exhibitions are hidden behind a feature flag, Turnstile/CAPTCHA is deferred for now, and mailing-list signup is hidden/deferred. Milestone 9, automated website testing with Playwright, is in progress at **11/24 tasks (46%)**; Home and Portfolio share layout coverage through POM, with 207 executions across three Chrome projects; all 207 passed local verification on October 9 with zero flaky tests or skips. Earlier GitHub pull-request runs succeeded. The updated policy fails CI for flaky tests and is verified locally; remote verification and artifact inspection remain open. Backend testing remains in M8. Track current progress in [Project status](./docs/project/status.md).
 
 ## Vision
 
@@ -94,7 +94,7 @@ Astro prints the local URL, normally [http://localhost:4321/](http://localhost:4
 npm run check        # Type and Astro diagnostics
 npm run build        # Production build
 npm run contact:synth # Synthesize the Contact API CDK stack
-npm run contact:test # Run Contact API rate-limit regression tests
+npm run contact:test # Run Contact API handler, body-size, and rate-limit tests
 npm run preview      # Preview the production build locally
 npm run format:check # Verify formatting
 ```

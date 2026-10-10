@@ -1,7 +1,8 @@
 import { DynamoDBClient, UpdateItemCommand } from "@aws-sdk/client-dynamodb";
 import { SendEmailCommand, SESv2Client } from "@aws-sdk/client-sesv2";
 import { GetParameterCommand, SSMClient } from "@aws-sdk/client-ssm";
-import { createRateLimitKey, isRateLimitExceeded } from "./rate-limit";
+import { createRateLimitKey, isRateLimitExceeded } from "./rate-limit.ts";
+import { parseRequestBody, RequestBodyTooLargeError } from "./request-body.ts";
 
 const allowedOrigins = requiredEnv("ALLOWED_ORIGINS")
   .split(",")
@@ -62,9 +63,13 @@ export const handler = async (event: any): Promise<HttpResponse> => {
   let parsedBody: ContactPayload;
 
   try {
-    parsedBody = parseBody(event);
-  } catch {
-    return jsonResponse(400, { ok: false }, corsOrigin);
+    parsedBody = parseRequestBody(event?.body, event?.isBase64Encoded === true);
+  } catch (error) {
+    return jsonResponse(
+      error instanceof RequestBodyTooLargeError ? 413 : 400,
+      { ok: false },
+      corsOrigin,
+    );
   }
 
   const honeypot = normalizeOptionalString(parsedBody.company);
@@ -133,14 +138,6 @@ function getHeader(event: any, name: string): string {
 
 function getAllowedOrigin(origin: string): string | undefined {
   return allowedOrigins.includes(origin) ? origin : undefined;
-}
-
-function parseBody(event: any): ContactPayload {
-  const body = event?.isBase64Encoded
-    ? Buffer.from(String(event?.body ?? ""), "base64").toString("utf8")
-    : String(event?.body ?? "");
-
-  return JSON.parse(body) as ContactPayload;
 }
 
 function normalizeOptionalString(value: unknown): string {
