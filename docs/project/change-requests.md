@@ -120,6 +120,8 @@ Also update related requirements, design, milestone plans, status, decisions, RE
 
 | CR-082 | 2026-10-09 | Reject oversized contact requests before parsing | Security/Backend/Test | Done | M8 | Added 32 KiB plain/base64 JSON parsing limit and generic 413. All 20 backend tests and checks/build/synthesis passed; documented upstream limitation and pending live verification. |
 
+| CR-083 | 2026-10-09 | Restrict Lambda SES sender permission | Security/Infrastructure/Test | Done | M8 | Replaced wildcard `ses:SendEmail` resource with a parameterized verified identity ARN and exact `ses:FromAddress` condition. Added synthesized-policy regression, documented deployment sender alignment, and passed 21 contact tests plus synthesis. Live AWS verification remains pending. |
+
 ## New request template
 
 When adding a new row, use the next sequential ID.

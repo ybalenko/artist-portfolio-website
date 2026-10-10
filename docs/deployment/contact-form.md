@@ -16,6 +16,7 @@ This runbook tracks the planned setup for the Contacts page Leave a message form
 - CDK deployment is paused; the local deployment attempt stopped before creating AWS resources because the local environment could not resolve an AWS account.
 - The August 22 security review found pre-deployment blockers in abuse/cost controls, early body-size handling, SES permissions, dependencies, automated tests, and Privacy Notice wording. See [Contact Form Security Review](../security/contact-form-review.md).
 - The caller-controlled-header/origin throttle bypass is fixed locally: the DynamoDB key now uses only a salted API Gateway source-IP/hour identity, the API stage is limited to burst 5/rate 1, and Lambda reserved concurrency is 2. Six regression tests pass; deployed negative-path verification remains pending.
+- The SES send policy is restricted locally to the verified sender identity ARN and exact `ses:FromAddress`; deployment must supply a sender address that matches the SSM value.
 
 ## Security release gate
 
@@ -110,10 +111,13 @@ Synthesize the contact API CloudFormation template locally:
 npm run contact:synth
 ```
 
+The stack requires `SesSenderEmail` at deployment. Supply the exact verified email address stored in `/yulia-balenko/contact/ses-sender-email` in the same AWS region. A mismatch causes SES delivery to fail closed. Changing the SSM sender later also requires updating the stack parameter and verifying the new identity. This address stays out of repository files; `NoEcho` masks the CloudFormation parameter in parameter displays, but IAM policy documents still reveal the sender identity to principals allowed to inspect the role.
+
 Deploy only after the owner approves the external AWS change:
 
 ```bash
-npx cdk deploy --app "node infra/contact-form/cdk-app.mjs"
+npx cdk deploy --app "node infra/contact-form/cdk-app.mjs" \
+  --parameters SesSenderEmail="verified-sender@example.com"
 ```
 
 If the local machine does not have AWS credentials/account/region configured,
@@ -188,7 +192,7 @@ Without environment variables, the form should render disabled and show the setu
 
 When a test API value is available, add it to a local `.env` file. Do not commit `.env`.
 
-Run the local handler, request-size, and rate-limit regression suite with:
+Run the local handler, request-size, rate-limit, and synthesized IAM policy regression suite with:
 
 ```bash
 npm run contact:test

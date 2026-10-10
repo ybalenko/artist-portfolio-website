@@ -37,7 +37,7 @@ const parameterArn = (stack, parameterName) =>
     resourceName: parameterName.replace(/^\//, ""),
   });
 
-class ContactFormStack extends Stack {
+export class ContactFormStack extends Stack {
   constructor(scope, id, props = {}) {
     super(scope, id, props);
 
@@ -54,6 +54,15 @@ class ContactFormStack extends Stack {
     const abuseSaltParameterName =
       this.node.tryGetContext("abuseSaltParameterName") ??
       `${defaultParameterPrefix}/abuse-salt`;
+
+    const sesSenderEmail = new cdk.CfnParameter(this, "SesSenderEmail", {
+      type: "String",
+      noEcho: true,
+      description:
+        "Verified SES sender address; must match the SES sender SSM parameter.",
+      allowedPattern: "^[A-Za-z0-9._+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$",
+      constraintDescription: "Enter one email address without IAM wildcards.",
+    });
 
     const throttleTable = new dynamodb.Table(this, "ContactThrottleTable", {
       partitionKey: {
@@ -124,7 +133,16 @@ class ContactFormStack extends Stack {
     contactHandler.addToRolePolicy(
       new iam.PolicyStatement({
         actions: ["ses:SendEmail"],
-        resources: ["*"],
+        resources: [
+          this.formatArn({
+            service: "ses",
+            resource: "identity",
+            resourceName: sesSenderEmail.valueAsString,
+          }),
+        ],
+        conditions: {
+          StringEquals: { "ses:FromAddress": sesSenderEmail.valueAsString },
+        },
       }),
     );
 
@@ -167,9 +185,14 @@ class ContactFormStack extends Stack {
   }
 }
 
-const app = new cdk.App();
+if (
+  process.argv[1] &&
+  path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)
+) {
+  const app = new cdk.App();
 
-new ContactFormStack(app, "YuliaBalenkoContactFormStack", {
-  description:
-    "Contact form API for yuliabalenko.com: API Gateway, Lambda, SES, and short-lived abuse throttling.",
-});
+  new ContactFormStack(app, "YuliaBalenkoContactFormStack", {
+    description:
+      "Contact form API for yuliabalenko.com: API Gateway, Lambda, SES, and short-lived abuse throttling.",
+  });
+}

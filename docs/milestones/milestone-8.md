@@ -3,7 +3,7 @@
 **Status:** In progress  
 **Created:** July 19, 2026  
 **Milestone goal:** Implement the Contacts page Leave a message workflow with server-side validation, basic abuse controls, and private email delivery while keeping mailing-list signup hidden and deferred.
-**Implementation progress:** 47/57 tasks — 82%
+**Implementation progress:** 48/57 tasks — 84%
 
 ## Confirmed decisions
 
@@ -111,7 +111,7 @@ The browser uses only public configuration. Lambda owns all private delivery det
 - [x] Document the August 22 contact-form security review and release gates.
 - [x] Replace the bypassable `User-Agent`-dependent throttle identity and add gateway/concurrency cost controls.
 - [x] Reject oversized request bodies before decoding or parsing.
-- [ ] Restrict the Lambda SES permission to the approved sender.
+- [x] Restrict the Lambda SES permission to the approved sender.
 - [x] Upgrade or otherwise resolve applicable high-severity dependency findings.
 - [ ] Add automated tests for contact security boundaries and synthesized controls.
 - [ ] Correct the Privacy Notice's third-party processor wording.
@@ -188,6 +188,7 @@ Milestone 8 is complete when:
 
 ### Automated checks
 
+- 2026-10-09 CF-SEC-004 (CR-083/D-065): `npm run contact:test` — 21/21 passed, including a synthesized IAM assertion that `ses:SendEmail` uses only the parameterized SES identity ARN with exact `ses:FromAddress`, no wildcard resource, and a required sender parameter that excludes IAM wildcard characters. `npm run contact:synth -- --quiet` — passed. The deployment parameter must match the verified SES identity and runtime SSM sender. No AWS deployment or live SES send occurred; deployment verification remains pending.
 - 2026-10-09 follow-up security review: `npm run contact:test` — 20/20 passed; `node --experimental-strip-types /tmp/artist-request-size-review.mjs` — 266/266 independent byte-boundary/encoding/5 MiB rejection cases passed; `npm run contact:synth` — passed. No size-cap bypass found. Recorded permissive UTF-8 replacement and noncanonical base64 pad-bit acceptance as informational hardening in the security review. No implementation changes; live CF-SEC-003 verification and M8 47/57 remain unchanged.
 
 - 2026-10-09 CF-SEC-003 (CR-082/D-064): `npm run contact:test` — 20/20 passed under Node 22.23.3 (six rate-limit, eight parser, six handler cases). Tests verify exact/over-limit plain and base64 bodies, decoded overflow within the encoded ceiling, UTF-8 byte counting, JSON-escaped maximum fields, malformed/non-object bodies, misleading Content-Length, generic 413 with CORS/no-store, and no parsing/decoding/AWS/logging on size rejection. Maximum-length Unicode submissions succeed with mocked AWS clients in both encodings.
@@ -266,4 +267,4 @@ Milestone 8 is complete when:
 - Mailing-list signup remains hidden and deferred.
 - Turnstile/CAPTCHA bot protection is deferred for now.
 
-**Next action:** Narrow SES permissions and finish security coverage/privacy wording before deployment; verify request-size rejection through the deployed gateway after separate deployment approval. Dependency remediation is verified; M9 page coverage and remote CI checks remain separate unfinished work.
+**Next action:** Finish security coverage and correct privacy wording before deployment; verify the restricted SES policy, sender alignment, and request-size rejection through the deployed gateway after separate deployment approval. Dependency remediation is verified; M9 page coverage and remote CI checks remain separate unfinished work.
