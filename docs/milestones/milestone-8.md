@@ -3,7 +3,7 @@
 **Status:** In progress  
 **Created:** July 19, 2026  
 **Milestone goal:** Implement the Contacts page Leave a message workflow with server-side validation, basic abuse controls, and private email delivery while keeping mailing-list signup hidden and deferred.
-**Implementation progress:** 48/57 tasks — 84%
+**Implementation progress:** 50/57 tasks — 88%
 
 ## Confirmed decisions
 
@@ -113,8 +113,8 @@ The browser uses only public configuration. Lambda owns all private delivery det
 - [x] Reject oversized request bodies before decoding or parsing.
 - [x] Restrict the Lambda SES permission to the approved sender.
 - [x] Upgrade or otherwise resolve applicable high-severity dependency findings.
-- [ ] Add automated tests for contact security boundaries and synthesized controls.
-- [ ] Correct the Privacy Notice's third-party processor wording.
+- [x] Add automated tests for contact security boundaries and synthesized controls.
+- [x] Correct the Privacy Notice's third-party processor wording.
 
 - [x] Add `.env.example` with public contact form variables only.
 - [x] Add Leave a message setup runbook.
@@ -188,6 +188,9 @@ Milestone 8 is complete when:
 
 ### Automated checks
 
+- 2026-10-09 CF-SEC-005/006 (CR-084/D-066): `npm run contact:test` — 28/28 passed (exit 0). Six new mocked handler cases cover rejected origins, required/length/email/injection/spam validation, honeypot no-op, normalized Reply-To and plain-text SES construction, DynamoDB fingerprint/privacy/expiry, header rotation with five allowed sends and three parallel 429 responses, and generic/PII-safe logging on SES failure. A new synthesized-template case checks CORS origins/methods, POST route, gateway burst/rate, Lambda concurrency/timeout, DynamoDB TTL, seven-day logs, and three scoped SSM resources; the existing SES IAM assertion still passes. The parallel test models atomic DynamoDB counts and does not verify live concurrency.
+- `npm run check` — 0 errors/warnings/hints; `npm run build` — eight static pages. Built `dist/contacts/index.html` contains AWS/SES and mailbox-provider processing, no absolute third-party non-sharing claim, and the unconfigured disabled-submit state. No live submission or external service mutation.
+
 - 2026-10-09 CF-SEC-004 (CR-083/D-065): `npm run contact:test` — 21/21 passed, including a synthesized IAM assertion that `ses:SendEmail` uses only the parameterized SES identity ARN with exact `ses:FromAddress`, no wildcard resource, and a required sender parameter that excludes IAM wildcard characters. `npm run contact:synth -- --quiet` — passed. The deployment parameter must match the verified SES identity and runtime SSM sender. No AWS deployment or live SES send occurred; deployment verification remains pending.
 - 2026-10-09 follow-up security review: `npm run contact:test` — 20/20 passed; `node --experimental-strip-types /tmp/artist-request-size-review.mjs` — 266/266 independent byte-boundary/encoding/5 MiB rejection cases passed; `npm run contact:synth` — passed. No size-cap bypass found. Recorded permissive UTF-8 replacement and noncanonical base64 pad-bit acceptance as informational hardening in the security review. No implementation changes; live CF-SEC-003 verification and M8 47/57 remain unchanged.
 
@@ -260,11 +263,11 @@ Milestone 8 is complete when:
 
 - Form does not send until the contact API stack is deployed and Amplify is configured with `PUBLIC_CONTACT_API_URL`.
 - Local CDK deployment is paused because the local environment cannot resolve an AWS account; deploy later from AWS CloudShell or another AWS-configured CDK environment.
-- Security review found a bypassable application throttle, missing gateway/concurrency/body-size controls, broad SES permission, missing security tests, and inaccurate third-party processor wording. See [Contact Form Security Review](../security/contact-form-review.md).
+- Local fixes now cover the recorded throttle, gateway/concurrency/body-size controls, SES permission, security regression tests, and service-provider privacy wording. Deployed controls, delivery, and log/storage behavior remain unverified. See [Contact Form Security Review](../security/contact-form-review.md).
 
 ### Deferred work
 
 - Mailing-list signup remains hidden and deferred.
 - Turnstile/CAPTCHA bot protection is deferred for now.
 
-**Next action:** Finish security coverage and correct privacy wording before deployment; verify the restricted SES policy, sender alignment, and request-size rejection through the deployed gateway after separate deployment approval. Dependency remediation is verified; M9 page coverage and remote CI checks remain separate unfinished work.
+**Next action:** Complete configured form and failure-state checks with a test API, then verify the restricted SES policy, sender alignment, request-size rejection, direct-client throttling, delivery, and log/storage privacy through the deployed gateway after separate deployment approval. Dependency remediation is verified; M9 page coverage and remote CI checks remain separate unfinished work.

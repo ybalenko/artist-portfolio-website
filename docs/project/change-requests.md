@@ -122,6 +122,8 @@ Also update related requirements, design, milestone plans, status, decisions, RE
 
 | CR-083 | 2026-10-09 | Restrict Lambda SES sender permission | Security/Infrastructure/Test | Done | M8 | Replaced wildcard `ses:SendEmail` resource with a parameterized verified identity ARN and exact `ses:FromAddress` condition. Added synthesized-policy regression, documented deployment sender alignment, and passed 21 contact tests plus synthesis. Live AWS verification remains pending. |
 
+| CR-084 | 2026-10-09 | Finish contact security tests and correct Privacy Notice | Security/Privacy | Done | M8 | Added mocked handler and synthesized-infrastructure regression tests covering validation, abuse controls, SES construction, logging, and retention. Reworded Contacts notice to identify AWS/SES and mailbox processing. Local tests and built-page verification pass; deployed checks remain open. |
+
 ## New request template
 
 When adding a new row, use the next sequential ID.

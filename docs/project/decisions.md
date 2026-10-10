@@ -73,6 +73,8 @@ This file records approved decisions that affect implementation or more than one
 
 | D-065 | 2026-10-09 | Restrict contact SES sending to a deployment-selected identity and exact From address | The runtime sender remains in private SSM; CDK requires the matching verified email as a CloudFormation parameter and uses it for both the SES identity ARN and `ses:FromAddress` condition. A mismatch fails delivery closed. Keep the value out of Git and verify alignment during deployment. | Active |
 
+| D-066 | 2026-10-09 | Name AWS email delivery and mailbox processing in the Contacts Privacy Notice | Correct CF-SEC-006 without promising that messages never reach service providers. Explain SES delivery, mailbox retention, no application message database, short-lived abuse records, and no mailing-list use. | Active |
+
 ## Adding a decision
 
 Add a new row with:

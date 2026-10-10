@@ -14,7 +14,7 @@
 | M5        | Portfolio gallery and carousel                 | Complete    | 22/22 |     100% | [Milestone 5](../milestones/milestone-5.md) |
 | M6        | Resume PDF navigation                          | Complete    |   6/6 |     100% | [Milestone 6](../milestones/milestone-6.md) |
 | M7        | AWS deployment and cloud Portfolio images      | Blocked     | 31/43 |      72% | [Milestone 7](../milestones/milestone-7.md) |
-| M8        | Protected Leave a message form                 | In progress | 48/57 |      84% | [Milestone 8](../milestones/milestone-8.md) |
+| M8        | Protected Leave a message form                 | In progress | 50/57 |      88% | [Milestone 8](../milestones/milestone-8.md) |
 | M9        | Automated website testing with Playwright      | In progress | 11/24 |      46% | [Milestone 9](../milestones/milestone-9.md) |
 
 Future milestone boundaries are provisional until their plans are approved.
@@ -36,9 +36,9 @@ Future milestone boundaries are provisional until their plans are approved.
 - **Status:** In progress
 - **Progress source:** Checked implementation tasks in [Milestone 8](../milestones/milestone-8.md)
 - **Target:** Responsive mobile and desktop browsers
-- **Open blockers:** The bypassable throttle and missing gateway/concurrency controls are fixed locally and await deployed verification. Dependency finding CF-SEC-002 is closed after a zero-vulnerability audit and all 207 browser tests passed on October 9. CF-SEC-003 and CF-SEC-004 are fixed locally; 21 backend/infrastructure tests pass. Live gateway size, SES policy/sender, and delivery verification remain pending. Two low findings and AWS/Amplify configuration remain open; the contact API must not be deployed yet.
+- **Open blockers:** The bypassable throttle and missing gateway/concurrency controls are fixed locally and await deployed verification. Dependency finding CF-SEC-002 is closed after a zero-vulnerability audit and all 207 browser tests passed on October 9. CF-SEC-003 through CF-SEC-005 are fixed locally and CF-SEC-006 is closed; 28 backend/infrastructure tests and built-page privacy-copy checks pass. Live gateway throttling/size, SES policy/sender, delivery, and log/storage verification remain pending. AWS/Amplify configuration remains open; the contact API must not be deployed yet.
 - **Deferred:** Visible mailing-list signup, Turnstile/CAPTCHA bot protection, mailing-list backend, subscriber storage, newsletter workflow, and final image optimization pipeline
-- **Next action:** Finish security regression tests and correct privacy wording. Verify the deployed SES permission/sender alignment and size rejection after separate deployment approval.
+- **Next action:** Verify configured form behavior with a test API, then deployed SES permission/sender alignment, request-size rejection, direct-client throttling, delivery, and log/storage privacy after separate deployment approval.
 
 ### Milestone 7 — AWS Deployment and Cloud Portfolio Images
 
@@ -79,7 +79,8 @@ See the [Decision log](./decisions.md) for resolved decisions and [Project proce
 
 | Date       | Update                                                                                                                                                                          |
 | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 2026-10-09 | Narrowed contact SES permission to a selected identity ARN and exact From address; 21 tests and CDK synthesis pass. M8 48/57 (84%); deployed verification pending.              |
+| 2026-10-09 | Added security-boundary and infrastructure tests (28/28 pass); corrected AWS/mailbox Privacy Notice. M8 50/57 (88%); deployed checks pending.                                   |
+| 2026-10-09 | Narrowed contact SES permission to a selected identity ARN and exact From address; 21 tests and CDK synthesis pass. M8 50/57 (88%); deployed verification pending.              |
 | 2026-10-09 | Security review: 20 tests and 266 independent size checks pass; no size bypass found. Live CF-SEC-003 verification remains pending.                                             |
 | 2026-10-09 | Added 32 KiB pre-parse body rejection; 20 backend tests pass. M8 47/57 (82%); live size checks pending.                                                                         |
 | 2026-10-09 | Closed dependency finding CF-SEC-002: zero audit vulnerabilities, clean install/build/synthesis, six backend tests and all 207 browser tests passed; M8 resumes at 46/57 (81%). |
