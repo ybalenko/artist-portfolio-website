@@ -118,6 +118,12 @@ Also update related requirements, design, milestone plans, status, decisions, RE
 
 | CR-081 | 2026-10-09 | Remediate contact dependency findings | Security/Dependencies | Done | M8 | Owner requested dependency fixes. Updated Astro and CDK plus compatible transitive packages; verified clean install/audit, build, infrastructure synthesis, six backend tests, and all 207 browser tests. Added foreground test preview compatibility and documented Node 22.13+ requirement. Other contact findings remain separate release blockers. |
 
+| CR-082 | 2026-10-09 | Reject oversized contact requests before parsing | Security/Backend/Test | Done | M8 | Added 32 KiB plain/base64 JSON parsing limit and generic 413. All 20 backend tests and checks/build/synthesis passed; documented upstream limitation and pending live verification. |
+
+| CR-083 | 2026-10-09 | Restrict Lambda SES sender permission | Security/Infrastructure/Test | Done | M8 | Replaced wildcard `ses:SendEmail` resource with a parameterized verified identity ARN and exact `ses:FromAddress` condition. Added synthesized-policy regression, documented deployment sender alignment, and passed 21 contact tests plus synthesis. Live AWS verification remains pending. |
+
+| CR-084 | 2026-10-09 | Finish contact security tests and correct Privacy Notice | Security/Privacy | Done | M8 | Added mocked handler and synthesized-infrastructure regression tests covering validation, abuse controls, SES construction, logging, and retention. Reworded Contacts notice to identify AWS/SES and mailbox processing. Local tests and built-page verification pass; deployed checks remain open. |
+
 ## New request template
 
 When adding a new row, use the next sequential ID.

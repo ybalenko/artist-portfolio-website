@@ -69,6 +69,12 @@ This file records approved decisions that affect implementation or more than one
 
 | D-063 | 2026-10-09 | Resume M8 for dependency remediation and require Node 22.13+ or 24.x | Owner requested CF-SEC-002 remediation. Astro 7.3.8 and CDK 2.273.0 stay within existing majors; updated Astro language tooling requires a newer Node minimum. Use Node 22 locally/CI; M9 coverage remains unfinished. | Active |
 
+| D-064 | 2026-10-09 | Cap contact JSON bodies at 32 KiB before decoding/parsing | CF-SEC-003: count UTF-8 bytes, cap base64 representation at 43,692 bytes and decoded size at 32,768 before allocation; return generic 413. This accommodates current maximum fields even when JSON-escaped. HTTP API has no custom body-validation/WAF control; retain its service ceiling and existing throttle/concurrency limits, with live verification pending. | Active |
+
+| D-065 | 2026-10-09 | Restrict contact SES sending to a deployment-selected identity and exact From address | The runtime sender remains in private SSM; CDK requires the matching verified email as a CloudFormation parameter and uses it for both the SES identity ARN and `ses:FromAddress` condition. A mismatch fails delivery closed. Keep the value out of Git and verify alignment during deployment. | Active |
+
+| D-066 | 2026-10-09 | Name AWS email delivery and mailbox processing in the Contacts Privacy Notice | Correct CF-SEC-006 without promising that messages never reach service providers. Explain SES delivery, mailbox retention, no application message database, short-lived abuse records, and no mailing-list use. | Active |
+
 ## Adding a decision
 
 Add a new row with:

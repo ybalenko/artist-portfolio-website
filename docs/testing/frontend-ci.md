@@ -11,7 +11,7 @@ This guide covers the shared GitHub Actions workflow for all implemented browser
 
 ## Reports and flaky tests
 
-The job uploads `playwright-report/` and `test-results/` as `playwright-report-<attempt>` for seven days, including successful runs. Open the workflow run in GitHub and download the artifact from its **Artifacts** section. It runs `npm run test:e2e -- --fail-on-flaky-tests`: one retry is retained for diagnosis, but tests that pass only on retry still fail the job. Reproduce that policy locally with `CI=true npm run test:e2e -- --fail-on-flaky-tests`. Earlier remote runs succeeded; the updated policy is verified by local deterministic emulation in M9, with remote execution and artifact inspection still open.
+The job uploads the default `playwright-report/` and `test-results/` plus `.playwright/contact-report/` and `.playwright/contact-results/` as `playwright-report-<attempt>` for seven days, including successful runs. Open the workflow run in GitHub and download the artifact from its **Artifacts** section. It runs `npm run test:e2e -- --fail-on-flaky-tests` and `npm run test:e2e:contacts -- --fail-on-flaky-tests`: one retry is retained for diagnosis, but tests that pass only on retry still fail the job. Reproduce those commands locally with `CI=true`. Earlier remote runs succeeded; the updated policy and configured Contacts step are verified locally, with remote execution and artifact inspection still open.
 
 ## Required merge check
 

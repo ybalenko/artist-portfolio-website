@@ -3,7 +3,7 @@
 **Status:** In progress  
 **Created:** July 19, 2026  
 **Milestone goal:** Implement the Contacts page Leave a message workflow with server-side validation, basic abuse controls, and private email delivery while keeping mailing-list signup hidden and deferred.
-**Implementation progress:** 46/57 tasks — 81%
+**Implementation progress:** 52/57 tasks — 91%
 
 ## Confirmed decisions
 
@@ -110,11 +110,11 @@ The browser uses only public configuration. Lambda owns all private delivery det
 
 - [x] Document the August 22 contact-form security review and release gates.
 - [x] Replace the bypassable `User-Agent`-dependent throttle identity and add gateway/concurrency cost controls.
-- [ ] Reject oversized request bodies before decoding or parsing.
-- [ ] Restrict the Lambda SES permission to the approved sender.
+- [x] Reject oversized request bodies before decoding or parsing.
+- [x] Restrict the Lambda SES permission to the approved sender.
 - [x] Upgrade or otherwise resolve applicable high-severity dependency findings.
-- [ ] Add automated tests for contact security boundaries and synthesized controls.
-- [ ] Correct the Privacy Notice's third-party processor wording.
+- [x] Add automated tests for contact security boundaries and synthesized controls.
+- [x] Correct the Privacy Notice's third-party processor wording.
 
 - [x] Add `.env.example` with public contact form variables only.
 - [x] Add Leave a message setup runbook.
@@ -130,8 +130,8 @@ The browser uses only public configuration. Lambda owns all private delivery det
 - [x] Update project status, backlog, decision log, change request log, and README summaries.
 - [x] Run local format and Astro checks after frontend changes.
 - [x] Verify the unconfigured local form is disabled and does not submit.
-- [ ] Verify a configured test API happy path.
-- [ ] Verify validation-error, API-failure, and retry states.
+- [x] Verify a configured test API happy path.
+- [x] Verify validation-error, API-failure, and retry states.
 - [ ] Verify deployed CORS behavior from the approved domain.
 - [ ] Verify SES delivery with the visitor email as `Reply-To`.
 - [ ] Verify no message content is stored or logged by the application.
@@ -187,6 +187,20 @@ Milestone 8 is complete when:
 **Result:** In progress
 
 ### Automated checks
+
+- 2026-10-09 security audit of configured-form tests: `CI=true npm run test:e2e:contacts -- --fail-on-flaky-tests` — 21/21 passed across three Chrome projects with no retries. A browser-context guard now blocks unregistered external/write requests, and contact mocks require POST, JSON content type, and the preview origin. Added 413 and 429 response checks. `npm run contact:test` — 28/28 passed; `npm run test:e2e:check` — passed. This verifies browser handling and isolation only; deployed API, CORS, SES, and log/storage checks remain open. See [security review](../security/contact-form-review.md#october-9-configured-form-test-security-audit).
+- 2026-10-09 configured browser API test: `npm run test:e2e:contacts` — 15/15 passed across desktop, mobile-emulated, and tablet Chrome against an isolated production build with a reserved `.invalid` endpoint intercepted by deterministic responses. Confirmed trimmed JSON payload, disabled button and live pending status, accessible success, native invalid-email blocking, HTTP 400 correction feedback, HTTP 502/network failure, preserved fields, and successful retry. The first run found that HTTP 400 showed the generic delivery error (12/15 passed); the response handling was corrected and the full rerun passed. No live API call or email was sent.
+- `npm run test:e2e:check` — passed; `npm run check` — 0 errors/warnings/hints; `npm run build` — eight pages; `npm run contact:test` — 28/28 passed. Test discovery kept the original unconfigured suite at 207 cases and the separate configured suite at 15 cases.
+- 2026-10-09 CF-SEC-005/006 (CR-084/D-066): `npm run contact:test` — 28/28 passed (exit 0). Six new mocked handler cases cover rejected origins, required/length/email/injection/spam validation, honeypot no-op, normalized Reply-To and plain-text SES construction, DynamoDB fingerprint/privacy/expiry, header rotation with five allowed sends and three parallel 429 responses, and generic/PII-safe logging on SES failure. A new synthesized-template case checks CORS origins/methods, POST route, gateway burst/rate, Lambda concurrency/timeout, DynamoDB TTL, seven-day logs, and three scoped SSM resources; the existing SES IAM assertion still passes. The parallel test models atomic DynamoDB counts and does not verify live concurrency.
+- `npm run check` — 0 errors/warnings/hints; `npm run build` — eight static pages. Built `dist/contacts/index.html` contains AWS/SES and mailbox-provider processing, no absolute third-party non-sharing claim, and the unconfigured disabled-submit state. No live submission or external service mutation.
+
+- 2026-10-09 CF-SEC-004 (CR-083/D-065): `npm run contact:test` — 21/21 passed, including a synthesized IAM assertion that `ses:SendEmail` uses only the parameterized SES identity ARN with exact `ses:FromAddress`, no wildcard resource, and a required sender parameter that excludes IAM wildcard characters. `npm run contact:synth -- --quiet` — passed. The deployment parameter must match the verified SES identity and runtime SSM sender. No AWS deployment or live SES send occurred; deployment verification remains pending.
+- 2026-10-09 follow-up security review: `npm run contact:test` — 20/20 passed; `node --experimental-strip-types /tmp/artist-request-size-review.mjs` — 266/266 independent byte-boundary/encoding/5 MiB rejection cases passed; `npm run contact:synth` — passed. No size-cap bypass found. Recorded permissive UTF-8 replacement and noncanonical base64 pad-bit acceptance as informational hardening in the security review. No implementation changes; live CF-SEC-003 verification and M8 47/57 remain unchanged.
+
+- 2026-10-09 CF-SEC-003 (CR-082/D-064): `npm run contact:test` — 20/20 passed under Node 22.23.3 (six rate-limit, eight parser, six handler cases). Tests verify exact/over-limit plain and base64 bodies, decoded overflow within the encoded ceiling, UTF-8 byte counting, JSON-escaped maximum fields, malformed/non-object bodies, misleading Content-Length, generic 413 with CORS/no-store, and no parsing/decoding/AWS/logging on size rejection. Maximum-length Unicode submissions succeed with mocked AWS clients in both encodings.
+- `npm run check` — exit 0, no errors/warnings/hints; `npm run build` — exit 0, eight pages; `npm run contact:synth` — exit 0, handler bundled successfully. Source and synthesized-template review confirm the 32 KiB parser is bundled and HTTP API throttle/concurrency settings remain unchanged. No external AWS changes or real emails.
+- Threat review: the cap applies before additional body decoding/JSON parsing and before honeypot/SSM/DynamoDB/SES work. HTTP API offers no custom upstream body validation or direct WAF integration; its 10 MB service payload quota is not the application limit. Ingress buffering/invocation costs remain bounded by existing service/throttle/concurrency controls. Live gateway checks remain pending; CF-SEC-003 is fixed locally, verification pending.
+- Browser tests were not rerun for this backend-only change; the previous 207/207 result remains historical. `npm run format:check`, `git diff --check`, relative documentation links, and the 47/57 task count passed at session completion.
 
 - 2026-10-09: `CI=true npm run test:e2e -- --fail-on-flaky-tests` under Node 22.23.3 — exit 0; 207/207 passed across Chrome desktop/mobile-emulated/tablet in 1151.3 seconds (19.2 minutes). Parsed `playwright-report/index.html`: 207 expected, zero unexpected/flaky/skipped tests, no runner errors. `npm run format:check` and `git diff --check` passed. Static output inspection confirmed eight pages, Contacts setup-disabled messaging, and hidden mailing list. CF-SEC-002 closed; other release gates remain open.
 
@@ -252,11 +266,11 @@ Milestone 8 is complete when:
 
 - Form does not send until the contact API stack is deployed and Amplify is configured with `PUBLIC_CONTACT_API_URL`.
 - Local CDK deployment is paused because the local environment cannot resolve an AWS account; deploy later from AWS CloudShell or another AWS-configured CDK environment.
-- Security review found a bypassable application throttle, missing gateway/concurrency/body-size controls, broad SES permission, missing security tests, and inaccurate third-party processor wording. See [Contact Form Security Review](../security/contact-form-review.md).
+- Local fixes now cover the recorded throttle, gateway/concurrency/body-size controls, SES permission, security regression tests, and service-provider privacy wording. Deployed controls, delivery, and log/storage behavior remain unverified. See [Contact Form Security Review](../security/contact-form-review.md).
 
 ### Deferred work
 
 - Mailing-list signup remains hidden and deferred.
 - Turnstile/CAPTCHA bot protection is deferred for now.
 
-**Next action:** Reject oversized request bodies before parsing, narrow SES permissions, and finish security coverage/privacy wording before deployment. Dependency remediation is verified; M9 page coverage and remote CI checks remain separate unfinished work.
+**Next action:** Configure Amplify with the deployed contact API URL after separate deployment approval, then verify the restricted SES policy, sender alignment, request-size rejection, direct-client throttling, CORS, delivery, and log/storage privacy through the deployed gateway. Confirm whether SES sandbox exit is required for the selected sender/recipient flow. M9 page coverage and remote CI checks remain separate unfinished work.

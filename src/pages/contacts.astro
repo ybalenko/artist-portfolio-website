@@ -166,11 +166,13 @@ const contactFormClientConfig = {
       <h2 class="notice-subtitle">Contact messages</h2>
       <p>
         The Leave a Message form collects your name, email address, and message
-        so Yulia can respond to your inquiry. Your personal information is
-        handled responsibly, used only for communication related to your
-        message, and is not shared with third parties. Private email
-        configuration and other sensitive settings are securely stored and are
-        never exposed in the public website code.
+        so Yulia can respond to your inquiry. Amazon Web Services processes the
+        submission and sends it by email through Amazon SES. Yulia's mailbox
+        provider receives and stores the email under its own retention policy.
+        The website does not store message content in its database; it keeps
+        short-lived abuse-control records and limited operational logs. Your
+        message details are used to handle your inquiry, not for a mailing list.
+        Private email settings are stored outside the public website code.
       </p>
       <h2 class="notice-subtitle">Social media links</h2>
       <p>
@@ -240,6 +242,7 @@ const contactFormClientConfig = {
           submitButton.disabled = true;
           submitButton.textContent = "Sending…";
         }
+        setStatus("Sending your message…");
 
         try {
           const response = await fetch(contactFormClientConfig.apiUrl, {
@@ -249,6 +252,11 @@ const contactFormClientConfig = {
             },
             body: JSON.stringify(payload),
           });
+
+          if (response.status === 400 || response.status === 413) {
+            setStatus("Please check the form fields and try again.", "error");
+            return;
+          }
 
           if (!response.ok) {
             throw new Error("Contact API request failed.");
