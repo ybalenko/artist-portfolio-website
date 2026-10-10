@@ -1,6 +1,6 @@
 # Defect Log
 
-**Last updated:** September 9, 2026
+**Last updated:** October 9, 2026
 
 Central index for known product, test, and security defects. Milestone plans remain the source of implementation progress and verification evidence. Security details and release gates remain in the [contact form security review](../security/contact-form-review.md); update both records when a security finding changes.
 
@@ -16,18 +16,18 @@ Central index for known product, test, and security defects. Milestone plans rem
 
 Initial import on September 9, 2026 covers recorded M9 regressions and all six contact security findings. It is not an exhaustive historical inventory or a new audit. Dates and results below come from the linked records.
 
-| ID         | Defect                                                                | Severity | Milestone | Status                       | Evidence / next action                                                                                                |
-| ---------- | --------------------------------------------------------------------- | -------- | --------- | ---------------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| DEF-001    | Portfolio carousel allows keyboard focus to escape                    | High     | M9        | Closed                       | September 9: all 207 executions passed across three Chrome projects, including PORTFOLIO-31/32 and focus restoration. |
-| DEF-002    | Mobile Portfolio carousel controls fall outside viewport              | Medium   | M9        | Closed                       | Targeted regressions and all 87 Portfolio executions passed September 8; CR-074.                                      |
-| DEF-003    | Home carousel mishandles changed reduced-motion preference            | Medium   | M9        | Closed                       | Timer fix verified by all 66 Home executions September 7; CR-070.                                                     |
-| DEF-004    | HOME-17 uses a timing assumption that causes flakiness                | Medium   | M9        | Closed                       | Event synchronization passed 10 desktop repetitions and 66 Home executions September 8; CR-075.                       |
-| CF-SEC-001 | Caller-controlled throttle identity and missing infrastructure limits | High     | M8        | Fixed — verification pending | Local tests/synthesis passed; deployed direct-client and concurrency checks remain.                                   |
-| CF-SEC-002 | Dependency audit reports high/moderate vulnerabilities                | High     | M8        | Open                         | August 22 audit evidence; remediate and rerun audit to establish current status.                                      |
-| CF-SEC-003 | Request body parsed before size rejection                             | Medium   | M8        | Open                         | Reject oversized bodies before decoding/parsing; verify negative paths.                                               |
-| CF-SEC-004 | SES send permission uses wildcard resource                            | Medium   | M8        | Open                         | Restrict sender identity/condition and verify synthesized permissions.                                                |
-| CF-SEC-005 | Security boundary regression coverage is incomplete                   | Low      | M8        | Open                         | Six throttle tests exist; remaining handler, infrastructure, and deployed checks are required.                        |
-| CF-SEC-006 | Privacy Notice inaccurately describes third-party processing          | Low      | M8        | Open                         | Correct provider wording before accepting messages; verify rendered notice.                                           |
+| ID         | Defect                                                                | Severity                      | Milestone | Status                       | Evidence / next action                                                                                                                                                          |
+| ---------- | --------------------------------------------------------------------- | ----------------------------- | --------- | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| DEF-001    | Portfolio carousel allows keyboard focus to escape                    | High                          | M9        | Closed                       | September 9: all 207 executions passed across three Chrome projects, including PORTFOLIO-31/32 and focus restoration.                                                           |
+| DEF-002    | Mobile Portfolio carousel controls fall outside viewport              | Medium                        | M9        | Closed                       | Targeted regressions and all 87 Portfolio executions passed September 8; CR-074.                                                                                                |
+| DEF-003    | Home carousel mishandles changed reduced-motion preference            | Medium                        | M9        | Closed                       | Timer fix verified by all 66 Home executions September 7; CR-070.                                                                                                               |
+| DEF-004    | HOME-17 uses a timing assumption that causes flakiness                | Medium                        | M9        | Closed                       | Event synchronization passed 10 desktop repetitions and 66 Home executions September 8; CR-075.                                                                                 |
+| CF-SEC-001 | Caller-controlled throttle identity and missing infrastructure limits | High                          | M8        | Fixed — verification pending | Local tests/synthesis passed; deployed direct-client and concurrency checks remain.                                                                                             |
+| CF-SEC-002 | Dependency audit vulnerabilities                                      | Critical (October 9 re-audit) | M8        | Closed                       | October 9: Astro/CDK/transitive updates; clean install and audit with zero vulnerabilities; build, diagnostics, synthesis, six backend tests and all 207 browser checks passed. |
+| CF-SEC-003 | Request body parsed before size rejection                             | Medium                        | M8        | Open                         | Reject oversized bodies before decoding/parsing; verify negative paths.                                                                                                         |
+| CF-SEC-004 | SES send permission uses wildcard resource                            | Medium                        | M8        | Open                         | Restrict sender identity/condition and verify synthesized permissions.                                                                                                          |
+| CF-SEC-005 | Security boundary regression coverage is incomplete                   | Low                           | M8        | Open                         | Six throttle tests exist; remaining handler, infrastructure, and deployed checks are required.                                                                                  |
+| CF-SEC-006 | Privacy Notice inaccurately describes third-party processing          | Low                           | M8        | Open                         | Correct provider wording before accepting messages; verify rendered notice.                                                                                                     |
 
 ## Browser and test defect details
 
@@ -65,7 +65,7 @@ Initial import on September 9, 2026 covers recorded M9 regressions and all six c
 
 ## Security evidence and closure
 
-All six CF-SEC findings were recorded August 22, 2026. Their reproduction/review evidence, expected controls, remediation, and release impact are maintained in the [security review](../security/contact-form-review.md#findings), with implementation verification in [Milestone 8](../milestones/milestone-8.md). The historical audit counts are not a current audit result. CF-SEC-001 remains pending deployed verification; local fixes alone do not close it. Preserve every existing release gate.
+All six CF-SEC findings were recorded August 22, 2026. Their reproduction/review evidence, expected controls, remediation, and release impact are maintained in the [security review](../security/contact-form-review.md#findings), with implementation verification in [Milestone 8](../milestones/milestone-8.md). CF-SEC-002 was re-audited and closed October 9 with zero vulnerabilities after remediation and regression verification; see the security review for updated evidence. The August counts are historical. CF-SEC-001 remains pending deployed verification; local fixes alone do not close it. Preserve every existing release gate.
 
 ## New defect template
 

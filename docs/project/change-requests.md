@@ -116,6 +116,8 @@ Also update related requirements, design, milestone plans, status, decisions, RE
 
 | CR-080 | 2026-09-09 | Keep regression testing skill in this project only | Docs/Tooling | Done | M9 documentation | Moved the regression-testing skill from the personal skills folder to `.agents/skills/regression-testing/`, removed the personal installation through the move, and linked both READMEs. Test behavior and milestone scope are unchanged. |
 
+| CR-081 | 2026-10-09 | Remediate contact dependency findings | Security/Dependencies | Done | M8 | Owner requested dependency fixes. Updated Astro and CDK plus compatible transitive packages; verified clean install/audit, build, infrastructure synthesis, six backend tests, and all 207 browser tests. Added foreground test preview compatibility and documented Node 22.13+ requirement. Other contact findings remain separate release blockers. |
+
 ## New request template
 
 When adding a new row, use the next sequential ID.
